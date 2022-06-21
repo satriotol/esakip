@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PerencanaanKinerjaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('pages.forms.advanced-elements');
     });
+    Route::resource('perencanaan_kinerja', PerencanaanKinerjaController::class);
 });
 
 Route::get('/dashboard', function () {
