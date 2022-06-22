@@ -20,9 +20,9 @@
             </li>
             <li class="nav-item nav-category">Perencanaan Kinerja</li>
             <li
-                class="nav-item {{ active_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'perencanaan_kinerja_cascading_kinerja.*']) }}">
+                class="nav-item {{ active_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*']) }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja" role="button"
-                    aria-expanded="{{ is_active_route(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'perencanaan_kinerja_cascading_kinerja.*']) }}"
+                    aria-expanded="{{ is_active_route(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*']) }}"
                     aria-controls="perencanaan_kinerja">
                     <i class="link-icon" data-feather="anchor"></i>
                     <span class="link-title">Kota</span>
@@ -40,8 +40,8 @@
                                 class="nav-link {{ active_class(['perencanaan_kinerja_rkpd.*']) }}">RKPD</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('perencanaan_kinerja_cascading_kinerja.index') }}"
-                                class="nav-link {{ active_class(['perencanaan_kinerja_cascading_kinerja.*']) }}">CASCADING KINERJA</a>
+                            <a href="{{ route('cascading_kinerja.index') }}"
+                                class="nav-link {{ active_class(['cascading_kinerja.*']) }}">CASCADING KINERJA</a>
                         </li>
                     </ul>
                 </div>
