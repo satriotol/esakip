@@ -19,23 +19,26 @@
                 </a>
             </li>
             <li class="nav-item nav-category">Perencanaan Kinerja</li>
-            <li class="nav-item {{ active_class(['perencanaan_kinerja/*']) }}">
-                <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja" role="button" aria-expanded="{{ is_active_route(['perencanaan_kinerja/*']) }}" aria-controls="perencanaan_kinerja">
-                  <i class="link-icon" data-feather="anchor"></i>
-                  <span class="link-title">Kota</span>
-                  <i class="link-arrow" data-feather="chevron-down"></i>
+            <li class="nav-item {{ active_class(['perencanaan_kinerja_rpjmd.*']) }}">
+                <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja" role="button"
+                    aria-expanded="{{ is_active_route(['perencanaan_kinerja_rpjmd.*']) }}"
+                    aria-controls="perencanaan_kinerja">
+                    <i class="link-icon" data-feather="anchor"></i>
+                    <span class="link-title">Kota</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ show_class(['perencanaan_kinerja/*']) }}" id="perencanaan_kinerja">
-                  <ul class="nav sub-menu">
-                    <li class="nav-item">
-                      <a href="{{ route('perencanaan_kerja_rpjmd') }}" class="nav-link {{ active_class(['perencanaan_kinerja/rpjmd']) }}">RPJMD</a>
-                    </li>
-                    <li class="nav-item">
+                <div class="collapse {{ show_class(['perencanaan_kinerja_rpjmd.*']) }}" id="perencanaan_kinerja">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('perencanaan_kinerja_rpjmd.index') }}"
+                                class="nav-link {{ active_class(['perencanaan_kinerja_rpjmd.*']) }}">RPJMD</a>
+                        </li>
+                        {{-- <li class="nav-item">
                       <a href="{{ url('/perencanaan_kinerja/owl-carousel') }}" class="nav-link {{ active_class(['perencanaan_kinerja/iku']) }}">IKU</a>
-                    </li>
-                  </ul>
+                    </li> --}}
+                    </ul>
                 </div>
-              </li>
+            </li>
             {{-- <li
                 class="nav-item {{ active_class(['perencanaan_kinerja.index', 'perencanaan_kinerja.create', 'perencanaan_kinerja.edit']) }}">
                 <a href="{{ route('perencanaan_kinerja.index') }}" class="nav-link">

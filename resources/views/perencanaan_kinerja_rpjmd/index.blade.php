@@ -7,17 +7,17 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('perencanaan_kinerja.index') }}">Perencanaan Kinerja</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tabel Perencenaan Kinerja</li>
+            <li class="breadcrumb-item"><a href="{{ route('perencanaan_kinerja_rpjmd.index') }}">Perencanaan Kinerja RPJMD</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Tabel Perencanaan Kinerja RPJMD</li>
         </ol>
     </nav>
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Perencanaan Kinerja</h6>
+                    <h6 class="card-title">Perencanaan Kinerja RPJMD</h6>
                     <div class="text-end mb-2">
-                        <a class="btn btn-primary btn-icon" href="{{ route('perencanaan_kinerja.create') }}">
+                        <a class="btn btn-primary btn-icon" href="{{ route('perencanaan_kinerja_rpjmd.create') }}">
                             <i data-feather="check-square"></i>
                         </a>
                     </div>
@@ -30,14 +30,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($perencanaan_kinerjas as $perencanaan_kinerja)
+                                @foreach ($perencanaan_kinerja_rpjmds as $perencanaan_kinerja_rpjmd)
                                     <tr>
-                                        <td>{{ $perencanaan_kinerja->name }}</td>
+                                        <td>{{ $perencanaan_kinerja_rpjmd->name }}</td>
                                         <td> <a class="btn btn-warning btn-icon"
-                                                href="{{ route('perencanaan_kinerja.edit', $perencanaan_kinerja->id) }}">
+                                                href="{{ route('perencanaan_kinerja_rpjmd.edit', $perencanaan_kinerja_rpjmd->id) }}">
                                                 <i data-feather="edit"></i>
                                             </a>
-                                            <form action="{{ route('perencanaan_kinerja.destroy', $perencanaan_kinerja->id) }}" method="POST"
+                                            <form action="{{ route('perencanaan_kinerja_rpjmd.destroy', $perencanaan_kinerja_rpjmd->id) }}" method="POST"
                                                 class="d-inline">
                                                 @csrf
                                                 @method('DELETE')

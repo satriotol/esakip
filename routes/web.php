@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PerencanaanKinerjaIkuController;
+use App\Http\Controllers\PerencanaanKinerjaRpjmdController;
 use App\Http\Controllers\RpmjdController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +20,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('pages.forms.advanced-elements');
     });
-    Route::resource('rpjmd', RpmjdController::class);
-    Route::resource('PerencanaanKinerjaIku', PerencanaanKinerjaIkuController::class);
+    Route::resource('perencanaan_kinerja_rpjmd', PerencanaanKinerjaRpjmdController::class);
+    Route::resource('perencanaan_kinerja_iku', PerencanaanKinerjaIkuController::class);
 
 });
 

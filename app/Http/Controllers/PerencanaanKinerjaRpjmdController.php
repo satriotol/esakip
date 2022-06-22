@@ -14,7 +14,8 @@ class PerencanaanKinerjaRpjmdController extends Controller
      */
     public function index()
     {
-        //
+        $perencanaan_kinerja_rpjmds = PerencanaanKinerjaRpjmd::all();
+        return view('perencanaan_kinerja_rpjmd.index', compact('perencanaan_kinerja_rpjmds'));
     }
 
     /**
