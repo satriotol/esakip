@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
 use App\Http\Controllers\PerencanaanKinerjaIkuController;
 use App\Http\Controllers\PerencanaanKinerjaRkpdController;
@@ -22,7 +23,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('pages.forms.advanced-elements');
     });
-    
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
     //perencanaan kinerja
     // kota
     Route::resource('perencanaan_kinerja_rpjmd', PerencanaanKinerjaRpjmdController::class);
