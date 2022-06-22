@@ -96,8 +96,12 @@ class PerencanaanKinerjaRkpdController extends Controller
      * @param  \App\Models\PerencanaanKinerjaRkpd  $perencanaanKinerjaRkpd
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PerencanaanKinerjaRkpd $perencanaanKinerjaRkpd)
+    public function destroy(PerencanaanKinerjaRkpd $perencanaan_kinerja_rkpd)
     {
-        //
+        $perencanaan_kinerja_rkpd->deleteFile();
+        $perencanaan_kinerja_rkpd->delete();
+
+        session()->flash('success');
+        return redirect(route('perencanaan_kinerja_rkpd.index'));
     }
 }

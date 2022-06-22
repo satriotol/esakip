@@ -53,8 +53,8 @@
                                                 method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-icon"
-                                                    onclick="return confirm('Are you sure?')">
+                                                <button type="submit" class="btn btn-danger btn-icon show_confirm"
+                                                    data-toggle="tooltip" title='Delete'>
                                                     <i data-feather="trash"></i>
                                                 </button>
                                             </form>
@@ -73,8 +73,28 @@
 @push('plugin-scripts')
     <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
-@endpush
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
+    @endpush
 
 @push('custom-scripts')
     <script src="{{ asset('assets/js/data-table.js') }}"></script>
+    <script type="text/javascript">
+        $('.show_confirm').click(function(event) {
+            var form = $(this).closest("form");
+            var name = $(this).data("name");
+            event.preventDefault();
+            swal({
+                    title: `Are you sure you want to delete this record?`,
+                    text: "If you delete this, it will be gone forever.",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        form.submit();
+                    }
+                });
+        });
+    </script>
 @endpush
