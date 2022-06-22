@@ -24,7 +24,7 @@ class PerencanaanKinerjaCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('perencanaan_kinerja_category.create');
     }
 
     /**

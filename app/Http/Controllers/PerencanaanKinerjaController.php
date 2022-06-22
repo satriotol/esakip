@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PerencanaanKinerja\CreatePerencanaanKinerja;
 use App\Models\PerencanaanKinerja;
+use App\Models\PerencanaanKinerjaCategory;
 use Illuminate\Http\Request;
 
 class PerencanaanKinerjaController extends Controller
@@ -52,7 +53,8 @@ class PerencanaanKinerjaController extends Controller
      */
     public function show(PerencanaanKinerja $perencanaan_kinerja)
     {
-        //
+        $perencanaan_kinerja_categories = PerencanaanKinerjaCategory::where('perencanaan_kinerja_id', $perencanaan_kinerja->id)->get();
+        return view('perencanaan_kinerja.show', compact('perencanaan_kinerja', 'perencanaan_kinerja_categories'));
     }
 
     /**

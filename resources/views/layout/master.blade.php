@@ -19,7 +19,7 @@ License: For each use you must have a valid license purchased only from above li
     <meta name="keywords"
         content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, laravel, theme, front-end, ui kit, web">
 
-    <title>NobleUI - Laravel Admin Dashboard Template</title>
+    <title>ESAKIP - PEMKOT SEMARANG</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,6 +43,9 @@ License: For each use you must have a valid license purchased only from above li
     <!-- common css -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
     <!-- end common css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css"
+        integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     @stack('style')
 </head>
@@ -77,6 +80,18 @@ License: For each use you must have a valid license purchased only from above li
     <!-- end common js -->
 
     @stack('custom-scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"
+        integrity="sha512-Zq9o+E00xhhR/7vJ49mxFNJ0KQw1E1TMWkPTxrWcnpfEFDEXgUiwJHIKit93EW/XxE31HSI5GEOW06G6BF1AtA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    @if (session()->has('success'))
+        <script>
+            iziToast.success({
+                title: 'OK',
+                message: 'Successfully',
+            });
+        </script>
+    @endif
 </body>
 
 </html>

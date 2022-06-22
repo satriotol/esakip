@@ -9,5 +9,7 @@ class PerencanaanKinerjaCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'title', 'type', 'show', 'download'];
+    const TYPE = ['LIST', 'SINGLE_FILE_PDF'];
+
+    protected $fillable = ['name', 'perencanaan_kinerja_id', 'title', 'type', 'show', 'download'];
 }
