@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('perencanaan_kinerja_forms', function (Blueprint $table) {
+        Schema::create('rpjmds', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('perencanaan_kinerja_category_id');
-            $table->string('name');
-            $table->string('type');
+            $table->string('title')->nullable();
+            $table->string('file');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('perencanaan_kinerja_forms');
+        Schema::dropIfExists('rpjmds');
     }
 };

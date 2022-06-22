@@ -19,24 +19,27 @@
                 </a>
             </li>
             <li class="nav-item nav-category">Perencanaan Kinerja</li>
-            <li
+            <li class="nav-item {{ active_class(['advanced-ui/*']) }}">
+                <a class="nav-link" data-bs-toggle="collapse" href="#advanced-ui" role="button" aria-expanded="{{ is_active_route(['advanced-ui/*']) }}" aria-controls="advanced-ui">
+                  <i class="link-icon" data-feather="anchor"></i>
+                  <span class="link-title">Kota</span>
+                  <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ show_class(['advanced-ui/*']) }}" id="advanced-ui">
+                  <ul class="nav sub-menu">
+                    <li class="nav-item">
+                      <a href="{{ url('/advanced-ui/cropper') }}" class="nav-link {{ active_class(['advanced-ui/cropper']) }}">Cropper</a>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            {{-- <li
                 class="nav-item {{ active_class(['perencanaan_kinerja.index', 'perencanaan_kinerja.create', 'perencanaan_kinerja.edit']) }}">
                 <a href="{{ route('perencanaan_kinerja.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
                     <span class="link-title">Perencanaan Kinerja</span>
                 </a>
-            </li>
-            @php
-                $menu_perencanaan_kinerjas = App\Models\PerencanaanKinerja::all();
-            @endphp
-            @foreach ($menu_perencanaan_kinerjas as $menu_perencanaan_kinerja)
-                <li class="nav-item {{ active_class(['perencanaan_kinerja.show', $menu_perencanaan_kinerja->id]) }}">
-                    <a href="{{ route('perencanaan_kinerja.show', $menu_perencanaan_kinerja->id) }}" class="nav-link">
-                        <i class="link-icon" data-feather="box"></i>
-                        <span class="link-title">{{ $menu_perencanaan_kinerja->name }}</span>
-                    </a>
-                </li>
-            @endforeach
+            </li> --}}
         </ul>
     </div>
 </nav>
