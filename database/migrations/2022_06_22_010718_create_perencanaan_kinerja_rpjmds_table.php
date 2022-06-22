@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('perencanaan_kinerja_rpjmds', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->nullable();
             $table->string('file');
             $table->timestamps();
         });

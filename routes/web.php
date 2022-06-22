@@ -22,11 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('pages.forms.advanced-elements');
     });
-    //perencanaan kinerja
     
+    //perencanaan kinerja
     // kota
     Route::resource('perencanaan_kinerja_rpjmd', PerencanaanKinerjaRpjmdController::class);
-    // Route::resource('perencanaan_kinerja_iku', PerencanaanKinerjaIkuController::class);
+
     Route::resource('perencanaan_kinerja_rkpd', PerencanaanKinerjaRkpdController::class);
     Route::post('getRkpds', [PerencanaanKinerjaRkpdController::class, 'getRkpds'])->name('perencanaan_kinerja_rkpd.getRkpds');
 

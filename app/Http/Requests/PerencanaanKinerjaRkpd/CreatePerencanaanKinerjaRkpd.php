@@ -25,7 +25,7 @@ class CreatePerencanaanKinerjaRkpd extends FormRequest
     {
         return [
             'name' => 'required',
-            'file' => 'required|file|max:5000',
+            'file' => 'required|file|max:50000',
             'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
         ];
     }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\CascadingKinerja;
+namespace App\Http\Requests\Rpjmd;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateCascadingKinerja extends FormRequest
+class UpdateRpjmdRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,7 @@ class CreateCascadingKinerja extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'file' => 'required|file|max:50000',
-            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+            'file' => 'required|file|max:50000'
         ];
     }
 }

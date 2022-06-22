@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PerencanaanKinerja\CreatePerencanaanKinerja;
+use App\Http\Requests\Rpjmd\CreateRpjmdRequest;
+use App\Http\Requests\Rpjmd\UpdateRpjmdRequest;
 use App\Models\PerencanaanKinerjaRpjmd;
 use Illuminate\Http\Request;
 
@@ -25,7 +28,10 @@ class PerencanaanKinerjaRpjmdController extends Controller
      */
     public function create()
     {
-        //
+        if (PerencanaanKinerjaRpjmd::all()->count() != 0) {
+            return redirect(route('perencanaan_kinerja_rpjmd.index'));
+        }
+        return view('perencanaan_kinerja_rpjmd.create');
     }
 
     /**
@@ -34,18 +40,25 @@ class PerencanaanKinerjaRpjmdController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateRpjmdRequest $request)
     {
-        //
+        $data = $request->all();
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+        };
+        PerencanaanKinerjaRpjmd::create($data);
+        session()->flash('success');
+        return redirect(route('perencanaan_kinerja_rpjmd.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PerencanaanKinerjaRpjmd  $perencanaanKinerjaRpjmd
+     * @param  \App\Models\PerencanaanKinerjaRpjmd  $perencanaan_kinerja_rpjmd
      * @return \Illuminate\Http\Response
      */
-    public function show(PerencanaanKinerjaRpjmd $perencanaanKinerjaRpjmd)
+    public function show(PerencanaanKinerjaRpjmd $perencanaan_kinerja_rpjmd)
     {
         //
     }
@@ -53,33 +66,41 @@ class PerencanaanKinerjaRpjmdController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PerencanaanKinerjaRpjmd  $perencanaanKinerjaRpjmd
+     * @param  \App\Models\PerencanaanKinerjaRpjmd  $perencanaan_kinerja_rpjmd
      * @return \Illuminate\Http\Response
      */
-    public function edit(PerencanaanKinerjaRpjmd $perencanaanKinerjaRpjmd)
+    public function edit(PerencanaanKinerjaRpjmd $perencanaan_kinerja_rpjmd)
     {
-        //
+        return view('perencanaan_kinerja_rpjmd.create', compact('perencanaan_kinerja_rpjmd'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PerencanaanKinerjaRpjmd  $perencanaanKinerjaRpjmd
+     * @param  \App\Models\PerencanaanKinerjaRpjmd  $perencanaan_kinerja_rpjmd
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PerencanaanKinerjaRpjmd $perencanaanKinerjaRpjmd)
+    public function update(UpdateRpjmdRequest $request, PerencanaanKinerjaRpjmd $perencanaan_kinerja_rpjmd)
     {
-        //
+        $data = $request->all();
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $perencanaan_kinerja_rpjmd->deleteFile();
+            $data['file'] = $file;
+        };
+        $perencanaan_kinerja_rpjmd->update($data);
+        session()->flash('success');
+        return redirect(route('perencanaan_kinerja_rpjmd.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PerencanaanKinerjaRpjmd  $perencanaanKinerjaRpjmd
+     * @param  \App\Models\PerencanaanKinerjaRpjmd  $perencanaan_kinerja_rpjmd
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PerencanaanKinerjaRpjmd $perencanaanKinerjaRpjmd)
+    public function destroy(PerencanaanKinerjaRpjmd $perencanaan_kinerja_rpjmd)
     {
         //
     }
