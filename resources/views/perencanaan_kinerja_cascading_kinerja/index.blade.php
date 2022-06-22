@@ -34,7 +34,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @foreach ($perencanaan_kinerja_rkpds as $perencanaan_kinerja_rkpd)
+                                @foreach ($perencanaan_kinerja_rkpds as $perencanaan_kinerja_rkpd)
                                     <tr>
                                         <td>{{ $perencanaan_kinerja_rkpd->year }}</td>
                                         <td>{{ $perencanaan_kinerja_rkpd->name }}</td>
@@ -60,7 +60,7 @@
                                             </form>
                                         </td>
                                     </tr>
-                                @endforeach --}}
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -74,47 +74,10 @@
     <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.0/sweetalert.min.js"></script>
-@endpush
+    @endpush
 
 @push('custom-scripts')
-    {{-- <script src="{{ asset('assets/js/data-table.js') }}"></script> --}}
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var table = $('#dataTableExample').DataTable({
-                autoWidth: false,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('perencanaan_kinerja_rkpd.getRkpds') }}",
-                    method: 'POST',
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                    },
-                },
-                columns: [{
-                        data: 'year',
-                        name: 'year'
-                    },
-                    {
-                        data: 'name',
-                        name: 'name'
-                    },
-                    {
-                        data: 'pdf',
-                        name: 'pdf',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-        });
-    </script>
+    <script src="{{ asset('assets/js/data-table.js') }}"></script>
     <script type="text/javascript">
         $('.show_confirm').click(function(event) {
             var form = $(this).closest("form");

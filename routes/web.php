@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
 use App\Http\Controllers\PerencanaanKinerjaIkuController;
 use App\Http\Controllers\PerencanaanKinerjaRkpdController;
 use App\Http\Controllers\PerencanaanKinerjaRpjmdController;
@@ -21,9 +22,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         return view('pages.forms.advanced-elements');
     });
+    //perencanaan kinerja
+    
+    // kota
     Route::resource('perencanaan_kinerja_rpjmd', PerencanaanKinerjaRpjmdController::class);
-    Route::resource('perencanaan_kinerja_iku', PerencanaanKinerjaIkuController::class);
+    // Route::resource('perencanaan_kinerja_iku', PerencanaanKinerjaIkuController::class);
     Route::resource('perencanaan_kinerja_rkpd', PerencanaanKinerjaRkpdController::class);
+    Route::post('getRkpds', [PerencanaanKinerjaRkpdController::class, 'getRkpds'])->name('perencanaan_kinerja_rkpd.getRkpds');
+    Route::resource('perencanaan_kinerja_cascading_kinerja', PerencanaanKinerjaCascadingKinerjaController::class);
+    // end of kota
+    // end of perencanaan kinerja
 
 });
 

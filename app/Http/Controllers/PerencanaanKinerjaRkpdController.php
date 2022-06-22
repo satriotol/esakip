@@ -6,6 +6,7 @@ use App\Http\Requests\PerencanaanKinerjaRkpd\CreatePerencanaanKinerjaRkpd;
 use App\Http\Requests\PerencanaanKinerjaRkpd\UpdatePerencanaanKinerjaRkpd;
 use App\Models\PerencanaanKinerjaRkpd;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class PerencanaanKinerjaRkpdController extends Controller
 {
@@ -14,6 +15,32 @@ class PerencanaanKinerjaRkpdController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function getRkpds(Request $request)
+    {
+        if ($request->ajax()) {
+            $rkpds = PerencanaanKinerjaRkpd::all();
+            return DataTables::of($rkpds)->addIndexColumn()
+                ->addColumn('pdf', function ($row) {
+                    $btn = '<a class="btn btn-sm btn-success" target="_blank" href="' . asset('uploads/' . $row->file) . '"> Open File</a>';
+                    return $btn;
+                })
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="' . route('perencanaan_kinerja_rkpd.edit', $row->id) . '" class="btn btn-sm btn-warning ml-1">Edit</a>';
+                    $btn = $btn . '
+                        <form action="' . route('perencanaan_kinerja_rkpd.destroy', $row->id) . '" method="POST"
+                            class="d-inline">
+                            ' . csrf_field() . '
+                            ' . method_field("DELETE") . '
+                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Are you sure?\')">
+                            Delete
+                            </button>
+                        </form>';
+                    return $btn;
+                })
+                ->rawColumns(['pdf','action'])
+                ->make(true);
+        }
+    }
     public function index()
     {
         $perencanaan_kinerja_rkpds = PerencanaanKinerjaRkpd::all();
