@@ -7,7 +7,7 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('perencanaan_kinerja_rkpd.index') }}">Perencanaan Kinerja RKPD</a>
+            <li class="breadcrumb-item"><a href="{{ route('cascading_kinerja.index') }}">Cascading Kinerja</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Form Perencenaan Kinerja</li>
         </ol>
@@ -16,31 +16,31 @@
     <div class="grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Form Perencanaan Kinerja RKPD</h4>
+                <h4 class="card-title">Form Cascading Kinerja</h4>
                 @include('partials.errors')
                 <form
-                    action="@isset($perencanaan_kinerja_rkpd) {{ route('perencanaan_kinerja_rkpd.update', $perencanaan_kinerja_rkpd->id) }} @endisset @empty($perencanaan_kinerja_rkpd) {{ route('perencanaan_kinerja_rkpd.store') }} @endempty"
+                    action="@isset($cascading_kinerja) {{ route('cascading_kinerja.update', $cascading_kinerja->id) }} @endisset @empty($cascading_kinerja) {{ route('cascading_kinerja.store') }} @endempty"
                     method="POST" enctype="multipart/form-data">
                     @csrf
-                    @isset($perencanaan_kinerja_rkpd)
+                    @isset($cascading_kinerja)
                         @method('PUT')
                     @endisset
                     <div class="mb-3">
                         <label for="year" class="form-label">Year</label>
                         <input id="year" class="form-control" name="year" type="number" placeholder="yyyy" required
-                            value="{{ isset($perencanaan_kinerja_rkpd) ? $perencanaan_kinerja_rkpd->year : '' }}">
+                            value="{{ isset($cascading_kinerja) ? $cascading_kinerja->year : '' }}">
                     </div>
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input id="name" class="form-control" name="name" type="text" required
-                            value="{{ isset($perencanaan_kinerja_rkpd) ? $perencanaan_kinerja_rkpd->name : '' }}">
+                            value="{{ isset($cascading_kinerja) ? $cascading_kinerja->name : '' }}">
                     </div>
                     <div class="mb-3">
                         <label for="file" class="form-label">File</label>
                         <input type="file" id="myDropify" name="file"
-                            @empty($perencanaan_kinerja_rkpd) required @endempty />
-                        @isset($perencanaan_kinerja_rkpd)
-                            <object data="{{ asset('uploads/' . $perencanaan_kinerja_rkpd->file) }}" class="w-100 mt-5" style="height: 550px"
+                            @empty($cascading_kinerja) required @endempty />
+                        @isset($cascading_kinerja)
+                            <object data="{{ asset('uploads/' . $cascading_kinerja->file) }}" class="w-100 mt-5" style="height: 550px"
                                 type="application/pdf">
                                 <div>No online PDF viewer installed</div>
                             </object>

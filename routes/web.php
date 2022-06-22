@@ -29,7 +29,9 @@ Route::middleware('auth')->group(function () {
     // Route::resource('perencanaan_kinerja_iku', PerencanaanKinerjaIkuController::class);
     Route::resource('perencanaan_kinerja_rkpd', PerencanaanKinerjaRkpdController::class);
     Route::post('getRkpds', [PerencanaanKinerjaRkpdController::class, 'getRkpds'])->name('perencanaan_kinerja_rkpd.getRkpds');
+
     Route::resource('cascading_kinerja', PerencanaanKinerjaCascadingKinerjaController::class);
+    Route::post('getCascadingKinerjas', [PerencanaanKinerjaCascadingKinerjaController::class, 'getCascadingKinerjas'])->name('cascading_kinerja.getCascadingKinerjas');
     // end of kota
     // end of perencanaan kinerja
 

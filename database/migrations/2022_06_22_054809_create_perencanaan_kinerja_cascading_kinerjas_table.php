@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('perencanaan_kinerja_cascading_kinerjas', function (Blueprint $table) {
             $table->id();
+            $table->year('year');
+            $table->string('name');
+            $table->string('file');
             $table->timestamps();
         });
     }

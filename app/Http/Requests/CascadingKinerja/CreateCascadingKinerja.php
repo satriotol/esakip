@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\PerencanaanKinerja;
+namespace App\Http\Requests\CascadingKinerja;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePerencanaanKinerja extends FormRequest
+class CreateCascadingKinerja extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +25,8 @@ class CreatePerencanaanKinerja extends FormRequest
     {
         return [
             'name' => 'required',
+            'file' => 'required|file|max:5000',
+            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
         ];
     }
 }
