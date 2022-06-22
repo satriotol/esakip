@@ -19,23 +19,25 @@
                 </a>
             </li>
             <li class="nav-item nav-category">Perencanaan Kinerja</li>
-            <li class="nav-item {{ active_class(['perencanaan_kinerja_rpjmd.*']) }}">
+            <li class="nav-item {{ active_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*']) }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja" role="button"
-                    aria-expanded="{{ is_active_route(['perencanaan_kinerja_rpjmd.*']) }}"
+                    aria-expanded="{{ is_active_route(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*']) }}"
                     aria-controls="perencanaan_kinerja">
                     <i class="link-icon" data-feather="anchor"></i>
                     <span class="link-title">Kota</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ show_class(['perencanaan_kinerja_rpjmd.*']) }}" id="perencanaan_kinerja">
+                <div class="collapse {{ show_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*']) }}"
+                    id="perencanaan_kinerja">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{ route('perencanaan_kinerja_rpjmd.index') }}"
                                 class="nav-link {{ active_class(['perencanaan_kinerja_rpjmd.*']) }}">RPJMD</a>
                         </li>
-                        {{-- <li class="nav-item">
-                      <a href="{{ url('/perencanaan_kinerja/owl-carousel') }}" class="nav-link {{ active_class(['perencanaan_kinerja/iku']) }}">IKU</a>
-                    </li> --}}
+                        <li class="nav-item">
+                            <a href="{{ route('perencanaan_kinerja_rkpd.index') }}"
+                                class="nav-link {{ active_class(['perencanaan_kinerja_rkpd.*']) }}">RKPD</a>
+                        </li>
                     </ul>
                 </div>
             </li>

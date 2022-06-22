@@ -47,6 +47,11 @@ License: For each use you must have a valid license purchased only from above li
         integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+    <style>
+        .required {
+            color: red;
+        }
+    </style>
     @stack('style')
 </head>
 
@@ -92,6 +97,16 @@ License: For each use you must have a valid license purchased only from above li
             });
         </script>
     @endif
+    <script>
+        $(function() {
+            $('.mb-3:has(input[required]) > label')
+                .after('<span class="required"> *</span>')
+            $('.mb-3:has(select[required]) > label')
+                .after('<span class="required"> *</span>')
+            $('.mb-3:has(textarea[required]) > label')
+                .after('<span class="required"> *</span>')
+        })
+    </script>
 </body>
 
 </html>
