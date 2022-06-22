@@ -15,7 +15,7 @@
                         </div>
                         <div class="col-md-8 ps-md-0">
                             <div class="auth-form-wrapper px-4 py-5">
-                                <a href="#" class="noble-ui-logo d-block mb-2">ESAKIP PEMKOT SEMARANG</a>
+                                <a href="#" class="noble-ui-logo d-block mb-2">E-SAKIP PEMKOT SEMARANG</a>
                                 <h5 class="text-muted fw-normal mb-4">Selamat Datang Kembali</h5>
                                 <form method="POST" class="forms-sample" action="{{ route('login') }}">
                                     @csrf
