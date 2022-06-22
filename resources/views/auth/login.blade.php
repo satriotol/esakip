@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-md-4 pe-md-0">
                             <div class="auth-side-wrapper"
-                                style="background-image: url({{ url('assets/images/others/pemkot.jpg') }})">
+                                style="background-image: url({{ asset('assets/images/others/pemkot.jpg') }})">
 
                             </div>
                         </div>
