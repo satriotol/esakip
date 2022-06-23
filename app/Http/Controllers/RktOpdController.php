@@ -138,6 +138,9 @@ class RktOpdController extends Controller
      */
     public function destroy(RktOpd $rktOpd)
     {
-        //
+        $rktOpd->delete();
+        $rktOpd->deleteFile();
+        session()->flash('success');
+        return redirect(route('rktOpd.index'));
     }
 }
