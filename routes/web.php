@@ -7,6 +7,8 @@ use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
 use App\Http\Controllers\PerencanaanKinerjaIkuController;
 use App\Http\Controllers\PerencanaanKinerjaRkpdController;
 use App\Http\Controllers\PerencanaanKinerjaRpjmdController;
+use App\Http\Controllers\PeriodeRenstraOpdController;
+use App\Http\Controllers\RenstraOpdController;
 use App\Http\Controllers\RpmjdController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +39,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('cascading_kinerja', PerencanaanKinerjaCascadingKinerjaController::class);
     Route::post('getCascadingKinerjas', [PerencanaanKinerjaCascadingKinerjaController::class, 'getCascadingKinerjas'])->name('cascading_kinerja.getCascadingKinerjas');
     // end of kota
+    // opd
+    Route::resource('periodeRenstraOpd', PeriodeRenstraOpdController::class);
+    Route::group(['prefix' => 'periodeRenstraOpd/renstraOpd'], function(){
+        Route::get('{periodeRenstraOpd}', [RenstraOpdController::class, 'index'])->name('renstraOpd.index');
+        Route::get('{periodeRenstraOpd}/create', [RenstraOpdController::class, 'create'])->name('renstraOpd.create');
+    });
+    // end of opd
     // end of perencanaan kinerja
 
     // pelaporan kinerja

@@ -1,6 +1,6 @@
 <nav class="sidebar">
     <div class="sidebar-header">
-        <a href="{{route('dashboard')}}" class="sidebar-brand">
+        <a href="{{ route('dashboard') }}" class="sidebar-brand">
             e-SAKIP
         </a>
         <div class="sidebar-toggler not-active">
@@ -20,15 +20,15 @@
             </li>
             <li class="nav-item nav-category">Perencanaan Kinerja</li>
             <li
-                class="nav-item {{ active_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*','cascading_kinerja.*', 'cascading_kinerja.*']) }}">
+                class="nav-item {{ active_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*', 'cascading_kinerja.*']) }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja" role="button"
-                    aria-expanded="{{ is_active_route(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*','cascading_kinerja.*', 'cascading_kinerja.*']) }}"
+                    aria-expanded="{{ is_active_route(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*', 'cascading_kinerja.*']) }}"
                     aria-controls="perencanaan_kinerja">
                     <i class="link-icon" data-feather="anchor"></i>
                     <span class="link-title">Kota</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ show_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*','cascading_kinerja.*']) }}"
+                <div class="collapse {{ show_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*']) }}"
                     id="perencanaan_kinerja">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
@@ -46,18 +46,32 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item {{ active_class(['periodeRenstraOpd.*']) }}">
+                <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja_opd" role="button"
+                    aria-expanded="{{ is_active_route(['periodeRenstraOpd.*']) }}"
+                    aria-controls="perencanaan_kinerja_opd">
+                    <i class="link-icon" data-feather="anchor"></i>
+                    <span class="link-title">OPD</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ show_class(['periodeRenstraOpd.*']) }}" id="perencanaan_kinerja_opd">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('periodeRenstraOpd.index') }}"
+                                class="nav-link {{ active_class(['periodeRenstraOpd.*']) }}">Renstra</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             <li class="nav-item nav-category">Pelaporan Kinerja</li>
-            <li
-                class="nav-item {{ active_class(['lkjip_kota.*']) }}">
+            <li class="nav-item {{ active_class(['lkjip_kota.*']) }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#pelaporan_kinerja" role="button"
-                    aria-expanded="{{ is_active_route(['lkjip_kota.*']) }}"
-                    aria-controls="pelaporan_kinerja">
+                    aria-expanded="{{ is_active_route(['lkjip_kota.*']) }}" aria-controls="pelaporan_kinerja">
                     <i class="link-icon" data-feather="anchor"></i>
                     <span class="link-title">Kota</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ show_class(['lkjip_kota.*']) }}"
-                    id="pelaporan_kinerja">
+                <div class="collapse {{ show_class(['lkjip_kota.*']) }}" id="pelaporan_kinerja">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{ route('lkjip_kota.index') }}"
@@ -66,25 +80,22 @@
                     </ul>
                 </div>
             </li>
-            <li
-            class="nav-item {{ active_class(['lkjip_opd.*']) }}">
-            <a class="nav-link" data-bs-toggle="collapse" href="#pelaporan_kinerja_opd" role="button"
-                aria-expanded="{{ is_active_route(['lkjip_opd.*']) }}"
-                aria-controls="pelaporan_kinerja_opd">
-                <i class="link-icon" data-feather="anchor"></i>
-                <span class="link-title">OPD</span>
-                <i class="link-arrow" data-feather="chevron-down"></i>
-            </a>
-            <div class="collapse {{ show_class(['lkjip_opd.*']) }}"
-                id="pelaporan_kinerja_opd">
-                <ul class="nav sub-menu">
-                    <li class="nav-item">
-                        <a href="{{ route('lkjip_opd.index') }}"
-                            class="nav-link {{ active_class(['lkjip_opd.*']) }}">LKJIP</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
+            <li class="nav-item {{ active_class(['lkjip_opd.*']) }}">
+                <a class="nav-link" data-bs-toggle="collapse" href="#pelaporan_kinerja_opd" role="button"
+                    aria-expanded="{{ is_active_route(['lkjip_opd.*']) }}" aria-controls="pelaporan_kinerja_opd">
+                    <i class="link-icon" data-feather="anchor"></i>
+                    <span class="link-title">OPD</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ show_class(['lkjip_opd.*']) }}" id="pelaporan_kinerja_opd">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('lkjip_opd.index') }}"
+                                class="nav-link {{ active_class(['lkjip_opd.*']) }}">LKJIP</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             {{-- <li
                 class="nav-item {{ active_class(['perencanaan_kinerja.index', 'perencanaan_kinerja.create', 'perencanaan_kinerja.edit']) }}">
                 <a href="{{ route('perencanaan_kinerja.index') }}" class="nav-link">
