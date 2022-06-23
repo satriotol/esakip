@@ -88,6 +88,7 @@ class RenstraOpdController extends Controller
         $data['periode_renstra_opd_id'] = $periodeRenstraOpd;
         if ($request->hasFile('file')) {
             $file = $request->file->store('file', 'public_uploads');
+            $renstraOpd->deleteFile();
             $data['file'] = $file;
         };
         $renstraOpd->update($data);

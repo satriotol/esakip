@@ -46,20 +46,24 @@
                     </ul>
                 </div>
             </li>
-            <li class="nav-item {{ active_class(['periodeRenstraOpd.*', 'renstraOpd.*']) }}">
+            <li class="nav-item {{ active_class(['periodeRenstraOpd.*', 'renstraOpd.*', 'rktOpd.*']) }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja_opd" role="button"
-                    aria-expanded="{{ is_active_route(['periodeRenstraOpd.*', 'renstraOpd.*']) }}"
+                    aria-expanded="{{ is_active_route(['periodeRenstraOpd.*', 'renstraOpd.*', 'rktOpd.*']) }}"
                     aria-controls="perencanaan_kinerja_opd">
                     <i class="link-icon" data-feather="anchor"></i>
                     <span class="link-title">OPD</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ show_class(['periodeRenstraOpd.*', 'renstraOpd.*', 'renstraOpd.*']) }}"
+                <div class="collapse {{ show_class(['periodeRenstraOpd.*', 'renstraOpd.*', 'rktOpd.*']) }}"
                     id="perencanaan_kinerja_opd">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{ route('periodeRenstraOpd.index') }}"
                                 class="nav-link {{ active_class(['periodeRenstraOpd.*', 'renstraOpd.*']) }}">RENSTRA</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('rktOpd.index') }}"
+                                class="nav-link {{ active_class(['rktOpd.*']) }}">RKT</a>
                         </li>
                     </ul>
                 </div>
@@ -97,13 +101,6 @@
                     </ul>
                 </div>
             </li>
-            {{-- <li
-                class="nav-item {{ active_class(['perencanaan_kinerja.index', 'perencanaan_kinerja.create', 'perencanaan_kinerja.edit']) }}">
-                <a href="{{ route('perencanaan_kinerja.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="box"></i>
-                    <span class="link-title">Perencanaan Kinerja</span>
-                </a>
-            </li> --}}
         </ul>
     </div>
 </nav>

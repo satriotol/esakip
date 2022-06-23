@@ -4,11 +4,11 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\LkjipOpdController;
 use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
-use App\Http\Controllers\PerencanaanKinerjaIkuController;
 use App\Http\Controllers\PerencanaanKinerjaRkpdController;
 use App\Http\Controllers\PerencanaanKinerjaRpjmdController;
 use App\Http\Controllers\PeriodeRenstraOpdController;
 use App\Http\Controllers\RenstraOpdController;
+use App\Http\Controllers\RktOpdController;
 use App\Http\Controllers\RpmjdController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +49,9 @@ Route::middleware('auth')->group(function () {
         Route::put('{periodeRenstraOpd}/update/{renstraOpd}', [RenstraOpdController::class, 'update'])->name('renstraOpd.update');
         Route::delete('delete/{renstraOpd}', [RenstraOpdController::class, 'destroy'])->name('renstraOpd.destroy');
     });
+
+    Route::resource('rktOpd', RktOpdController::class);
+    Route::post('getRktOpd', [RktOpdController::class, 'getRktOpd'])->name('rktOpd.getRktOpd');
     // end of opd
     // end of perencanaan kinerja
 
