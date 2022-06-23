@@ -7,6 +7,7 @@ use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
 use App\Http\Controllers\PerencanaanKinerjaRkpdController;
 use App\Http\Controllers\PerencanaanKinerjaRpjmdController;
 use App\Http\Controllers\PeriodeRenstraOpdController;
+use App\Http\Controllers\RenjaOpdController;
 use App\Http\Controllers\RenstraOpdController;
 use App\Http\Controllers\RktOpdController;
 use App\Http\Controllers\RpmjdController;
@@ -52,6 +53,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('rktOpd', RktOpdController::class);
     Route::post('getRktOpd', [RktOpdController::class, 'getRktOpd'])->name('rktOpd.getRktOpd');
+
+    Route::resource('renjaOpd', RenjaOpdController::class);
+    Route::post('getRenjaOpd', [RenjaOpdController::class, 'getRenjaOpd'])->name('renjaOpd.getRenjaOpd');
     // end of opd
     // end of perencanaan kinerja
 
