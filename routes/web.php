@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LkjipKotaController;
+use App\Http\Controllers\LkjipOpdController;
 use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
 use App\Http\Controllers\PerencanaanKinerjaIkuController;
 use App\Http\Controllers\PerencanaanKinerjaRkpdController;
@@ -43,6 +44,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('lkjip_kota', LkjipKotaController::class);
     Route::post('getLkjipKota', [LkjipKotaController::class, 'getLkjipKota'])->name('lkjip_kota.getLkjipKota');
     // end of kota
+    // opd
+    Route::resource('lkjip_opd', LkjipOpdController::class);
+    Route::post('getLkjipOpd', [LkjipOpdController::class, 'getLkjipOpd'])->name('lkjip_opd.getLkjipOpd');
+    // end of opd
     // end of pelaporan kinerja
 
 });

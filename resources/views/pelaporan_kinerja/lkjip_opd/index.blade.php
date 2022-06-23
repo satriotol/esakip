@@ -7,18 +7,18 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('lkjip_kota.index') }}">Pelaporan Kinerja LKJIP Kota</a>
+            <li class="breadcrumb-item"><a href="{{ route('lkjip_opd.index') }}">Pelaporan Kinerja LKJIP OPD</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Tabel Pelaporan Kinerja LKJIP Kota</li>
+            <li class="breadcrumb-item active" aria-current="page">Tabel Pelaporan Kinerja LKJIP OPD</li>
         </ol>
     </nav>
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Pelaporan Kinerja LKJIP Kota</h6>
+                    <h6 class="card-title">Pelaporan Kinerja LKJIP OPD</h6>
                     <div class="text-end mb-2">
-                        <a class="btn btn-primary" href="{{ route('lkjip_kota.create') }}">
+                        <a class="btn btn-primary" href="{{ route('lkjip_opd.create') }}">
                             <i data-feather="plus"></i>
                             Create
                         </a>
@@ -28,7 +28,7 @@
                             <thead>
                                 <tr>
                                     <th>Year</th>
-                                    <th>Name</th>
+                                    <th>OPD</th>
                                     <th>File</th>
                                     <th>Action</th>
                                 </tr>
@@ -56,7 +56,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('lkjip_kota.getLkjipKota') }}",
+                    url: "{{ route('lkjip_opd.getLkjipOpd') }}",
                     method: 'POST',
                     data: {
                         '_token': '{{ csrf_token() }}',
@@ -67,8 +67,8 @@
                         name: 'year'
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'opd.nama_opd',
+                        name: 'opd.nama_opd'
                     },
                     {
                         data: 'pdf',

@@ -66,6 +66,25 @@
                     </ul>
                 </div>
             </li>
+            <li
+            class="nav-item {{ active_class(['lkjip_opd.*']) }}">
+            <a class="nav-link" data-bs-toggle="collapse" href="#pelaporan_kinerja_opd" role="button"
+                aria-expanded="{{ is_active_route(['lkjip_opd.*']) }}"
+                aria-controls="pelaporan_kinerja_opd">
+                <i class="link-icon" data-feather="anchor"></i>
+                <span class="link-title">OPD</span>
+                <i class="link-arrow" data-feather="chevron-down"></i>
+            </a>
+            <div class="collapse {{ show_class(['lkjip_opd.*']) }}"
+                id="pelaporan_kinerja_opd">
+                <ul class="nav sub-menu">
+                    <li class="nav-item">
+                        <a href="{{ route('lkjip_opd.index') }}"
+                            class="nav-link {{ active_class(['lkjip_opd.*']) }}">LKJIP</a>
+                    </li>
+                </ul>
+            </div>
+        </li>
             {{-- <li
                 class="nav-item {{ active_class(['perencanaan_kinerja.index', 'perencanaan_kinerja.create', 'perencanaan_kinerja.edit']) }}">
                 <a href="{{ route('perencanaan_kinerja.index') }}" class="nav-link">

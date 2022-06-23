@@ -7,16 +7,16 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('lkjip_kota.index') }}">Pelaporan Kinerja LKJIP</a>
+            <li class="breadcrumb-item"><a href="{{ route('lkjip_kota.index') }}">Pelaporan Kinerja LKJIP Kota</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Form Pelaporan Kinerja LKJIP</li>
+            <li class="breadcrumb-item active" aria-current="page">Form Pelaporan Kinerja LKJIP Kota</li>
         </ol>
     </nav>
 
     <div class="grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Form Pelaporan Kinerja LKJIP</h4>
+                <h4 class="card-title">Form Pelaporan Kinerja LKJIP Kota</h4>
                 @include('partials.errors')
                 <form
                     action="@isset($lkjip_kotum) {{ route('lkjip_kota.update', $lkjip_kotum->id) }} @endisset @empty($lkjip_kotum) {{ route('lkjip_kota.store') }} @endempty"
