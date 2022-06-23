@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\IkuKotaController;
+use App\Http\Controllers\IkuOpdController;
 use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\LkjipOpdController;
 use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
@@ -67,6 +68,8 @@ Route::middleware('auth')->group(function () {
     // end of kota
     // ===========================
     // opd
+    Route::resource('ikuOpd', IkuOpdController::class);
+    Route::post('getIkuOpd', [IkuOpdController::class, 'getIkuOpd'])->name('ikuOpd.getIkuOpd');
     // end of opd
     // end of pengukuran kinerja
     // ===========================

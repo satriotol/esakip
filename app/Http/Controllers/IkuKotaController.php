@@ -96,7 +96,8 @@ class IkuKotaController extends Controller
         };
         $ikuKotum->update($data);
         session()->flash('success');
-        return redirect(route('ikuKota.index'));    }
+        return redirect(route('ikuKota.index'));
+    }
 
     /**
      * Remove the specified resource from storage.
