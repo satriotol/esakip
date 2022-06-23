@@ -46,19 +46,20 @@
                     </ul>
                 </div>
             </li>
-            <li class="nav-item {{ active_class(['periodeRenstraOpd.*']) }}">
+            <li class="nav-item {{ active_class(['periodeRenstraOpd.*', 'renstraOpd.*']) }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja_opd" role="button"
-                    aria-expanded="{{ is_active_route(['periodeRenstraOpd.*']) }}"
+                    aria-expanded="{{ is_active_route(['periodeRenstraOpd.*', 'renstraOpd.*']) }}"
                     aria-controls="perencanaan_kinerja_opd">
                     <i class="link-icon" data-feather="anchor"></i>
                     <span class="link-title">OPD</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ show_class(['periodeRenstraOpd.*']) }}" id="perencanaan_kinerja_opd">
+                <div class="collapse {{ show_class(['periodeRenstraOpd.*', 'renstraOpd.*', 'renstraOpd.*']) }}"
+                    id="perencanaan_kinerja_opd">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{ route('periodeRenstraOpd.index') }}"
-                                class="nav-link {{ active_class(['periodeRenstraOpd.*']) }}">RENSTRA</a>
+                                class="nav-link {{ active_class(['periodeRenstraOpd.*', 'renstraOpd.*']) }}">RENSTRA</a>
                         </li>
                     </ul>
                 </div>
