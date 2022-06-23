@@ -58,7 +58,7 @@
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{ route('periodeRenstraOpd.index') }}"
-                                class="nav-link {{ active_class(['periodeRenstraOpd.*']) }}">Renstra</a>
+                                class="nav-link {{ active_class(['periodeRenstraOpd.*']) }}">RENSTRA</a>
                         </li>
                     </ul>
                 </div>

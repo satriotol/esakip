@@ -8,9 +8,9 @@
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('periodeRenstraOpd.index') }}">Perencanaan Kinerja
-                    renstra OPD</a>
+                    RENSTRA OPD</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Tabel Perencanaan Kinerja renstra OPD
+            <li class="breadcrumb-item active" aria-current="page">Tabel Perencanaan Kinerja RENSTRA OPD
                 {{ $periodeRenstraOpd->start_year }} - {{ $periodeRenstraOpd->end_year }}</li>
         </ol>
     </nav>
@@ -18,7 +18,7 @@
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Perencanaan Kinerja renstra OPD {{ $periodeRenstraOpd->start_year }} -
+                    <h6 class="card-title">Perencanaan Kinerja RENSTRA OPD {{ $periodeRenstraOpd->start_year }} -
                         {{ $periodeRenstraOpd->end_year }}</h6>
                     <div class="text-end mb-2">
                         <a class="btn btn-primary" href="{{ route('renstraOpd.create', $periodeRenstraOpd) }}">
@@ -30,21 +30,21 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
-                                    <th>Periode</th>
+                                    <th>OPD</th>
+                                    <th>File</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($renstraOpds as $renstraOpd)
                                     <tr>
-                                        {{-- <td>{{ $periodeRenstraOpd->start_year }} - {{ $periodeRenstraOpd->end_year }}
-                                        </td>
+                                        <td>{{ $renstraOpd->opd->nama_opd }}</td>
+                                        <td><a class="btn btn-sm btn-success" target="_blank" href="{{asset('uploads/' . $renstraOpd->file)}}"> Open File</a></td>
                                         <td> <a class="btn btn-warning"
-                                                href="{{ route('renstraOpd.edit', $periodeRenstraOpd->id) }}">
+                                                href="{{ route('renstraOpd.edit', [$periodeRenstraOpd->id, $renstraOpd->id]) }}">
                                                 Edit
                                             </a>
-                                            <form
-                                                action="{{ route('renstraOpd.destroy', $periodeRenstraOpd->id) }}"
+                                            <form action="{{ route('renstraOpd.destroy', $renstraOpd->id) }}"
                                                 method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
@@ -52,7 +52,7 @@
                                                     onclick="return confirm('Are you sure?')">
                                                     Delete
                                                 </button>
-                                            </form> --}}
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

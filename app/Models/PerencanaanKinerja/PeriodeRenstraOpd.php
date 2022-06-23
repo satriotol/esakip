@@ -13,6 +13,6 @@ class PeriodeRenstraOpd extends Model
 
     public function renstra_opds()
     {
-        return $this->hasMany(RenstraOpd::class, 'renstra_opd_id', 'id');
+        return $this->hasMany(RenstraOpd::class, 'periode_renstra_opd_id', 'id');
     }
 }

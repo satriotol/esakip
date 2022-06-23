@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PerencanaanKinerja\CreateRenstraOpdRequest;
+use App\Http\Requests\PerencanaanKinerja\UpdateRenstraOpdRequest;
+use App\Models\Opd;
 use App\Models\PerencanaanKinerja\PeriodeRenstraOpd;
 use App\Models\PerencanaanKinerja\RenstraOpd;
 use Illuminate\Http\Request;
@@ -15,7 +18,7 @@ class RenstraOpdController extends Controller
      */
     public function index(PeriodeRenstraOpd $periodeRenstraOpd)
     {
-        $renstraOpds = RenstraOpd::where('periode_renstra_opd_id', $periodeRenstraOpd)->get();
+        $renstraOpds = RenstraOpd::where('periode_renstra_opd_id', $periodeRenstraOpd->id)->get();
         return view('perencanaan_kinerja.opd.renstra.renstra_detail.index', compact('renstraOpds', 'periodeRenstraOpd'));
     }
 
@@ -24,9 +27,10 @@ class RenstraOpdController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(PeriodeRenstraOpd $periodeRenstraOpd)
     {
-        //
+        $opds = Opd::all();
+        return view('perencanaan_kinerja.opd.renstra.renstra_detail.create', compact('periodeRenstraOpd', 'opds'));
     }
 
     /**
@@ -35,9 +39,17 @@ class RenstraOpdController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store($periodeRenstraOpd, CreateRenstraOpdRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['periode_renstra_opd_id'] = $periodeRenstraOpd;
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+        };
+        RenstraOpd::create($data);
+        session()->flash('success');
+        return redirect(route('renstraOpd.index', $periodeRenstraOpd));
     }
 
     /**
@@ -57,9 +69,10 @@ class RenstraOpdController extends Controller
      * @param  \App\Models\PerencanaanKinerja\RenstraOpd  $renstraOpd
      * @return \Illuminate\Http\Response
      */
-    public function edit(RenstraOpd $renstraOpd)
+    public function edit(PeriodeRenstraOpd $periodeRenstraOpd, RenstraOpd $renstraOpd)
     {
-        //
+        $opds = Opd::all();
+        return view('perencanaan_kinerja.opd.renstra.renstra_detail.create', compact('renstraOpd', 'periodeRenstraOpd', 'opds'));
     }
 
     /**
@@ -69,9 +82,17 @@ class RenstraOpdController extends Controller
      * @param  \App\Models\PerencanaanKinerja\RenstraOpd  $renstraOpd
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, RenstraOpd $renstraOpd)
+    public function update(UpdateRenstraOpdRequest $request, $periodeRenstraOpd, RenstraOpd $renstraOpd)
     {
-        //
+        $data = $request->all();
+        $data['periode_renstra_opd_id'] = $periodeRenstraOpd;
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+        };
+        $renstraOpd->update($data);
+        session()->flash('success');
+        return redirect(route('renstraOpd.index', $periodeRenstraOpd));
     }
 
     /**
@@ -82,6 +103,9 @@ class RenstraOpdController extends Controller
      */
     public function destroy(RenstraOpd $renstraOpd)
     {
-        //
+        $renstraOpd->delete();
+        $renstraOpd->deleteFile();
+        session()->flash('success');
+        return redirect(route('renstraOpd.index', $renstraOpd->periode_renstra_opd_id));
     }
 }

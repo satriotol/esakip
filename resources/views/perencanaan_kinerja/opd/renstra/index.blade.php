@@ -28,6 +28,7 @@
                             <thead>
                                 <tr>
                                     <th>Periode</th>
+                                    <th>Total Document</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -36,6 +37,7 @@
                                     <tr>
                                         <td>{{ $periodeRenstraOpd->start_year }} - {{ $periodeRenstraOpd->end_year }}
                                         </td>
+                                        <td>{{ $periodeRenstraOpd->renstra_opds->count() }}</td>
                                         <td>
                                             <a class="btn btn-primary"
                                                 href="{{ route('renstraOpd.index', $periodeRenstraOpd->id) }}">

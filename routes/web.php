@@ -41,9 +41,13 @@ Route::middleware('auth')->group(function () {
     // end of kota
     // opd
     Route::resource('periodeRenstraOpd', PeriodeRenstraOpdController::class);
-    Route::group(['prefix' => 'periodeRenstraOpd/renstraOpd'], function(){
+    Route::group(['prefix' => 'periodeRenstraOpd/renstraOpd'], function () {
         Route::get('{periodeRenstraOpd}', [RenstraOpdController::class, 'index'])->name('renstraOpd.index');
         Route::get('{periodeRenstraOpd}/create', [RenstraOpdController::class, 'create'])->name('renstraOpd.create');
+        Route::post('{periodeRenstraOpd}/store', [RenstraOpdController::class, 'store'])->name('renstraOpd.store');
+        Route::get('{periodeRenstraOpd}/edit/{renstraOpd}', [RenstraOpdController::class, 'edit'])->name('renstraOpd.edit');
+        Route::put('{periodeRenstraOpd}/update/{renstraOpd}', [RenstraOpdController::class, 'update'])->name('renstraOpd.update');
+        Route::delete('delete/{renstraOpd}', [RenstraOpdController::class, 'destroy'])->name('renstraOpd.destroy');
     });
     // end of opd
     // end of perencanaan kinerja
