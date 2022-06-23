@@ -46,6 +46,26 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item nav-category">Pelaporan Kinerja</li>
+            <li
+                class="nav-item {{ active_class(['lkjip_kota.*']) }}">
+                <a class="nav-link" data-bs-toggle="collapse" href="#pelaporan_kinerja" role="button"
+                    aria-expanded="{{ is_active_route(['lkjip_kota.*']) }}"
+                    aria-controls="pelaporan_kinerja">
+                    <i class="link-icon" data-feather="anchor"></i>
+                    <span class="link-title">Kota</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ show_class(['lkjip_kota.*']) }}"
+                    id="pelaporan_kinerja">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('lkjip_kota.index') }}"
+                                class="nav-link {{ active_class(['lkjip_kota.*']) }}">LKJIP</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
             {{-- <li
                 class="nav-item {{ active_class(['perencanaan_kinerja.index', 'perencanaan_kinerja.create', 'perencanaan_kinerja.edit']) }}">
                 <a href="{{ route('perencanaan_kinerja.index') }}" class="nav-link">

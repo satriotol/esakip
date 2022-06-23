@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
 use App\Http\Controllers\PerencanaanKinerjaIkuController;
 use App\Http\Controllers\PerencanaanKinerjaRkpdController;
@@ -36,6 +37,13 @@ Route::middleware('auth')->group(function () {
     Route::post('getCascadingKinerjas', [PerencanaanKinerjaCascadingKinerjaController::class, 'getCascadingKinerjas'])->name('cascading_kinerja.getCascadingKinerjas');
     // end of kota
     // end of perencanaan kinerja
+
+    // pelaporan kinerja
+    // kota
+    Route::resource('lkjip_kota', LkjipKotaController::class);
+    Route::post('getLkjipKota', [LkjipKotaController::class, 'getLkjipKota'])->name('lkjip_kota.getLkjipKota');
+    // end of kota
+    // end of pelaporan kinerja
 
 });
 
