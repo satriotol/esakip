@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\IkuKotaController;
 use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\LkjipOpdController;
 use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
@@ -30,16 +31,16 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+    // ===========================
     //perencanaan kinerja
     // kota
     Route::resource('perencanaan_kinerja_rpjmd', PerencanaanKinerjaRpjmdController::class);
-
     Route::resource('perencanaan_kinerja_rkpd', PerencanaanKinerjaRkpdController::class);
     Route::post('getRkpds', [PerencanaanKinerjaRkpdController::class, 'getRkpds'])->name('perencanaan_kinerja_rkpd.getRkpds');
-
     Route::resource('cascading_kinerja', PerencanaanKinerjaCascadingKinerjaController::class);
     Route::post('getCascadingKinerjas', [PerencanaanKinerjaCascadingKinerjaController::class, 'getCascadingKinerjas'])->name('cascading_kinerja.getCascadingKinerjas');
     // end of kota
+    // ===========================
     // opd
     Route::resource('periodeRenstraOpd', PeriodeRenstraOpdController::class);
     Route::group(['prefix' => 'periodeRenstraOpd/renstraOpd'], function () {
@@ -58,18 +59,30 @@ Route::middleware('auth')->group(function () {
     Route::post('getRenjaOpd', [RenjaOpdController::class, 'getRenjaOpd'])->name('renjaOpd.getRenjaOpd');
     // end of opd
     // end of perencanaan kinerja
-
+    // ===========================
+    // ===========================
+    // pengukuran kinerja
+    // kota
+    Route::resource('ikuKota', IkuKotaController::class);
+    // end of kota
+    // ===========================
+    // opd
+    // end of opd
+    // end of pengukuran kinerja
+    // ===========================
+    // ===========================
     // pelaporan kinerja
     // kota
     Route::resource('lkjip_kota', LkjipKotaController::class);
     Route::post('getLkjipKota', [LkjipKotaController::class, 'getLkjipKota'])->name('lkjip_kota.getLkjipKota');
     // end of kota
+    // ===========================
     // opd
     Route::resource('lkjip_opd', LkjipOpdController::class);
     Route::post('getLkjipOpd', [LkjipOpdController::class, 'getLkjipOpd'])->name('lkjip_opd.getLkjipOpd');
     // end of opd
     // end of pelaporan kinerja
-
+    // ===========================
 });
 
 Route::get('/dashboard', function () {

@@ -20,9 +20,9 @@
             </li>
             <li class="nav-item nav-category">Perencanaan Kinerja</li>
             <li
-                class="nav-item {{ active_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*', 'cascading_kinerja.*']) }}">
+                class="nav-item {{ active_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*']) }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja" role="button"
-                    aria-expanded="{{ is_active_route(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*', 'cascading_kinerja.*']) }}"
+                    aria-expanded="{{ is_active_route(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*']) }}"
                     aria-controls="perencanaan_kinerja">
                     <i class="link-icon" data-feather="anchor"></i>
                     <span class="link-title">Kota</span>
@@ -69,6 +69,23 @@
                         <li class="nav-item">
                             <a href="{{ route('renjaOpd.index') }}"
                                 class="nav-link {{ active_class(['renjaOpd.*']) }}">RENJA</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="nav-item nav-category">Pengukuran Kinerja</li>
+            <li class="nav-item {{ active_class(['ikuKota.*']) }}">
+                <a class="nav-link" data-bs-toggle="collapse" href="#perancangan_kinerja" role="button"
+                    aria-expanded="{{ is_active_route(['ikuKota.*']) }}" aria-controls="perancangan_kinerja">
+                    <i class="link-icon" data-feather="anchor"></i>
+                    <span class="link-title">Kota</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse {{ show_class(['ikuKota.*']) }}" id="perancangan_kinerja">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ route('ikuKota.index') }}"
+                                class="nav-link {{ active_class(['ikuKota.*']) }}">IKU</a>
                         </li>
                     </ul>
                 </div>
