@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EvaluasiKinerjaYearController;
 use App\Http\Controllers\IkuKotaController;
 use App\Http\Controllers\IkuOpdController;
 use App\Http\Controllers\LkjipKotaController;
@@ -86,6 +87,10 @@ Route::middleware('auth')->group(function () {
     // end of opd
     // end of pelaporan kinerja
     // ===========================
+    // ===========================
+    // evaluasi kinerja
+    Route::resource('evaluasiKinerjaYear', EvaluasiKinerjaYearController::class);
+    // end of evaluasi kinerja
 });
 
 Route::get('/dashboard', function () {
