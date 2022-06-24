@@ -30,15 +30,18 @@
                                 <tr>
                                     <th>OPD</th>
                                     <th>Value</th>
+                                    <th>Category Name</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($evaluasiKinerjaYear->evaluasi_kinerja as $evaluasiKinerja)
-                                    <tr>
+                                    <tr style="background-color: {{ $evaluasiKinerja->category_name['color'] }}">
                                         <td>{{ $evaluasiKinerja->opd->nama_opd }}
                                         </td>
                                         <td>{{ $evaluasiKinerja->value }}</td>
+                                        <td class="fw-bold">
+                                            {{ $evaluasiKinerja->category_name['name'] }}</td>
                                         <td>
                                             <a class="btn btn-warning"
                                                 href="{{ route('evaluasiKinerja.edit', $evaluasiKinerja->id) }}">
