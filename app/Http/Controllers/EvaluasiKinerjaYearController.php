@@ -59,7 +59,7 @@ class EvaluasiKinerjaYearController extends Controller
      */
     public function show(EvaluasiKinerjaYear $evaluasiKinerjaYear)
     {
-        //
+        return view('evaluasi_kinerja.evaluasi_kinerja_year.show', compact('evaluasiKinerjaYear'));
     }
 
     /**

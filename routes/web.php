@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EvaluasiKinerjaController;
 use App\Http\Controllers\EvaluasiKinerjaYearController;
 use App\Http\Controllers\IkuKotaController;
 use App\Http\Controllers\IkuOpdController;
@@ -90,6 +91,11 @@ Route::middleware('auth')->group(function () {
     // ===========================
     // evaluasi kinerja
     Route::resource('evaluasiKinerjaYear', EvaluasiKinerjaYearController::class);
+    Route::resource('evaluasiKinerja', EvaluasiKinerjaController::class)->except([
+        'create', 'store',
+    ]);
+    Route::get('evaluasiKinerja/{evaluasiKinerjaYear}/create', [EvaluasiKinerjaController::class, 'create'])->name('evaluasiKinerja.create');
+    Route::post('evaluasiKinerja/{evaluasiKinerjaYear}/store', [EvaluasiKinerjaController::class, 'store'])->name('evaluasiKinerja.store');
     // end of evaluasi kinerja
 });
 
