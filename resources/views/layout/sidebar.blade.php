@@ -139,6 +139,13 @@
                     </ul>
                 </div>
             </li>
+            <li class="nav-item nav-category">Capaian Kinerja</li>
+            <li class="nav-item {{ active_class(['link.*']) }}">
+                <a href="{{ route('link.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="box"></i>
+                    <span class="link-title">Link Terkait</span>
+                </a>
+            </li>
             <li class="nav-item nav-category">Evaluasi Kinerja</li>
             <li class="nav-item {{ active_class(['evaluasiKinerjaYear.*']) }}">
                 <a href="{{ route('evaluasiKinerjaYear.index') }}" class="nav-link">

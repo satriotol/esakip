@@ -5,6 +5,7 @@ use App\Http\Controllers\EvaluasiKinerjaController;
 use App\Http\Controllers\EvaluasiKinerjaYearController;
 use App\Http\Controllers\IkuKotaController;
 use App\Http\Controllers\IkuOpdController;
+use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\LkjipOpdController;
 use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
@@ -88,6 +89,9 @@ Route::middleware('auth')->group(function () {
     // end of opd
     // end of pelaporan kinerja
     // ===========================
+    // capaian kinerja
+    Route::resource('link', LinkController::class);
+    // end of capaian kinerja
     // ===========================
     // evaluasi kinerja
     Route::resource('evaluasiKinerjaYear', EvaluasiKinerjaYearController::class);
