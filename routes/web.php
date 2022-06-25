@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CascadingKinerjaOpdController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EvaluasiKinerjaController;
 use App\Http\Controllers\EvaluasiKinerjaYearController;
@@ -61,6 +62,9 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('renjaOpd', RenjaOpdController::class);
     Route::post('getRenjaOpd', [RenjaOpdController::class, 'getRenjaOpd'])->name('renjaOpd.getRenjaOpd');
+
+    Route::resource('cascadingKinerjaOpd', CascadingKinerjaOpdController::class);
+    Route::post('getCascadingKinerjaOpd', [CascadingKinerjaOpdController::class, 'getCascadingKinerjaOpd'])->name('cascadingKinerjaOpd.getCascadingKinerjaOpd');
     // end of opd
     // end of perencanaan kinerja
     // ===========================

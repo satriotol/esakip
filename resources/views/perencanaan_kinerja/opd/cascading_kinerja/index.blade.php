@@ -7,7 +7,7 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('rktOpd.index') }}">{{ $name }}</a>
+            <li class="breadcrumb-item"><a href="{{ route('cascadingKinerjaOpd.index') }}">{{ $name }}</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Tabel {{ $name }}</li>
         </ol>
@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h6 class="card-title">{{ $name }}</h6>
                     <div class="text-end mb-2">
-                        <a class="btn btn-primary" href="{{ route('rktOpd.create') }}">
+                        <a class="btn btn-primary" href="{{ route('cascadingKinerjaOpd.create') }}">
                             <i data-feather="plus"></i>
                             Create
                         </a>
@@ -29,7 +29,7 @@
                                 <tr>
                                     <th>Year</th>
                                     <th>OPD</th>
-                                    <th>Name</th>
+                                    <th>Type</th>
                                     <th>File</th>
                                     <th>Action</th>
                                 </tr>
@@ -57,7 +57,7 @@
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: "{{ route('rktOpd.getRktOpd') }}",
+                    url: "{{ route('cascadingKinerjaOpd.getCascadingKinerjaOpd') }}",
                     method: 'POST',
                     data: {
                         '_token': '{{ csrf_token() }}',
@@ -72,8 +72,8 @@
                         name: 'opd.nama_opd'
                     },
                     {
-                        data: 'name',
-                        name: 'name'
+                        data: 'type',
+                        name: 'type'
                     },
                     {
                         data: 'pdf',
