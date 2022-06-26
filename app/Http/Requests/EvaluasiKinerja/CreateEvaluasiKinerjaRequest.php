@@ -24,7 +24,7 @@ class CreateEvaluasiKinerjaRequest extends FormRequest
     public function rules()
     {
         return [
-            'opd_id.*' => 'required',
+            'opd_id.*' => 'required|numeric',
             // 'value.*' => 'nullable',
             // 'evaluasi_kinerja_year_id' => 'nullable',
         ];

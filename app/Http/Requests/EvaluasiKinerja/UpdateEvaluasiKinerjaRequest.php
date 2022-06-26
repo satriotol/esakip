@@ -24,7 +24,7 @@ class UpdateEvaluasiKinerjaRequest extends FormRequest
     public function rules()
     {
         return [
-            'value' => 'required'
+            'value' => 'required|numeric'
         ];
     }
 }
