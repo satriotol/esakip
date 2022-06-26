@@ -78,18 +78,24 @@
                 </div>
             </li>
             <li class="nav-item nav-category">Pengukuran Kinerja</li>
-            <li class="nav-item {{ active_class(['ikuKota.*']) }}">
+            <li class="nav-item {{ active_class(['ikuKota.*', 'kotaPerjanjianKinerja.*']) }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#perancangan_kinerja" role="button"
-                    aria-expanded="{{ is_active_route(['ikuKota.*']) }}" aria-controls="perancangan_kinerja">
+                    aria-expanded="{{ is_active_route(['ikuKota.*', 'kotaPerjanjianKinerja.*']) }}"
+                    aria-controls="perancangan_kinerja">
                     <i class="link-icon" data-feather="anchor"></i>
                     <span class="link-title">Kota</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ show_class(['ikuKota.*']) }}" id="perancangan_kinerja">
+                <div class="collapse {{ show_class(['ikuKota.*', 'kotaPerjanjianKinerja.*']) }}"
+                    id="perancangan_kinerja">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{ route('ikuKota.index') }}"
                                 class="nav-link {{ active_class(['ikuKota.*']) }}">IKU</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('kotaPerjanjianKinerja.index') }}"
+                                class="nav-link {{ active_class(['kotaPerjanjianKinerja.*']) }}">PERJANJIAN KINERJA</a>
                         </li>
                     </ul>
                 </div>

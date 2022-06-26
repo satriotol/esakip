@@ -6,6 +6,7 @@ use App\Http\Controllers\EvaluasiKinerjaController;
 use App\Http\Controllers\EvaluasiKinerjaYearController;
 use App\Http\Controllers\IkuKotaController;
 use App\Http\Controllers\IkuOpdController;
+use App\Http\Controllers\KotaPerjanjianKinerjaController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\LkjipOpdController;
@@ -72,6 +73,8 @@ Route::middleware('auth')->group(function () {
     // pengukuran kinerja
     // kota
     Route::resource('ikuKota', IkuKotaController::class);
+    Route::resource('kotaPerjanjianKinerja', KotaPerjanjianKinerjaController::class);
+    Route::post('getKotaPerjanjianKinerja', [KotaPerjanjianKinerjaController::class, 'getKotaPerjanjianKinerja'])->name('kotaPerjanjianKinerja.getKotaPerjanjianKinerja');
     // end of kota
     // ===========================
     // opd
