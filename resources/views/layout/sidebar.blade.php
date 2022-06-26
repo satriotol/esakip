@@ -95,23 +95,28 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('kotaPerjanjianKinerja.index') }}"
-                                class="nav-link {{ active_class(['kotaPerjanjianKinerja.*']) }}">PERJANJIAN KINERJA</a>
+                                class="nav-link {{ active_class(['kotaPerjanjianKinerja.*']) }}">PERJANJIAN
+                                KINERJA</a>
                         </li>
                     </ul>
                 </div>
             </li>
-            <li class="nav-item {{ active_class(['ikuOpd.*']) }}">
+            <li class="nav-item {{ active_class(['ikuOpd.*','opdPerjanjianKinerja.*']) }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#perancangan_kinerja_opd" role="button"
-                    aria-expanded="{{ is_active_route(['ikuOpd.*']) }}" aria-controls="perancangan_kinerja_opd">
+                    aria-expanded="{{ is_active_route(['ikuOpd.*','opdPerjanjianKinerja.*']) }}" aria-controls="perancangan_kinerja_opd">
                     <i class="link-icon" data-feather="anchor"></i>
                     <span class="link-title">OPD</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ show_class(['ikuOpd.*']) }}" id="perancangan_kinerja_opd">
+                <div class="collapse {{ show_class(['ikuOpd.*','opdPerjanjianKinerja.*']) }}" id="perancangan_kinerja_opd">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{ route('ikuOpd.index') }}"
                                 class="nav-link {{ active_class(['ikuOpd.*']) }}">IKU</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('opdPerjanjianKinerja.index') }}"
+                                class="nav-link {{ active_class(['opdPerjanjianKinerja.*']) }}">PERJANJIAN KINERJA</a>
                         </li>
                     </ul>
                 </div>
@@ -157,7 +162,7 @@
                 </a>
             </li>
             <li class="nav-item nav-category">Evaluasi Kinerja</li>
-            <li class="nav-item {{ active_class(['evaluasiKinerjaYear.*','evaluasiKinerja.*']) }}">
+            <li class="nav-item {{ active_class(['evaluasiKinerjaYear.*', 'evaluasiKinerja.*']) }}">
                 <a href="{{ route('evaluasiKinerjaYear.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
                     <span class="link-title">Evaluasi Kinerja</span>
