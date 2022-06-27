@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\DataUnitController;
+use App\Http\Controllers\Api\EvaluasiKinerjaAkipController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('getApbdAnggaran', [DataUnitController::class, 'getApbdAnggaran']);
 Route::get('getRealisasiAnggaran', [DataUnitController::class, 'getRealisasiAnggaran']);
+Route::get('evaluasi_kinerja_akip', [EvaluasiKinerjaAkipController::class, 'index']);
