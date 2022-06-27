@@ -19,3 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('getApbdAnggaran', [DataUnitController::class, 'getApbdAnggaran']);
+Route::get('getRealisasiAnggaran', [DataUnitController::class, 'getRealisasiAnggaran']);

@@ -48,7 +48,7 @@ class CascadingKinerjaOpdController extends Controller
                 ->make(true);
         }
     }
-    public function index()
+    public function index(Request $request)
     {
         return view('perencanaan_kinerja.opd.cascading_kinerja.index');
     }
