@@ -144,8 +144,6 @@
     </div>
 @endsection
 @push('script')
-    <script src="https://unpkg.com/vue@3"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         const {
             createApp

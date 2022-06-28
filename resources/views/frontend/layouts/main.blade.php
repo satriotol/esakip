@@ -26,6 +26,7 @@
     <link href="{{ asset('frontend/css/bootsnav.css') }}" rel="stylesheet" />
     <link href="{{ asset('frontend/style.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/responsive.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/fonts/feather-font/css/iconfont.css') }}" rel="stylesheet" />
     @stack('css')
     <style>
         .pagination>li>a,
@@ -80,6 +81,9 @@
     <script src="{{ asset('frontend/js/circle-progress.js') }}"></script>
     <script src="{{ asset('frontend/js/bootsnav.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
+    <script src="{{ asset('assets/plugins/feather-icons/feather.min.js') }}"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     @stack('script')
 
 </body>

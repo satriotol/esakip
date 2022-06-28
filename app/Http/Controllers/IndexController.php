@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PerencanaanKinerjaRpjmd;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -13,5 +14,11 @@ class IndexController extends Controller
     public function pelaporan_kinerja()
     {
         return view('frontend.pelaporan_kinerja.index');
+    }
+    public function perencanaan_kinerja_kota()
+    {
+        $name = 'Perencanaan Kinerja Kota';
+        $rpjmd = PerencanaanKinerjaRpjmd::first();
+        return view('frontend.perencanaan_kinerja_kota.index', compact('name', 'rpjmd'));
     }
 }

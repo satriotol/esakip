@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\EvaluasiKinerjaAkipController;
 use App\Http\Controllers\Api\OpdController;
 use App\Http\Controllers\Api\PelaporanKinerja\KotaLkjipController;
 use App\Http\Controllers\Api\PelaporanKinerja\OpdLkjipController;
+use App\Http\Controllers\Api\PerencanaanKinerjaKotaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,3 +29,6 @@ Route::get('getRealisasiAnggaran', [DataUnitController::class, 'getRealisasiAngg
 Route::get('evaluasi_kinerja_akip', [EvaluasiKinerjaAkipController::class, 'index']);
 Route::get('kotaLkjip', [KotaLkjipController::class, 'index']);
 Route::get('opdLkjip', [OpdLkjipController::class, 'index']);
+
+
+Route::get('perencanaankinerjakota/rkpd', [PerencanaanKinerjaKotaController::class, 'getRkpd']);
