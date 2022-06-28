@@ -1,31 +1,34 @@
 @extends('frontend.layouts.main')
 @section('content')
     <div class="breadcrumb-area shadow theme-hard bg-fixed text-center text-light"
-        style="background-image: url(assets/img/2440x1578.png);">
+        style="background-image: url({{ 'kotasemarangvector.jpg' }});">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <h1>Pelaporan Kinerja</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                        <li><a href="#">Pages</a></li>
-                        <li class="active">About</li>
-                    </ul>
                 </div>
             </div>
         </div>
     </div>
     <div class="affected-countries-area bg-gray shape default-padding">
         <div class="container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="site-heading text-center">
-                        <h2>Pelaporan Kinerja</h2>
+            <div id="app">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <div class="site-heading text-center">
+                            <h2>Pelaporan Kinerja</h2>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <button class="btn btn-primary">KOTA</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-primary">OPD</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div id="app">
-                <div class="country-lists">
+                <div class="country-lists" style="margin-top: 10px">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -98,7 +101,7 @@
                     datas: "",
                     url: API_URL + 'kotaLkjip',
                     pagination: "",
-                    loading: false,
+                    loading: true,
                     name_search: "",
                     year_search: "",
                 }

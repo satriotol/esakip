@@ -1,7 +1,7 @@
 @extends('frontend.layouts.main')
 @section('content')
     <div class="banner-area text-center single-banner bg-cover text-light"
-        style="background-image: url(frontend/img/2440x1578.png);">
+        style="background-image: url({{('kotasemarangvector.jpg')}});">
         <div class="item">
             <div class="box-table shadow theme-hard">
                 <div class="box-cell">
@@ -11,35 +11,15 @@
                                 <div class="content">
                                     <h2 data-animation="animated fadeInLeft">E-SAKIP</h2>
                                     <p data-animation="animated slideInUp">
-                                        Sistem Akuntabilitas Kinerja Instansi Pemerintah Secara Elektronik
+                                        Sistem Akuntabilitas Kinerja Instansi Pemerintah Secara Elektronik <br>
+                                        PEMERINTAH KOTA SEMARANG
                                     </p>
-                                    <h4>Basic Symptroms</h4>
-                                    <ul>
-                                        <li>
-                                            <span>Headache</span>
-                                        </li>
-                                        <li>
-                                            <span>Fatigue</span>
-                                        </li>
-                                        <li>
-                                            <span>Shaking Chills</span>
-                                        </li>
-                                        <li>
-                                            <span>Dhiarrea</span>
-                                        </li>
-                                        <li>
-                                            <span>Fever</span>
-                                        </li>
-                                        <li>
-                                            <span>Cough</span>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="wavesshape">
-                        <img src="frontend/img/waves-shape.svg" alt="Shape">
+                        <img src="{{asset('frontend/img/waves-shape.svg')}}" alt="Shape">
                     </div>
                 </div>
             </div>
