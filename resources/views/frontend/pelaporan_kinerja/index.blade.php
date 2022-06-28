@@ -14,18 +14,14 @@
         <div class="container">
             <div id="app">
                 <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
+                    <div class="col-md-12">
                         <div class="site-heading text-center">
                             <h2>Pelaporan Kinerja</h2>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <button :class="[routeName == 'kota' ? 'btn btn-success' : 'btn btn-primary']"
-                                        @click="setRouteName('kota')">KOTA</button>
-                                </div>
-                                <div class="col-md-6">
-                                    <button :class="[routeName == 'opd' ? 'btn btn-success' : 'btn btn-primary']"
-                                        @click="setRouteName('opd')">OPD</button>
-                                </div>
+                            <div class="text-left">
+                                <button :class="[routeName == 'kota' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('kota')">KOTA</button>
+                                <button :class="[routeName == 'opd' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('opd')">OPD</button>
                             </div>
                         </div>
                     </div>
