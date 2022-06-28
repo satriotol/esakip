@@ -21,4 +21,9 @@ class IndexController extends Controller
         $rpjmd = PerencanaanKinerjaRpjmd::first();
         return view('frontend.perencanaan_kinerja_kota.index', compact('name', 'rpjmd'));
     }
+    public function perencanaan_kinerja_opd()
+    {
+        $name = 'Perencanaan Kinerja Opd';
+        return view('frontend.perencanaan_kinerja_opd.index', compact('name'));
+    }
 }

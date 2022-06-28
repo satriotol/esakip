@@ -12,7 +12,7 @@ class RenstraOpd extends Model
 {
     use HasFactory;
     protected $fillable = ['opd_id', 'periode_renstra_opd_id', 'file'];
-    protected $appends = ['file_url', 'opd_name'];
+    protected $appends = ['file_url', 'opd_name', 'year'];
 
     public function periode_renstra_opd()
     {
@@ -33,5 +33,12 @@ class RenstraOpd extends Model
     public function getOpdNameAttribute()
     {
         return $this->opd->nama_opd ?? "";
+    }
+    public function getYearAttribute()
+    {
+        $start_year = $this->periode_renstra_opd->start_year;
+        $end_year = $this->periode_renstra_opd->end_year;
+        $period_year = $start_year . '-' . $end_year;
+        return $period_year;
     }
 }
