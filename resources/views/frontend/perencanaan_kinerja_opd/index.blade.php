@@ -33,10 +33,10 @@
                 <div v-if="routeName == 'RENSTRA'">
                     @include('frontend.perencanaan_kinerja_opd.renstra')
                 </div>
-                {{-- <div v-if="routeName == 'RKT'">
-                    @include('frontend.perencanaan_kinerja_opd.rkpd')
+                <div v-if="routeName == 'RKT'">
+                    @include('frontend.perencanaan_kinerja_opd.rkt')
                 </div>
-                <div v-if="routeName == 'RENJA'">
+                {{-- <div v-if="routeName == 'RENJA'">
                     @include('frontend.perencanaan_kinerja_opd.rkpd')
                 </div> --}}
                 {{-- <div v-if="routeName == 'CASCADING KINERJA'">
@@ -60,11 +60,13 @@
                     opds: "",
                     dataRenstraPeriod: "",
                     dataRenstra: "",
+                    dataRkt: "",
 
                     paginationRenstra: "",
 
                     urlPeriodRenstra: API_URL + 'perencanaankinerjaopd/renstra_period',
                     urlRenstra: API_URL + 'perencanaankinerjaopd/renstra',
+                    urlRkt: API_URL + 'perencanaankinerjaopd/rkt',
 
                     year_search: "",
                     name_search: "",
@@ -77,7 +79,9 @@
             },
             mounted() {
                 this.getOpdPeriodRenstra();
+                this.getOpdRenstra();
                 this.getOpd();
+                this.getOpdRkt();
             },
             methods: {
                 getOpd() {
@@ -116,6 +120,27 @@
                         ))
                         .catch(function(error) {
                             this.errorMessage = error.response.data[0].message;
+                        })
+                },
+                getOpdRkt(pageUrl) {
+                    if (pageUrl) {
+                        pageUrl = pageUrl.split('=').pop();
+                    }
+                    this.errorMessage = "";
+                    axios.get(this.urlRkt, {
+                            params: {
+                                page: pageUrl,
+                                name_search: this.name_search,
+                                opd_search: this.opd_search,
+                                year_search: this.year_search,
+                            }
+                        })
+                        .then(response => (
+                            this.dataRkt = response.data.rkt_datas.data,
+                            this.paginationRkt = response.data.rkt_datas
+                        ))
+                        .catch(function(error) {
+                            console.log(error);
                         })
                 },
                 setRouteName(routeName) {

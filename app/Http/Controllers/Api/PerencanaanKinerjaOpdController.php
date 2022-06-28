@@ -19,14 +19,12 @@ class PerencanaanKinerjaOpdController extends Controller
     }
     public function getRenstra(Request $request)
     {
-        $renstra_datas = RenstraOpd::where('periode_renstra_opd_id', $request->renstra_period_search)
-            ->when($request->opd_search, function ($q) use ($request) {
-                $q->where('opd_id', $request->opd_search);
-            })->paginate();
+        $renstra_datas = RenstraOpd::when($request->opd_search, function ($q) use ($request) {
+            $q->where('periode_renstra_opd_id', $request->renstra_period_search);
+        })->when($request->opd_search, function ($q) use ($request) {
+            $q->where('opd_id', $request->opd_search);
+        })->paginate();
 
-        if ($request->renstra_period_search == null) {
-            return $this->failedResponse([], 'Pastikan Sudah Mengisi Form');
-        }
         return $this->successResponse(['renstra_datas' => $renstra_datas]);
     }
     public function getRkt(Request $request)
