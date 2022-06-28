@@ -163,7 +163,7 @@
                         })
                         .then(response => (
                             this.dataRenja = response.data.renja_datas.data,
-                            this.paginationRkt = response.data.renja_datas
+                            this.paginationRenja = response.data.renja_datas
                         ))
                         .catch(function(error) {
                             console.log(error);
