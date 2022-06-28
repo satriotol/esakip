@@ -329,12 +329,12 @@ input {
 }
 
 .default-padding {
-  padding-top: 120px;
+  padding-top: 60px;
   padding-bottom: 120px;
 }
 
 .default-padding-top {
-  padding-top: 120px;
+  padding-top: 60px;
 }
 
 .default-padding-bottom {
@@ -342,17 +342,17 @@ input {
 }
 
 .default-padding.bottom-less {
-  padding-top: 120px;
+  padding-top: 60px;
   padding-bottom: 90px;
 }
 
 .default-padding.bottom-30 {
-  padding-top: 120px;
+  padding-top: 60px;
   padding-bottom: 30px;
 }
 
 .default-padding.bottom-20 {
-  padding-top: 120px;
+  padding-top: 60px;
   padding-bottom: 20px;
 }
 
@@ -785,9 +785,9 @@ nav.navbar.bootsnav.sticked .attr-nav.social li {
 }
 
 .site-heading {
-  margin-bottom: 60px;
+  /* margin-bottom: 60px;
   overflow: hidden;
-  margin-top: -5px;
+  margin-top: -5px; */
 }
 
 .site-heading .devider img {
@@ -2017,7 +2017,7 @@ body,
     background: #fafafa;
 }
 
-.affected-countries-area table tbody tr:nth-child(2n) td {
+/* .affected-countries-area table tbody tr:nth-child(2n) td {
     border: none;
 }
 
@@ -2027,10 +2027,10 @@ body,
 
 .affected-countries-area table tbody tr td:last-child {
     color: green;
-}
+} */
 
 .affected-countries-area a {
-  margin-top: 30px;
+  /* margin-top: 30px; */
 }
 
 

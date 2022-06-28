@@ -1,0 +1,134 @@
+@extends('frontend.layouts.main')
+@section('content')
+    <div class="breadcrumb-area shadow theme-hard bg-fixed text-center text-light"
+        style="background-image: url(assets/img/2440x1578.png);">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <h1>Pelaporan Kinerja</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#">Pages</a></li>
+                        <li class="active">About</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="affected-countries-area bg-gray shape default-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="site-heading text-center">
+                        <h2>Pelaporan Kinerja</h2>
+                    </div>
+                </div>
+            </div>
+            <div id="app">
+                <div class="country-lists">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="number" v-model="year_search" placeholder="Cari Berdasarkan Tahun"
+                                            class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" v-model="name_search" placeholder="Cari Berdasarkan Nama"
+                                            class="form-control">
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <button class="btn btn-primary" @click="getKotaLkjips()">Cari</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Dokumen</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(data, index) in datas">
+                                            <td>
+                                                @{{ data.year }} | @{{ data.name }}
+                                            </td>
+                                            <td>
+                                                <a :href="data.file_url" target="_blank" class="btn btn-success">View</a>
+                                                <a :download="data.file_url" target="_blank"
+                                                    class="btn btn-danger">Download</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <nav aria-label="Page navigation example" class="text-right">
+                                    <ul class="pagination">
+                                        <li class="page-item" :class="{ active: link.active }"
+                                            v-for="link in pagination.links" @click="getKotaLkjips(link.url)">
+                                            <a class="page-link" v-if="link.label">
+                                                @{{ (link.label).split('.')[1] ?? (link.label).split('.')[0] }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
+@push('script')
+    <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const {
+            createApp
+        } = Vue;
+        const API_URL = "{{ env('API_URL') }}";
+
+        createApp({
+            data() {
+                return {
+                    message: 'Hello Vue!',
+                    datas: "",
+                    url: API_URL + 'kotaLkjip',
+                    pagination: "",
+                    loading: false,
+                    name_search: "",
+                    year_search: "",
+                }
+            },
+            mounted() {
+                this.getKotaLkjips();
+            },
+            methods: {
+                getKotaLkjips(pageUrl) {
+                    this.loading = true;
+                    if (pageUrl) {
+                        pageUrl = pageUrl.split('=').pop();
+                    }
+                    axios.get(this.url, {
+                            params: {
+                                page: pageUrl,
+                                name_search: this.name_search,
+                                year_search: this.year_search
+                            }
+                        })
+                        .then(response => (
+                            this.datas = response.data.lkjips_data.data,
+                            this.pagination = response.data.lkjips_data
+                        ))
+                        .catch(function(error) {
+                            console.log(error);
+                        })
+                        .finally(() => this.loading = false)
+                }
+            },
+        }).mount('#app')
+    </script>
+@endpush

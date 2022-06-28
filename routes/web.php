@@ -16,5 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(__DIR__ . '/adminRoutes.php');
 Route::get('/', [IndexController::class, 'home'])->name('home');
+Route::get('/pelaporan_kinerja', [IndexController::class, 'pelaporan_kinerja'])->name('pelaporan_kinerja');
 
 require __DIR__ . '/auth.php';

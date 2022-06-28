@@ -27,6 +27,22 @@
     <link href="{{ asset('frontend/style.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/responsive.css') }}" rel="stylesheet" />
     @stack('css')
+    <style>
+        .pagination>li>a,
+        .pagination>li>span {
+            color: #b73333;
+        }
+
+        .pagination>.active>a,
+        .pagination>.active>a:focus,
+        .pagination>.active>a:hover,
+        .pagination>.active>span,
+        .pagination>.active>span:focus,
+        .pagination>.active>span:hover {
+            background-color: #b73333;
+            border-color: #b73333;
+        }
+    </style>
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800" rel="stylesheet">
 
@@ -36,66 +52,14 @@
 
     <!-- Preloader Start -->
     <div class="se-pre-con"></div>
-    <!-- Preloader Ends -->
-    @include('frontend.layouts.header')
+    <header>
+        @include('frontend.layouts.header')
+    </header>
 
-    <!-- Start Banner
-    ============================================= -->
-    <div class="banner-area text-center single-banner bg-cover text-light"
-        style="background-image: url(frontend/img/2440x1578.png);">
-        <div class="item">
-            <div class="box-table shadow theme-hard">
-                <div class="box-cell">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
-                                <div class="content">
-                                    <h2 data-animation="animated fadeInLeft">Coronavirus</h2>
-                                    <p data-animation="animated slideInUp">
-                                        Continual delighted as elsewhere am convinced unfeeling. Introduced stimulated
-                                        attachment no by projection. To loud lady whom my mile sold four.
-                                    </p>
-                                    <h4>Basic Symptroms</h4>
-                                    <ul>
-                                        <li>
-                                            <span>Headache</span>
-                                        </li>
-                                        <li>
-                                            <span>Fatigue</span>
-                                        </li>
-                                        <li>
-                                            <span>Shaking Chills</span>
-                                        </li>
-                                        <li>
-                                            <span>Dhiarrea</span>
-                                        </li>
-                                        <li>
-                                            <span>Fever</span>
-                                        </li>
-                                        <li>
-                                            <span>Cough</span>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="wavesshape">
-                        <img src="frontend/img/waves-shape.svg" alt="Shape">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- End Banner -->
-
-    <!-- Start Footer
-    ============================================= -->
+    @yield('content')
     <footer class="bg-dark text-light">
         @include('frontend.layouts.footer')
     </footer>
-    <!-- End Footer -->
 
     <!-- jQuery Frameworks
     ============================================= -->

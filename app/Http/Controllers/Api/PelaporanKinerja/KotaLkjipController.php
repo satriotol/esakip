@@ -8,9 +8,13 @@ use Illuminate\Http\Request;
 
 class KotaLkjipController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $lkjips = LkjipKota::paginate(1);
+        $lkjips = LkjipKota::when($request->name_search, function ($q) use ($request){
+            $q->where('name', 'like', "%" . $request->name_search . "%");
+        })->when($request->year_search, function ($q) use ($request){
+            $q->where('year', 'like', "%" . $request->year_search . "%");
+        })->paginate(5);
         return $this->successResponse(['lkjips_data' => $lkjips]);
     }
 }
