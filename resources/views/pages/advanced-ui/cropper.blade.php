@@ -42,7 +42,7 @@
                 <button class="btn btn-primary crop mb-2 mb-md-0">Crop</button>
               </div>
               <div class="mb-4 mb-md-0 mt-3">
-                <a href="javascript:;" class="btn btn-outline-primary download">Download</a>
+                <a href="javascript:;" class="btn btn-outline-primary download"><i class="fa-solid fa-download"></i> Download</a>
               </div>
             </div>
           </div>

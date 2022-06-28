@@ -26,7 +26,9 @@
     <link href="{{ asset('frontend/css/bootsnav.css') }}" rel="stylesheet" />
     <link href="{{ asset('frontend/style.css') }}" rel="stylesheet">
     <link href="{{ asset('frontend/css/responsive.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/fonts/feather-font/css/iconfont.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     @stack('css')
     <style>
         .pagination>li>a,
@@ -81,7 +83,9 @@
     <script src="{{ asset('frontend/js/circle-progress.js') }}"></script>
     <script src="{{ asset('frontend/js/bootsnav.js') }}"></script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
-    <script src="{{ asset('assets/plugins/feather-icons/feather.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js"
+        integrity="sha512-6PM0qYu5KExuNcKt5bURAoT6KCThUmHRewN3zUFNaoI6Di7XJPTMoT6K0nsagZKk2OB4L7E3q1uQKHNHd4stIQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     @stack('script')

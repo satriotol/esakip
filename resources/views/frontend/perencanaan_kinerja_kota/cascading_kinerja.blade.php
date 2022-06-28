@@ -30,8 +30,9 @@
                                 @{{ data.year }} | @{{ data.name }}
                             </td>
                             <td>
-                                <a :href="data.file_url" target="_blank" class="btn btn-success">View</a>
-                                <a download :href="data.file_url" target="_blank" class="btn btn-danger">Download</a>
+                                <a :href="data.file_url" target="_blank" class="btn btn-success"><i
+                                        class="fa-solid fa-eye"></i> View</a>
+                                <a download :href="data.file_url" target="_blank" class="btn btn-danger"><i class="fa-solid fa-download"></i> Download</a>
                             </td>
                         </tr>
                     </tbody>
