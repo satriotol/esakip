@@ -13,10 +13,10 @@
         <div class="collapse navbar-collapse" id="navbar-menu">
             <ul class="nav navbar-nav navbar-right" data-in="#" data-out="#">
                 <li>
-                    <a href="{{ route('home') }}" class="active">Beranda</a>
+                    <a href="{{ route('home') }}" class="{{ active_class(['home']) }}">Beranda</a>
                 </li>
                 <li>
-                    <a href="{{ route('pelaporan_kinerja') }}">Pelaporan Kinerja</a>
+                    <a href="{{ route('pelaporan_kinerja') }}" class="{{ active_class(['pelaporan_kinerja']) }}">Pelaporan Kinerja</a>
                 </li>
             </ul>
         </div>

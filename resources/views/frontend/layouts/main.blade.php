@@ -12,7 +12,7 @@
     <title>E-SAKIP PEMKOT SEMARANG</title>
 
     <!-- ========== Favicon Icon ========== -->
-    <link rel="shortcut icon" href="{{asset('frontend/img/pemkot.png')}}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('frontend/img/pemkot.png') }}" type="image/x-icon">
 
     <!-- ========== Start Stylesheet ========== -->
     <link href="{{ asset('frontend/css/bootstrap.min.css') }}" rel="stylesheet" />
