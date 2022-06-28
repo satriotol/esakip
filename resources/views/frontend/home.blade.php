@@ -9,10 +9,9 @@
                         <div class="row">
                             <div class="col-md-10 col-md-offset-1">
                                 <div class="content">
-                                    <h2 data-animation="animated fadeInLeft">Coronavirus</h2>
+                                    <h2 data-animation="animated fadeInLeft">E-SAKIP</h2>
                                     <p data-animation="animated slideInUp">
-                                        Continual delighted as elsewhere am convinced unfeeling. Introduced stimulated
-                                        attachment no by projection. To loud lady whom my mile sold four.
+                                        Sistem Akuntabilitas Kinerja Instansi Pemerintah Secara Elektronik
                                     </p>
                                     <h4>Basic Symptroms</h4>
                                     <ul>
