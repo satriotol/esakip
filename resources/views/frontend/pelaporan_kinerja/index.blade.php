@@ -19,16 +19,18 @@
                             <h2>Pelaporan Kinerja</h2>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <button class="btn btn-primary">KOTA</button>
+                                    <button :class="[routeName == 'kota' ? 'btn btn-success' : 'btn btn-primary']"
+                                        @click="setRouteName('kota')">KOTA</button>
                                 </div>
                                 <div class="col-md-6">
-                                    <button class="btn btn-primary">OPD</button>
+                                    <button :class="[routeName == 'opd' ? 'btn btn-success' : 'btn btn-primary']"
+                                        @click="setRouteName('opd')">OPD</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="country-lists" style="margin-top: 10px">
+                <div class="country-lists" style="margin-top: 10px" v-if="routeName == 'kota'">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -61,7 +63,7 @@
                                             </td>
                                             <td>
                                                 <a :href="data.file_url" target="_blank" class="btn btn-success">View</a>
-                                                <a :download="data.file_url" target="_blank"
+                                                <a download :href="data.file_url" target="_blank"
                                                     class="btn btn-danger">Download</a>
                                             </td>
                                         </tr>
@@ -71,6 +73,66 @@
                                     <ul class="pagination">
                                         <li class="page-item" :class="{ active: link.active }"
                                             v-for="link in pagination.links" @click="getKotaLkjips(link.url)">
+                                            <a class="page-link" v-if="link.label">
+                                                @{{ (link.label).split('.')[1] ?? (link.label).split('.')[0] }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="country-lists" style="margin-top: 10px" v-else>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <input type="number" v-model="year_search" placeholder="Cari Berdasarkan Tahun"
+                                            class="form-control">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select class="form-control" v-model="opd_search" style="min-height: 50px;">
+                                            <option value="">Cari Berdasarkan OPD</option>
+                                            <option :value="opd.id" v-for="(opd, index) in opds">
+                                                @{{ opd.nama_opd }}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <button class="btn btn-primary" @click="getOpdLkjips()">Cari</button>
+                                </div>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Tahun</th>
+                                            <th>OPD</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(data, index) in datas_opd">
+                                            <td>
+                                                @{{ data.year }}
+                                            </td>
+                                            <td>
+                                                @{{ data.opd_name }}
+                                            </td>
+                                            <td>
+                                                <a :href="data.file_url" target="_blank" class="btn btn-success">View</a>
+                                                <a download :href="data.file_url" target="_blank"
+                                                    class="btn btn-danger">Download</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <nav aria-label="Page navigation example" class="text-right">
+                                    <ul class="pagination">
+                                        <li class="page-item" :class="{ active: link.active }"
+                                            v-for="link in pagination.links" @click="getOpdLkjips(link.url)">
                                             <a class="page-link" v-if="link.label">
                                                 @{{ (link.label).split('.')[1] ?? (link.label).split('.')[0] }}
                                             </a>
@@ -99,17 +161,34 @@
                 return {
                     message: 'Hello Vue!',
                     datas: "",
+                    datas_opd: "",
                     url: API_URL + 'kotaLkjip',
+                    url_opd: API_URL + 'opdLkjip',
                     pagination: "",
+                    pagination_opd: "",
                     loading: true,
                     name_search: "",
                     year_search: "",
+                    opd_search: "",
+                    routeName: "kota",
+                    opds: [],
                 }
             },
             mounted() {
                 this.getKotaLkjips();
+                this.getOpdLkjips();
+                this.getOpd();
             },
             methods: {
+                getOpd() {
+                    axios.get(API_URL + 'opd')
+                        .then(response => (
+                            this.opds = response.data.opds
+                        ))
+                        .catch(function(error) {
+                            console.log(error);
+                        })
+                },
                 getKotaLkjips(pageUrl) {
                     this.loading = true;
                     if (pageUrl) {
@@ -123,13 +202,37 @@
                             }
                         })
                         .then(response => (
-                            this.datas = response.data.lkjips_data.data,
-                            this.pagination = response.data.lkjips_data
+                            this.datas = response.data.lkjips_kota_data.data,
+                            this.pagination = response.data.lkjips_kota_data
                         ))
                         .catch(function(error) {
                             console.log(error);
                         })
                         .finally(() => this.loading = false)
+                },
+                getOpdLkjips(pageUrl) {
+                    this.loading = true;
+                    if (pageUrl) {
+                        pageUrl = pageUrl.split('=').pop();
+                    }
+                    axios.get(this.url_opd, {
+                            params: {
+                                page: pageUrl,
+                                opd_search: this.opd_search,
+                                year_search: this.year_search
+                            }
+                        })
+                        .then(response => (
+                            this.datas_opd = response.data.lkjips_opd_data.data,
+                            this.pagination_opd = response.data.lkjips_opd_data
+                        ))
+                        .catch(function(error) {
+                            console.log(error);
+                        })
+                        .finally(() => this.loading = false)
+                },
+                setRouteName(routeName) {
+                    this.routeName = routeName;
                 }
             },
         }).mount('#app')
