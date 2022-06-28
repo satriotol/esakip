@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <button class="btn btn-primary" @click="getKotaRkpd()">Cari</button>
+                    <button class="btn btn-primary" @click="getKotaCascadingKinerja()">Cari</button>
                 </div>
             </div>
             <div class="table-responsive">
@@ -25,7 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(data, index) in dataRkpd">
+                        <tr v-for="(data, index) in dataCascadingKinerja">
                             <td>
                                 @{{ data.year }} | @{{ data.name }}
                             </td>
@@ -36,14 +36,14 @@
                         </tr>
                     </tbody>
                 </table>
-                <div v-if="dataRkpd.length == 0" class="text-center">
+                <div v-if="dataCascadingKinerja.length == 0" class="text-center">
                     <img src="{{ asset('no-results.png') }}" style="height: 200px;"><br>
                     <h2>Data Tidak Ditemukan</h2>
                 </div>
                 <nav aria-label="Page navigation example" class="text-right">
                     <ul class="pagination">
-                        <li class="page-item" :class="{ active: link.active }" v-for="link in paginationRkpd.links"
-                            @click="getKotaRkpd(link.url)">
+                        <li class="page-item" :class="{ active: link.active }" v-for="link in paginationCascadingKinerja.links"
+                            @click="getKotaCascadingKinerja(link.url)">
                             <a class="page-link" v-if="link.label">
                                 @{{ (link.label).split('.')[1] ?? (link.label).split('.')[0] }}
                             </a>

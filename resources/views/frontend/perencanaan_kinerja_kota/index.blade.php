@@ -34,6 +34,9 @@
                 <div v-if="routeName == 'RKPD'">
                     @include('frontend.perencanaan_kinerja_kota.rkpd')
                 </div>
+                <div v-if="routeName == 'CASCADING_KINERJA'">
+                    @include('frontend.perencanaan_kinerja_kota.cascading_kinerja')
+                </div>
             </div>
         </div>
     </div>
@@ -49,10 +52,12 @@
             data() {
                 return {
                     dataRkpd: "",
-                    paginationRpjmd: [],
+                    dataCascadingKinerja: "",
+                    paginationRkpd: [],
+                    paginationCascadingKinerja: [],
                     routeName: "RPJMD",
-                    url: API_URL + 'perencanaankinerjakota/rkpd',
-                    pagination: "",
+                    urlRkpd: API_URL + 'perencanaankinerjakota/rkpd',
+                    urlCascadingKinerja: API_URL + 'perencanaankinerjakota/cascading_kinerja',
                     year_search: "",
                     name_search: "",
                     loading: true,
@@ -60,23 +65,15 @@
             },
             mounted() {
                 this.getKotaRkpd();
+                this.getKotaCascadingKinerja();
             },
             methods: {
-                getOpd() {
-                    axios.get(API_URL + 'opd')
-                        .then(response => (
-                            this.opds = response.data.opds
-                        ))
-                        .catch(function(error) {
-                            console.log(error);
-                        })
-                },
                 getKotaRkpd(pageUrl) {
                     this.loading = true;
                     if (pageUrl) {
                         pageUrl = pageUrl.split('=').pop();
                     }
-                    axios.get(this.url, {
+                    axios.get(this.urlRkpd, {
                             params: {
                                 page: pageUrl,
                                 name_search: this.name_search,
@@ -85,7 +82,28 @@
                         })
                         .then(response => (
                             this.dataRkpd = response.data.rkpd_datas.data,
-                            this.paginationRpjmd = response.data.rkpd_datas
+                            this.paginationRkpd = response.data.rkpd_datas
+                        ))
+                        .catch(function(error) {
+                            console.log(error);
+                        })
+                        .finally(() => this.loading = false)
+                },
+                getKotaCascadingKinerja(pageUrl) {
+                    this.loading = true;
+                    if (pageUrl) {
+                        pageUrl = pageUrl.split('=').pop();
+                    }
+                    axios.get(this.urlCascadingKinerja, {
+                            params: {
+                                page: pageUrl,
+                                name_search: this.name_search,
+                                year_search: this.year_search
+                            }
+                        })
+                        .then(response => (
+                            this.dataCascadingKinerja = response.data.cascading_kinerja_datas.data,
+                            this.paginationCascadingKinerja = response.data.cascading_kinerja_datas
                         ))
                         .catch(function(error) {
                             console.log(error);
