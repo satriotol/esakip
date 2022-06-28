@@ -19,7 +19,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Perencanaan Kinerja</a>
                     <ul class="dropdown-menu">
                         <li><a href="{{route('perencanaan_kinerja_kota')}}">Kota</a></li>
-                        <li><a href="index-2.html">Opd</a></li>
+                        <li><a href="index-2.html">OPD</a></li>
                     </ul>
                 </li>
                 <li>

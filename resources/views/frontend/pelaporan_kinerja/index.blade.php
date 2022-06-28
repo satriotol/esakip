@@ -65,6 +65,10 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div v-if="datas.length == 0" class="text-center">
+                                    <img src="{{ asset('no-results.png') }}" style="height: 200px;">
+                                    <h2>Data Tidak Ditemukan</h2>
+                                </div>
                                 <nav aria-label="Page navigation example" class="text-right">
                                     <ul class="pagination">
                                         <li class="page-item" :class="{ active: link.active }"
@@ -125,6 +129,10 @@
                                         </tr>
                                     </tbody>
                                 </table>
+                                <div v-if="datas_opd.length == 0" class="text-center">
+                                    <img src="{{ asset('no-results.png') }}" style="height: 200px;">
+                                    <h2>Data Tidak Ditemukan</h2>   
+                                </div>
                                 <nav aria-label="Page navigation example" class="text-right">
                                     <ul class="pagination">
                                         <li class="page-item" :class="{ active: link.active }"

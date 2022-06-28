@@ -25,7 +25,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(data, index) in dataRpjmd">
+                        <tr v-for="(data, index) in dataRkpd">
                             <td>
                                 @{{ data.year }} | @{{ data.name }}
                             </td>
@@ -36,6 +36,10 @@
                         </tr>
                     </tbody>
                 </table>
+                <div v-if="dataRkpd.length == 0" class="text-center">
+                    <img src="{{ asset('no-results.png') }}" style="height: 200px;"><br>
+                    <h2>Data Tidak Ditemukan</h2>
+                </div>
                 <nav aria-label="Page navigation example" class="text-right">
                     <ul class="pagination">
                         <li class="page-item" :class="{ active: link.active }" v-for="link in pagination.links"

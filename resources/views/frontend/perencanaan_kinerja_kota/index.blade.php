@@ -48,7 +48,7 @@
         createApp({
             data() {
                 return {
-                    dataRpjmd: "",
+                    dataRkpd: "",
                     paginationRpjmd: [],
                     routeName: "RPJMD",
                     url: API_URL + 'perencanaankinerjakota/rkpd',
@@ -84,7 +84,7 @@
                             }
                         })
                         .then(response => (
-                            this.dataRpjmd = response.data.rkpd_datas.data,
+                            this.dataRkpd = response.data.rkpd_datas.data,
                             this.paginationRpjmd = response.data.rkpd_datas
                         ))
                         .catch(function(error) {
