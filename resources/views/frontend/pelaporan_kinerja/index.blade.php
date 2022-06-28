@@ -1,7 +1,7 @@
 @extends('frontend.layouts.main')
 @section('content')
     <div class="breadcrumb-area shadow theme-hard bg-fixed text-center text-light"
-        style="background-image: url({{ 'kotasemarangvector.jpg' }});">
+        style="background-image: url({{ asset('kotasemarangvector.jpg') }});">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">

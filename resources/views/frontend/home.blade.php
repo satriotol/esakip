@@ -1,7 +1,7 @@
 @extends('frontend.layouts.main')
 @section('content')
     <div class="banner-area text-center single-banner bg-cover text-light"
-        style="background-image: url({{('kotasemarangvector.jpg')}});">
+        style="background-image: url({{ asset('kotasemarangvector.jpg') }});">
         <div class="item">
             <div class="box-table shadow theme-hard">
                 <div class="box-cell">
@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="wavesshape">
-                        <img src="{{asset('frontend/img/waves-shape.svg')}}" alt="Shape">
+                        <img src="{{ asset('frontend/img/waves-shape.svg') }}" alt="Shape">
                     </div>
                 </div>
             </div>
