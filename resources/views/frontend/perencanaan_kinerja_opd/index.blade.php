@@ -36,9 +36,9 @@
                 <div v-if="routeName == 'RKT'">
                     @include('frontend.perencanaan_kinerja_opd.rkt')
                 </div>
-                {{-- <div v-if="routeName == 'RENJA'">
-                    @include('frontend.perencanaan_kinerja_opd.rkpd')
-                </div> --}}
+                <div v-if="routeName == 'RENJA'">
+                    @include('frontend.perencanaan_kinerja_opd.renja')
+                </div>
                 {{-- <div v-if="routeName == 'CASCADING KINERJA'">
                     @include('frontend.perencanaan_kinerja_opd.cascading_kinerja')
                 </div> --}}
@@ -61,16 +61,21 @@
                     dataRenstraPeriod: "",
                     dataRenstra: "",
                     dataRkt: "",
+                    dataRenja: "",
 
                     paginationRenstra: "",
+                    paginationRkt: "",
+                    paginationRenja: "",
 
                     urlPeriodRenstra: API_URL + 'perencanaankinerjaopd/renstra_period',
                     urlRenstra: API_URL + 'perencanaankinerjaopd/renstra',
                     urlRkt: API_URL + 'perencanaankinerjaopd/rkt',
+                    urlRenja: API_URL + 'perencanaankinerjaopd/renja',
 
                     year_search: "",
                     name_search: "",
                     renstra_period_search: "",
+                    type_search: "",
                     opd_search: "",
                     loading: true,
 
@@ -138,6 +143,27 @@
                         .then(response => (
                             this.dataRkt = response.data.rkt_datas.data,
                             this.paginationRkt = response.data.rkt_datas
+                        ))
+                        .catch(function(error) {
+                            console.log(error);
+                        })
+                },
+                getOpdRenja(pageUrl) {
+                    if (pageUrl) {
+                        pageUrl = pageUrl.split('=').pop();
+                    }
+                    this.errorMessage = "";
+                    axios.get(this.urlRenja, {
+                            params: {
+                                page: pageUrl,
+                                opd_search: this.opd_search,
+                                year_search: this.year_search,
+                                type_search: this.type_search,
+                            }
+                        })
+                        .then(response => (
+                            this.dataRenja = response.data.renja_datas.data,
+                            this.paginationRkt = response.data.renja_datas
                         ))
                         .catch(function(error) {
                             console.log(error);

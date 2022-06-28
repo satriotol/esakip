@@ -28,7 +28,8 @@ class RenstraOpd extends Model
     }
     public function getFileUrlAttribute()
     {
-        return URL::to('uploads/' . $this->file);
+        $file = env('ASSET_URL') . 'uploads/' . $this->file;
+        return $file;
     }
     public function getOpdNameAttribute()
     {
