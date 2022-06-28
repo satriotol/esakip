@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\OpdController;
 use App\Http\Controllers\Api\PelaporanKinerja\KotaLkjipController;
 use App\Http\Controllers\Api\PelaporanKinerja\OpdLkjipController;
 use App\Http\Controllers\Api\PerencanaanKinerjaKotaController;
+use App\Http\Controllers\Api\PerencanaanKinerjaOpdController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,3 +34,9 @@ Route::get('opdLkjip', [OpdLkjipController::class, 'index']);
 
 Route::get('perencanaankinerjakota/rkpd', [PerencanaanKinerjaKotaController::class, 'getRkpd']);
 Route::get('perencanaankinerjakota/cascading_kinerja', [PerencanaanKinerjaKotaController::class, 'getCascadingKinerja']);
+
+Route::get('perencanaankinerjaopd/renstra_period', [PerencanaanKinerjaOpdController::class, 'getRenstraPeriod']);
+Route::get('perencanaankinerjaopd/renstra', [PerencanaanKinerjaOpdController::class, 'getRenstra']);
+Route::get('perencanaankinerjaopd/rkt', [PerencanaanKinerjaOpdController::class, 'getRkt']);
+Route::get('perencanaankinerjaopd/renja', [PerencanaanKinerjaOpdController::class, 'getRenja']);
+Route::get('perencanaankinerjaopd/cascading_kinerja', [PerencanaanKinerjaOpdController::class, 'getCascadingKinerja']);
