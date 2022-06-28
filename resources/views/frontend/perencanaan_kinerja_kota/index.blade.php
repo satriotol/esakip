@@ -16,14 +16,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="site-heading text-center">
-                            <h2>{{ $name }}</h2>
+                            <h2>{{ $name }} @{{ routeName }}</h2>
                             <div class="text-left">
                                 <button :class="[routeName == 'RPJMD' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('RPJMD')">RPJMD</button>
                                 <button :class="[routeName == 'RKPD' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('RKPD')">RKPD</button>
-                                <button :class="[routeName == 'CASCADING_KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
-                                    @click="setRouteName('CASCADING_KINERJA')">CASCADING KINERJA</button>
+                                <button :class="[routeName == 'CASCADING KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('CASCADING KINERJA')">CASCADING KINERJA</button>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                 <div v-if="routeName == 'RKPD'">
                     @include('frontend.perencanaan_kinerja_kota.rkpd')
                 </div>
-                <div v-if="routeName == 'CASCADING_KINERJA'">
+                <div v-if="routeName == 'CASCADING KINERJA'">
                     @include('frontend.perencanaan_kinerja_kota.cascading_kinerja')
                 </div>
             </div>

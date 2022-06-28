@@ -16,17 +16,17 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="site-heading text-center">
-                            <h2>Pelaporan Kinerja</h2>
+                            <h2>Pelaporan Kinerja @{{ routeName }}</h2>
                             <div class="text-left">
-                                <button :class="[routeName == 'kota' ? 'btn btn-success' : 'btn btn-primary']"
-                                    @click="setRouteName('kota')">KOTA</button>
-                                <button :class="[routeName == 'opd' ? 'btn btn-success' : 'btn btn-primary']"
-                                    @click="setRouteName('opd')">OPD</button>
+                                <button :class="[routeName == 'KOTA' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('KOTA')">KOTA</button>
+                                <button :class="[routeName == 'OPD' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('OPD')">OPD</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="country-lists" style="margin-top: 10px" v-if="routeName == 'kota'">
+                <div class="country-lists" style="margin-top: 10px" v-if="routeName == 'KOTA'">
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -131,7 +131,7 @@
                                 </table>
                                 <div v-if="datas_opd.length == 0" class="text-center">
                                     <img src="{{ asset('no-results.png') }}" style="height: 200px;">
-                                    <h2>Data Tidak Ditemukan</h2>   
+                                    <h2>Data Tidak Ditemukan</h2>
                                 </div>
                                 <nav aria-label="Page navigation example" class="text-right">
                                     <ul class="pagination">
@@ -172,7 +172,7 @@
                     name_search: "",
                     year_search: "",
                     opd_search: "",
-                    routeName: "kota",
+                    routeName: "KOTA",
                     opds: [],
                 }
             },
