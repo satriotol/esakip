@@ -18,6 +18,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Form Perencanaan Kinerja RPJMD</h4>
+                @include('partials.errors')
                 <form
                     action="@isset($perencanaan_kinerja_rpjmd) {{ route('perencanaan_kinerja_rpjmd.update', $perencanaan_kinerja_rpjmd->id) }} @endisset @empty($perencanaan_kinerja_rpjmd) {{ route('perencanaan_kinerja_rpjmd.store') }} @endempty"
                     method="POST" enctype="multipart/form-data">
