@@ -72,15 +72,7 @@ class PerencanaanKinerjaRkpdController extends Controller
         return redirect(route('perencanaan_kinerja_rkpd.index'));
     }
 
-    public function store_file(Request $request)
-    {
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-            return $file;
-        };
-        return 'success';
-    }
+
 
     /**
      * Display the specified resource.
@@ -114,14 +106,22 @@ class PerencanaanKinerjaRkpdController extends Controller
     public function update(UpdatePerencanaanKinerjaRkpd $request, PerencanaanKinerjaRkpd $perencanaan_kinerja_rkpd)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $perencanaan_kinerja_rkpd->deleteFile();
-            $data['file'] = $file;
         };
         $perencanaan_kinerja_rkpd->update($data);
         session()->flash('success');
         return redirect(route('perencanaan_kinerja_rkpd.index'));
+    }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**
