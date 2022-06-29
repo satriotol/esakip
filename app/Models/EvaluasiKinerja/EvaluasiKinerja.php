@@ -12,7 +12,7 @@ class EvaluasiKinerja extends Model
 
     protected $fillable = ['evaluasi_kinerja_year_id', 'value', 'opd_id'];
 
-    protected $appends = ['category_name'];
+    protected $appends = ['category_name', 'opd_name'];
 
     public function getCategoryNameAttribute()
     {
@@ -47,5 +47,9 @@ class EvaluasiKinerja extends Model
     public function evaluasi_kinerja_year()
     {
         return $this->belongsTo(EvaluasiKinerjaYear::class, 'evaluasi_kinerja_year_id');
+    }
+    public function getOpdNameAttribute()
+    {
+        return $this->opd->nama_opd;
     }
 }

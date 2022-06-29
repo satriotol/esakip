@@ -23,4 +23,6 @@ Route::get('/perencanaan_kinerja_opd', [IndexController::class, 'perencanaan_kin
 Route::get('/pengukuran_kinerja_kota', [IndexController::class, 'pengukuran_kinerja_kota'])->name('pengukuran_kinerja_kota');
 Route::get('/pengukuran_kinerja_opd', [IndexController::class, 'pengukuran_kinerja_opd'])->name('pengukuran_kinerja_opd');
 
+Route::get('/evaluasi_kinerja', [IndexController::class, 'evaluasi_kinerja'])->name('evaluasi_kinerja');
+
 require __DIR__ . '/auth.php';

@@ -19,10 +19,10 @@ class PerencanaanKinerjaOpdController extends Controller
     }
     public function getRenstra(Request $request)
     {
-        $renstra_datas = RenstraOpd::when($request->opd_search, function ($q) use ($request) {
-            $q->where('periode_renstra_opd_id', $request->renstra_period_search);
-        })->when($request->opd_search, function ($q) use ($request) {
-            $q->where('opd_id', $request->opd_search);
+        $renstra_datas = RenstraOpd::when($request::get('opd_search'), function ($q) use ($request) {
+            $q->where('periode_renstra_opd_id', $request::get('renstra_period_search'));
+        })->when($request::get('opd_search'), function ($q) use ($request) {
+            $q->where('opd_id', $request::get('opd_search'));
         })->paginate();
 
         return $this->successResponse(['renstra_datas' => $renstra_datas]);

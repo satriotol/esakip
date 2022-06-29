@@ -38,4 +38,9 @@ class IndexController extends Controller
         $name = 'Pengukuran Kinerja Opd';
         return view('frontend.pengukuran_kinerja_opd.index', compact('name'));
     }
+    public function evaluasi_kinerja()
+    {
+        $name = 'Evaluasi Kinerja';
+        return view('frontend.evaluasi_kinerja.index', compact('name'));
+    }
 }
