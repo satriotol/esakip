@@ -36,8 +36,8 @@
                         class="{{ active_class(['pelaporan_kinerja']) }}">Pelaporan Kinerja</a>
                 </li>
                 <li>
-                    <a href="{{ route('pelaporan_kinerja') }}"
-                        class="{{ active_class(['pelaporan_kinerja']) }}">Capaian Kinerja</a>
+                    <a href="{{ route('capaian_kinerja') }}"
+                        class="{{ active_class(['capaian_kinerja']) }}">Capaian Kinerja</a>
                 </li>
                 <li>
                     <a href="{{ route('evaluasi_kinerja') }}"
