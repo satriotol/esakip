@@ -31,18 +31,13 @@
                                             <th colspan="10" class="text-center">TAHUN</th>
                                         </tr>
                                         <tr>
-                                            <th colspan="2" v-for="data in dataEvaluasiKinerjaAkip"
+                                            <th colspan="2" v-for="data in dataYears"
                                                 style="background: #f25c6b" class="text-center">
                                                 @{{ data.year }}
                                             </th>
                                         </tr>
                                         <tr>
-                                            <th colspan="1" style="background: #ff7c89" class="text-center">
-                                                Nilai
-                                            </th>
-                                            <th colspan="1" style="background: #ff7c89" class="text-center">
-                                                Kategori
-                                            </th>
+
                                             <th colspan="1" style="background: #ff7c89" class="text-center">
                                                 Nilai
                                             </th>
@@ -52,15 +47,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="data in dataOpd[0]">
+                                        <tr v-for="data in dataEvaluasiKinerjaAkip">
                                             <td>
-                                                @{{ data.opd_name }}
-                                            </td>
-                                            <td>
-                                                @{{ data.value }}
-                                            </td>
-                                            <td>
-                                                @{{ data.category_name.name }}
+                                                @{{ data.name }}
                                             </td>
                                         </tr>
                                     </tbody>
@@ -84,7 +73,7 @@
             data() {
                 return {
                     dataEvaluasiKinerjaAkip: "",
-                    dataOpd: "",
+                    dataYears: "",
                     urlEvaluasiKinerjaAkip: API_URL + 'evaluasi_kinerja_akip',
                 }
             },
@@ -96,7 +85,7 @@
                     axios.get(this.urlEvaluasiKinerjaAkip)
                         .then(response => (
                             this.dataEvaluasiKinerjaAkip = response.data.EvaluasiKinerjaAkip,
-                            this.dataOpd0 = response.data.EvaluasiKinerjaAkip.evaluasi_kinerja
+                            this.dataYears = response.data.years
                         ))
                         .catch(function(error) {
                             console.log(error);

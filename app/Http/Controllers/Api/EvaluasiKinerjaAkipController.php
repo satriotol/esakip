@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\EvaluasiResource;
 use App\Models\EvaluasiKinerja\EvaluasiKinerja;
 use App\Models\EvaluasiKinerja\EvaluasiKinerjaYear;
 use App\Models\Opd;
@@ -12,8 +13,8 @@ class EvaluasiKinerjaAkipController extends Controller
 {
     public function index()
     {
-        $EvaluasiKinerjaAkipYears = EvaluasiKinerjaYear::with('evaluasi_kinerja')->orderBy('year', 'asc')->get();
-        // $EvaluasiKinerjaAkipYears = Opd::with();
-        return $this->successResponse(['EvaluasiKinerjaAkip' => $EvaluasiKinerjaAkipYears]);
+        $EvaluasiKinerjaAkipYears = Opd::all();
+        $years = EvaluasiKinerjaYear::take(5)->orderBy('year', 'asc')->get();
+        return $this->successResponse(['EvaluasiKinerjaAkip' => EvaluasiResource::collection($EvaluasiKinerjaAkipYears), 'years' => $years]);
     }
 }

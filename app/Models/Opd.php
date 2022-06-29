@@ -14,6 +14,6 @@ class Opd extends Model
 
     public function evaluasi_kinerjas()
     {
-        return $this->hasMany(EvaluasiKinerja::class, 'id', 'opd_id');
+        return $this->hasMany(EvaluasiKinerja::class, 'opd_id', 'id');
     }
 }
