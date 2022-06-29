@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('rktOpd', RktOpdController::class);
     Route::post('getRktOpd', [RktOpdController::class, 'getRktOpd'])->name('rktOpd.getRktOpd');
+    Route::post('rktOpd/store_file', [RktOpdController::class, 'store_file'])->name('rktOpd.store_file');
 
     Route::resource('renjaOpd', RenjaOpdController::class);
     Route::post('getRenjaOpd', [RenjaOpdController::class, 'getRenjaOpd'])->name('renjaOpd.getRenjaOpd');

@@ -78,10 +78,7 @@ class RktOpdController extends Controller
     public function store(CreateRktOpdRequest $request)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
         RktOpd::create($data);
         session()->flash('success');
         return redirect(route('rktOpd.index'));
@@ -120,14 +117,22 @@ class RktOpdController extends Controller
     public function update(UpdateRktOpdRequest $request, RktOpd $rktOpd)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $rktOpd->deleteFile();
-            $data['file'] = $file;
         };
         $rktOpd->update($data);
         session()->flash('success');
         return redirect(route('rktOpd.index'));
+    }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**
