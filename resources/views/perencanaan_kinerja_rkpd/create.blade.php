@@ -2,6 +2,7 @@
 
 @push('plugin-styles')
     <link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -37,14 +38,16 @@
                     </div>
                     <div class="mb-3">
                         <label for="file" class="form-label">File</label>
-                        <input type="file" id="myDropify" name="file"
+                        <input type="file" name="file" id="file"
                             @empty($perencanaan_kinerja_rkpd) required @endempty />
                         @isset($perencanaan_kinerja_rkpd)
-                            <object data="{{ asset('uploads/' . $perencanaan_kinerja_rkpd->file) }}" class="w-100 mt-5" style="height: 550px"
-                                type="application/pdf">
+                            <object data="{{ asset('uploads/' . $perencanaan_kinerja_rkpd->file) }}" class="w-100 mt-5"
+                                style="height: 550px" type="application/pdf">
                                 <div>No online PDF viewer installed</div>
                             </object>
                         @endisset
+                        {{-- <input type="file" class="my-pond" name="filepond" /> --}}
+
                     </div>
 
                     <div class="text-end">
@@ -58,8 +61,21 @@
 
 @push('plugin-scripts')
     <script src="{{ asset('assets/plugins/dropify/js/dropify.min.js') }}"></script>
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 @endpush
 
 @push('custom-scripts')
     <script src="{{ asset('assets/js/dropify.js') }}"></script>
+    <script>
+        const inputElement = document.querySelector('input[id="file"]');
+        const pond = FilePond.create(inputElement);
+        FilePond.setOptions({
+            server: {
+                url: '{{ route('perencanaan_kinerja_rkpd.store_file') }}',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            }
+        });
+    </script>
 @endpush

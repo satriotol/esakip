@@ -37,7 +37,7 @@ class PerencanaanKinerjaRkpdController extends Controller
                         </form>';
                     return $btn;
                 })
-                ->rawColumns(['pdf','action'])
+                ->rawColumns(['pdf', 'action'])
                 ->make(true);
         }
     }
@@ -66,13 +66,20 @@ class PerencanaanKinerjaRkpdController extends Controller
     public function store(CreatePerencanaanKinerjaRkpd $request)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
         PerencanaanKinerjaRkpd::create($data);
         session()->flash('success');
         return redirect(route('perencanaan_kinerja_rkpd.index'));
+    }
+
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**
