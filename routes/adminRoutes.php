@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
     // ===========================
     //perencanaan kinerja
     // kota
+    Route::post('perencanaan_kinerja_rpjmd/store_file', [PerencanaanKinerjaRpjmdController::class, 'store_file'])->name('perencanaan_kinerja_rpjmd.store_file');
     Route::resource('perencanaan_kinerja_rpjmd', PerencanaanKinerjaRpjmdController::class);
     Route::post('perencanaan_kinerja_rkpd/store_file', [PerencanaanKinerjaRkpdController::class, 'store_file'])->name('perencanaan_kinerja_rkpd.store_file');
     Route::resource('perencanaan_kinerja_rkpd', PerencanaanKinerjaRkpdController::class);

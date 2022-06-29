@@ -43,10 +43,7 @@ class PerencanaanKinerjaRpjmdController extends Controller
     public function store(CreateRpjmdRequest $request)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
         PerencanaanKinerjaRpjmd::create($data);
         session()->flash('success');
         return redirect(route('perencanaan_kinerja_rpjmd.index'));
@@ -84,14 +81,22 @@ class PerencanaanKinerjaRpjmdController extends Controller
     public function update(UpdateRpjmdRequest $request, PerencanaanKinerjaRpjmd $perencanaan_kinerja_rpjmd)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $perencanaan_kinerja_rpjmd->deleteFile();
-            $data['file'] = $file;
         };
         $perencanaan_kinerja_rpjmd->update($data);
         session()->flash('success');
         return redirect(route('perencanaan_kinerja_rpjmd.index'));
+    }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**

@@ -1,7 +1,6 @@
 @extends('layout.master')
 
 @push('plugin-styles')
-    <link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
     <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 @endpush
 
@@ -60,7 +59,6 @@
 @endsection
 
 @push('plugin-scripts')
-    <script src="{{ asset('assets/plugins/dropify/js/dropify.min.js') }}"></script>
     <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 @endpush
 
