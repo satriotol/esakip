@@ -29,7 +29,7 @@ class DataUnitController extends Controller
             $q->where('tahun', $year)->when($request->id_skpd, function ($sq) use ($request) {
                 $sq->where('id_skpd', $request->id_skpd);
             });
-        })->get();
+        })->orderBy('nama_skpd')->get();
         return $this->successResponse(['RealisasiAnggaran' => ARealisasiKeunganResource::collection($RealisasiAnggaran)]);
     }
 }

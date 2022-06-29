@@ -20,8 +20,8 @@
                             <div class="text-left">
                                 <button :class="[routeName == 'CAPAIAN APBD' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('CAPAIAN APBD')">CAPAIAN APBD</button>
-                                {{-- <button :class="[routeName == 'REALISASI ANGGARAN' ? 'btn btn-success' : 'btn btn-primary']"
-                                    @click="setRouteName('REALISASI ANGGARAN')">REALISASI ANGGARAN</button> --}}
+                                <button :class="[routeName == 'REALISASI ANGGARAN' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('REALISASI ANGGARAN')">REALISASI ANGGARAN</button>
                             </div>
                         </div>
                     </div>
@@ -29,12 +29,9 @@
                 <div v-if="routeName == 'CAPAIAN APBD'">
                     @include('frontend.capaian_kinerja.apbd_anggaran')
                 </div>
-                {{-- <div v-if="routeName == 'REALISASI ANGGARAN'">
-                    @include('frontend.pengukuran_kinerja_opd.perjanjian_kinerja')
-                </div> --}}
-                {{-- <div v-if="routeName == 'CASCADING KINERJA'">
-                    @include('frontend.pengukuran_kinerja_kota.cascading_kinerja')
-                </div> --}}
+                <div v-if="routeName == 'REALISASI ANGGARAN'">
+                    @include('frontend.capaian_kinerja.realisasi_anggaran')
+                </div>
             </div>
         </div>
     </div>
@@ -50,22 +47,20 @@
             data() {
                 return {
                     dataApbdAnggaran: "",
-                    dataPerjanjianKinerja: "",
+                    dataRealisasiAnggaran: "",
                     dataSkpds: "",
-                    paginationApbdAnggaran: [],
-                    paginationPerjanjianKinerja: [],
                     routeName: "CAPAIAN APBD",
                     urlApbdAnggaran: API_URL + 'getApbdAnggaran',
+                    urlRealisasiAnggaran: API_URL + 'getRealisasiAnggaran',
                     urlSkpd: API_URL + 'skpd',
-                    urlPerjanjianKinerja: API_URL + 'pengukurankinerjaopd/perjanjian_kinerja',
                     skpd_search: "",
                     loading: true,
                 }
             },
             mounted() {
                 this.getApbdAnggaran();
+                this.getRealisasiAnggaran();
                 this.getSkpd();
-                this.getOpdPerjanjianKinerja();
             },
             methods: {
                 getSkpd() {
@@ -81,7 +76,6 @@
                 getApbdAnggaran(pageUrl) {
                     axios.get(this.urlApbdAnggaran, {
                             params: {
-                                page: pageUrl,
                                 id_skpd: this.skpd_search
                             }
                         })
@@ -92,27 +86,18 @@
                             console.log(error);
                         })
                 },
-                getOpdPerjanjianKinerja(pageUrl) {
-                    this.loading = true;
-                    if (pageUrl) {
-                        pageUrl = pageUrl.split('=').pop();
-                    }
-                    axios.get(this.urlPerjanjianKinerja, {
+                getRealisasiAnggaran(pageUrl) {
+                    axios.get(this.urlRealisasiAnggaran, {
                             params: {
-                                page: pageUrl,
-                                opd_search: this.opd_search,
-                                type_search: this.type_search,
-                                year_search: this.year_search
+                                id_skpd: this.skpd_search
                             }
                         })
                         .then(response => (
-                            this.dataPerjanjianKinerja = response.data.perjanjian_kinerja_datas.data,
-                            this.paginationPerjanjianKinerja = response.data.perjanjian_kinerja_datas
+                            this.dataRealisasiAnggaran = response.data.RealisasiAnggaran
                         ))
                         .catch(function(error) {
                             console.log(error);
                         })
-                        .finally(() => this.loading = false)
                 },
                 setRouteName(routeName) {
                     this.routeName = routeName;
