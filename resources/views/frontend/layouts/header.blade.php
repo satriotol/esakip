@@ -15,11 +15,20 @@
                 <li>
                     <a href="{{ route('home') }}" class="{{ active_class(['home']) }}">Beranda</a>
                 </li>
-                <li class="dropdown {{ active_class(['perencanaan_kinerja_kota']) }} dropdown-right">
+                <li
+                    class="dropdown {{ active_class(['perencanaan_kinerja_kota', 'perencanaan_kinerja_opd']) }} dropdown-right">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Perencanaan Kinerja</a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ route('perencanaan_kinerja_kota') }}">Kota</a></li>
                         <li><a href="{{ route('perencanaan_kinerja_opd') }}">OPD</a></li>
+                    </ul>
+                </li>
+                <li
+                    class="dropdown {{ active_class(['pengukuran_kinerja_kota', 'pengukuran_kinerja_opd']) }} dropdown-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Pengukuran Kinerja</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ route('pengukuran_kinerja_kota') }}">Kota</a></li>
+                        <li><a href="{{ route('pengukuran_kinerja_opd') }}">OPD</a></li>
                     </ul>
                 </li>
                 <li>
