@@ -24,7 +24,7 @@ class UpdateIkuKotaRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'nullable|file|max:50000',
+            'file' => 'nullable|file|max:500000',
         ];
     }
 }

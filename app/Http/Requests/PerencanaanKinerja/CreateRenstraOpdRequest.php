@@ -25,7 +25,7 @@ class CreateRenstraOpdRequest extends FormRequest
     {
         return [
             'opd_id' => 'required',
-            'file' => 'required|file|max:50000',
+            'file' => 'required|file|max:500000',
             'periode_renstra_opd_id' => 'nullable',
         ];
     }

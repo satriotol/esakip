@@ -24,7 +24,7 @@ class CreateIkuKotaRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'required|file|max:50000',
+            'file' => 'required|file|max:500000',
         ];
     }
 }

@@ -25,7 +25,7 @@ class UpdateRktOpdRequest extends FormRequest
     {
         return [
             'opd_id' => 'required',
-            'file' => 'nullable|file|max:50000',
+            'file' => 'nullable|file|max:500000',
             'name' => 'required',
             'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
         ];

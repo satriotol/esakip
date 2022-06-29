@@ -25,7 +25,7 @@ class CreateCascadingKinerja extends FormRequest
     {
         return [
             'name' => 'required',
-            'file' => 'required|file|max:50000',
+            'file' => 'required|file|max:500000',
             'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
         ];
     }
