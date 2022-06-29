@@ -25,4 +25,8 @@
             </div>
         </div>
     </div>
+    <div class="container mb-3" style="margin-bottom: 30px">
+        <h3>Tentang eSakip Kota Semarang</h3>
+        {!! $website->description !!}
+    </div>
 @endsection

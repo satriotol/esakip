@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\PengukuranKinerja\IkuKota;
 use App\Models\PerencanaanKinerjaRpjmd;
+use App\Models\Website;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
 {
     public function home()
     {
-        return view('frontend.home');
+        $website = Website::first();
+        return view('frontend.home', compact('website'));
     }
     public function pelaporan_kinerja()
     {
