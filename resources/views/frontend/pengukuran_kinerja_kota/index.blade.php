@@ -20,10 +20,8 @@
                             <div class="text-left">
                                 <button :class="[routeName == 'IKU' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('IKU')">IKU</button>
-                                {{-- <button :class="[routeName == 'RKPD' ? 'btn btn-success' : 'btn btn-primary']"
-                                    @click="setRouteName('RKPD')">RKPD</button>
-                                <button :class="[routeName == 'CASCADING KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
-                                    @click="setRouteName('CASCADING KINERJA')">CASCADING KINERJA</button> --}}
+                                <button :class="[routeName == 'PERJANJIAN KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('PERJANJIAN KINERJA')">PERJANJIAN KINERJA</button>
                             </div>
                         </div>
                     </div>
@@ -31,11 +29,11 @@
                 <div v-if="routeName == 'IKU'">
                     @include('frontend.pengukuran_kinerja_kota.iku')
                 </div>
-                {{-- <div v-if="routeName == 'RKPD'">
-                    @include('frontend.perencanaan_kinerja_kota.rkpd')
+                <div v-if="routeName == 'PERJANJIAN KINERJA'">
+                    @include('frontend.pengukuran_kinerja_kota.perjanjian_kinerja')
                 </div>
-                <div v-if="routeName == 'CASCADING KINERJA'">
-                    @include('frontend.perencanaan_kinerja_kota.cascading_kinerja')
+                {{-- <div v-if="routeName == 'CASCADING KINERJA'">
+                    @include('frontend.pengukuran_kinerja_kota.cascading_kinerja')
                 </div> --}}
             </div>
         </div>
@@ -51,29 +49,25 @@
         createApp({
             data() {
                 return {
-                    dataRkpd: "",
-                    dataCascadingKinerja: "",
-                    paginationRkpd: [],
-                    paginationCascadingKinerja: [],
+                    dataPerjanjianKinerja: "",
+                    paginationPerjanjianKinerja: [],
                     routeName: "IKU",
-                    urlRkpd: API_URL + 'perencanaankinerjakota/rkpd',
-                    urlCascadingKinerja: API_URL + 'perencanaankinerjakota/cascading_kinerja',
+                    urlPerjanjianKinerja: API_URL + 'pengukurankinerjakota/perjanjian_kinerja',
                     year_search: "",
                     name_search: "",
                     loading: true,
                 }
             },
             mounted() {
-                this.getKotaRkpd();
-                this.getKotaCascadingKinerja();
+                this.getKotaPerjanjianKinerja();
             },
             methods: {
-                getKotaRkpd(pageUrl) {
+                getKotaPerjanjianKinerja(pageUrl) {
                     this.loading = true;
                     if (pageUrl) {
                         pageUrl = pageUrl.split('=').pop();
                     }
-                    axios.get(this.urlRkpd, {
+                    axios.get(this.urlPerjanjianKinerja, {
                             params: {
                                 page: pageUrl,
                                 name_search: this.name_search,
@@ -81,29 +75,8 @@
                             }
                         })
                         .then(response => (
-                            this.dataRkpd = response.data.rkpd_datas.data,
-                            this.paginationRkpd = response.data.rkpd_datas
-                        ))
-                        .catch(function(error) {
-                            console.log(error);
-                        })
-                        .finally(() => this.loading = false)
-                },
-                getKotaCascadingKinerja(pageUrl) {
-                    this.loading = true;
-                    if (pageUrl) {
-                        pageUrl = pageUrl.split('=').pop();
-                    }
-                    axios.get(this.urlCascadingKinerja, {
-                            params: {
-                                page: pageUrl,
-                                name_search: this.name_search,
-                                year_search: this.year_search
-                            }
-                        })
-                        .then(response => (
-                            this.dataCascadingKinerja = response.data.cascading_kinerja_datas.data,
-                            this.paginationCascadingKinerja = response.data.cascading_kinerja_datas
+                            this.dataPerjanjianKinerja = response.data.perjanjian_kinerja_datas.data,
+                            this.paginationPerjanjianKinerja = response.data.perjanjian_kinerja_datas
                         ))
                         .catch(function(error) {
                             console.log(error);

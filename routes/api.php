@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\EvaluasiKinerjaAkipController;
 use App\Http\Controllers\Api\OpdController;
 use App\Http\Controllers\Api\PelaporanKinerja\KotaLkjipController;
 use App\Http\Controllers\Api\PelaporanKinerja\OpdLkjipController;
+use App\Http\Controllers\Api\PengukuranKinerjaKotaController;
 use App\Http\Controllers\Api\PerencanaanKinerjaKotaController;
 use App\Http\Controllers\Api\PerencanaanKinerjaOpdController;
 use Illuminate\Http\Request;
@@ -40,3 +41,6 @@ Route::get('perencanaankinerjaopd/renstra', [PerencanaanKinerjaOpdController::cl
 Route::get('perencanaankinerjaopd/rkt', [PerencanaanKinerjaOpdController::class, 'getRkt']);
 Route::get('perencanaankinerjaopd/renja', [PerencanaanKinerjaOpdController::class, 'getRenja']);
 Route::get('perencanaankinerjaopd/cascading_kinerja', [PerencanaanKinerjaOpdController::class, 'getCascadingKinerja']);
+
+
+Route::get('pengukurankinerjakota/perjanjian_kinerja', [PengukuranKinerjaKotaController::class, 'getPerjanjianKinerja']);

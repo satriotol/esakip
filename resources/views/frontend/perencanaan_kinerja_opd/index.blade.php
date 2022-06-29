@@ -90,6 +90,7 @@
                 this.getOpdRenstra();
                 this.getOpd();
                 this.getOpdRkt();
+                this.getOpdCascadingKinerja();
             },
             methods: {
                 getOpd() {
