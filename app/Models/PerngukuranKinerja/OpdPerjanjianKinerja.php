@@ -12,6 +12,7 @@ class OpdPerjanjianKinerja extends Model
     use HasFactory;
 
     protected $fillable = ['year', 'opd_id', 'file', 'type'];
+    protected $appends = ['file_url', 'opd_name'];
 
     const TYPE = [
         'INDUK', 'PERUBAHAN'
@@ -24,5 +25,14 @@ class OpdPerjanjianKinerja extends Model
     public function deleteFile()
     {
         Storage::disk('public_uploads')->delete($this->attributes['file']);
+    }
+    public function getFileUrlAttribute()
+    {
+        $file = env('ASSET_URL') . '/uploads/' . $this->file;
+        return $file;
+    }
+    public function getOpdNameAttribute()
+    {
+        return $this->opd->nama_opd ?? "";
     }
 }

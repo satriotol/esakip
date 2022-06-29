@@ -3,11 +3,11 @@
         <div class="col-md-12">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <input type="number" v-model="year_search" placeholder="Cari Berdasarkan Tahun"
                             class="form-control">
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <select class="form-control" v-model="opd_search" style="min-height: 50px;">
                             <option value="">Cari Berdasarkan OPD</option>
                             <option :value="opd.id" v-for="(opd, index) in opds">

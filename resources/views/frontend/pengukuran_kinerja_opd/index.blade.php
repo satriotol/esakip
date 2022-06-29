@@ -20,8 +20,8 @@
                             <div class="text-left">
                                 <button :class="[routeName == 'IKU' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('IKU')">IKU</button>
-                                {{-- <button :class="[routeName == 'PERJANJIAN KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
-                                    @click="setRouteName('PERJANJIAN KINERJA')">PERJANJIAN KINERJA</button> --}}
+                                <button :class="[routeName == 'PERJANJIAN KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('PERJANJIAN KINERJA')">PERJANJIAN KINERJA</button>
                             </div>
                         </div>
                     </div>
@@ -29,9 +29,9 @@
                 <div v-if="routeName == 'IKU'">
                     @include('frontend.pengukuran_kinerja_opd.iku')
                 </div>
-                {{-- <div v-if="routeName == 'PERJANJIAN KINERJA'">
-                    @include('frontend.pengukuran_kinerja_kota.perjanjian_kinerja')
-                </div> --}}
+                <div v-if="routeName == 'PERJANJIAN KINERJA'">
+                    @include('frontend.pengukuran_kinerja_opd.perjanjian_kinerja')
+                </div>
                 {{-- <div v-if="routeName == 'CASCADING KINERJA'">
                     @include('frontend.pengukuran_kinerja_kota.cascading_kinerja')
                 </div> --}}
@@ -59,13 +59,14 @@
                     year_search: "",
                     opd_search: "",
                     name_search: "",
+                    type_search: "",
                     loading: true,
                 }
             },
             mounted() {
                 this.getOpd();
                 this.getOpdIku();
-                this.getKotaPerjanjianKinerja();
+                this.getOpdPerjanjianKinerja();
             },
             methods: {
                 getOpd() {
@@ -98,7 +99,7 @@
                         })
                         .finally(() => this.loading = false)
                 },
-                getKotaPerjanjianKinerja(pageUrl) {
+                getOpdPerjanjianKinerja(pageUrl) {
                     this.loading = true;
                     if (pageUrl) {
                         pageUrl = pageUrl.split('=').pop();
@@ -106,7 +107,8 @@
                     axios.get(this.urlPerjanjianKinerja, {
                             params: {
                                 page: pageUrl,
-                                name_search: this.name_search,
+                                opd_search: this.opd_search,
+                                type_search: this.type_search,
                                 year_search: this.year_search
                             }
                         })
