@@ -19,7 +19,7 @@ class PerencanaanKinerjaOpdController extends Controller
     }
     public function getRenstra(Request $request)
     {
-        $renstra_datas = RenstraOpd::when($request->opd_search, function ($q) use ($request) {
+        $renstra_datas = RenstraOpd::when($request->periode_renstra_opd_id, function ($q) use ($request) {
             $q->where('periode_renstra_opd_id', $request->renstra_period_search);
         })->when($request->opd_search, function ($q) use ($request) {
             $q->where('opd_id', $request->opd_search);
