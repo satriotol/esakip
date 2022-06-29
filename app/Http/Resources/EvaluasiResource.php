@@ -19,7 +19,7 @@ class EvaluasiResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->nama_opd,
-            'hasil' => EvaluasiKinerjaResource::collection($this->evaluasi_kinerjas->sortBy('evaluasi_kinerja_year.year')),
+            'hasil' => EvaluasiKinerjaResource::collection($this->evaluasi_kinerjas->sortByDesc('evaluasi_kinerja_year.year')),
         ];
     }
 }

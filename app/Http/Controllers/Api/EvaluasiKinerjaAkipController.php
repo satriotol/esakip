@@ -14,7 +14,7 @@ class EvaluasiKinerjaAkipController extends Controller
     public function index()
     {
         $EvaluasiKinerjaAkipYears = Opd::all();
-        $years = EvaluasiKinerjaYear::take(5)->orderBy('year', 'asc')->get();
+        $years = EvaluasiKinerjaYear::orderBy('year', 'desc')->take(5)->get();
         return $this->successResponse(['EvaluasiKinerjaAkip' => EvaluasiResource::collection($EvaluasiKinerjaAkipYears), 'years' => $years]);
     }
 }
