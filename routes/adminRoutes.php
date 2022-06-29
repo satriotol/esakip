@@ -48,7 +48,7 @@ Route::middleware('auth')->group(function () {
         Route::get('{periodeRenstraOpd}/edit/{renstraOpd}', [RenstraOpdController::class, 'edit'])->name('renstraOpd.edit');
         Route::put('{periodeRenstraOpd}/update/{renstraOpd}', [RenstraOpdController::class, 'update'])->name('renstraOpd.update');
         Route::delete('delete/{renstraOpd}', [RenstraOpdController::class, 'destroy'])->name('renstraOpd.destroy');
-    });
+        Route::post('{periodeRenstraOpd}/store_file', [RenstraOpdController::class, 'store_file'])->name('renstraOpd.store_file');    });
 
     Route::resource('rktOpd', RktOpdController::class);
     Route::post('getRktOpd', [RktOpdController::class, 'getRktOpd'])->name('rktOpd.getRktOpd');

@@ -25,7 +25,7 @@ class CreateOpdPerjanjianKinerjaRequest extends FormRequest
     {
         return [
             'opd_id' => 'required',
-            'file' => 'required|file|max:500000',
+            'file' => 'required|max:500000',
             'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
             'type' => 'required'
         ];

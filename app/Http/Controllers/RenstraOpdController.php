@@ -43,10 +43,7 @@ class RenstraOpdController extends Controller
     {
         $data = $request->all();
         $data['periode_renstra_opd_id'] = $periodeRenstraOpd;
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
         RenstraOpd::create($data);
         session()->flash('success');
         return redirect(route('renstraOpd.index', $periodeRenstraOpd));
@@ -86,15 +83,24 @@ class RenstraOpdController extends Controller
     {
         $data = $request->all();
         $data['periode_renstra_opd_id'] = $periodeRenstraOpd;
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $renstraOpd->deleteFile();
-            $data['file'] = $file;
         };
         $renstraOpd->update($data);
         session()->flash('success');
         return redirect(route('renstraOpd.index', $periodeRenstraOpd));
     }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
+    }
+
 
     /**
      * Remove the specified resource from storage.

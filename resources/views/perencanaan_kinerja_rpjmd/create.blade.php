@@ -50,7 +50,6 @@
 @endpush
 
 @push('custom-scripts')
-    <script src="{{ asset('assets/js/dropify.js') }}"></script>
     <script>
         const inputElement = document.querySelector('input[id="file"]');
         const pond = FilePond.create(inputElement);

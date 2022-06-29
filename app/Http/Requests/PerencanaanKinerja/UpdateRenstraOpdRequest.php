@@ -25,7 +25,7 @@ class UpdateRenstraOpdRequest extends FormRequest
     {
         return [
             'opd_id' => 'required',
-            'file' => 'nullable|file|max:500000',
+            'file' => 'nullable|max:500000',
             'periode_renstra_opd_id' => 'nullable',
         ];
     }
