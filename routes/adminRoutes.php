@@ -35,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('perencanaan_kinerja_rkpd', PerencanaanKinerjaRkpdController::class);
     Route::post('getRkpds', [PerencanaanKinerjaRkpdController::class, 'getRkpds'])->name('perencanaan_kinerja_rkpd.getRkpds');
     Route::resource('cascading_kinerja', PerencanaanKinerjaCascadingKinerjaController::class);
+    Route::post('cascading_kinerja/store_file', [PerencanaanKinerjaCascadingKinerjaController::class, 'store_file'])->name('cascading_kinerja.store_file');
     Route::post('getCascadingKinerjas', [PerencanaanKinerjaCascadingKinerjaController::class, 'getCascadingKinerjas'])->name('cascading_kinerja.getCascadingKinerjas');
     // end of kota
     // ===========================

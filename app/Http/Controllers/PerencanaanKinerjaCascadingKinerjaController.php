@@ -65,10 +65,7 @@ class PerencanaanKinerjaCascadingKinerjaController extends Controller
     public function store(CreateCascadingKinerja $request)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
         PerencanaanKinerjaCascadingKinerja::create($data);
         session()->flash('success');
         return redirect(route('cascading_kinerja.index'));
@@ -106,14 +103,23 @@ class PerencanaanKinerjaCascadingKinerjaController extends Controller
     public function update(UpdateCascadingKinerja $request, PerencanaanKinerjaCascadingKinerja $cascading_kinerja)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $cascading_kinerja->deleteFile();
-            $data['file'] = $file;
         };
         $cascading_kinerja->update($data);
         session()->flash('success');
         return redirect(route('cascading_kinerja.index'));
+    }
+
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**
