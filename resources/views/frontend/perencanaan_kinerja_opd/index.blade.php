@@ -39,9 +39,9 @@
                 <div v-if="routeName == 'RENJA'">
                     @include('frontend.perencanaan_kinerja_opd.renja')
                 </div>
-                {{-- <div v-if="routeName == 'CASCADING KINERJA'">
+                <div v-if="routeName == 'CASCADING KINERJA'">
                     @include('frontend.perencanaan_kinerja_opd.cascading_kinerja')
-                </div> --}}
+                </div>
             </div>
         </div>
     </div>
@@ -62,15 +62,18 @@
                     dataRenstra: "",
                     dataRkt: "",
                     dataRenja: "",
+                    dataCascadingKinerja: "",
 
                     paginationRenstra: "",
                     paginationRkt: "",
                     paginationRenja: "",
+                    paginationCascadingKinerja: "",
 
                     urlPeriodRenstra: API_URL + 'perencanaankinerjaopd/renstra_period',
                     urlRenstra: API_URL + 'perencanaankinerjaopd/renstra',
                     urlRkt: API_URL + 'perencanaankinerjaopd/rkt',
                     urlRenja: API_URL + 'perencanaankinerjaopd/renja',
+                    urlCascadingKinerja: API_URL + 'perencanaankinerjaopd/cascading_kinerja',
 
                     year_search: "",
                     name_search: "",
@@ -164,6 +167,27 @@
                         .then(response => (
                             this.dataRenja = response.data.renja_datas.data,
                             this.paginationRenja = response.data.renja_datas
+                        ))
+                        .catch(function(error) {
+                            console.log(error);
+                        })
+                },
+                getOpdCascadingKinerja(pageUrl) {
+                    if (pageUrl) {
+                        pageUrl = pageUrl.split('=').pop();
+                    }
+                    this.errorMessage = "";
+                    axios.get(this.urlCascadingKinerja, {
+                            params: {
+                                page: pageUrl,
+                                opd_search: this.opd_search,
+                                year_search: this.year_search,
+                                type_search: this.type_search,
+                            }
+                        })
+                        .then(response => (
+                            this.dataCascadingKinerja = response.data.cascading_kinerja_datas.data,
+                            this.paginationCascadingKinerja = response.data.cascading_kinerja_datas
                         ))
                         .catch(function(error) {
                             console.log(error);
