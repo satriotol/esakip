@@ -19,8 +19,8 @@ class EvaluasiKinerja extends Model
         if ($this->value == null) {
             $data = [
                 'name' => '-',
-                'color' => '-',
-                'font_color' => '-'
+                'color' => 'blank',
+                'font_color' => 'black'
             ];
         } else if ($this->value <= 60) {
             $data = [
