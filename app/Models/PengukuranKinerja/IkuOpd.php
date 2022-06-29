@@ -11,6 +11,7 @@ class IkuOpd extends Model
 {
     use HasFactory;
     protected $fillable = ['year', 'opd_id', 'file'];
+    protected $appends = ['file_url', 'opd_name'];
 
     public function opd()
     {
@@ -20,5 +21,14 @@ class IkuOpd extends Model
     public function deleteFile()
     {
         Storage::disk('public_uploads')->delete($this->attributes['file']);
+    }
+    public function getFileUrlAttribute()
+    {
+        $file = env('ASSET_URL') . '/uploads/' . $this->file;
+        return $file;
+    }
+    public function getOpdNameAttribute()
+    {
+        return $this->opd->nama_opd ?? "";
     }
 }

@@ -63,10 +63,20 @@
                 }
             },
             mounted() {
+                this.getOpd();
                 this.getOpdIku();
                 this.getKotaPerjanjianKinerja();
             },
             methods: {
+                getOpd() {
+                    axios.get(API_URL + 'opd')
+                        .then(response => (
+                            this.opds = response.data.opds
+                        ))
+                        .catch(function(error) {
+                            console.log(error);
+                        })
+                },
                 getOpdIku(pageUrl) {
                     this.loading = true;
                     if (pageUrl) {

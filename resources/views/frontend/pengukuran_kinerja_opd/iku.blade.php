@@ -8,10 +8,6 @@
                             class="form-control">
                     </div>
                     <div class="col-md-4">
-                        <input type="text" v-model="name_search" placeholder="Cari Berdasarkan Nama"
-                            class="form-control">
-                    </div>
-                    <div class="col-md-4">
                         <select class="form-control" v-model="opd_search" style="min-height: 50px;">
                             <option value="">Cari Berdasarkan OPD</option>
                             <option :value="opd.id" v-for="(opd, index) in opds">
@@ -27,7 +23,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Dokumen</th>
+                            <th>Tahun</th>
                             <th>OPD</th>
                             <th>Action</th>
                         </tr>
@@ -35,7 +31,7 @@
                     <tbody>
                         <tr v-for="(data, index) in dataIku">
                             <td>
-                                @{{ data.year }} | @{{ data.name }}
+                                @{{ data.year }}
                             </td>
                             <td>
                                 @{{ data.opd_name }}
