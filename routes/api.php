@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\PengukuranKinerjaKotaController;
 use App\Http\Controllers\Api\PengukuranKinerjaOpdController;
 use App\Http\Controllers\Api\PerencanaanKinerjaKotaController;
 use App\Http\Controllers\Api\PerencanaanKinerjaOpdController;
+use App\Http\Controllers\Api\SkpdController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('opd', [OpdController::class, 'index']);
+Route::get('skpd', [SkpdController::class, 'getSkpd']);
 Route::get('getApbdAnggaran', [DataUnitController::class, 'getApbdAnggaran']);
 Route::get('getRealisasiAnggaran', [DataUnitController::class, 'getRealisasiAnggaran']);
 Route::get('evaluasi_kinerja_akip', [EvaluasiKinerjaAkipController::class, 'index']);

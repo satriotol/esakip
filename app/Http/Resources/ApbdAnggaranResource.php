@@ -20,9 +20,9 @@ class ApbdAnggaranResource extends JsonResource
             'id_skpd' => $this->id_skpd,
             'nama_skpd' => $this->nama_skpd,
             'tahun' => $year,
-            'anggaran' => $this->apbd_anggarans->where('tahun', 2022)->sum('anggaran'),
-            'anggaran_pergeseran' => $this->apbd_anggarans->where('tahun', 2022)->sum('anggaran_pergeseran'),
-            'anggaran_perubahan' => $this->apbd_anggarans->where('tahun', 2022)->sum('anggaran_perubahan'),
+            'anggaran' => $this->apbd_anggarans->where('tahun', $year)->sum('anggaran'),
+            'anggaran_pergeseran' => $this->apbd_anggarans->where('tahun', $year)->sum('anggaran_pergeseran'),
+            'anggaran_perubahan' => $this->apbd_anggarans->where('tahun', $year)->sum('anggaran_perubahan'),
         ];
     }
 }
