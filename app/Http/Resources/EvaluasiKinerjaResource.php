@@ -20,6 +20,7 @@ class EvaluasiKinerjaResource extends JsonResource
             'value' => $this->value,
             'category_color' => $this->category_name['color'],
             'category_name' => $this->category_name['name'],
+            'category_font' => $this->category_name['font_color']
         ];
     }
 }

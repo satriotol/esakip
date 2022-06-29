@@ -31,13 +31,37 @@
                                             <th colspan="10" class="text-center">TAHUN</th>
                                         </tr>
                                         <tr>
-                                            <th colspan="2" v-for="data in dataYears"
-                                                style="background: #f25c6b" class="text-center">
+                                            <th colspan="2" v-for="data in dataYears" style="background: #f25c6b"
+                                                class="text-center">
                                                 @{{ data.year }}
                                             </th>
                                         </tr>
                                         <tr>
 
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Nilai
+                                            </th>
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Kategori
+                                            </th>
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Nilai
+                                            </th>
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Kategori
+                                            </th>
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Nilai
+                                            </th>
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Kategori
+                                            </th>
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Nilai
+                                            </th>
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Kategori
+                                            </th>
                                             <th colspan="1" style="background: #ff7c89" class="text-center">
                                                 Nilai
                                             </th>
@@ -50,6 +74,36 @@
                                         <tr v-for="data in dataEvaluasiKinerjaAkip">
                                             <td>
                                                 @{{ data.name }}
+                                            </td>
+                                            <td :style="{ 'background-color': data.hasil[0].category_color, 'color': data.hasil[0].category_font, 'font-weight' : bold }">
+                                                @{{ data.hasil[0].value }}
+                                            </td>
+                                            <td :style="{ 'background-color': data.hasil[0].category_color, 'color': data.hasil[0].category_font, 'font-weight' : bold }">
+                                                @{{ data.hasil[0].category_name }}
+                                            </td>
+                                            <td :style="{ 'background-color': data.hasil[1].category_color, 'color': data.hasil[1].category_font, 'font-weight' : bold }">
+                                                @{{ data.hasil[1].value }}
+                                            </td>
+                                            <td :style="{ 'background-color': data.hasil[1].category_color, 'color': data.hasil[1].category_font, 'font-weight' : bold }">
+                                                @{{ data.hasil[1].category_name }}
+                                            </td>
+                                            <td :style="{ 'background-color': data.hasil[2].category_color, 'color': data.hasil[2].category_font, 'font-weight' : bold }">
+                                                @{{ data.hasil[2].value }}
+                                            </td>
+                                            <td :style="{ 'background-color': data.hasil[2].category_color, 'color': data.hasil[2].category_font, 'font-weight' : bold }">
+                                                @{{ data.hasil[2].category_name }}
+                                            </td>
+                                            <td :style="{ 'background-color': data.hasil[3].category_color, 'color': data.hasil[3].category_font, 'font-weight' : bold }">
+                                                @{{ data.hasil[3].value }}
+                                            </td>
+                                            <td :style="{ 'background-color': data.hasil[3].category_color, 'color': data.hasil[3].category_font, 'font-weight' : bold }">
+                                                @{{ data.hasil[3].category_name }}
+                                            </td>
+                                            <td :style="{ 'background-color': data.hasil[4].category_color, 'color': data.hasil[4].category_font, 'font-weight' : bold }">
+                                                @{{ data.hasil[4].value }}
+                                            </td>
+                                            <td :style="{ 'background-color': data.hasil[4].category_color, 'color': data.hasil[4].category_font, 'font-weight' : bold }">
+                                                @{{ data.hasil[4].category_name }}
                                             </td>
                                         </tr>
                                     </tbody>

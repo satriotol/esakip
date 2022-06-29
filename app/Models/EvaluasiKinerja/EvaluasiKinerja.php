@@ -16,25 +16,35 @@ class EvaluasiKinerja extends Model
 
     public function getCategoryNameAttribute()
     {
-        if ($this->value <= 60) {
+        if ($this->value == null) {
+            $data = [
+                'name' => '-',
+                'color' => '-',
+                'font_color' => '-'
+            ];
+        } else if ($this->value <= 60) {
             $data = [
                 'name' => 'CC',
                 'color' => '#F7FF00',
+                'font_color' => 'black'
             ];
         } else if ($this->value <= 70) {
             $data = [
                 'name' => 'B',
-                'color' => '#2AFF00',
+                'color' => '#41bd19',
+                'font_color' => 'white'
             ];
         } else if ($this->value <= 80) {
             $data = [
-                'name' => 'B',
-                'color' => '#199700',
+                'name' => 'BB',
+                'color' => '#238b01',
+                'font_color' => 'white'
             ];
         } else if ($this->value <= 90) {
             $data = [
                 'name' => 'A',
-                'color' => '#0074FF',
+                'color' => '#1fb8e5',
+                'font_color' => 'white'
             ];
         }
         return $data;
