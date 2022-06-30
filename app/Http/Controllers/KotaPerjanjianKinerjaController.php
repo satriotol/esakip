@@ -70,10 +70,8 @@ class KotaPerjanjianKinerjaController extends Controller
     public function store(CreateKotaPerjanjianKinerjaRequest $request)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
+
         KotaPerjanjianKinerja::create($data);
         session()->flash('success');
         return redirect(route('kotaPerjanjianKinerja.index'));
@@ -111,14 +109,22 @@ class KotaPerjanjianKinerjaController extends Controller
     public function update(UpdateKotaPerjanjianKinerjaRequest $request, KotaPerjanjianKinerja $kotaPerjanjianKinerja)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $kotaPerjanjianKinerja->deleteFile();
-            $data['file'] = $file;
         };
         $kotaPerjanjianKinerja->update($data);
         session()->flash('success');
         return redirect(route('kotaPerjanjianKinerja.index'));
+    }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**

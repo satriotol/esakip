@@ -1,22 +1,22 @@
 @extends('layout.master')
 
 @push('plugin-styles')
-    <link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 @endpush
 
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('kotaPerjanjianKinerja.index') }}">{{$name}}</a>
+            <li class="breadcrumb-item"><a href="{{ route('kotaPerjanjianKinerja.index') }}">{{ $name }}</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Form {{$name}}</li>
+            <li class="breadcrumb-item active" aria-current="page">Form {{ $name }}</li>
         </ol>
     </nav>
 
     <div class="grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Form {{$name}}</h4>
+                <h4 class="card-title">Form {{ $name }}</h4>
                 @include('partials.errors')
                 <form
                     action="@isset($kotaPerjanjianKinerja) {{ route('kotaPerjanjianKinerja.update', $kotaPerjanjianKinerja->id) }} @endisset @empty($kotaPerjanjianKinerja) {{ route('kotaPerjanjianKinerja.store') }} @endempty"
@@ -37,11 +37,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="file" class="form-label">File</label>
-                        <input type="file" id="myDropify" name="file"
+                        <input type="file" id="file" name="file"
                             @empty($kotaPerjanjianKinerja) required @endempty />
                         @isset($kotaPerjanjianKinerja)
-                            <object data="{{ asset('uploads/' . $kotaPerjanjianKinerja->file) }}" class="w-100 mt-5" style="height: 550px"
-                                type="application/pdf">
+                            <object data="{{ asset('uploads/' . $kotaPerjanjianKinerja->file) }}" class="w-100 mt-5"
+                                style="height: 550px" type="application/pdf">
                                 <div>No online PDF viewer installed</div>
                             </object>
                         @endisset
@@ -57,9 +57,21 @@
 @endsection
 
 @push('plugin-scripts')
-    <script src="{{ asset('assets/plugins/dropify/js/dropify.min.js') }}"></script>
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 @endpush
 
 @push('custom-scripts')
-    <script src="{{ asset('assets/js/dropify.js') }}"></script>
+    =
+    <script>
+        const inputElement = document.querySelector('input[id="file"]');
+        const pond = FilePond.create(inputElement);
+        FilePond.setOptions({
+            server: {
+                url: '{{ route('perencanaan_kinerja_rkpd.store_file') }}',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            }
+        });
+    </script>
 @endpush
