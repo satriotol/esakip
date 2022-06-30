@@ -76,10 +76,7 @@ class RenjaOpdController extends Controller
     public function store(CreateRenjaOpdRequest $request)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
         RenjaOpd::create($data);
         session()->flash('success');
         return redirect(route('renjaOpd.index'));
@@ -119,14 +116,22 @@ class RenjaOpdController extends Controller
     public function update(UpdateRenjaOpdRequest $request, RenjaOpd $renjaOpd)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $renjaOpd->deleteFile();
-            $data['file'] = $file;
         };
         $renjaOpd->update($data);
         session()->flash('success');
         return redirect(route('renjaOpd.index'));
+    }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**

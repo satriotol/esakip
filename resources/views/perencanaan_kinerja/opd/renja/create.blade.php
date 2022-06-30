@@ -2,7 +2,7 @@
 
 @push('plugin-styles')
     <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
-    <link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -59,7 +59,7 @@
             </div>
             <div class="mb-3">
                 <label for="file" class="form-label">File</label>
-                <input type="file" id="myDropify" name="file"
+                <input type="file" name="file" id="file"
                     @empty($renjaOpd) required @endempty />
                 @isset($renjaOpd)
                     <object data="{{ asset('uploads/' . $renjaOpd->file) }}" class="w-100 mt-5" style="height: 550px"
@@ -78,11 +78,22 @@
 @endsection
 
 @push('plugin-scripts')
-<script src="{{ asset('assets/plugins/dropify/js/dropify.min.js') }}"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
-<script src="{{ asset('assets/js/dropify.js') }}"></script>
+<script>
+    const inputElement = document.querySelector('input[id="file"]');
+    const pond = FilePond.create(inputElement);
+    FilePond.setOptions({
+        server: {
+            url: '{{ route('renjaOpd.store_file') }}',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        }
+    });
+</script>
 <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endpush

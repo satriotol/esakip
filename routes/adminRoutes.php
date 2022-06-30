@@ -56,6 +56,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('renjaOpd', RenjaOpdController::class);
     Route::post('getRenjaOpd', [RenjaOpdController::class, 'getRenjaOpd'])->name('renjaOpd.getRenjaOpd');
+    Route::post('renjaOpd/store_file', [RenjaOpdController::class, 'store_file'])->name('renjaOpd.store_file');
 
     Route::resource('cascadingKinerjaOpd', CascadingKinerjaOpdController::class);
     Route::post('getCascadingKinerjaOpd', [CascadingKinerjaOpdController::class, 'getCascadingKinerjaOpd'])->name('cascadingKinerjaOpd.getCascadingKinerjaOpd');
