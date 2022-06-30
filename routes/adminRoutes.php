@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::post('ikuKota/store_file', [IkuKotaController::class,'store_file'])->name('ikuKotum.store_file');
     Route::resource('kotaPerjanjianKinerja', KotaPerjanjianKinerjaController::class);
     Route::post('getKotaPerjanjianKinerja', [KotaPerjanjianKinerjaController::class, 'getKotaPerjanjianKinerja'])->name('kotaPerjanjianKinerja.getKotaPerjanjianKinerja');
+    Route::post('kotaPerjanjianKinerja/store_file', [KotaPerjanjianKinerjaController::class, 'store_file'])->name('kotaPerjanjianKinerja.store_file');
     // end of kota
     // ===========================
     // opd
@@ -79,6 +80,7 @@ Route::middleware('auth')->group(function () {
     Route::post('ikuOpd/store_file', [IkuOpdController::class, 'store_file'])->name('ikuOpd.store_file');
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);
     Route::post('getOpdPerjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'getOpdPerjanjianKinerja'])->name('opdPerjanjianKinerja.getOpdPerjanjianKinerja');
+    Route::post('opdPerjanjianKinerja/store_file', [OpdPerjanjianKinerjaController::class, 'store_file'])->name('opdPerjanjianKinerja.store_file');
     // end of opd
     // end of pengukuran kinerja
     // ===========================

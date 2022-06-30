@@ -74,10 +74,8 @@ class OpdPerjanjianKinerjaController extends Controller
     public function store(CreateOpdPerjanjianKinerjaRequest $request)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
+
         OpdPerjanjianKinerja::create($data);
         session()->flash('success');
         return redirect(route('opdPerjanjianKinerja.index'));
@@ -117,14 +115,22 @@ class OpdPerjanjianKinerjaController extends Controller
     public function update(UpdateOpdPerjanjianKinerjaRequest $request, OpdPerjanjianKinerja $opdPerjanjianKinerja)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $opdPerjanjianKinerja->deleteFile();
-            $data['file'] = $file;
         };
         $opdPerjanjianKinerja->update($data);
         session()->flash('success');
         return redirect(route('opdPerjanjianKinerja.index'));
+    }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**
