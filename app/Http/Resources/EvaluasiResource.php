@@ -16,10 +16,11 @@ class EvaluasiResource extends JsonResource
      */
     public function toArray($request)
     {
+        $count = EvaluasiKinerjaYear::count();
         return [
             'id' => $this->id,
             'name' => $this->nama_opd,
-            'hasil' => EvaluasiKinerjaResource::collection($this->evaluasi_kinerjas->sortByDesc('evaluasi_kinerja_year.year')),
+            'hasil' => EvaluasiKinerjaResource::collection($this->evaluasi_kinerjas->sortBy('evaluasi_kinerja_year.year')->skip($count - 5)->take(5)),
         ];
     }
 }
