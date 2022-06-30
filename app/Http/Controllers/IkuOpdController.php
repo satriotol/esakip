@@ -73,10 +73,7 @@ class IkuOpdController extends Controller
     public function store(CreateIkuOpdRequest $request)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
         IkuOpd::create($data);
         session()->flash('success');
         return redirect(route('ikuOpd.index'));
@@ -115,14 +112,22 @@ class IkuOpdController extends Controller
     public function update(UpdateIkuOpdRequest $request, IkuOpd $ikuOpd)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $ikuOpd->deleteFile();
-            $data['file'] = $file;
         };
         $ikuOpd->update($data);
         session()->flash('success');
         return redirect(route('ikuOpd.index'));
+    }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**

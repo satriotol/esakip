@@ -75,6 +75,7 @@ Route::middleware('auth')->group(function () {
     // opd
     Route::resource('ikuOpd', IkuOpdController::class);
     Route::post('getIkuOpd', [IkuOpdController::class, 'getIkuOpd'])->name('ikuOpd.getIkuOpd');
+    Route::post('ikuOpd/store_file', [IkuOpdController::class, 'store_file'])->name('ikuOpd.store_file');
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);
     Route::post('getOpdPerjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'getOpdPerjanjianKinerja'])->name('opdPerjanjianKinerja.getOpdPerjanjianKinerja');
     // end of opd
