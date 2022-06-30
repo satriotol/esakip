@@ -68,6 +68,7 @@ Route::middleware('auth')->group(function () {
     // pengukuran kinerja
     // kota
     Route::resource('ikuKota', IkuKotaController::class);
+    Route::post('ikuKota/store_file', [IkuKotaController::class,'store_file'])->name('ikuKotum.store_file');
     Route::resource('kotaPerjanjianKinerja', KotaPerjanjianKinerjaController::class);
     Route::post('getKotaPerjanjianKinerja', [KotaPerjanjianKinerjaController::class, 'getKotaPerjanjianKinerja'])->name('kotaPerjanjianKinerja.getKotaPerjanjianKinerja');
     // end of kota

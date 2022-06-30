@@ -48,10 +48,7 @@ class IkuKotaController extends Controller
     public function store(CreateIkuKotaRequest $request)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
         IkuKota::create($data);
         session()->flash('success');
         return redirect(route('ikuKota.index'));
@@ -89,14 +86,22 @@ class IkuKotaController extends Controller
     public function update(UpdateIkuKotaRequest $request, IkuKota $ikuKotum)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $ikuKotum->deleteFile();
-            $data['file'] = $file;
         };
         $ikuKotum->update($data);
         session()->flash('success');
         return redirect(route('ikuKota.index'));
+    }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**
