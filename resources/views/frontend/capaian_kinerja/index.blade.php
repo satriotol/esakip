@@ -22,6 +22,8 @@
                                     @click="setRouteName('CAPAIAN APBD')">CAPAIAN APBD</button>
                                 <button :class="[routeName == 'REALISASI ANGGARAN' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('REALISASI ANGGARAN')">REALISASI ANGGARAN</button>
+                                <button :class="[routeName == 'LINK TERKAIT' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('LINK TERKAIT')">LINK TERKAIT</button>
                             </div>
                         </div>
                     </div>
@@ -31,6 +33,9 @@
                 </div>
                 <div v-if="routeName == 'REALISASI ANGGARAN'">
                     @include('frontend.capaian_kinerja.realisasi_anggaran')
+                </div>
+                <div v-if="routeName == 'LINK TERKAIT'">
+                    @include('frontend.capaian_kinerja.link')
                 </div>
             </div>
         </div>

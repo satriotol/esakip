@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CapaianKinerja\Link;
 use App\Models\PengukuranKinerja\IkuKota;
 use App\Models\PerencanaanKinerjaRpjmd;
 use App\Models\Website;
@@ -42,8 +43,9 @@ class IndexController extends Controller
     }
     public function capaian_kinerja()
     {
+        $links = Link::all();
         $name = 'Capaian Kinerja';
-        return view('frontend.capaian_kinerja.index', compact('name'));
+        return view('frontend.capaian_kinerja.index', compact('name', 'links'));
     }
     public function evaluasi_kinerja()
     {
