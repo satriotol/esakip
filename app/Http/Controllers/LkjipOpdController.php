@@ -67,10 +67,8 @@ class LkjipOpdController extends Controller
     public function store(CreateLkjipOpdRequest $request)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
+
         LkjipOpd::create($data);
         session()->flash('success');
         return redirect(route('lkjip_opd.index'));
@@ -109,14 +107,22 @@ class LkjipOpdController extends Controller
     public function update(UpdateLkjipOpdRequest $request, LkjipOpd $lkjip_opd)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $lkjip_opd->deleteFile();
-            $data['file'] = $file;
         };
         $lkjip_opd->update($data);
         session()->flash('success');
         return redirect(route('lkjip_opd.index'));
+    }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**

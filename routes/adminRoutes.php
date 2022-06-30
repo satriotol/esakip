@@ -89,11 +89,13 @@ Route::middleware('auth')->group(function () {
     // kota
     Route::resource('lkjip_kota', LkjipKotaController::class);
     Route::post('getLkjipKota', [LkjipKotaController::class, 'getLkjipKota'])->name('lkjip_kota.getLkjipKota');
+    Route::post('lkjip_kota/store_file', [LkjipKotaController::class, 'store_file'])->name('lkjip_kotum.store_file');
     // end of kota
     // ===========================
     // opd
     Route::resource('lkjip_opd', LkjipOpdController::class);
     Route::post('getLkjipOpd', [LkjipOpdController::class, 'getLkjipOpd'])->name('lkjip_opd.getLkjipOpd');
+    Route::post('lkjip_opd/store_file', [LkjipOpdController::class, 'store_file'])->name('lkjip_opd.store_file');
     // end of opd
     // end of pelaporan kinerja
     // ===========================

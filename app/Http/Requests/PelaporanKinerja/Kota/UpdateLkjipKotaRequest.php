@@ -25,7 +25,7 @@ class UpdateLkjipKotaRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'file' => 'nullable|file|max:5000',
+            'file' => 'nullable|max:5000',
             'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
         ];
     }

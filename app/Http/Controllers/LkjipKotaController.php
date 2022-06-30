@@ -65,10 +65,7 @@ class LkjipKotaController extends Controller
     public function store(CreateLkjipKotaRequest $request)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
         LkjipKota::create($data);
         session()->flash('success');
         return redirect(route('lkjip_kota.index'));
@@ -106,14 +103,22 @@ class LkjipKotaController extends Controller
     public function update(UpdateLkjipKotaRequest $request, LkjipKota $lkjip_kotum)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $lkjip_kotum->deleteFile();
-            $data['file'] = $file;
         };
         $lkjip_kotum->update($data);
         session()->flash('success');
         return redirect(route('lkjip_kota.index'));
+    }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**
