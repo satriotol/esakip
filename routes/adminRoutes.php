@@ -60,6 +60,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('cascadingKinerjaOpd', CascadingKinerjaOpdController::class);
     Route::post('getCascadingKinerjaOpd', [CascadingKinerjaOpdController::class, 'getCascadingKinerjaOpd'])->name('cascadingKinerjaOpd.getCascadingKinerjaOpd');
+    Route::post('cascadingKinerjaOpd/store_file', [CascadingKinerjaOpdController::class, 'store_file'])->name('cascadingKinerjaOpd.store_file');
     // end of opd
     // end of perencanaan kinerja
     // ===========================

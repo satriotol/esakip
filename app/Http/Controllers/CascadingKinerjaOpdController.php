@@ -74,10 +74,7 @@ class CascadingKinerjaOpdController extends Controller
     public function store(CreateCascadingKinerjaOpdRequest $request)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-        };
+        $data['file'] = $request->file;
         CascadingKinerjaOpd::create($data);
         session()->flash('success');
         return redirect(route('cascadingKinerjaOpd.index'));
@@ -117,14 +114,22 @@ class CascadingKinerjaOpdController extends Controller
     public function update(UpdateCascadingKinerjaOpdRequest $request, CascadingKinerjaOpd $cascadingKinerjaOpd)
     {
         $data = $request->all();
-        if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
+        if ($request->file) {
+            $data['file'] = $request->file;
             $cascadingKinerjaOpd->deleteFile();
-            $data['file'] = $file;
         };
         $cascadingKinerjaOpd->update($data);
         session()->flash('success');
         return redirect(route('cascadingKinerjaOpd.index'));
+    }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file->store('file', 'public_uploads');
+            $data['file'] = $file;
+            return $file;
+        };
+        return 'success';
     }
 
     /**
