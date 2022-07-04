@@ -3,6 +3,7 @@
 namespace App\Models\PerngukuranKinerja;
 
 use App\Models\Opd;
+use App\Models\OpdPerjanjianKinerjaSasaran;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -20,6 +21,10 @@ class OpdPerjanjianKinerja extends Model
     public function opd()
     {
         return $this->belongsTo(Opd::class, 'opd_id');
+    }
+    public function opd_perjanjian_kinerja_sasarans()
+    {
+        return $this->hasMany(OpdPerjanjianKinerjaSasaran::class, 'opd_perjanjian_kinerja_id', 'id');
     }
 
     public function deleteFile()
