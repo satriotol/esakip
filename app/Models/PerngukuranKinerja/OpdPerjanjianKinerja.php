@@ -2,6 +2,7 @@
 
 namespace App\Models\PerngukuranKinerja;
 
+use App\Blameable;
 use App\Models\Opd;
 use App\Models\OpdPerjanjianKinerjaSasaran;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Storage;
 
 class OpdPerjanjianKinerja extends Model
 {
-    use HasFactory;
+    use HasFactory, Blameable;
 
     protected $fillable = ['year', 'opd_id', 'file', 'type'];
     protected $appends = ['file_url', 'opd_name'];
