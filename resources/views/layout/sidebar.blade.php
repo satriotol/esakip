@@ -115,7 +115,7 @@
                     <span class="link-title">OPD</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ show_class(['ikuOpd.*', 'opdPerjanjianKinerja.*']) }}"
+                <div class="collapse {{ show_class(['ikuOpd.*', 'opdPerjanjianKinerja.*','opdPerjanjianKinerjaSasaran.*','opdPerjanjianKinerjaIndikator.*']) }}"
                     id="perancangan_kinerja_opd">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
@@ -124,7 +124,7 @@
                         </li>
                         <li class="nav-item">
                             <a href="{{ route('opdPerjanjianKinerja.index') }}"
-                                class="nav-link {{ active_class(['opdPerjanjianKinerja.*']) }}">PERJANJIAN
+                                class="nav-link {{ active_class(['opdPerjanjianKinerja.*', 'opdPerjanjianKinerjaSasaran.*','opdPerjanjianKinerjaIndikator.*']) }}">PERJANJIAN
                                 KINERJA</a>
                         </li>
                     </ul>

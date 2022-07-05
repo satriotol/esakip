@@ -22,17 +22,40 @@
                 <h4 class="card-title">Form {{ $name }}</h4>
                 @include('partials.errors')
                 <form
-                    action="{{ route('opdPerjanjianKinerjaSasaran.update', [$opdPerjanjianKinerjaSasaran->opd_perjanjian_kinerja_id, $opdPerjanjianKinerjaSasaran->id]) }}"
+                    action="{{ route('opdPerjanjianKinerjaIndikator.update', [$opdPerjanjianKinerja, $opd_perjanjian_kinerja_indikator->id]) }}"
                     method="POST" enctype="multipart/form-data">
                     @csrf
-                    @isset($opdPerjanjianKinerjaSasaran)
+                    @isset($opd_perjanjian_kinerja_indikator)
                         @method('PUT')
                     @endisset
                     <div class="mb-3">
-                        <label for="sasaran" class="form-label">Sasaran</label>
-                        <input id="sasaran" class="form-control" name="sasaran" type="text" placeholder="Sasaran"
+                        <label for="opd_perjanjian_kinerja_sasaran_id" class="form-label">Sasaran</label>
+                        <select class="js-example-basic-single form-select" data-width="100%" required name="opd_perjanjian_kinerja_sasaran_id">
+                            <option value="">Pilih Sasaran</option>
+                            @foreach ($opd_perjanjian_kinerja_sasarans as $opd_perjanjian_kinerja_sasaran)
+                                <option value="{{ $opd_perjanjian_kinerja_sasaran->id }}"
+                                    @if ($opd_perjanjian_kinerja_sasaran->id === $opd_perjanjian_kinerja_indikator->opd_perjanjian_kinerja_sasaran_id) selected @endif>
+                                    {{ $opd_perjanjian_kinerja_sasaran->sasaran }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="indikator" class="form-label">Indikator</label>
+                        <input id="indikator" class="form-control" name="indikator" type="text" placeholder="Sasaran"
                             required
-                            value="{{ isset($opdPerjanjianKinerjaSasaran) ? $opdPerjanjianKinerjaSasaran->sasaran : '' }}">
+                            value="{{ isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->indikator : '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="target" class="form-label">Target</label>
+                        <input id="target" class="form-control" name="target" type="text" placeholder="Sasaran"
+                            required
+                            value="{{ isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->target : '' }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="satuan" class="form-label">Satuan</label>
+                        <input id="satuan" class="form-control" name="satuan" type="text" placeholder="Sasaran"
+                            value="{{ isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->satuan : '' }}">
                     </div>
                     <div class="text-end">
                         <input class="btn btn-primary" type="submit" value="Submit">
@@ -40,10 +63,11 @@
                 </form>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
 
-    @push('plugin-scripts')
-    @endpush
+@push('plugin-scripts')
+@endpush
 
-    @push('custom-scripts')
-    @endpush
+@push('custom-scripts')
+@endpush

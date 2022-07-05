@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PengukuranKinerja\CreateOpdPerjanjianKinerjaRequest;
 use App\Http\Requests\PengukuranKinerja\UpdateOpdPerjanjianKinerjaRequest;
 use App\Models\Opd;
+use App\Models\OpdPerjanjianKinerjaIndikator;
+use App\Models\OpdPerjanjianKinerjaSasaran;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -90,7 +92,10 @@ class OpdPerjanjianKinerjaController extends Controller
      */
     public function show(OpdPerjanjianKinerja $opdPerjanjianKinerja)
     {
-        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.show', compact('opdPerjanjianKinerja'));
+        $opdPerjanjianKinerjaIndikators = OpdPerjanjianKinerjaIndikator::whereHas('opd_perjanjian_kinerja_sasaran', function ($q) use ($opdPerjanjianKinerja) {
+            $q->where('opd_perjanjian_kinerja_id', $opdPerjanjianKinerja->id);
+        })->get();
+        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.show', compact('opdPerjanjianKinerja', 'opdPerjanjianKinerjaIndikators'));
     }
 
     /**

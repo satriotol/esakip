@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OpdPerjanjianKinerjaIndikator\CreateOpdPerjanjianKinerjaIndikatorRequest;
-use App\Models\Opd;
+use App\Http\Requests\OpdPerjanjianKinerjaIndikator\UpdateOpdPerjanjianKinerjaIndikatorRequest;
 use App\Models\OpdPerjanjianKinerjaIndikator;
 use App\Models\OpdPerjanjianKinerjaSasaran;
 use Illuminate\Http\Request;
@@ -69,9 +69,10 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
      * @param  \App\Models\OpdPerjanjianKinerjaIndikator  $opdPerjanjianKinerjaIndikator
      * @return \Illuminate\Http\Response
      */
-    public function edit(OpdPerjanjianKinerjaIndikator $opdPerjanjianKinerjaIndikator)
+    public function edit($opdPerjanjianKinerja, OpdPerjanjianKinerjaIndikator $opd_perjanjian_kinerja_indikator)
     {
-        //
+        $opd_perjanjian_kinerja_sasarans = OpdPerjanjianKinerjaSasaran::where('opd_perjanjian_kinerja_id', $opdPerjanjianKinerja)->get();
+        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.indikator.edit', compact('opd_perjanjian_kinerja_indikator', 'opdPerjanjianKinerja', 'opd_perjanjian_kinerja_sasarans'));
     }
 
     /**
@@ -81,9 +82,12 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
      * @param  \App\Models\OpdPerjanjianKinerjaIndikator  $opdPerjanjianKinerjaIndikator
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OpdPerjanjianKinerjaIndikator $opdPerjanjianKinerjaIndikator)
+    public function update(UpdateOpdPerjanjianKinerjaIndikatorRequest $request, $opdPerjanjianKinerja, OpdPerjanjianKinerjaIndikator $opdPerjanjianKinerjaIndikator)
     {
-        //
+        $data = $request->all();
+        $opdPerjanjianKinerjaIndikator->update($data);
+        session()->flash('success');
+        return redirect(route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja));
     }
 
     /**
@@ -94,6 +98,8 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
      */
     public function destroy(OpdPerjanjianKinerjaIndikator $opdPerjanjianKinerjaIndikator)
     {
-        //
+        $opdPerjanjianKinerjaIndikator->delete();
+        session()->flash('success');
+        return back();
     }
 }

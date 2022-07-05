@@ -9,24 +9,22 @@
                 <th>Sasaran</th>
                 <th>Indikator</th>
                 <th>Target</th>
-                <th>Satuan</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($opdPerjanjianKinerja->opd_perjanjian_kinerja_sasarans as $opd_perjanjian_kinerja_sasaran)
+            @foreach ($opdPerjanjianKinerjaIndikators as $opd_perjanjian_kinerja_indikator)
                 <tr>
-                    <td>{{ $opd_perjanjian_kinerja_sasaran->sasaran }}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ $opd_perjanjian_kinerja_indikator->opd_perjanjian_kinerja_sasaran->sasaran }}</td>
+                    <td>{{ $opd_perjanjian_kinerja_indikator->indikator }}</td>
+                    <td>{{ $opd_perjanjian_kinerja_indikator->target }} {{$opd_perjanjian_kinerja_indikator->satuan}}</td>
                     <td>
                         <a class="badge rounded-pill bg-warning text-dark"
-                            href="{{ route('opdPerjanjianKinerjaSasaran.edit', [$opdPerjanjianKinerja->id, $opd_perjanjian_kinerja_sasaran->id]) }}">
+                            href="{{ route('opdPerjanjianKinerjaIndikator.edit', [$opdPerjanjianKinerja, $opd_perjanjian_kinerja_indikator->id]) }}">
                             Edit
                         </a>
                         <form
-                            action="{{ route('opdPerjanjianKinerjaSasaran.destroy', $opd_perjanjian_kinerja_sasaran->id) }}"
+                            action="{{ route('opdPerjanjianKinerjaIndikator.destroy', $opd_perjanjian_kinerja_indikator->id) }}"
                             method="POST" class="d-inline">
                             @csrf
                             @method('DELETE')
