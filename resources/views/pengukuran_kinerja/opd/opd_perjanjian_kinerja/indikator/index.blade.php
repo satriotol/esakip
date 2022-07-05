@@ -3,7 +3,7 @@
         class="btn btn-sm btn-success ml-1">Tambah Indikator</a>
 </div>
 <div class="table-responsive mt-2">
-    <table id="dataTableExample" class="table">
+    <table id="dataTableExample" class="table dataTableExample">
         <thead>
             <tr>
                 <th>Sasaran</th>
