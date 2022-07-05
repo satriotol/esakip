@@ -115,17 +115,11 @@
                     <span class="link-title">OPD</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
                 </a>
-                <div class="collapse {{ show_class(['ikuOpd.*', 'opdPerjanjianKinerja.*','opdPerjanjianKinerjaSasaran.*','opdPerjanjianKinerjaIndikator.*']) }}"
-                    id="perancangan_kinerja_opd">
+                <div class="collapse {{ show_class(['ikuOpd.*']) }}" id="perancangan_kinerja_opd">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
                             <a href="{{ route('ikuOpd.index') }}"
                                 class="nav-link {{ active_class(['ikuOpd.*']) }}">IKU</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('opdPerjanjianKinerja.index') }}"
-                                class="nav-link {{ active_class(['opdPerjanjianKinerja.*', 'opdPerjanjianKinerjaSasaran.*','opdPerjanjianKinerjaIndikator.*']) }}">PERJANJIAN
-                                KINERJA</a>
                         </li>
                     </ul>
                 </div>
@@ -175,6 +169,14 @@
                 <a href="{{ route('evaluasiKinerjaYear.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
                     <span class="link-title">Evaluasi Kinerja</span>
+                </a>
+            </li>
+            <li class="nav-item nav-category">Perjanjian Kinerja</li>
+            <li
+                class="nav-item {{ active_class(['opdPerjanjianKinerja.*', 'opdPerjanjianKinerjaSasaran.*', 'opdPerjanjianKinerjaIndikator.*']) }}">
+                <a href="{{ route('opdPerjanjianKinerja.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="box"></i>
+                    <span class="link-title">Perjanjian Kinerja</span>
                 </a>
             </li>
             <li class="nav-item nav-category">Setting</li>
