@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\PengukuranKinerja;
+namespace App\Http\Requests\OpdPerjanjianKinerjaSasaran;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateOpdPerjanjianKinerjaRequest extends FormRequest
+class CreateOpdPerjanjianKinerjaSasaranRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,8 @@ class UpdateOpdPerjanjianKinerjaRequest extends FormRequest
     public function rules()
     {
         return [
-            'opd_id' => 'required',
-            'file' => 'nullable|max:500000',
-            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
-            'type' => 'required'
+            'opd_perjanjian_kinerja_id' => 'nullable',
+            'sasaran.*' => 'required'
         ];
     }
 }

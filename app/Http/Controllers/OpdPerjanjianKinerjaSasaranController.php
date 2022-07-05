@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OpdPerjanjianKinerjaSasaran\CreateOpdPerjanjianKinerjaSasaranRequest;
+use App\Http\Requests\OpdPerjanjianKinerjaSasaran\UpdateOpdPerjanjianKinerjaSasaranRequest;
 use App\Models\OpdPerjanjianKinerjaSasaran;
 use Illuminate\Http\Request;
 
@@ -12,6 +14,12 @@ class OpdPerjanjianKinerjaSasaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        // Fetch the Site Settings object
+        $name = "Sasaran Perjanjian Kinerja OPD";
+        view()->share('name', $name);
+    }
     public function index()
     {
         //
@@ -22,9 +30,9 @@ class OpdPerjanjianKinerjaSasaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($opdPerjanjianKinerja)
     {
-        //
+        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.sasaran.create', compact('opdPerjanjianKinerja'));
     }
 
     /**
@@ -33,9 +41,17 @@ class OpdPerjanjianKinerjaSasaranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateOpdPerjanjianKinerjaSasaranRequest $request, $opdPerjanjianKinerja)
     {
-        //
+        $data = $request->all();
+        foreach ($data['sasaran'] as $key => $value) {
+            OpdPerjanjianKinerjaSasaran::create([
+                'opd_perjanjian_kinerja_id' => $opdPerjanjianKinerja,
+                'sasaran' => $value,
+            ]);
+        }
+        session()->flash('success');
+        return redirect(route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja));
     }
 
     /**
@@ -44,7 +60,7 @@ class OpdPerjanjianKinerjaSasaranController extends Controller
      * @param  \App\Models\OpdPerjanjianKinerjaSasaran  $opdPerjanjianKinerjaSasaran
      * @return \Illuminate\Http\Response
      */
-    public function show(OpdPerjanjianKinerjaSasaran $opdPerjanjianKinerjaSasaran)
+    public function show(CreateOpdPerjanjianKinerjaSasaranRequest $opdPerjanjianKinerjaSasaran)
     {
         //
     }
@@ -55,9 +71,9 @@ class OpdPerjanjianKinerjaSasaranController extends Controller
      * @param  \App\Models\OpdPerjanjianKinerjaSasaran  $opdPerjanjianKinerjaSasaran
      * @return \Illuminate\Http\Response
      */
-    public function edit(OpdPerjanjianKinerjaSasaran $opdPerjanjianKinerjaSasaran)
+    public function edit($opdPerjanjianKinerja, OpdPerjanjianKinerjaSasaran $opdPerjanjianKinerjaSasaran)
     {
-        //
+        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.sasaran.edit', compact('opdPerjanjianKinerja', 'opdPerjanjianKinerjaSasaran'));
     }
 
     /**
@@ -67,9 +83,13 @@ class OpdPerjanjianKinerjaSasaranController extends Controller
      * @param  \App\Models\OpdPerjanjianKinerjaSasaran  $opdPerjanjianKinerjaSasaran
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OpdPerjanjianKinerjaSasaran $opdPerjanjianKinerjaSasaran)
+    public function update(UpdateOpdPerjanjianKinerjaSasaranRequest $request, $opdPerjanjianKinerja, OpdPerjanjianKinerjaSasaran $opdPerjanjianKinerjaSasaran)
     {
-        //
+        $data = $request->all();
+        $data['opd_perjanjian_kinerja_id'] = $opdPerjanjianKinerja;
+        $opdPerjanjianKinerjaSasaran->update($data);
+        session()->flash('success');
+        return redirect(route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja));
     }
 
     /**
@@ -80,6 +100,8 @@ class OpdPerjanjianKinerjaSasaranController extends Controller
      */
     public function destroy(OpdPerjanjianKinerjaSasaran $opdPerjanjianKinerjaSasaran)
     {
-        //
+        $opdPerjanjianKinerjaSasaran->delete();
+        session()->flash('success');
+        return back();
     }
 }

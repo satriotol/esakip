@@ -11,6 +11,7 @@ use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\LkjipOpdController;
 use App\Http\Controllers\OpdPerjanjianKinerjaController;
+use App\Http\Controllers\OpdPerjanjianKinerjaSasaranController;
 use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
 use App\Http\Controllers\PerencanaanKinerjaRkpdController;
 use App\Http\Controllers\PerencanaanKinerjaRpjmdController;
@@ -83,6 +84,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);
     Route::post('getOpdPerjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'getOpdPerjanjianKinerja'])->name('opdPerjanjianKinerja.getOpdPerjanjianKinerja');
     Route::post('opdPerjanjianKinerja/store_file', [OpdPerjanjianKinerjaController::class, 'store_file'])->name('opdPerjanjianKinerja.store_file');
+    Route::get('opdPerjanjianKinerjaSasaran/create/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaSasaranController::class, 'create'])->name('opdPerjanjianKinerjaSasaran.create');
+    Route::post('opdPerjanjianKinerjaSasaran/store/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaSasaranController::class, 'store'])->name('opdPerjanjianKinerjaSasaran.store');
+    Route::get('opdPerjanjianKinerjaSasaran/edit/{opdPerjanjianKinerja}/{opdPerjanjianKinerjaSasaran}', [OpdPerjanjianKinerjaSasaranController::class, 'edit'])->name('opdPerjanjianKinerjaSasaran.edit');
+    Route::put('opdPerjanjianKinerjaSasaran/update/{opdPerjanjianKinerja}/{opdPerjanjianKinerjaSasaran}', [OpdPerjanjianKinerjaSasaranController::class, 'update'])->name('opdPerjanjianKinerjaSasaran.update');
+    Route::delete('opdPerjanjianKinerjaSasaran/destroy/{opdPerjanjianKinerjaSasaran}', [OpdPerjanjianKinerjaSasaranController::class, 'destroy'])->name('opdPerjanjianKinerjaSasaran.destroy');
     // end of opd
     // end of pengukuran kinerja
     // ===========================

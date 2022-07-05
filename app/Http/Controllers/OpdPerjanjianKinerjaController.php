@@ -32,7 +32,8 @@ class OpdPerjanjianKinerjaController extends Controller
                     return $btn;
                 })
                 ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('opdPerjanjianKinerja.edit', $row->id) . '" class="btn btn-sm btn-warning ml-1">Edit</a>';
+                    $btn1 = '<a href="' . route('opdPerjanjianKinerja.show', $row->id) . '" class="btn btn-sm btn-primary ml-1">Detail</a>';
+                    $btn = $btn1 . '<a href="' . route('opdPerjanjianKinerja.edit', $row->id) . '" class="btn btn-sm btn-warning ml-1">Edit</a>';
                     $btn = $btn . '
                         <form action="' . route('opdPerjanjianKinerja.destroy', $row->id) . '" method="POST"
                             class="d-inline">
@@ -89,7 +90,7 @@ class OpdPerjanjianKinerjaController extends Controller
      */
     public function show(OpdPerjanjianKinerja $opdPerjanjianKinerja)
     {
-        //
+        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.show', compact('opdPerjanjianKinerja'));
     }
 
     /**
