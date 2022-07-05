@@ -11,6 +11,7 @@ use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\LkjipOpdController;
 use App\Http\Controllers\OpdPerjanjianKinerjaController;
+use App\Http\Controllers\OpdPerjanjianKinerjaIndikatorController;
 use App\Http\Controllers\OpdPerjanjianKinerjaSasaranController;
 use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
 use App\Http\Controllers\PerencanaanKinerjaRkpdController;
@@ -51,7 +52,8 @@ Route::middleware('auth')->group(function () {
         Route::get('{periodeRenstraOpd}/edit/{renstraOpd}', [RenstraOpdController::class, 'edit'])->name('renstraOpd.edit');
         Route::put('{periodeRenstraOpd}/update/{renstraOpd}', [RenstraOpdController::class, 'update'])->name('renstraOpd.update');
         Route::delete('delete/{renstraOpd}', [RenstraOpdController::class, 'destroy'])->name('renstraOpd.destroy');
-        Route::post('{periodeRenstraOpd}/store_file', [RenstraOpdController::class, 'store_file'])->name('renstraOpd.store_file');    });
+        Route::post('{periodeRenstraOpd}/store_file', [RenstraOpdController::class, 'store_file'])->name('renstraOpd.store_file');
+    });
 
     Route::resource('rktOpd', RktOpdController::class);
     Route::post('getRktOpd', [RktOpdController::class, 'getRktOpd'])->name('rktOpd.getRktOpd');
@@ -71,7 +73,7 @@ Route::middleware('auth')->group(function () {
     // pengukuran kinerja
     // kota
     Route::resource('ikuKota', IkuKotaController::class);
-    Route::post('ikuKota/store_file', [IkuKotaController::class,'store_file'])->name('ikuKotum.store_file');
+    Route::post('ikuKota/store_file', [IkuKotaController::class, 'store_file'])->name('ikuKotum.store_file');
     Route::resource('kotaPerjanjianKinerja', KotaPerjanjianKinerjaController::class);
     Route::post('getKotaPerjanjianKinerja', [KotaPerjanjianKinerjaController::class, 'getKotaPerjanjianKinerja'])->name('kotaPerjanjianKinerja.getKotaPerjanjianKinerja');
     Route::post('kotaPerjanjianKinerja/store_file', [KotaPerjanjianKinerjaController::class, 'store_file'])->name('kotaPerjanjianKinerja.store_file');
@@ -84,11 +86,21 @@ Route::middleware('auth')->group(function () {
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);
     Route::post('getOpdPerjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'getOpdPerjanjianKinerja'])->name('opdPerjanjianKinerja.getOpdPerjanjianKinerja');
     Route::post('opdPerjanjianKinerja/store_file', [OpdPerjanjianKinerjaController::class, 'store_file'])->name('opdPerjanjianKinerja.store_file');
-    Route::get('opdPerjanjianKinerjaSasaran/create/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaSasaranController::class, 'create'])->name('opdPerjanjianKinerjaSasaran.create');
-    Route::post('opdPerjanjianKinerjaSasaran/store/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaSasaranController::class, 'store'])->name('opdPerjanjianKinerjaSasaran.store');
-    Route::get('opdPerjanjianKinerjaSasaran/edit/{opdPerjanjianKinerja}/{opdPerjanjianKinerjaSasaran}', [OpdPerjanjianKinerjaSasaranController::class, 'edit'])->name('opdPerjanjianKinerjaSasaran.edit');
-    Route::put('opdPerjanjianKinerjaSasaran/update/{opdPerjanjianKinerja}/{opdPerjanjianKinerjaSasaran}', [OpdPerjanjianKinerjaSasaranController::class, 'update'])->name('opdPerjanjianKinerjaSasaran.update');
-    Route::delete('opdPerjanjianKinerjaSasaran/destroy/{opdPerjanjianKinerjaSasaran}', [OpdPerjanjianKinerjaSasaranController::class, 'destroy'])->name('opdPerjanjianKinerjaSasaran.destroy');
+    Route::group(['prefix' => 'opdPerjanjianKinerjaSasaran'], function () {
+        Route::get('create/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaSasaranController::class, 'create'])->name('opdPerjanjianKinerjaSasaran.create');
+        Route::post('store/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaSasaranController::class, 'store'])->name('opdPerjanjianKinerjaSasaran.store');
+        Route::get('edit/{opdPerjanjianKinerja}/{opdPerjanjianKinerjaSasaran}', [OpdPerjanjianKinerjaSasaranController::class, 'edit'])->name('opdPerjanjianKinerjaSasaran.edit');
+        Route::put('update/{opdPerjanjianKinerja}/{opdPerjanjianKinerjaSasaran}', [OpdPerjanjianKinerjaSasaranController::class, 'update'])->name('opdPerjanjianKinerjaSasaran.update');
+        Route::delete('destroy/{opdPerjanjianKinerjaSasaran}', [OpdPerjanjianKinerjaSasaranController::class, 'destroy'])->name('opdPerjanjianKinerjaSasaran.destroy');
+    });
+    Route::group(['prefix' => 'opdPerjanjianKinerjaIndikator'], function () {
+        Route::get('create/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaIndikatorController::class, 'create'])->name('opdPerjanjianKinerjaIndikator.create');
+        Route::post('store/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaIndikatorController::class, 'store'])->name('opdPerjanjianKinerjaIndikator.store');
+        Route::get('edit/{opdPerjanjianKinerja}/{opdPerjanjianKinerjaSasaran}/{opdPerjanjianKinerjaIndikator}', [OpdPerjanjianKinerjaIndikatorController::class, 'edit'])->name('opdPerjanjianKinerjaIndikator.edit');
+        Route::put('update/{opdPerjanjianKinerja}/{opdPerjanjianKinerjaSasaran}/{opdPerjanjianKinerjaIndikator}', [OpdPerjanjianKinerjaIndikatorController::class, 'update'])->name('opdPerjanjianKinerjaIndikator.update');
+        Route::delete('destroy/{opdPerjanjianKinerjaIndikator}', [OpdPerjanjianKinerjaIndikatorController::class, 'destroy'])->name('opdPerjanjianKinerjaIndikator.destroy');
+    });
+
     // end of opd
     // end of pengukuran kinerja
     // ===========================
