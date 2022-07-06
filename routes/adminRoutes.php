@@ -12,6 +12,7 @@ use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\LkjipOpdController;
 use App\Http\Controllers\OpdPerjanjianKinerjaController;
 use App\Http\Controllers\OpdPerjanjianKinerjaIndikatorController;
+use App\Http\Controllers\OpdPerjanjianKinerjaProgramAnggaranController;
 use App\Http\Controllers\OpdPerjanjianKinerjaSasaranController;
 use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
 use App\Http\Controllers\PerencanaanKinerjaRkpdController;
@@ -100,7 +101,13 @@ Route::middleware('auth')->group(function () {
         Route::put('update/{opdPerjanjianKinerja}/{opd_perjanjian_kinerja_indikator}', [OpdPerjanjianKinerjaIndikatorController::class, 'update'])->name('opdPerjanjianKinerjaIndikator.update');
         Route::delete('destroy/{opdPerjanjianKinerjaIndikator}', [OpdPerjanjianKinerjaIndikatorController::class, 'destroy'])->name('opdPerjanjianKinerjaIndikator.destroy');
     });
-
+    Route::group(['prefix' => 'opdPerjanjianKinerjaProgramAnggaran'], function () {
+        Route::get('create/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaProgramAnggaranController::class, 'create'])->name('opdPerjanjianKinerjaProgramAnggaran.create');
+        Route::post('store/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaProgramAnggaranController::class, 'store'])->name('opdPerjanjianKinerjaProgramAnggaran.store');
+        Route::get('edit/{opdPerjanjianKinerja}/{opd_program_anggaran}', [OpdPerjanjianKinerjaProgramAnggaranController::class, 'edit'])->name('opdPerjanjianKinerjaProgramAnggaran.edit');
+        Route::put('update/{opdPerjanjianKinerja}/{opd_program_anggaran}', [OpdPerjanjianKinerjaProgramAnggaranController::class, 'update'])->name('opdPerjanjianKinerjaProgramAnggaran.update');
+        Route::delete('destroy/{opd_program_anggaran}', [OpdPerjanjianKinerjaProgramAnggaranController::class, 'destroy'])->name('opdPerjanjianKinerjaProgramAnggaran.destroy');
+    });
     // end of opd
     // end of pengukuran kinerja
     // ===========================
