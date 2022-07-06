@@ -15,10 +15,10 @@ class OpdPerjanjianKinerjaController extends Controller
             $q->where('nama_opd', $request->nama_opd);
         })->latest()->first();
         if ($request->nama_opd == null) {
-            return $this->failedResponse([], 'Pastikan Anda Sudah Mengisi Form Pencarian');
+            return $this->failedResponse([], 'Oops, ada yang salah, Pastikan Anda Sudah Mengisi Form Pencarian');
         }
         if ($perjanjian_kinerjas == null) {
-            return $this->failedResponse([], 'Pastikan Nama Opd Yang Anda Masukkan Benar, dan pastikan untuk nama opd capslock');
+            return $this->failedResponse([], 'Oops, ada yang salah, Pastikan Nama Opd Yang Anda Masukkan Benar');
         }
         return $this->successResponse(['perjanjian_kinerja' => new OpdPerjanjianKinerjaResource($perjanjian_kinerjas)]);
     }
