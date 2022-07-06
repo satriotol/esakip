@@ -1,13 +1,10 @@
-@if ($errors->any())
-    <div class="alert alert-danger" role="alert">
-        <div class="alert-body">
-            <div class="alert-title">Error Validation!</div>
-            <ul class="list-group">
-                {{$errors}}
-                @foreach ($errors->all() as $error)
-                    {{ $error }}
-                @endforeach
-            </ul>
-        </div>
+@if (count($errors) > 0)
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
     </div>
 @endif

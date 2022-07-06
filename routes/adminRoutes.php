@@ -21,15 +21,17 @@ use App\Http\Controllers\PeriodeRenstraOpdController;
 use App\Http\Controllers\RenjaOpdController;
 use App\Http\Controllers\RenstraOpdController;
 use App\Http\Controllers\RktOpdController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WebsiteController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware('auth')->group(function () {
+Route::group(['middleware' => ['auth']], function() {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('website', WebsiteController::class);
     Route::resource('user', UserController::class);
+    Route::resource('role', RoleController::class);
 
     // ===========================
     //perencanaan kinerja

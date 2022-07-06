@@ -7,7 +7,9 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -26,7 +28,7 @@ class UserController extends Controller
     {
         if (Auth::user()->email == 'satriotol69@gmail.com') {
             $users = User::all();
-        }else{
+        } else {
             $users = User::where('email', '!=', 'satriotol69@gmail.com')->get();
         }
         return view('user.index', compact('users'));
@@ -39,7 +41,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('user.create');
+        $roles = Role::all();
+        return view('user.create', compact('roles'));
     }
 
     /**
@@ -52,7 +55,8 @@ class UserController extends Controller
     {
         $data = $request->all();
         $data['password'] = Hash::make($request->password);
-        User::create($data);
+        $user = User::create($data);
+        $user->assignRole($data['roles']);
         session()->flash('success');
         return redirect(route('user.index'));
     }
@@ -76,7 +80,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user.create', compact('user'));
+        $roles = Role::all();
+        return view('user.create', compact('user', 'roles'));
     }
 
     /**
@@ -93,6 +98,8 @@ class UserController extends Controller
             $data['password'] = Hash::make($request->password);
         }
         $user->update($data);
+        DB::table('model_has_roles')->where('model_id', $user->id)->delete();
+        $user->assignRole($request['roles']);
         session()->flash('success');
         return redirect(route('user.index'));
     }
