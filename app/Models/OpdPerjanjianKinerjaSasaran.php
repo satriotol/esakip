@@ -17,6 +17,6 @@ class OpdPerjanjianKinerjaSasaran extends Model
     }
     public function opd_perjanjian_kinerja_indikators()
     {
-        return $this->hasMany(OpdPerjanjianKinerjaIndikator::class, 'opd_perjanjian_kinerja_id', 'id');
+        return $this->hasMany(OpdPerjanjianKinerjaIndikator::class, 'opd_perjanjian_kinerja_sasaran_id', 'id');
     }
 }

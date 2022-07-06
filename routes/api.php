@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\DataUnitController;
 use App\Http\Controllers\Api\EvaluasiKinerjaAkipController;
 use App\Http\Controllers\Api\OpdController;
+use App\Http\Controllers\Api\OpdPerjanjianKinerjaController;
 use App\Http\Controllers\Api\PelaporanKinerja\KotaLkjipController;
 use App\Http\Controllers\Api\PelaporanKinerja\OpdLkjipController;
 use App\Http\Controllers\Api\PengukuranKinerjaKotaController;
@@ -49,3 +50,6 @@ Route::get('perencanaankinerjaopd/cascading_kinerja', [PerencanaanKinerjaOpdCont
 Route::get('pengukurankinerjakota/perjanjian_kinerja', [PengukuranKinerjaKotaController::class, 'getPerjanjianKinerja']);
 Route::get('pengukurankinerjaopd/iku', [PengukuranKinerjaOpdController::class, 'getIku']);
 Route::get('pengukurankinerjaopd/perjanjian_kinerja', [PengukuranKinerjaOpdController::class, 'getPerjanjianKinerja']);
+
+
+Route::get('perjanjianKinerja', [OpdPerjanjianKinerjaController::class,'index']);
