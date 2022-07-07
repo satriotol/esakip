@@ -123,46 +123,54 @@
                     </ul>
                 </div>
             </li>
-            <li class="nav-item nav-category">Pelaporan Kinerja</li>
-            <li class="nav-item {{ active_class(['lkjip_kota.*']) }}">
-                <a class="nav-link" data-bs-toggle="collapse" href="#pelaporan_kinerja" role="button"
-                    aria-expanded="{{ is_active_route(['lkjip_kota.*']) }}" aria-controls="pelaporan_kinerja">
-                    <i class="link-icon" data-feather="anchor"></i>
-                    <span class="link-title">Kota</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
-                </a>
-                <div class="collapse {{ show_class(['lkjip_kota.*']) }}" id="pelaporan_kinerja">
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="{{ route('lkjip_kota.index') }}"
-                                class="nav-link {{ active_class(['lkjip_kota.*']) }}">LKJIP</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item {{ active_class(['lkjip_opd.*']) }}">
-                <a class="nav-link" data-bs-toggle="collapse" href="#pelaporan_kinerja_opd" role="button"
-                    aria-expanded="{{ is_active_route(['lkjip_opd.*']) }}" aria-controls="pelaporan_kinerja_opd">
-                    <i class="link-icon" data-feather="anchor"></i>
-                    <span class="link-title">OPD</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
-                </a>
-                <div class="collapse {{ show_class(['lkjip_opd.*']) }}" id="pelaporan_kinerja_opd">
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="{{ route('lkjip_opd.index') }}"
-                                class="nav-link {{ active_class(['lkjip_opd.*']) }}">LKJIP</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item nav-category">Capaian Kinerja</li>
-            <li class="nav-item {{ active_class(['link.*']) }}">
-                <a href="{{ route('link.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="box"></i>
-                    <span class="link-title">Link Terkait</span>
-                </a>
-            </li>
+            @can('kotaLkjip-list', 'opdLkjip-list')
+                <li class="nav-item nav-category">Pelaporan Kinerja</li>
+            @endcan
+            @can('kotaLkjip-list')
+                <li class="nav-item {{ active_class(['lkjip_kota.*']) }}">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#pelaporan_kinerja" role="button"
+                        aria-expanded="{{ is_active_route(['lkjip_kota.*']) }}" aria-controls="pelaporan_kinerja">
+                        <i class="link-icon" data-feather="anchor"></i>
+                        <span class="link-title">Kota</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ show_class(['lkjip_kota.*']) }}" id="pelaporan_kinerja">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('lkjip_kota.index') }}"
+                                    class="nav-link {{ active_class(['lkjip_kota.*']) }}">LKJIP</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endcan
+            @can('opdLkjip-list')
+                <li class="nav-item {{ active_class(['lkjip_opd.*']) }}">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#pelaporan_kinerja_opd" role="button"
+                        aria-expanded="{{ is_active_route(['lkjip_opd.*']) }}" aria-controls="pelaporan_kinerja_opd">
+                        <i class="link-icon" data-feather="anchor"></i>
+                        <span class="link-title">OPD</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ show_class(['lkjip_opd.*']) }}" id="pelaporan_kinerja_opd">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('lkjip_opd.index') }}"
+                                    class="nav-link {{ active_class(['lkjip_opd.*']) }}">LKJIP</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endcan
+            @can('link-list')
+                <li class="nav-item nav-category">Capaian Kinerja</li>
+                <li class="nav-item {{ active_class(['link.*']) }}">
+                    <a href="{{ route('link.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Link Terkait</span>
+                    </a>
+                </li>
+            @endcan
             @can('evaluasiKinerjaYear-list')
                 <li class="nav-item nav-category">Evaluasi Kinerja</li>
                 <li class="nav-item {{ active_class(['evaluasiKinerjaYear.*', 'evaluasiKinerja.*']) }}">

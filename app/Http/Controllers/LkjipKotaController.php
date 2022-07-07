@@ -15,6 +15,15 @@ class LkjipKotaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('permission:kotaLkjip-list|kotaLkjip-create|kotaLkjip-edit|kotaLkjip-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:kotaLkjip-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:kotaLkjip-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:kotaLkjip-delete', ['only' => ['destroy']]);
+        $name = "Link Terkait Capaian Kinerja";
+        view()->share('name', $name);
+    }
     public function getLkjipKota(Request $request)
     {
         if ($request->ajax()) {

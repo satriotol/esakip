@@ -16,6 +16,13 @@ class LkjipOpdController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('permission:opdLkjip-list|opdLkjip-create|opdLkjip-edit|opdLkjip-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:opdLkjip-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opdLkjip-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opdLkjip-delete', ['only' => ['destroy']]);
+    }
     public function getLkjipOpd(Request $request)
     {
         if ($request->ajax()) {

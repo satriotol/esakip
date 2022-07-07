@@ -15,7 +15,10 @@ class LinkController extends Controller
      */
     public function __construct()
     {
-        // Fetch the Site Settings object
+        $this->middleware('permission:link-list|link-create|link-edit|link-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:link-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:link-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:link-delete', ['only' => ['destroy']]);
         $name = "Link Terkait Capaian Kinerja";
         view()->share('name', $name);
     }
