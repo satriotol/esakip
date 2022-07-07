@@ -170,14 +170,16 @@
                     <span class="link-title">Evaluasi Kinerja</span>
                 </a>
             </li>
-            <li class="nav-item nav-category">Perjanjian Kinerja</li>
-            <li
-                class="nav-item {{ active_class(['opdPerjanjianKinerja.*', 'opdPerjanjianKinerjaSasaran.*', 'opdPerjanjianKinerjaIndikator.*']) }}">
-                <a href="{{ route('opdPerjanjianKinerja.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="box"></i>
-                    <span class="link-title">Perjanjian Kinerja</span>
-                </a>
-            </li>
+            @can('opdPerjanjianKinerja-list')
+                <li class="nav-item nav-category">Perjanjian Kinerja</li>
+                <li
+                    class="nav-item {{ active_class(['opdPerjanjianKinerja.*', 'opdPerjanjianKinerjaSasaran.*', 'opdPerjanjianKinerjaIndikator.*']) }}">
+                    <a href="{{ route('opdPerjanjianKinerja.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Perjanjian Kinerja</span>
+                    </a>
+                </li>
+            @endcan
             <li class="nav-item nav-category">Setting</li>
             <li class="nav-item {{ active_class(['user.*', 'role']) }}">
                 <a href="{{ route('user.index') }}" class="nav-link">
@@ -190,6 +192,14 @@
                     <a href="{{ route('role.index') }}" class="nav-link">
                         <i class="link-icon" data-feather="user"></i>
                         <span class="link-title">Role</span>
+                    </a>
+                </li>
+            @endcan
+            @can('permission-list')
+                <li class="nav-item {{ active_class(['permission.*']) }}">
+                    <a href="{{ route('permission.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="user"></i>
+                        <span class="link-title">Permission</span>
                     </a>
                 </li>
             @endcan

@@ -18,6 +18,7 @@ use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
 use App\Http\Controllers\PerencanaanKinerjaRkpdController;
 use App\Http\Controllers\PerencanaanKinerjaRpjmdController;
 use App\Http\Controllers\PeriodeRenstraOpdController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RenjaOpdController;
 use App\Http\Controllers\RenstraOpdController;
 use App\Http\Controllers\RktOpdController;
@@ -32,6 +33,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('website', WebsiteController::class);
     Route::resource('user', UserController::class);
     Route::resource('role', RoleController::class);
+    Route::resource('permission', PermissionController::class);
 
     // ===========================
     //perencanaan kinerja
