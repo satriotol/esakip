@@ -20,8 +20,11 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        // Fetch the Site Settings object
-        $name = "User";
+        $this->middleware('permission:user-list|user-create|user-edit|user-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+        $name = "Users";
         view()->share('name', $name);
     }
     public function index()

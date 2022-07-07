@@ -109,8 +109,7 @@
             </li>
             <li class="nav-item {{ active_class(['ikuOpd.*']) }}">
                 <a class="nav-link" data-bs-toggle="collapse" href="#perancangan_kinerja_opd" role="button"
-                    aria-expanded="{{ is_active_route(['ikuOpd.*']) }}"
-                    aria-controls="perancangan_kinerja_opd">
+                    aria-expanded="{{ is_active_route(['ikuOpd.*']) }}" aria-controls="perancangan_kinerja_opd">
                     <i class="link-icon" data-feather="anchor"></i>
                     <span class="link-title">OPD</span>
                     <i class="link-arrow" data-feather="chevron-down"></i>
@@ -180,18 +179,20 @@
                 </a>
             </li>
             <li class="nav-item nav-category">Setting</li>
-            <li class="nav-item {{ active_class(['user.*','role']) }}">
+            <li class="nav-item {{ active_class(['user.*', 'role']) }}">
                 <a href="{{ route('user.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="user"></i>
                     <span class="link-title">User</span>
                 </a>
             </li>
-            <li class="nav-item {{ active_class(['role.*']) }}">
-                <a href="{{ route('role.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="user"></i>
-                    <span class="link-title">Role</span>
-                </a>
-            </li>
+            @can('role-list')
+                <li class="nav-item {{ active_class(['role.*']) }}">
+                    <a href="{{ route('role.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="user"></i>
+                        <span class="link-title">Role</span>
+                    </a>
+                </li>
+            @endcan
         </ul>
     </div>
 </nav>

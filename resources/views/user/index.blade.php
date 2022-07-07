@@ -29,6 +29,7 @@
                                 <tr>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Role</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -40,6 +41,13 @@
                                         </td>
                                         <td>
                                             {{ $user->email }}
+                                        </td>
+                                        <td>
+                                            @if (!empty($user->getRoleNames()))
+                                                @foreach ($user->getRoleNames() as $v)
+                                                    <label class="badge bg-success">{{ $v }}</label>
+                                                @endforeach
+                                            @endif
                                         </td>
                                         <td> <a class="btn btn-warning" href="{{ route('user.edit', $user->id) }}">
                                                 Edit
