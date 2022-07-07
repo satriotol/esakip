@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Schema::defaultStringLength(1910);
+        Schema::defaultStringLength(191);
         OpdPerjanjianKinerja::observe(OpdPerjanjianKinerjaObserver::class);
     }
 }
