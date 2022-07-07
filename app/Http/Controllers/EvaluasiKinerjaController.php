@@ -17,7 +17,10 @@ class EvaluasiKinerjaController extends Controller
      */
     public function __construct()
     {
-        // Fetch the Site Settings object
+        $this->middleware('permission:evaluasiKinerja-list|evaluasiKinerja-create|evaluasiKinerja-edit|evaluasiKinerja-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:evaluasiKinerja-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:evaluasiKinerja-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:evaluasiKinerja-delete', ['only' => ['destroy']]);
         $name = "Evaluasi Kinerja AKIP Year";
         view()->share('name', $name);
     }

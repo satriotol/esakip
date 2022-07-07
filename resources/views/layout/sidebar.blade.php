@@ -163,13 +163,15 @@
                     <span class="link-title">Link Terkait</span>
                 </a>
             </li>
-            <li class="nav-item nav-category">Evaluasi Kinerja</li>
-            <li class="nav-item {{ active_class(['evaluasiKinerjaYear.*', 'evaluasiKinerja.*']) }}">
-                <a href="{{ route('evaluasiKinerjaYear.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="box"></i>
-                    <span class="link-title">Evaluasi Kinerja</span>
-                </a>
-            </li>
+            @can('evaluasiKinerjaYear-list')
+                <li class="nav-item nav-category">Evaluasi Kinerja</li>
+                <li class="nav-item {{ active_class(['evaluasiKinerjaYear.*', 'evaluasiKinerja.*']) }}">
+                    <a href="{{ route('evaluasiKinerjaYear.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Evaluasi Kinerja</span>
+                    </a>
+                </li>
+            @endcan
             @can('opdPerjanjianKinerja-list')
                 <li class="nav-item nav-category">Perjanjian Kinerja</li>
                 <li

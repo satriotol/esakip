@@ -37,11 +37,9 @@
                                         <td>
                                             {{ $permission->name }}
                                         </td>
-                                        <td> <a class="btn btn-warning" href="{{ route('permission.edit', $permission->id) }}">
-                                                Edit
-                                            </a>
-                                            <form action="{{ route('permission.destroy', $permission->id) }}" method="POST"
-                                                class="d-inline">
+                                        <td>
+                                            <form action="{{ route('permission.destroy', $permission->id) }}"
+                                                method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"
