@@ -24,105 +24,121 @@
                     <span class="link-title">Website</span>
                 </a>
             </li>
-            <li class="nav-item nav-category">Perencanaan Kinerja</li>
-            <li
-                class="nav-item {{ active_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*']) }}">
-                <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja" role="button"
-                    aria-expanded="{{ is_active_route(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*']) }}"
-                    aria-controls="perencanaan_kinerja">
-                    <i class="link-icon" data-feather="anchor"></i>
-                    <span class="link-title">Kota</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
-                </a>
-                <div class="collapse {{ show_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*']) }}"
-                    id="perencanaan_kinerja">
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="{{ route('perencanaan_kinerja_rpjmd.index') }}"
-                                class="nav-link {{ active_class(['perencanaan_kinerja_rpjmd.*']) }}">RPJMD</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('perencanaan_kinerja_rkpd.index') }}"
-                                class="nav-link {{ active_class(['perencanaan_kinerja_rkpd.*']) }}">RKPD</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('cascading_kinerja.index') }}"
-                                class="nav-link {{ active_class(['cascading_kinerja.*']) }}">CASCADING KINERJA</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li
-                class="nav-item {{ active_class(['periodeRenstraOpd.*', 'renstraOpd.*', 'rktOpd.*', 'renjaOpd.*', 'cascadingKinerjaOpd.*']) }}">
-                <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja_opd" role="button"
-                    aria-expanded="{{ is_active_route(['periodeRenstraOpd.*', 'renstraOpd.*', 'rktOpd.*', 'renjaOpd.*', 'cascadingKinerjaOpd.*']) }}"
-                    aria-controls="perencanaan_kinerja_opd">
-                    <i class="link-icon" data-feather="anchor"></i>
-                    <span class="link-title">OPD</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
-                </a>
-                <div class="collapse {{ show_class(['periodeRenstraOpd.*', 'renstraOpd.*', 'rktOpd.*', 'renjaOpd.*', 'cascadingKinerjaOpd.*']) }}"
-                    id="perencanaan_kinerja_opd">
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="{{ route('periodeRenstraOpd.index') }}"
-                                class="nav-link {{ active_class(['periodeRenstraOpd.*', 'renstraOpd.*']) }}">RENSTRA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('rktOpd.index') }}"
-                                class="nav-link {{ active_class(['rktOpd.*']) }}">RKT</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('renjaOpd.index') }}"
-                                class="nav-link {{ active_class(['renjaOpd.*']) }}">RENJA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('cascadingKinerjaOpd.index') }}"
-                                class="nav-link {{ active_class(['cascadingKinerjaOpd.*']) }}">CASCADING KINERJA</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item nav-category">Pengukuran Kinerja</li>
-            <li class="nav-item {{ active_class(['ikuKota.*', 'kotaPerjanjianKinerja.*']) }}">
-                <a class="nav-link" data-bs-toggle="collapse" href="#perancangan_kinerja" role="button"
-                    aria-expanded="{{ is_active_route(['ikuKota.*', 'kotaPerjanjianKinerja.*']) }}"
-                    aria-controls="perancangan_kinerja">
-                    <i class="link-icon" data-feather="anchor"></i>
-                    <span class="link-title">Kota</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
-                </a>
-                <div class="collapse {{ show_class(['ikuKota.*', 'kotaPerjanjianKinerja.*']) }}"
-                    id="perancangan_kinerja">
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="{{ route('ikuKota.index') }}"
-                                class="nav-link {{ active_class(['ikuKota.*']) }}">IKU</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('kotaPerjanjianKinerja.index') }}"
-                                class="nav-link {{ active_class(['kotaPerjanjianKinerja.*']) }}">PERJANJIAN
-                                KINERJA</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-            <li class="nav-item {{ active_class(['ikuOpd.*']) }}">
-                <a class="nav-link" data-bs-toggle="collapse" href="#perancangan_kinerja_opd" role="button"
-                    aria-expanded="{{ is_active_route(['ikuOpd.*']) }}" aria-controls="perancangan_kinerja_opd">
-                    <i class="link-icon" data-feather="anchor"></i>
-                    <span class="link-title">OPD</span>
-                    <i class="link-arrow" data-feather="chevron-down"></i>
-                </a>
-                <div class="collapse {{ show_class(['ikuOpd.*']) }}" id="perancangan_kinerja_opd">
-                    <ul class="nav sub-menu">
-                        <li class="nav-item">
-                            <a href="{{ route('ikuOpd.index') }}"
-                                class="nav-link {{ active_class(['ikuOpd.*']) }}">IKU</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
+            @can('perencanaanKinerja')
+                <li class="nav-item nav-category">Perencanaan Kinerja</li>
+            @endcan
+            @can('kotaPerencanaanKinerja')
+                <li
+                    class="nav-item {{ active_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*']) }}">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja" role="button"
+                        aria-expanded="{{ is_active_route(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*']) }}"
+                        aria-controls="perencanaan_kinerja">
+                        <i class="link-icon" data-feather="anchor"></i>
+                        <span class="link-title">Kota</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ show_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*']) }}"
+                        id="perencanaan_kinerja">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('perencanaan_kinerja_rpjmd.index') }}"
+                                    class="nav-link {{ active_class(['perencanaan_kinerja_rpjmd.*']) }}">RPJMD</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('perencanaan_kinerja_rkpd.index') }}"
+                                    class="nav-link {{ active_class(['perencanaan_kinerja_rkpd.*']) }}">RKPD</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('cascading_kinerja.index') }}"
+                                    class="nav-link {{ active_class(['cascading_kinerja.*']) }}">CASCADING KINERJA</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endcan
+            @can('opdPerencanaanKinerja')
+                <li
+                    class="nav-item {{ active_class(['periodeRenstraOpd.*', 'renstraOpd.*', 'rktOpd.*', 'renjaOpd.*', 'cascadingKinerjaOpd.*']) }}">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja_opd" role="button"
+                        aria-expanded="{{ is_active_route(['periodeRenstraOpd.*', 'renstraOpd.*', 'rktOpd.*', 'renjaOpd.*', 'cascadingKinerjaOpd.*']) }}"
+                        aria-controls="perencanaan_kinerja_opd">
+                        <i class="link-icon" data-feather="anchor"></i>
+                        <span class="link-title">OPD</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ show_class(['periodeRenstraOpd.*', 'renstraOpd.*', 'rktOpd.*', 'renjaOpd.*', 'cascadingKinerjaOpd.*']) }}"
+                        id="perencanaan_kinerja_opd">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('periodeRenstraOpd.index') }}"
+                                    class="nav-link {{ active_class(['periodeRenstraOpd.*', 'renstraOpd.*']) }}">RENSTRA</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('rktOpd.index') }}"
+                                    class="nav-link {{ active_class(['rktOpd.*']) }}">RKT</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('renjaOpd.index') }}"
+                                    class="nav-link {{ active_class(['renjaOpd.*']) }}">RENJA</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('cascadingKinerjaOpd.index') }}"
+                                    class="nav-link {{ active_class(['cascadingKinerjaOpd.*']) }}">CASCADING KINERJA</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endcan
+            @can('pengukuranKinerja')
+                <li class="nav-item nav-category">Pengukuran Kinerja</li>
+            @endcan
+            @can('kotaPengukuranKinerja')
+                <li class="nav-item {{ active_class(['ikuKota.*', 'kotaPerjanjianKinerja.*']) }}">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#perancangan_kinerja" role="button"
+                        aria-expanded="{{ is_active_route(['ikuKota.*', 'kotaPerjanjianKinerja.*']) }}"
+                        aria-controls="perancangan_kinerja">
+                        <i class="link-icon" data-feather="anchor"></i>
+                        <span class="link-title">Kota</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ show_class(['ikuKota.*', 'kotaPerjanjianKinerja.*']) }}"
+                        id="perancangan_kinerja">
+                        <ul class="nav sub-menu">
+                            @can('kotaIku-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('ikuKota.index') }}"
+                                        class="nav-link {{ active_class(['ikuKota.*']) }}">IKU</a>
+                                </li>
+                            @endcan
+                            @can('kotaPerjanjianKinerja-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('kotaPerjanjianKinerja.index') }}"
+                                        class="nav-link {{ active_class(['kotaPerjanjianKinerja.*']) }}">PERJANJIAN
+                                        KINERJA</a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </div>
+                </li>
+            @endcan
+            @can('opdIku-list')
+                <li class="nav-item {{ active_class(['ikuOpd.*']) }}">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#perancangan_kinerja_opd" role="button"
+                        aria-expanded="{{ is_active_route(['ikuOpd.*']) }}" aria-controls="perancangan_kinerja_opd">
+                        <i class="link-icon" data-feather="anchor"></i>
+                        <span class="link-title">OPD</span>
+                        <i class="link-arrow" data-feather="chevron-down"></i>
+                    </a>
+                    <div class="collapse {{ show_class(['ikuOpd.*']) }}" id="perancangan_kinerja_opd">
+                        <ul class="nav sub-menu">
+                            <li class="nav-item">
+                                <a href="{{ route('ikuOpd.index') }}"
+                                    class="nav-link {{ active_class(['ikuOpd.*']) }}">IKU</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            @endcan
             @can('kotaLkjip-list', 'opdLkjip-list')
                 <li class="nav-item nav-category">Pelaporan Kinerja</li>
             @endcan
@@ -185,7 +201,7 @@
                 <li
                     class="nav-item {{ active_class(['opdPerjanjianKinerja.*', 'opdPerjanjianKinerjaSasaran.*', 'opdPerjanjianKinerjaIndikator.*']) }}">
                     <a href="{{ route('opdPerjanjianKinerja.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="box"></i>
+                        <i class="link-icon" data-feather="award"></i>
                         <span class="link-title">Perjanjian Kinerja</span>
                     </a>
                 </li>
@@ -200,7 +216,7 @@
             @can('role-list')
                 <li class="nav-item {{ active_class(['role.*']) }}">
                     <a href="{{ route('role.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="user"></i>
+                        <i class="link-icon" data-feather="unlock"></i>
                         <span class="link-title">Role</span>
                     </a>
                 </li>
@@ -208,7 +224,7 @@
             @can('permission-list')
                 <li class="nav-item {{ active_class(['permission.*']) }}">
                     <a href="{{ route('permission.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="user"></i>
+                        <i class="link-icon" data-feather="unlock"></i>
                         <span class="link-title">Permission</span>
                     </a>
                 </li>

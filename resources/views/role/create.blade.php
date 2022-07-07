@@ -30,18 +30,25 @@
 
                             <label for="name" class="form-label">Permission</label> <br>
                             @empty($role)
-                                @foreach ($permission as $value)
-                                    <label>{{ Form::checkbox('permission[]', $value->id, false, ['class' => 'name']) }}
-                                        {{ $value->name }}</label>
-                                    <br />
-                                @endforeach
+                                <div class="row">
+                                    @foreach ($permission as $value)
+                                        <div class="col-md-3">
+                                            <label>{{ Form::checkbox('permission[]', $value->id, false, ['class' => 'name']) }}
+                                                {{ $value->name }}</label>
+                                            <br />
+                                    @endforeach
+                                </div>
                             @endempty
                             @isset($role)
-                                @foreach ($permission as $value)
-                                    <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, ['class' => 'name']) }}
-                                        {{ $value->name }}</label>
-                                    <br />
-                                @endforeach
+                                <div class="row">
+                                    @foreach ($permission as $value)
+                                        <div class="col-md-3">
+                                            <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, ['class' => 'name']) }}
+                                                {{ $value->name }}</label>
+                                            <br />
+                                        </div>
+                                    @endforeach
+                                </div>
                             @endisset
                         </div>
                     </div>

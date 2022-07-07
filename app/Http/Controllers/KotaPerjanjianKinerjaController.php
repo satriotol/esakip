@@ -16,7 +16,10 @@ class KotaPerjanjianKinerjaController extends Controller
      */
     public function __construct()
     {
-        // Fetch the Site Settings object
+        $this->middleware('permission:kotaPerjanjianKinerja-list|kotaPerjanjianKinerja-create|kotaPerjanjianKinerja-edit|kotaPerjanjianKinerja-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:kotaPerjanjianKinerja-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:kotaPerjanjianKinerja-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:kotaPerjanjianKinerja-delete', ['only' => ['destroy']]);
         $name = "Perjanjian Kinerja Kota";
         view()->share('name', $name);
     }

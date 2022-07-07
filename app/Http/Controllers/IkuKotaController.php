@@ -16,7 +16,10 @@ class IkuKotaController extends Controller
      */
     public function __construct()
     {
-        // Fetch the Site Settings object
+        $this->middleware('permission:kotaIku-list|kotaIku-create|kotaIku-edit|kotaIku-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:kotaIku-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:kotaIku-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:kotaIku-delete', ['only' => ['destroy']]);
         $name = "Pengukuran Kinerja IKU KOTA";
         view()->share('name', $name);
     }

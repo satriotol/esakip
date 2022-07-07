@@ -18,7 +18,10 @@ class IkuOpdController extends Controller
      */
     public function __construct()
     {
-        // Fetch the Site Settings object
+        $this->middleware('permission:opdIku-list|opdIku-create|opdIku-edit|opdIku-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:opdIku-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opdIku-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opdIku-delete', ['only' => ['destroy']]);
         $name = "Pengukuran Kinerja IKU OPD";
         view()->share('name', $name);
     }
