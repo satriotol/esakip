@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -15,10 +16,10 @@ class RoleController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index', 'store']]);
-        // $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
-        // $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
-        // $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:role-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy']]);
         $name = "Roles";
         view()->share('name', $name);
     }
@@ -67,7 +68,6 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**
@@ -76,9 +76,13 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Role $role)
     {
-        //
+        $permission = Permission::get();
+        $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id", $role->id)
+            ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
+            ->all();
+        return view('role.create', compact('permission', 'role', 'rolePermissions'));
     }
 
     /**
@@ -90,7 +94,19 @@ class RoleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'permission' => 'required',
+        ]);
+
+        $role = Role::find($id);
+        $role->name = $request->input('name');
+        $role->save();
+
+        $role->syncPermissions($request->input('permission'));
+
+        return redirect()->route('role.index')
+            ->with('success', 'Role updated successfully');
     }
 
     /**
@@ -99,8 +115,10 @@ class RoleController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
+        $role->delete();
+        return redirect()->route('role.index')
+            ->with('success', 'Role deleted successfully');
     }
 }

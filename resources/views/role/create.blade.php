@@ -26,12 +26,24 @@
                             value="{{ isset($role) ? $role->name : '' }}">
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Permission</label>
-                        <select name="permission[]" required multiple id="" class="form-control">
-                            @foreach ($permission as $p)
-                                <option value="{{ $p->id }}">{{ $p->name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="form-group">
+
+                            <label for="name" class="form-label">Permission</label> <br>
+                            @empty($role)
+                                @foreach ($permission as $value)
+                                    <label>{{ Form::checkbox('permission[]', $value->id, false, ['class' => 'name']) }}
+                                        {{ $value->name }}</label>
+                                    <br />
+                                @endforeach
+                            @endempty
+                            @isset($role)
+                                @foreach ($permission as $value)
+                                    <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, ['class' => 'name']) }}
+                                        {{ $value->name }}</label>
+                                    <br />
+                                @endforeach
+                            @endisset
+                        </div>
                     </div>
                     <div class="text-end">
                         <input class="btn btn-primary" type="submit" value="Submit">
