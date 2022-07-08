@@ -15,6 +15,13 @@ class PerencanaanKinerjaRkpdController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('permission:kotaRkpd-list|kotaRkpd-create|kotaRkpd-edit|kotaRkpd-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:kotaRkpd-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:kotaRkpd-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:kotaRkpd-delete', ['only' => ['destroy']]);
+    }
     public function getRkpds(Request $request)
     {
         if ($request->ajax()) {

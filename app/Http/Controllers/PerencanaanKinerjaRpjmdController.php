@@ -15,8 +15,16 @@ class PerencanaanKinerjaRpjmdController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('permission:kotaRpjmd-list|kotaRpjmd-create|kotaRpjmd-edit|kotaRpjmd-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:kotaRpjmd-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:kotaRpjmd-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:kotaRpjmd-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
+
         $perencanaan_kinerja_rpjmds = PerencanaanKinerjaRpjmd::all();
         return view('perencanaan_kinerja_rpjmd.index', compact('perencanaan_kinerja_rpjmds'));
     }

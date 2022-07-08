@@ -40,18 +40,24 @@
                     <div class="collapse {{ show_class(['perencanaan_kinerja_rpjmd.*', 'perencanaan_kinerja_rkpd.*', 'cascading_kinerja.*']) }}"
                         id="perencanaan_kinerja">
                         <ul class="nav sub-menu">
-                            <li class="nav-item">
-                                <a href="{{ route('perencanaan_kinerja_rpjmd.index') }}"
-                                    class="nav-link {{ active_class(['perencanaan_kinerja_rpjmd.*']) }}">RPJMD</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('perencanaan_kinerja_rkpd.index') }}"
-                                    class="nav-link {{ active_class(['perencanaan_kinerja_rkpd.*']) }}">RKPD</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('cascading_kinerja.index') }}"
-                                    class="nav-link {{ active_class(['cascading_kinerja.*']) }}">CASCADING KINERJA</a>
-                            </li>
+                            @can('kotaRpjmd-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('perencanaan_kinerja_rpjmd.index') }}"
+                                        class="nav-link {{ active_class(['perencanaan_kinerja_rpjmd.*']) }}">RPJMD</a>
+                                </li>
+                            @endcan
+                            @can('kotaRkpd-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('perencanaan_kinerja_rkpd.index') }}"
+                                        class="nav-link {{ active_class(['perencanaan_kinerja_rkpd.*']) }}">RKPD</a>
+                                </li>
+                            @endcan
+                            @can('kotaCascadingKinerja-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('cascading_kinerja.index') }}"
+                                        class="nav-link {{ active_class(['cascading_kinerja.*']) }}">CASCADING KINERJA</a>
+                                </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>

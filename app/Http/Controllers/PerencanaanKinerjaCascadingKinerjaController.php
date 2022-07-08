@@ -15,6 +15,13 @@ class PerencanaanKinerjaCascadingKinerjaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('permission:kotaCascadingKinerja-list|kotaCascadingKinerja-create|kotaCascadingKinerja-edit|kotaCascadingKinerja-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:kotaCascadingKinerja-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:kotaCascadingKinerja-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:kotaCascadingKinerja-delete', ['only' => ['destroy']]);
+    }
     public function getCascadingKinerjas(Request $request)
     {
         if ($request->ajax()) {

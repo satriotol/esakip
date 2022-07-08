@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PermissionTableSeeder::class,
         ]);
+        $this->call(OpdsTableSeeder::class);
     }
 }
