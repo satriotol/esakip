@@ -29,6 +29,10 @@
                         <div class="form-group">
 
                             <label for="name" class="form-label">Permission</label> <br>
+                            <div class="form-check corm-check-inline">
+                                <label class="form-check-label" for="checkAll">Select All</label>
+                                <input type="checkbox" class="form-check-input" id="checkAll">
+                            </div>
                             @empty($role)
                                 <div class="row">
                                     @foreach ($permission as $value)
@@ -48,7 +52,6 @@
                                     @foreach ($permission as $value)
                                         <div class="col-md-3">
                                             <div class="form-check form-check-inline">
-
                                                 <label
                                                     class="form-check-label">{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, ['class' => 'name form-check-input']) }}
                                                     {{ $value->name }}</label>
@@ -68,3 +71,10 @@
         </div>
     </div>
 @endsection
+@push('custom-scripts')
+    <script>
+        $("#checkAll").click(function() {
+            $('.name').not(this).prop('checked', this.checked);
+        });
+    </script>
+@endpush
