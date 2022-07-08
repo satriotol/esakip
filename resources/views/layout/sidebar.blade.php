@@ -1,7 +1,7 @@
 <nav class="sidebar">
     <div class="sidebar-header">
         <a href="{{ route('dashboard') }}" class="sidebar-brand">
-            e-SAKIP
+            E-SAKIP
         </a>
         <div class="sidebar-toggler not-active">
             <span></span>
