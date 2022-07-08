@@ -33,9 +33,13 @@
                                 <div class="row">
                                     @foreach ($permission as $value)
                                         <div class="col-md-3">
-                                            <label>{{ Form::checkbox('permission[]', $value->id, false, ['class' => 'name']) }}
-                                                {{ $value->name }}</label>
-                                            <br />
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    {{ Form::checkbox('permission[]', $value->id, false, ['class' => 'name form-check-input']) }}
+                                                    {{ $value->name }}</label>
+                                                <br />
+                                            </div>
+                                        </div>
                                     @endforeach
                                 </div>
                             @endempty
@@ -43,9 +47,13 @@
                                 <div class="row">
                                     @foreach ($permission as $value)
                                         <div class="col-md-3">
-                                            <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, ['class' => 'name']) }}
-                                                {{ $value->name }}</label>
-                                            <br />
+                                            <div class="form-check form-check-inline">
+
+                                                <label
+                                                    class="form-check-label">{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, ['class' => 'name form-check-input']) }}
+                                                    {{ $value->name }}</label>
+                                                <br />
+                                            </div>
                                         </div>
                                     @endforeach
                                 </div>
