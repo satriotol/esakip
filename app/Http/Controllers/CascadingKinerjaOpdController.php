@@ -18,7 +18,10 @@ class CascadingKinerjaOpdController extends Controller
      */
     public function __construct()
     {
-        // Fetch the Site Settings object
+        $this->middleware('permission:opdCascadingKinerja-list|opdCascadingKinerja-create|opdCascadingKinerja-edit|opdCascadingKinerja-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:opdCascadingKinerja-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opdCascadingKinerja-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opdCascadingKinerja-delete', ['only' => ['destroy']]);
         $name = "Cascading Kinerja OPD";
         view()->share('name', $name);
     }

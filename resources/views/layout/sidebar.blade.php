@@ -75,22 +75,30 @@
                     <div class="collapse {{ show_class(['periodeRenstraOpd.*', 'renstraOpd.*', 'rktOpd.*', 'renjaOpd.*', 'cascadingKinerjaOpd.*']) }}"
                         id="perencanaan_kinerja_opd">
                         <ul class="nav sub-menu">
-                            <li class="nav-item">
-                                <a href="{{ route('periodeRenstraOpd.index') }}"
-                                    class="nav-link {{ active_class(['periodeRenstraOpd.*', 'renstraOpd.*']) }}">RENSTRA</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('rktOpd.index') }}"
-                                    class="nav-link {{ active_class(['rktOpd.*']) }}">RKT</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('renjaOpd.index') }}"
-                                    class="nav-link {{ active_class(['renjaOpd.*']) }}">RENJA</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ route('cascadingKinerjaOpd.index') }}"
-                                    class="nav-link {{ active_class(['cascadingKinerjaOpd.*']) }}">CASCADING KINERJA</a>
-                            </li>
+                            @can('opdPeriodRenstra-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('periodeRenstraOpd.index') }}"
+                                        class="nav-link {{ active_class(['periodeRenstraOpd.*', 'renstraOpd.*']) }}">RENSTRA</a>
+                                </li>
+                            @endcan
+                            @can('opdRkt-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('rktOpd.index') }}"
+                                        class="nav-link {{ active_class(['rktOpd.*']) }}">RKT</a>
+                                </li>
+                            @endcan
+                            @can('opdRenja-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('renjaOpd.index') }}"
+                                        class="nav-link {{ active_class(['renjaOpd.*']) }}">RENJA</a>
+                                </li>
+                            @endcan
+                            @can('opdCascadingKinerja-list')
+                                <li class="nav-item">
+                                    <a href="{{ route('cascadingKinerjaOpd.index') }}"
+                                        class="nav-link {{ active_class(['cascadingKinerjaOpd.*']) }}">CASCADING KINERJA</a>
+                                </li>
+                            @endcan
                         </ul>
                     </div>
                 </li>

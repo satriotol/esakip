@@ -18,7 +18,10 @@ class RenjaOpdController extends Controller
      */
     public function __construct()
     {
-        // Fetch the Site Settings object
+        $this->middleware('permission:opdRenja-list|opdRenja-create|opdRenja-edit|opdRenja-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:opdRenja-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opdRenja-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opdRenja-delete', ['only' => ['destroy']]);
         $name = "Perencanaan Kinerja RENJA OPD";
         view()->share('name', $name);
     }

@@ -13,6 +13,13 @@ class PeriodeRenstraOpdController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('permission:opdPeriodRenstra-list|opdPeriodRenstra-create|opdPeriodRenstra-edit|opdPeriodRenstra-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:opdPeriodRenstra-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opdPeriodRenstra-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opdPeriodRenstra-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $periodeRenstraOpds = PeriodeRenstraOpd::all();

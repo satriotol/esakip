@@ -20,7 +20,10 @@ class RktOpdController extends Controller
 
     public function __construct()
     {
-        // Fetch the Site Settings object
+        $this->middleware('permission:opdRkt-list|opdRkt-create|opdRkt-edit|opdRkt-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:opdRkt-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opdRkt-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opdRkt-delete', ['only' => ['destroy']]);
         $name = "Perencanaan Kinerja RKT OPD";
         view()->share('name', $name);
     }
