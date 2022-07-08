@@ -18,12 +18,14 @@
                     <span class="link-title">Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item {{ active_class(['website.*']) }}">
-                <a href="{{ route('website.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="box"></i>
-                    <span class="link-title">Website</span>
-                </a>
-            </li>
+            @can('website-list')
+                <li class="nav-item {{ active_class(['website.*']) }}">
+                    <a href="{{ route('website.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Website</span>
+                    </a>
+                </li>
+            @endcan
             @can('perencanaanKinerja')
                 <li class="nav-item nav-category">Perencanaan Kinerja</li>
             @endcan

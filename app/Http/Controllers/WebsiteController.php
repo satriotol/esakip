@@ -15,7 +15,10 @@ class WebsiteController extends Controller
      */
     public function __construct()
     {
-        // Fetch the Site Settings object
+        $this->middleware('permission:website-list|website-create|website-edit|website-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:website-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:website-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:website-delete', ['only' => ['destroy']]);
         $name = "Website";
         view()->share('name', $name);
     }
