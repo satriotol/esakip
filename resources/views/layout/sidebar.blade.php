@@ -21,7 +21,7 @@
             @can('website-list')
                 <li class="nav-item {{ active_class(['website.*']) }}">
                     <a href="{{ route('website.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="globa"></i>
+                        <i class="link-icon" data-feather="globe"></i>
                         <span class="link-title">Website</span>
                     </a>
                 </li>
