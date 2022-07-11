@@ -40,7 +40,7 @@ class EvaluasiKinerja extends Model
                 'color' => '#238b01',
                 'font_color' => 'white'
             ];
-        } else if ($this->value <= 90) {
+        } else if ($this->value <= 100) {
             $data = [
                 'name' => 'A',
                 'color' => '#1fb8e5',
