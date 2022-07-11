@@ -15,7 +15,7 @@ class OpdPerjanjianKinerja extends Model
     use HasFactory, Blameable;
 
     protected $fillable = ['year', 'opd_id', 'file', 'type'];
-    protected $appends = ['file_url', 'opd_name'];
+    protected $appends = ['file_url', 'opd_name', 'total_anggaran'];
 
     const TYPE = [
         'INDUK', 'PERUBAHAN'
@@ -45,5 +45,9 @@ class OpdPerjanjianKinerja extends Model
     public function getOpdNameAttribute()
     {
         return $this->opd->nama_opd ?? "";
+    }
+    public function getTotalAnggaranAttribute()
+    {
+        return $this->opd_perjanjian_kinerja_program_anggarans->sum('anggaran') ?? 0;
     }
 }

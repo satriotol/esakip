@@ -1,3 +1,13 @@
+<div class="card-body">
+    <div class="d-flex justify-content-between align-items-baseline">
+        <h6 class="card-title mb-0">Total Anggaran</h6>
+    </div>
+    <div class="row">
+        <div class="col-6 col-md-12 col-xl-5">
+            <h3 class="mb-2">Rp {{ number_format($opdPerjanjianKinerja->total_anggaran,2 )}}</h3>
+        </div>
+    </div>
+</div>
 <div class="text-end">
     <a href="{{ route('opdPerjanjianKinerjaProgramAnggaran.create', [$opdPerjanjianKinerja]) }}"
         class="btn btn-sm btn-success ml-1">Tambah Program Anggaran</a>
