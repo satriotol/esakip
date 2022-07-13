@@ -223,7 +223,7 @@
                 </li>
             @endcan
             <li class="nav-item nav-category">Setting</li>
-            @can('user-list', $post)
+            @can('user-list')
             <li class="nav-item {{ active_class(['user.*', 'role']) }}">
                 <a href="{{ route('user.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="user"></i>
