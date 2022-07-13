@@ -100,7 +100,6 @@ class EvaluasiKinerjaYearController extends Controller
     public function destroy(EvaluasiKinerjaYear $evaluasiKinerjaYear)
     {
         $evaluasiKinerjaYear->delete();
-        $evaluasiKinerjaYear->evaluasi_kinerja->delete();
         session()->flash('success');
         return redirect(route('evaluasiKinerjaYear.index'));
     }
