@@ -155,7 +155,7 @@
                     </div>
                 </li>
             @endcan
-            @can('kotaLkjip-list', 'opdLkjip-list')
+            @can('pelaporanKinerja')
                 <li class="nav-item nav-category">Pelaporan Kinerja</li>
             @endcan
             @can('kotaLkjip-list')
@@ -223,12 +223,14 @@
                 </li>
             @endcan
             <li class="nav-item nav-category">Setting</li>
+            @can('user-list', $post)
             <li class="nav-item {{ active_class(['user.*', 'role']) }}">
                 <a href="{{ route('user.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="user"></i>
                     <span class="link-title">User</span>
                 </a>
             </li>
+            @endcan
             @can('role-list')
                 <li class="nav-item {{ active_class(['role.*']) }}">
                     <a href="{{ route('role.index') }}" class="nav-link">
