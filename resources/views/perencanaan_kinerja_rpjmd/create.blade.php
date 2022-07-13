@@ -55,7 +55,7 @@
         const pond = FilePond.create(inputElement);
         FilePond.setOptions({
             server: {
-                url: '{{ route('perencanaan_kinerja_rkpd.store_file') }}',
+                url: '{{ route('perencanaan_kinerja_rpjmd.store_file') }}',
                 headers: {
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 }
