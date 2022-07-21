@@ -6,7 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Coroni - Coronavirus Medical Prevention Template">
+    <meta name="description" content="E-SAKIP - Sistem Akuntabilitas Kinerja Instansi Pemerintah Secara Elektronik PEMERINTAH KOTA SEMARANG">
+    <meta itemprop="image" content="https://e-sakip.semarangkota.go.id/public/frontend/img/pemkot.png">
 
     <!-- ========== Page Title ========== -->
     <title>E-SAKIP PEMKOT SEMARANG</title>
