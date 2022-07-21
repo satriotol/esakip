@@ -11,30 +11,28 @@ class OpdPerjanjianKinerjaController extends Controller
 {
     public function index(Request $request)
     {
-        $id = $request->id;
-        $nama_opd = $request->nama_opd;
-        // $perjanjian_kinerjas = OpdPerjanjianKinerja::whereHas('opd', function ($q) use ($request) {
-        //     $q->where('nama_opd', $request->nama_opd);
-        // })->latest()->first();
-        $perjanjian_kinerja = OpdPerjanjianKinerja::query();
+        $id = $request->input('id');
+        $nama_opd = $request->input('nama_opd');
+        $limit = $request->input('limit');
+        
         if ($id) {
-            $data = $perjanjian_kinerja->where('id', $id)->latest()->first();
-            if ($data == null) {
+            $perjanjian_kinerja = OpdPerjanjianKinerja::find($id);
+            if ($perjanjian_kinerja == null) {
                 return $this->failedResponse([], 'Oops, Data Tidak Ditemukan');
             }
-            return $this->successResponse(['perjanjian_kinerja' => new OpdPerjanjianKinerjaResource($data)]);
+            return $this->successResponse(['perjanjian_kinerja' => new OpdPerjanjianKinerjaResource($perjanjian_kinerja)]);
         }
+        $perjanjian_kinerja = OpdPerjanjianKinerja::query();
+
+
         if ($nama_opd) {
-            $data = $perjanjian_kinerja->whereHas('opd', function ($q) use ($request) {
+            $perjanjian_kinerja->whereHas('opd', function ($q) use ($request) {
                 $q->where('nama_opd', $request->nama_opd);
-            })->get();
+            });
         }
-        if ($request->nama_opd == null) {
-            return $this->failedResponse([], 'Oops, ada yang salah, Pastikan Anda Sudah Mengisi Form Pencarian');
-        }
-        if ($data == null) {
+        if ($perjanjian_kinerja == null) {
             return $this->failedResponse([], 'Oops, ada yang salah, Pastikan Nama Opd Yang Anda Masukkan Benar');
         }
-        return $this->successResponse(['perjanjian_kinerja' => OpdPerjanjianKinerjaResource::collection($data)]);
+        return $this->successResponse(['perjanjian_kinerja' => OpdPerjanjianKinerjaResource::collection($perjanjian_kinerja->paginate($limit))]);
     }
 }
