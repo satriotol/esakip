@@ -21,7 +21,7 @@
                                 <button :class="[routeName == 'KOTA' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('KOTA')">KOTA</button>
                                 <button :class="[routeName == 'OPD' ? 'btn btn-success' : 'btn btn-primary']"
-                                    @click="setRouteName('OPD')">OPD</button>
+                                    @click="setRouteName('OPD')">LKJIP OPD</button>
                             </div>
                         </div>
                     </div>
