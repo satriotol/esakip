@@ -138,7 +138,7 @@
                                 <nav aria-label="Page navigation example" class="text-right">
                                     <ul class="pagination">
                                         <li class="page-item" :class="{ active: link.active }"
-                                            v-for="link in pagination.links" @click="getOpdLkjips(link.url)">
+                                            v-for="link in pagination_opd.links" @click="getOpdLkjips(link.url)">
                                             <a class="page-link" v-if="link.label">
                                                 @{{ (link.label).split('.')[1] ?? (link.label).split('.')[0] }}
                                             </a>
