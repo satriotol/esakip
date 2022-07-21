@@ -15,7 +15,11 @@ class ARealisasiKeunganResource extends JsonResource
      */
     public function toArray($request)
     {
-        $year = Carbon::now()->year;
+        if ($request->year) {
+            $year = $request->year;
+        } else {
+            $year = Carbon::now()->format('Y');
+        }
         return [
             'id_skpd' => $this->id_skpd,
             'nama_skpd' => $this->nama_skpd,

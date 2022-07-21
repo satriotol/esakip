@@ -59,7 +59,7 @@
                     urlRealisasiAnggaran: API_URL + 'getRealisasiAnggaran',
                     urlSkpd: API_URL + 'skpd',
                     skpd_search: "",
-                    loading: true,
+                    year_search: "",
                 }
             },
             mounted() {
@@ -79,13 +79,16 @@
                         .finally(() => this.loading = false)
                 },
                 getApbdAnggaran(pageUrl) {
+                    this.loading = true;
                     axios.get(this.urlApbdAnggaran, {
                             params: {
-                                id_skpd: this.skpd_search
+                                id_skpd: this.skpd_search,
+                                year: this.year_search,
                             }
                         })
                         .then(response => (
-                            this.dataApbdAnggaran = response.data.ApbdAnggaran
+                            this.dataApbdAnggaran = response.data.ApbdAnggaran,
+                            this.loading = false
                         ))
                         .catch(function(error) {
                             console.log(error);
@@ -94,7 +97,8 @@
                 getRealisasiAnggaran(pageUrl) {
                     axios.get(this.urlRealisasiAnggaran, {
                             params: {
-                                id_skpd: this.skpd_search
+                                id_skpd: this.skpd_search,
+                                year: this.year_search,
                             }
                         })
                         .then(response => (

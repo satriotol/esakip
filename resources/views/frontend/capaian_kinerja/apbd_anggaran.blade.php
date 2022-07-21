@@ -3,12 +3,16 @@
         <div class="col-md-12">
             <div class="form-group">
                 <div class="row">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <select class="form-control" v-model="skpd_search" style="min-height: 50px;">
                             <option value="">Cari Berdasarkan OPD</option>
                             <option :value="data.id_skpd" v-for="(data, index) in dataSkpds">
                                 @{{ data.nama_skpd }}</option>
                         </select>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" v-model="year_search" placeholder="Cari Berdasarkan Tahun"
+                            class="form-control">
                     </div>
                 </div>
                 <div class="text-right">
@@ -46,7 +50,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <div v-if="dataApbdAnggaran.length == 0" class="text-center">
+                <div v-if="dataApbdAnggaran.length == 0 && !loading" class="text-center">
                     <img src="{{ asset('no-results.png') }}" style="height: 200px;"><br>
                     <h2>Data Tidak Ditemukan</h2>
                 </div>
