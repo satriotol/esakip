@@ -14,7 +14,7 @@ class OpdPerjanjianKinerjaController extends Controller
         $id = $request->input('id');
         $nama_opd = $request->input('nama_opd');
         $limit = $request->input('limit');
-        
+
         if ($id) {
             $perjanjian_kinerja = OpdPerjanjianKinerja::find($id);
             if ($perjanjian_kinerja == null) {
@@ -26,8 +26,8 @@ class OpdPerjanjianKinerjaController extends Controller
 
 
         if ($nama_opd) {
-            $perjanjian_kinerja->whereHas('opd', function ($q) use ($request) {
-                $q->where('nama_opd', $request->nama_opd);
+            $perjanjian_kinerja->whereHas('opd', function ($q) use ($nama_opd) {
+                $q->where('nama_opd', 'like', '%' . $nama_opd . '%');
             });
         }
         if ($perjanjian_kinerja == null) {
