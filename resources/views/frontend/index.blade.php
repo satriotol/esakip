@@ -38,7 +38,7 @@
                 </tbody>
             </table>
             <nav aria-label="Page navigation example">
-                <ul class="pagination">
+                <ul class="pagination" style="cursor:pointer;">
                     <li class="page-item" :class="{ active: link.active }" v-for="link in pagination.links"
                         @click="getKotaLkjips(link.url)">
                         <a class="page-link" v-if="link.label">
