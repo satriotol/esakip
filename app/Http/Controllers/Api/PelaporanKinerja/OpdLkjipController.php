@@ -16,7 +16,7 @@ class OpdLkjipController extends Controller
             $q->where('opd_id', $request->opd_search);
         })->when($request->year_search, function ($q) use ($request) {
             $q->where('year', 'like', "%" . $request->year_search . "%");
-        })->orderBy('year')->paginate();
+        })->orderBy('year', 'desc')->paginate();
         return $this->successResponse(['lkjips_opd_data' => $lkjips]);
     }
 }
