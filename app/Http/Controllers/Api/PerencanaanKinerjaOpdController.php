@@ -35,7 +35,7 @@ class PerencanaanKinerjaOpdController extends Controller
             $q->where('year', 'like', "%" . $request->year_search . "%");
         })->when($request->opd_search, function ($q) use ($request) {
             $q->where('opd_id', $request->opd_search);
-        })->orderBy('year')->paginate();
+        })->orderBy('year', 'desc')->paginate();
         return $this->successResponse(['rkt_datas' => $rkt_datas]);
     }
     public function getRenja(Request $request)
@@ -46,7 +46,7 @@ class PerencanaanKinerjaOpdController extends Controller
             $q->where('year', 'like', "%" . $request->year_search . "%");
         })->when($request->type_search, function ($q) use ($request) {
             $q->where('type', $request->type_search);
-        })->orderBy('year')->paginate();
+        })->orderBy('year', 'desc')->paginate();
         return $this->successResponse(['renja_datas' => $renja_datas]);
     }
     public function getCascadingKinerja(Request $request)
