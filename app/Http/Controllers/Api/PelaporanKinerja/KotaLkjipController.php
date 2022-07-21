@@ -14,7 +14,7 @@ class KotaLkjipController extends Controller
             $q->where('name', 'like', "%" . $request->name_search . "%");
         })->when($request->year_search, function ($q) use ($request){
             $q->where('year', 'like', "%" . $request->year_search . "%");
-        })->paginate(5);
+        })->orderBy('year')->paginate();
         return $this->successResponse(['lkjips_kota_data' => $lkjips]);
     }
 }
