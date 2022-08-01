@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CapaianKinerja\CreateLinkRequest;
+use App\Http\Requests\UpdateLinkRequest;
 use App\Models\CapaianKinerja\Link;
 use Illuminate\Http\Request;
 
@@ -82,7 +83,7 @@ class LinkController extends Controller
      * @param  \App\Models\CapaianKinerja\Link  $link
      * @return \Illuminate\Http\Response
      */
-    public function update(CreateLinkRequest $request, Link $link)
+    public function update(UpdateLinkRequest $request, Link $link)
     {
         $data = $request->all();
         if ($request->image) {
