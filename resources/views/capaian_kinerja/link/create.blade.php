@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @push('plugin-styles')
-    <link href="{{ asset('assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -35,6 +35,15 @@
                         <input id="url" class="form-control" name="url" type="text" required
                             value="{{ isset($link) ? $link->url : '' }}">
                     </div>
+                    <div class="mb-3">
+                        <label for="link" class="form-label">Description</label>
+                        <textarea name="description" class="form-control">{{ isset($link) ? $link->description : '' }}</textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        <input type="file" name="image" id="file"
+                            @empty($link) required @endempty />
+                    </div>
                     <div class="text-end">
                         <input class="btn btn-primary" type="submit" value="Submit">
                     </div>
@@ -43,3 +52,22 @@
         </div>
     </div>
 @endsection
+@push('plugin-scripts')
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+@endpush
+
+@push('custom-scripts')
+    <script src="{{ asset('assets/js/dropify.js') }}"></script>
+    <script>
+        const inputElement = document.querySelector('input[id="file"]');
+        const pond = FilePond.create(inputElement);
+        FilePond.setOptions({
+            server: {
+                url: '{{ route('link.store_file') }}',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            }
+        });
+    </script>
+@endpush

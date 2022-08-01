@@ -47,6 +47,7 @@ class LinkController extends Controller
     public function store(CreateLinkRequest $request)
     {
         $data = $request->all();
+        $data['image'] = $request->image;
         Link::create($data);
         session()->flash('success');
         return redirect(route('link.index'));
@@ -84,6 +85,10 @@ class LinkController extends Controller
     public function update(CreateLinkRequest $request, Link $link)
     {
         $data = $request->all();
+        if ($request->image) {
+            $data['image'] = $request->image;
+            $link->deleteFile();
+        };
         $link->update($data);
         session()->flash('success');
         return redirect(route('link.index'));
@@ -98,7 +103,18 @@ class LinkController extends Controller
     public function destroy(Link $link)
     {
         $link->delete();
+        $link->deleteFile();
         session()->flash('success');
         return redirect(route('link.index'));
+    }
+    public function store_file(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            $image = $request->image;
+            $filename = date('Ymd_His') . '-' . $image->getClientOriginalName();
+            $data['image'] = $image->storeAs('file', $filename, 'public_uploads');
+            return $data['image'];
+        };
+        return 'success';
     }
 }

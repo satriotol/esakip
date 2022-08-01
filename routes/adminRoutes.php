@@ -132,6 +132,7 @@ Route::group(['middleware' => ['auth']], function() {
     // ===========================
     // capaian kinerja
     Route::resource('link', LinkController::class);
+    Route::post('link/store_file', [LinkController::class, 'store_file'])->name('link.store_file');
     // end of capaian kinerja
     // ===========================
     // evaluasi kinerja

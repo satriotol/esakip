@@ -25,7 +25,9 @@ class CreateLinkRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'url'=> 'required|url'
+            'url'=> 'required|url',
+            'image' => 'required|max:500000',
+            'description' => 'nullable'
         ];
     }
 }

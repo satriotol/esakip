@@ -28,16 +28,19 @@
                             <thead>
                                 <tr>
                                     <th>Title</th>
+                                    <th>Description</th>
                                     <th>Link</th>
+                                    <th>Image</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($links as $link)
                                     <tr>
-                                        <td>{{ $link->title }}
-                                        </td>
+                                        <td>{{ $link->title }}</td>
+                                        <td>{{ $link->description }}</td>
                                         <td><a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a></td>
+                                        <td><img src="{{ asset('uploads/' . $link->image) }}" alt=""></td>
                                         <td>
                                             <a class="btn btn-warning" href="{{ route('link.edit', $link->id) }}">
                                                 Edit
