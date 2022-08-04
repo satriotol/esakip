@@ -22,8 +22,8 @@
                                     @click="setRouteName('RPJMD')">RPJMD</button>
                                 <button :class="[routeName == 'RKPD' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('RKPD')">RKPD</button>
-                                <button :class="[routeName == 'CASCADING KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
-                                    @click="setRouteName('CASCADING KINERJA')">CASCADING KINERJA</button>
+                                <button :class="[routeName == 'POHON KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('POHON KINERJA')">POHON KINERJA</button>
                             </div>
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                 <div v-if="routeName == 'RKPD'">
                     @include('frontend.perencanaan_kinerja_kota.rkpd')
                 </div>
-                <div v-if="routeName == 'CASCADING KINERJA'">
+                <div v-if="routeName == 'POHON KINERJA'">
                     @include('frontend.perencanaan_kinerja_kota.cascading_kinerja')
                 </div>
             </div>

@@ -24,8 +24,8 @@
                                     @click="setRouteName('RKT')">RKT</button>
                                 <button :class="[routeName == 'RENJA' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('RENJA')">RENJA</button>
-                                <button :class="[routeName == 'CASCADING KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
-                                    @click="setRouteName('CASCADING KINERJA')">CASCADING KINERJA</button>
+                                <button :class="[routeName == 'POHON KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('POHON KINERJA')">POHON KINERJA</button>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                 <div v-if="routeName == 'RENJA'">
                     @include('frontend.perencanaan_kinerja_opd.renja')
                 </div>
-                <div v-if="routeName == 'CASCADING KINERJA'">
+                <div v-if="routeName == 'POHON KINERJA'">
                     @include('frontend.perencanaan_kinerja_opd.cascading_kinerja')
                 </div>
             </div>
