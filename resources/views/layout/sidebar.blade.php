@@ -57,7 +57,7 @@
                             @can('kotaCascadingKinerja-list')
                                 <li class="nav-item">
                                     <a href="{{ route('cascading_kinerja.index') }}"
-                                        class="nav-link {{ active_class(['cascading_kinerja.*']) }}">CASCADING KINERJA</a>
+                                        class="nav-link {{ active_class(['cascading_kinerja.*']) }}">POHON KINERJA</a>
                                 </li>
                             @endcan
                         </ul>
@@ -98,7 +98,7 @@
                             @can('opdCascadingKinerja-list')
                                 <li class="nav-item">
                                     <a href="{{ route('cascadingKinerjaOpd.index') }}"
-                                        class="nav-link {{ active_class(['cascadingKinerjaOpd.*']) }}">CASCADING KINERJA</a>
+                                        class="nav-link {{ active_class(['cascadingKinerjaOpd.*']) }}">POHON KINERJA</a>
                                 </li>
                             @endcan
                         </ul>

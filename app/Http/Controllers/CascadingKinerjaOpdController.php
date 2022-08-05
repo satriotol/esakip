@@ -22,7 +22,7 @@ class CascadingKinerjaOpdController extends Controller
         $this->middleware('permission:opdCascadingKinerja-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:opdCascadingKinerja-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:opdCascadingKinerja-delete', ['only' => ['destroy']]);
-        $name = "Cascading Kinerja OPD";
+        $name = "Pohon Kinerja OPD";
         view()->share('name', $name);
     }
     public function getCascadingKinerjaOpd(Request $request)

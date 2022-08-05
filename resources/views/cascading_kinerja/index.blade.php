@@ -7,16 +7,16 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('cascading_kinerja.index') }}">Cascading Kinerja</a>
+            <li class="breadcrumb-item"><a href="{{ route('cascading_kinerja.index') }}">Pohon Kinerja</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Tabel Cascading Kinerja</li>
+            <li class="breadcrumb-item active" aria-current="page">Tabel Pohon Kinerja</li>
         </ol>
     </nav>
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Cascading Kinerja</h6>
+                    <h6 class="card-title">Pohon Kinerja</h6>
                     <div class="text-end mb-2">
                         <a class="btn btn-primary" href="{{ route('cascading_kinerja.create') }}">
                             <i data-feather="plus"></i>

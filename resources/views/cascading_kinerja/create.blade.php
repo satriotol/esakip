@@ -7,7 +7,7 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('cascading_kinerja.index') }}">Cascading Kinerja</a>
+            <li class="breadcrumb-item"><a href="{{ route('cascading_kinerja.index') }}">Pohon Kinerja</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Form Perencenaan Kinerja</li>
         </ol>
@@ -16,7 +16,7 @@
     <div class="grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Form Cascading Kinerja</h4>
+                <h4 class="card-title">Form Pohon Kinerja</h4>
                 @include('partials.errors')
                 <form
                     action="@isset($cascading_kinerja) {{ route('cascading_kinerja.update', $cascading_kinerja->id) }} @endisset @empty($cascading_kinerja) {{ route('cascading_kinerja.store') }} @endempty"
