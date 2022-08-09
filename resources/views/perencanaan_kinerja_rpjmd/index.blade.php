@@ -18,17 +18,16 @@
                 <div class="card-body">
                     <h6 class="card-title">Perencanaan Kinerja RPJMD</h6>
                     <div class="text-end mb-2">
-                        @if ($perencanaan_kinerja_rpjmds->count() == 0)
-                            <a class="btn btn-primary" href="{{ route('perencanaan_kinerja_rpjmd.create') }}">
-                                <i data-feather="plus"></i>
-                                Create
-                            </a>
-                        @endif
+                        <a class="btn btn-primary" href="{{ route('perencanaan_kinerja_rpjmd.create') }}">
+                            <i data-feather="plus"></i>
+                            Create
+                        </a>
                     </div>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
+                                    <th>Tahun</th>
                                     <th>File</th>
                                     <th>Action</th>
                                 </tr>
@@ -36,16 +35,29 @@
                             <tbody>
                                 @foreach ($perencanaan_kinerja_rpjmds as $perencanaan_kinerja_rpjmd)
                                     <tr>
+                                        <td>{{ $perencanaan_kinerja_rpjmd->year }}</td>
                                         <td>
-                                            <object data="{{ asset('uploads/' . $perencanaan_kinerja_rpjmd->file) }}"
-                                                class="w-100 mt-5" style="height: 550px" type="application/pdf">
-                                                <div>No online PDF viewer installed</div>
-                                            </object>
-                                        </td>
-                                        <td> <a class="btn btn-warning btn-icon"
-                                                href="{{ route('perencanaan_kinerja_rpjmd.edit', $perencanaan_kinerja_rpjmd->id) }}">
-                                                <i data-feather="edit"></i>
+                                            <a class="btn btn-success"
+                                                href="{{ asset('uploads/' . $perencanaan_kinerja_rpjmd->file) }}"
+                                                target="_blank">
+                                                Open File
                                             </a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-warning"
+                                                href="{{ route('perencanaan_kinerja_rpjmd.edit', $perencanaan_kinerja_rpjmd->id) }}">
+                                                Edit
+                                            </a>
+                                            <form
+                                                action="{{ route('perencanaan_kinerja_rpjmd.destroy', $perencanaan_kinerja_rpjmd->id) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger show_confirm"
+                                                    data-toggle="tooltip" title='Delete'>
+                                                    Delete
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

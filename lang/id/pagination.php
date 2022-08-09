@@ -17,4 +17,6 @@ return [
     'throttled' => 'Harap tunggu sebelum mencoba lagi.',
     'token'     => 'Token pengaturan ulang kata sandi tidak sah.',
     'user'      => 'Kami tidak dapat menemukan pengguna dengan alamat surel tersebut.',
+    'previous' => 'Sebelumnya',
+    'next' => 'Selanjutnya',
 ];

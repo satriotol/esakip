@@ -51,11 +51,14 @@
         createApp({
             data() {
                 return {
+                    dataRpjmd: "",
                     dataRkpd: "",
                     dataCascadingKinerja: "",
+                    paginationRpjmd: [],
                     paginationRkpd: [],
                     paginationCascadingKinerja: [],
                     routeName: "RPJMD",
+                    urlRpjmd: API_URL + 'perencanaankinerjakota/rpjmd',
                     urlRkpd: API_URL + 'perencanaankinerjakota/rkpd',
                     urlCascadingKinerja: API_URL + 'perencanaankinerjakota/cascading_kinerja',
                     year_search: "",
@@ -64,10 +67,31 @@
                 }
             },
             mounted() {
+                this.getKotaRpjmd();
                 this.getKotaRkpd();
                 this.getKotaCascadingKinerja();
             },
             methods: {
+                getKotaRpjmd(pageUrl) {
+                    this.loading = true;
+                    if (pageUrl) {
+                        pageUrl = pageUrl.split('=').pop();
+                    }
+                    axios.get(this.urlRpjmd, {
+                            params: {
+                                page: pageUrl,
+                                year_search: this.year_search
+                            }
+                        })
+                        .then(response => (
+                            this.dataRpjmd = response.data.rpjmd_datas.data,
+                            this.paginationRpjmd = response.data.rpjmd_datas
+                        ))
+                        .catch(function(error) {
+                            console.log(error);
+                        })
+                        .finally(() => this.loading = false)
+                },
                 getKotaRkpd(pageUrl) {
                     this.loading = true;
                     if (pageUrl) {

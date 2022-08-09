@@ -36,9 +36,6 @@ class PerencanaanKinerjaRpjmdController extends Controller
      */
     public function create()
     {
-        if (PerencanaanKinerjaRpjmd::all()->count() != 0) {
-            return redirect(route('perencanaan_kinerja_rpjmd.index'));
-        }
         return view('perencanaan_kinerja_rpjmd.create');
     }
 
@@ -116,6 +113,9 @@ class PerencanaanKinerjaRpjmdController extends Controller
      */
     public function destroy(PerencanaanKinerjaRpjmd $perencanaan_kinerja_rpjmd)
     {
-        //
+        $perencanaan_kinerja_rpjmd->delete();
+        $perencanaan_kinerja_rpjmd->deleteFile();
+        session()->flash('success');
+        return back();
     }
 }

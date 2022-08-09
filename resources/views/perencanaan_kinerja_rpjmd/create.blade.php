@@ -26,6 +26,11 @@
                         @method('PUT')
                     @endisset
                     <div class="mb-3">
+                        <label for="year" class="form-label">Year</label>
+                        <input id="year" class="form-control" name="year" type="number" placeholder="yyyy" required
+                            value="{{ isset($perencanaan_kinerja_rpjmd) ? $perencanaan_kinerja_rpjmd->year : '' }}">
+                    </div>
+                    <div class="mb-3">
                         <label for="file" class="form-label">File</label>
                         <input type="file" name="file" id="file"
                             @empty($perencanaan_kinerja_rpjmd) required @endempty />

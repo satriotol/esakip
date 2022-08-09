@@ -37,6 +37,7 @@ Route::get('kotaLkjip', [KotaLkjipController::class, 'index']);
 Route::get('opdLkjip', [OpdLkjipController::class, 'index']);
 
 
+Route::get('perencanaankinerjakota/rpjmd', [PerencanaanKinerjaKotaController::class, 'getRpjmd']);
 Route::get('perencanaankinerjakota/rkpd', [PerencanaanKinerjaKotaController::class, 'getRkpd']);
 Route::get('perencanaankinerjakota/cascading_kinerja', [PerencanaanKinerjaKotaController::class, 'getCascadingKinerja']);
 
