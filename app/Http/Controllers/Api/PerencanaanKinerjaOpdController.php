@@ -57,7 +57,7 @@ class PerencanaanKinerjaOpdController extends Controller
             $q->where('year', 'like', "%" . $request->year_search . "%");
         })->when($request->type_search, function ($q) use ($request) {
             $q->where('type', $request->type_search);
-        })->orderBy('year')->paginate();
+        })->orderBy('year', 'desc')->paginate();
         return $this->successResponse(['cascading_kinerja_datas' => $cascading_kinerja_datas]);
     }
 }

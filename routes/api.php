@@ -47,7 +47,7 @@ Route::get('perencanaankinerjaopd/rkt', [PerencanaanKinerjaOpdController::class,
 Route::get('perencanaankinerjaopd/renja', [PerencanaanKinerjaOpdController::class, 'getRenja']);
 Route::get('perencanaankinerjaopd/cascading_kinerja', [PerencanaanKinerjaOpdController::class, 'getCascadingKinerja']);
 
-
+Route::get('pengukurankinerjakota/iku', [PengukuranKinerjaKotaController::class, 'getIku']);
 Route::get('pengukurankinerjakota/perjanjian_kinerja', [PengukuranKinerjaKotaController::class, 'getPerjanjianKinerja']);
 Route::get('pengukurankinerjaopd/iku', [PengukuranKinerjaOpdController::class, 'getIku']);
 Route::get('pengukurankinerjaopd/perjanjian_kinerja', [PengukuranKinerjaOpdController::class, 'getPerjanjianKinerja']);

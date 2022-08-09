@@ -15,7 +15,7 @@ class PengukuranKinerjaOpdController extends Controller
             $q->where('year', 'like', "%" . $request->year_search . "%");
         })->when($request->opd_search, function ($q) use ($request) {
             $q->where('opd_id', $request->opd_search);
-        })->orderBy('year')->paginate();
+        })->orderBy('year', 'desc')->paginate();
         return $this->successResponse(['iku_datas' => $iku_datas]);
     }
     public function getPerjanjianKinerja(Request $request)
@@ -26,7 +26,7 @@ class PengukuranKinerjaOpdController extends Controller
             $q->where('year', 'like', "%" . $request->year_search . "%");
         })->when($request->opd_search, function ($q) use ($request) {
             $q->where('opd_id', $request->opd_search);
-        })->orderBy('year')->paginate();
+        })->orderBy('year', 'desc')->paginate();
         return $this->successResponse(['perjanjian_kinerja_datas' => $perjanjian_kinerja_datas]);
     }
 }

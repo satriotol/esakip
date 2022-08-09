@@ -49,9 +49,12 @@
         createApp({
             data() {
                 return {
+                    dataIku: "",
                     dataPerjanjianKinerja: "",
+                    paginationIku: [],
                     paginationPerjanjianKinerja: [],
                     routeName: "IKU",
+                    urlIku: API_URL + 'pengukurankinerjakota/iku',
                     urlPerjanjianKinerja: API_URL + 'pengukurankinerjakota/perjanjian_kinerja',
                     year_search: "",
                     name_search: "",
@@ -59,9 +62,30 @@
                 }
             },
             mounted() {
+                this.getKotaIku();
                 this.getKotaPerjanjianKinerja();
             },
             methods: {
+                getKotaIku(pageUrl) {
+                    this.loading = true;
+                    if (pageUrl) {
+                        pageUrl = pageUrl.split('=').pop();
+                    }
+                    axios.get(this.urlIku, {
+                            params: {
+                                page: pageUrl,
+                                year_search: this.year_search
+                            }
+                        })
+                        .then(response => (
+                            this.dataIku = response.data.iku_kotas.data,
+                            this.paginationIku = response.data.iku_kotas
+                        ))
+                        .catch(function(error) {
+                            console.log(error);
+                        })
+                        .finally(() => this.loading = false)
+                },
                 getKotaPerjanjianKinerja(pageUrl) {
                     this.loading = true;
                     if (pageUrl) {

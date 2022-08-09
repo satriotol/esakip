@@ -36,9 +36,6 @@ class IkuKotaController extends Controller
      */
     public function create()
     {
-        if (IkuKota::all()->count() != 0) {
-            return redirect(route('ikuKota.index'));
-        }
         return view('pengukuran_kinerja.kota.iku.create');
     }
 
@@ -100,9 +97,10 @@ class IkuKotaController extends Controller
     public function store_file(Request $request)
     {
         if ($request->hasFile('file')) {
-            $file = $request->file->store('file', 'public_uploads');
-            $data['file'] = $file;
-            return $file;
+            $file = $request->file;
+            $filename = date('Ymd_His') . '-' . $file->getClientOriginalName();
+            $data['file'] = $file->storeAs('file', $filename, 'public_uploads');
+            return $data['file'];
         };
         return 'success';
     }
