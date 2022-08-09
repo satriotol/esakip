@@ -16,7 +16,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Dokumen</th>
+                            <th>Tahun</th>
                             <th>Action</th>
                         </tr>
                     </thead>
