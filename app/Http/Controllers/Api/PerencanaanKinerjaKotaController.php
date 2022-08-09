@@ -14,7 +14,7 @@ class PerencanaanKinerjaKotaController extends Controller
     {
         $rpjmds = PerencanaanKinerjaRpjmd::when($request->year_search, function ($q) use ($request) {
             $q->where('year', 'like', "%" . $request->year_search . "%");
-        })->paginate();
+        })->orderBy('year', 'desc')->paginate();
 
         return $this->successResponse(['rpjmd_datas' => $rpjmds]);
     }
