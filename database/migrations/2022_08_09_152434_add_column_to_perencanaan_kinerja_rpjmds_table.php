@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('perencanaan_kinerja_rpjmds', function (Blueprint $table) {
-            $table->year('year')->nullable();
+            $table->string('year')->nullable();
         });
     }
 
