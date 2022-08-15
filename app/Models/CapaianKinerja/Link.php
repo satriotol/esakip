@@ -10,15 +10,21 @@ class Link extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['url', 'title', 'image', 'description'];
+    protected $fillable = ['url', 'title', 'image', 'description', 'type'];
     protected $appends = ['image_url'];
+    const TYPE1 = 'LINK CAPAIAN KINERJA';
+    const TYPE2 = 'LINK CAPAIAN IKU';
+    const TYPE3 = 'LINK CAPAIAN IKD';
+    const TYPES = [
+        self::TYPE1, self::TYPE2, self::TYPE3
+    ];
     public function deleteFile()
     {
         Storage::disk('public_uploads')->delete($this->attributes['image']);
     }
     public function getImageUrlAttribute()
     {
-        $image = env('ASSET_URL') .'/uploads/' . $this->image;
+        $image = env('ASSET_URL') . '/uploads/' . $this->image;
         return $image;
     }
 }

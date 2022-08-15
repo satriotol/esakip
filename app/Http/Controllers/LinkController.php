@@ -36,7 +36,8 @@ class LinkController extends Controller
      */
     public function create()
     {
-        return view('capaian_kinerja.link.create');
+        $types = Link::TYPES;
+        return view('capaian_kinerja.link.create', compact('types'));
     }
 
     /**
@@ -73,7 +74,9 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
-        return view('capaian_kinerja.link.create', compact('link'));
+        $types = Link::TYPES;
+
+        return view('capaian_kinerja.link.create', compact('link', 'types'));
     }
 
     /**

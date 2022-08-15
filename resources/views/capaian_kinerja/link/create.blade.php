@@ -36,38 +36,50 @@
                             value="{{ isset($link) ? $link->url : '' }}">
                     </div>
                     <div class="mb-3">
-                        <label for="link" class="form-label">Description</label>
-                        <textarea name="description" class="form-control">{{ isset($link) ? $link->description : '' }}</textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Image</label>
-                        <input type="file" name="image" id="file"
-                            @empty($link) required @endempty />
-                    </div>
-                    <div class="text-end">
-                        <input class="btn btn-primary" type="submit" value="Submit">
-                    </div>
-                </form>
-            </div>
+                        <label for="type" class="form-label">Type</label>
+                        <select name="type" id="" class="form-control" required>
+                            <option value="">Pilih Type Link</option>
+                            @foreach ($types as $type)
+                                <option value="{{ $type }}"
+                                    @isset($link) @if ($link->type === $type)
+                                        selected @endif
+                                @endisset>{{ $type }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="link" class="form-label">Description</label>
+                    <textarea name="description" class="form-control">{{ isset($link) ? $link->description : '' }}</textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" name="image" id="file"
+                        @empty($link) required @endempty />
+                </div>
+                <div class="text-end">
+                    <input class="btn btn-primary" type="submit" value="Submit">
+                </div>
+            </form>
         </div>
     </div>
+</div>
 @endsection
 @push('plugin-scripts')
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 @endpush
 
 @push('custom-scripts')
-    <script src="{{ asset('assets/js/dropify.js') }}"></script>
-    <script>
-        const inputElement = document.querySelector('input[id="file"]');
-        const pond = FilePond.create(inputElement);
-        FilePond.setOptions({
-            server: {
-                url: '{{ route('link.store_file') }}',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
+<script src="{{ asset('assets/js/dropify.js') }}"></script>
+<script>
+    const inputElement = document.querySelector('input[id="file"]');
+    const pond = FilePond.create(inputElement);
+    FilePond.setOptions({
+        server: {
+            url: '{{ route('link.store_file') }}',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
             }
-        });
-    </script>
+        }
+    });
+</script>
 @endpush

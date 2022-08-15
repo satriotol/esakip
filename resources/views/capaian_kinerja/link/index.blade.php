@@ -28,6 +28,7 @@
                             <thead>
                                 <tr>
                                     <th>Title</th>
+                                    <th>Type</th>
                                     <th>Description</th>
                                     <th>Link</th>
                                     <th>Image</th>
@@ -38,6 +39,7 @@
                                 @foreach ($links as $link)
                                     <tr>
                                         <td>{{ $link->title }}</td>
+                                        <td>{{ $link->type }}</td>
                                         <td>{{ $link->description }}</td>
                                         <td><a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a></td>
                                         <td><img src="{{ asset('uploads/' . $link->image) }}" alt=""></td>

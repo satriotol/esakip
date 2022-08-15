@@ -27,7 +27,8 @@ class CreateLinkRequest extends FormRequest
             'title' => 'required',
             'url'=> 'required|url',
             'image' => 'required|max:500000',
-            'description' => 'nullable'
+            'description' => 'nullable',
+            'type' => 'required'
         ];
     }
 }
