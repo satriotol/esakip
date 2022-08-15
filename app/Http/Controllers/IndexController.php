@@ -43,9 +43,11 @@ class IndexController extends Controller
     }
     public function capaian_kinerja()
     {
-        $links = Link::all();
+        $link_1 = Link::where('type', Link::TYPE1)->get();
+        $link_2 = Link::where('type', Link::TYPE2)->get();
+        $link_3 = Link::where('type', Link::TYPE3)->get();
         $name = 'Capaian Kinerja';
-        return view('frontend.capaian_kinerja.index', compact('name', 'links'));
+        return view('frontend.capaian_kinerja.index', compact('name', 'link_1', 'link_2', 'link_3'));
     }
     public function evaluasi_kinerja()
     {

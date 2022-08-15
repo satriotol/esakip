@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="blog-items">
-                @foreach ($link_1 as $link)
+                @foreach ($link_3 as $link)
                     <div class="single-item col-md-3">
                         <div class="item">
                             <div class="thumb">
