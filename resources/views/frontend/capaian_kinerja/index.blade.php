@@ -18,23 +18,23 @@
                         <div class="site-heading text-center">
                             <h2>{{ $name }} @{{ routeName }}</h2>
                             <div class="text-left">
-                                <button :class="[routeName == 'CAPAIAN APBD' ? 'btn btn-success' : 'btn btn-primary']"
-                                    @click="setRouteName('CAPAIAN APBD')">CAPAIAN APBD</button>
+                                <button :class="[routeName == 'ANGGARAN APBD' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('ANGGARAN APBD')">ANGGARAN APBD</button>
                                 <button :class="[routeName == 'REALISASI ANGGARAN' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('REALISASI ANGGARAN')">REALISASI ANGGARAN</button>
-                                <button :class="[routeName == 'LINK TERKAIT' ? 'btn btn-success' : 'btn btn-primary']"
-                                    @click="setRouteName('LINK TERKAIT')">LINK TERKAIT</button>
+                                <button :class="[routeName == 'LINK CAPAIAN KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('LINK CAPAIAN KINERJA')">LINK CAPAIAN KINERJA</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div v-if="routeName == 'CAPAIAN APBD'">
+                <div v-if="routeName == 'ANGGARAN APBD'">
                     @include('frontend.capaian_kinerja.apbd_anggaran')
                 </div>
                 <div v-if="routeName == 'REALISASI ANGGARAN'">
                     @include('frontend.capaian_kinerja.realisasi_anggaran')
                 </div>
-                <div v-if="routeName == 'LINK TERKAIT'">
+                <div v-if="routeName == 'LINK CAPAIAN KINERJA'">
                     @include('frontend.capaian_kinerja.link')
                 </div>
             </div>
@@ -54,7 +54,7 @@
                     dataApbdAnggaran: "",
                     dataRealisasiAnggaran: "",
                     dataSkpds: "",
-                    routeName: "CAPAIAN APBD",
+                    routeName: "ANGGARAN APBD",
                     urlApbdAnggaran: API_URL + 'getApbdAnggaran',
                     urlRealisasiAnggaran: API_URL + 'getRealisasiAnggaran',
                     urlSkpd: API_URL + 'skpd',
