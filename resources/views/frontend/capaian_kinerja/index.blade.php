@@ -22,12 +22,12 @@
                                     @click="setRouteName('ANGGARAN APBD')">ANGGARAN APBD</button>
                                 <button :class="[routeName == 'REALISASI ANGGARAN' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('REALISASI ANGGARAN')">REALISASI ANGGARAN</button>
-                                <button
-                                    :class="[routeName == 'CAPAIAN IKU' ? 'btn btn-success' : 'btn btn-primary']"
+                                <button :class="[routeName == 'CAPAIAN IKU' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('CAPAIAN IKU')">CAPAIAN IKU</button>
-                                <button
-                                    :class="[routeName == 'CAPAIAN IKD' ? 'btn btn-success' : 'btn btn-primary']"
+                                <button :class="[routeName == 'CAPAIAN IKD' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('CAPAIAN IKD')">CAPAIAN IKD</button>
+                                <button :class="[routeName == 'CAPAIAN PROGRAM' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('CAPAIAN PROGRAM')">CAPAIAN PROGRAM</button>
                                 <button
                                     :class="[routeName == 'LINK CAPAIAN KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('LINK CAPAIAN KINERJA')">LINK CAPAIAN KINERJA</button>
@@ -46,6 +46,9 @@
                 </div>
                 <div v-if="routeName == 'CAPAIAN IKD'">
                     @include('frontend.capaian_kinerja.link_ikd')
+                </div>
+                <div v-if="routeName == 'CAPAIAN PROGRAM'">
+                    @include('frontend.capaian_kinerja.link_program')
                 </div>
                 <div v-if="routeName == 'LINK CAPAIAN KINERJA'">
                     @include('frontend.capaian_kinerja.link')

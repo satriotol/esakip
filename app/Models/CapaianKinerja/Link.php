@@ -15,8 +15,9 @@ class Link extends Model
     const TYPE1 = 'LINK CAPAIAN KINERJA';
     const TYPE2 = 'LINK CAPAIAN IKU';
     const TYPE3 = 'LINK CAPAIAN IKD';
+    const TYPE4 = 'LINK CAPAIAN PROGRAM';
     const TYPES = [
-        self::TYPE1, self::TYPE2, self::TYPE3
+        self::TYPE1, self::TYPE2, self::TYPE3, self::TYPE4
     ];
     public function deleteFile()
     {

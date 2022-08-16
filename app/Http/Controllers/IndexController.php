@@ -46,8 +46,9 @@ class IndexController extends Controller
         $link_1 = Link::where('type', Link::TYPE1)->get();
         $link_2 = Link::where('type', Link::TYPE2)->get();
         $link_3 = Link::where('type', Link::TYPE3)->get();
+        $link_4 = Link::where('type', Link::TYPE4)->get();
         $name = 'Capaian Kinerja';
-        return view('frontend.capaian_kinerja.index', compact('name', 'link_1', 'link_2', 'link_3'));
+        return view('frontend.capaian_kinerja.index', compact('name', 'link_1', 'link_2', 'link_3', 'link_4'));
     }
     public function evaluasi_kinerja()
     {
