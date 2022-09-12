@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('admin')->group(__DIR__ . '/adminRoutes.php');
+Route::prefix('administrator')->group(__DIR__ . '/adminRoutes.php');
 Route::get('/', [IndexController::class, 'home'])->name('home');
 Route::get('/pelaporan_kinerja', [IndexController::class, 'pelaporan_kinerja'])->name('pelaporan_kinerja');
 Route::get('/perencanaan_kinerja_kota', [IndexController::class, 'perencanaan_kinerja_kota'])->name('perencanaan_kinerja_kota');
