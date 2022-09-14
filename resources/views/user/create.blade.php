@@ -48,16 +48,16 @@
                                 <option value="{{ $r->id }}"
                                     @isset($user) @if ($r->id === $user->roles[0]->id) selected @endif
                                 @endisset>
-                                {{ $r->name }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="text-end">
-                    <input class="btn btn-primary" type="submit" value="Submit">
-                </div>
-            </form>
+                                    {{ $r->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="text-end">
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 @endsection
