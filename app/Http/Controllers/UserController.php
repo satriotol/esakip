@@ -119,4 +119,12 @@ class UserController extends Controller
         session()->flash('success');
         return redirect(route('user.index'));
     }
+    public function resetPassword(User $user)
+    {
+        $user->update([
+            'password' => '',
+        ]);
+        session()->flash('success');
+        return back();
+    }
 }

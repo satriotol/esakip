@@ -24,7 +24,7 @@
                                     <div class="mb-3">
                                         <label for="userEmail" class="form-label">Email address</label>
                                         <input type="email" class="form-control" name="email" id="userEmail"
-                                            placeholder="Email">
+                                            placeholder="Email" value="{{ @old('email') }}">
                                     </div>
                                     <div class="mb-3">
                                         <label for="userPassword" class="form-label">Password</label>

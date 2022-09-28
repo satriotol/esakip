@@ -49,7 +49,16 @@
                                                 @endforeach
                                             @endif
                                         </td>
-                                        <td> <a class="btn btn-warning" href="{{ route('user.edit', $user->id) }}">
+                                        <td>
+                                            <form action="{{ route('user.resetPassword', $user->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn btn-info"
+                                                    onclick="return confirm('Are you sure?')">
+                                                    Reset Password
+                                                </button>
+                                            </form>
+                                            <a class="btn btn-warning" href="{{ route('user.edit', $user->id) }}">
                                                 Edit
                                             </a>
                                             @if ($user->id != Auth::user()->id)

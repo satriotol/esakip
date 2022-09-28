@@ -143,4 +143,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('evaluasiKinerja/{evaluasiKinerjaYear}/create', [EvaluasiKinerjaController::class, 'create'])->name('evaluasiKinerja.create');
     Route::post('evaluasiKinerja/{evaluasiKinerjaYear}/store', [EvaluasiKinerjaController::class, 'store'])->name('evaluasiKinerja.store');
     // end of evaluasi kinerja
+
+    Route::post('user/resetPassword/{user}', [UserController::class, 'resetPassword'])->name('user.resetPassword');
 });
