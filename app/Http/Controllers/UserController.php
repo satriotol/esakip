@@ -32,7 +32,7 @@ class UserController extends Controller
         if (Auth::user()->email == 'satriotol69@gmail.com') {
             $users = User::all();
         } else {
-            $users = User::where('email', '!=', 'satriotol69@gmail.com')->get();
+            $users = User::where('email', '!=', 'satriotol69@gmail.com')->whereNull('opd_id')->get();
         }
         return view('user.index', compact('users'));
     }

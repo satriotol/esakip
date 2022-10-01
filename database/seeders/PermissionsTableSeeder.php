@@ -667,6 +667,70 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2022-07-08 10:15:47',
                 'updated_at' => '2022-07-08 10:15:47',
             ),
+            81 => 
+            array (
+                'id' => 86,
+                'name' => 'website-list',
+                'guard_name' => 'web',
+                'created_at' => '2022-07-08 11:03:18',
+                'updated_at' => '2022-07-08 11:03:18',
+            ),
+            82 => 
+            array (
+                'id' => 87,
+                'name' => 'website-create',
+                'guard_name' => 'web',
+                'created_at' => '2022-07-08 11:03:18',
+                'updated_at' => '2022-07-08 11:03:18',
+            ),
+            83 => 
+            array (
+                'id' => 88,
+                'name' => 'website-edit',
+                'guard_name' => 'web',
+                'created_at' => '2022-07-08 11:03:18',
+                'updated_at' => '2022-07-08 11:03:18',
+            ),
+            84 => 
+            array (
+                'id' => 89,
+                'name' => 'website-delete',
+                'guard_name' => 'web',
+                'created_at' => '2022-07-08 11:03:18',
+                'updated_at' => '2022-07-08 11:03:18',
+            ),
+            85 => 
+            array (
+                'id' => 90,
+                'name' => 'pelaporanKinerja',
+                'guard_name' => 'web',
+                'created_at' => '2022-07-13 11:43:53',
+                'updated_at' => '2022-07-13 11:43:53',
+            ),
+            86 => 
+            array (
+                'id' => 91,
+                'name' => 'opdPerjanjianKinerjaIndikator-list',
+                'guard_name' => 'web',
+                'created_at' => '2022-07-28 10:23:22',
+                'updated_at' => '2022-07-28 10:23:22',
+            ),
+            87 => 
+            array (
+                'id' => 92,
+                'name' => 'opdPerjanjianKinerjaProgramAnggaran-list',
+                'guard_name' => 'web',
+                'created_at' => '2022-07-28 10:23:22',
+                'updated_at' => '2022-07-28 10:23:22',
+            ),
+            88 => 
+            array (
+                'id' => 93,
+                'name' => 'opdPerjanjianKinerjaSasaran-list',
+                'guard_name' => 'web',
+                'created_at' => '2022-07-28 10:23:23',
+                'updated_at' => '2022-07-28 10:23:23',
+            ),
         ));
         
         
