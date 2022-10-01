@@ -117,7 +117,7 @@ class UserController extends Controller
     {
         $user->delete();
         session()->flash('success');
-        return redirect(route('user.index'));
+        return back();
     }
     public function resetPassword(User $user)
     {

@@ -230,6 +230,12 @@
                         <span class="link-title">User</span>
                     </a>
                 </li>
+                <li class="nav-item {{ active_class(['userOpd.*', 'role']) }}">
+                    <a href="{{ route('userOpd.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="user"></i>
+                        <span class="link-title">User Opd</span>
+                    </a>
+                </li>
             @endcan
             @can('role-list')
                 <li class="nav-item {{ active_class(['role.*']) }}">
