@@ -45,15 +45,49 @@
             </ul>
             <div class="tab-content border border-top-0 p-3" id="myTabContent" style="background-color: white">
                 <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="detail-tab">
-                    <p>
-                        Tahun : {{ $opdPerjanjianKinerja->year }} <br>
-                        OPD : {{ $opdPerjanjianKinerja->opd_name }} <br>
-                        Type : {{ $opdPerjanjianKinerja->type }}
-                    </p>
-                    <object data="{{ asset('uploads/' . $opdPerjanjianKinerja->file) }}" class="w-100 mt-1"
-                        style="height: 550px" type="application/pdf">
-                        <div>No online PDF viewer installed</div>
-                    </object>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p>
+                                Tahun : {{ $opdPerjanjianKinerja->year }} <br>
+                                OPD : {{ $opdPerjanjianKinerja->opd_name }} <br>
+                                Type : {{ $opdPerjanjianKinerja->type }}
+                            </p>
+                            <object data="{{ asset('uploads/' . $opdPerjanjianKinerja->file) }}" class="w-100 mt-1"
+                                style="height: 550px" type="application/pdf">
+                                <div>No online PDF viewer installed</div>
+                            </object>
+                        </div>
+                        <div class="col-md-4">
+                            <form action="{{ route('opdPerjanjianKinerja.updateStatus', $opdPerjanjianKinerja->id) }}"
+                                method="POST">
+                                @method('PUT')
+                                @csrf
+                                <div class="mb-3">
+                                    <label>Status</label>
+                                    <select name="status" id="" required class="form-control"
+                                        {{ Auth::user()->opd_id ? 'disabled' : '' }}>
+                                        <option value="">Pilih Status</option>
+                                        @foreach ($statuses as $status)
+                                            <option value="{{ $status }}"
+                                                {{ $status == $opdPerjanjianKinerja->status ? 'selected' : '' }}>
+                                                {{ $status }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label>Catatan</label>
+                                    <textarea name="note" class="form-control" id="" cols="30" rows="10"
+                                        {{ Auth::user()->opd_id ? 'disabled' : '' }}>{{ $opdPerjanjianKinerja->note }}</textarea>
+                                </div>
+                                @if (!Auth::user()->opd_id)
+                                    <div class="text-end">
+                                        <button class="btn btn-sm btn-success" type="submit">Update</button>
+                                    </div>
+                                @endif
+                            </form>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="sasaran" role="tabpanel" aria-labelledby="sasaran-tab">
                     @include('pengukuran_kinerja.opd.opd_perjanjian_kinerja.sasaran.index')

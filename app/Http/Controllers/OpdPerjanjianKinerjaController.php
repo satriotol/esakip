@@ -28,37 +28,6 @@ class OpdPerjanjianKinerjaController extends Controller
         $name = "Perjanjian Kinerja OPD";
         view()->share('name', $name);
     }
-    public function getOpdPerjanjianKinerja(Request $request)
-    {
-        if ($request->ajax()) {
-            if (Auth::user()->opd_id) {
-                $opdPerjanjianKinerja = OpdPerjanjianKinerja::with('opd')->where('opd_id', Auth::user()->opd_id)->get();
-            } else {
-                $opdPerjanjianKinerja = OpdPerjanjianKinerja::with('opd')->get();
-            }
-            return DataTables::of($opdPerjanjianKinerja)->addIndexColumn()
-                ->addColumn('pdf', function ($row) {
-                    $btn = '<a class="btn btn-sm btn-success" target="_blank" href="' . asset('uploads/' . $row->file) . '"> Open File</a>';
-                    return $btn;
-                })
-                ->addColumn('action', function ($row) {
-                    $btn1 = '<a href="' . route('opdPerjanjianKinerja.show', $row->id) . '" class="btn btn-sm btn-primary ml-1">Detail</a>';
-                    $btn = $btn1 . '<a href="' . route('opdPerjanjianKinerja.edit', $row->id) . '" class="btn btn-sm btn-warning ml-1">Edit</a>';
-                    $btn = $btn . '
-                        <form action="' . route('opdPerjanjianKinerja.destroy', $row->id) . '" method="POST"
-                            class="d-inline">
-                            ' . csrf_field() . '
-                            ' . method_field("DELETE") . '
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Are you sure?\')">
-                            Delete
-                            </button>
-                        </form>';
-                    return $btn;
-                })
-                ->rawColumns(['pdf', 'action'])
-                ->make(true);
-        }
-    }
     public function index(Request $request)
     {
         $year = $request->year;
@@ -133,7 +102,8 @@ class OpdPerjanjianKinerjaController extends Controller
         $opdPerjanjianKinerjaIndikators = OpdPerjanjianKinerjaIndikator::whereHas('opd_perjanjian_kinerja_sasaran', function ($q) use ($opdPerjanjianKinerja) {
             $q->where('opd_perjanjian_kinerja_id', $opdPerjanjianKinerja->id);
         })->get();
-        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.show', compact('opdPerjanjianKinerja', 'opdPerjanjianKinerjaIndikators'));
+        $statuses = OpdPerjanjianKinerja::STATUSES;
+        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.show', compact('opdPerjanjianKinerja', 'opdPerjanjianKinerjaIndikators', 'statuses'));
     }
 
     /**
@@ -196,5 +166,15 @@ class OpdPerjanjianKinerjaController extends Controller
 
         session()->flash('success');
         return redirect(route('opdPerjanjianKinerja.index'));
+    }
+    public function updateStatus(Request $request, OpdPerjanjianKinerja $opdPerjanjianKinerja)
+    {
+        $data = $this->validate($request, [
+            'status' => 'required',
+            'note' => 'nullable'
+        ]);
+        $opdPerjanjianKinerja->update($data);
+        session()->flash('success');
+        return back();
     }
 }

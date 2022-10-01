@@ -29,7 +29,7 @@ use App\Http\Controllers\WebsiteController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['middleware' => ['auth']], function() {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('website', WebsiteController::class);
     Route::resource('user', UserController::class);
@@ -93,6 +93,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);
     Route::post('getOpdPerjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'getOpdPerjanjianKinerja'])->name('opdPerjanjianKinerja.getOpdPerjanjianKinerja');
     Route::post('opdPerjanjianKinerja/store_file', [OpdPerjanjianKinerjaController::class, 'store_file'])->name('opdPerjanjianKinerja.store_file');
+    Route::put('opdPerjanjianKinerja/updateStatus/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaController::class, 'updateStatus'])->name('opdPerjanjianKinerja.updateStatus');
     Route::group(['prefix' => 'opdPerjanjianKinerjaSasaran'], function () {
         Route::get('create/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaSasaranController::class, 'create'])->name('opdPerjanjianKinerjaSasaran.create');
         Route::post('store/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaSasaranController::class, 'store'])->name('opdPerjanjianKinerjaSasaran.store');
