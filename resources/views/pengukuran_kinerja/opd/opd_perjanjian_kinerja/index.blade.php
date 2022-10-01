@@ -17,7 +17,45 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">{{ $name }}</h6>
-                    <div class="text-end">
+                    <form action="">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Tahun</label>
+                                    <input type="number" class="form-control" name="year" value="{{ old('year') }}"
+                                        id="">
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Tipe</label>
+                                    <select name="type" class="form-control" id="">
+                                        <option value="">Pilih Tipe</option>
+                                        @foreach ($types as $type)
+                                            <option {{ old('type') == $type ? 'selected' : '' }}
+                                                value="{{ $type }}">{{ $type }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Status</label>
+                                    <select name="status" class="form-control" id="">
+                                        <option value="">Pilih Status</option>
+                                        @foreach ($statuses as $status)
+                                            <option {{ old('status') == $status ? 'selected' : '' }}
+                                                value="{{ $status }}">{{ $status }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-sm btn-success">Cari</button>
+                        </div>
+                    </form>
+                    <div class="text-end mt-2">
                         <a class="badge bg-primary" href="{{ route('opdPerjanjianKinerja.create') }}">
                             <i data-feather="plus"></i>
                             Create

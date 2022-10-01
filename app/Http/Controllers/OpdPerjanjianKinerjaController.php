@@ -6,7 +6,6 @@ use App\Http\Requests\PengukuranKinerja\CreateOpdPerjanjianKinerjaRequest;
 use App\Http\Requests\PengukuranKinerja\UpdateOpdPerjanjianKinerjaRequest;
 use App\Models\Opd;
 use App\Models\OpdPerjanjianKinerjaIndikator;
-use App\Models\OpdPerjanjianKinerjaSasaran;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,14 +59,30 @@ class OpdPerjanjianKinerjaController extends Controller
                 ->make(true);
         }
     }
-    public function index()
+    public function index(Request $request)
     {
+        $year = $request->year;
+        $type = $request->type;
+        $status = $request->status;
+        $types = OpdPerjanjianKinerja::TYPE;
+        $statuses = OpdPerjanjianKinerja::STATUSES;
         if (Auth::user()->opd_id) {
-            $opdPerjanjianKinerjas = OpdPerjanjianKinerja::with('opd')->where('opd_id', Auth::user()->opd_id)->paginate();
+            $datas = OpdPerjanjianKinerja::with('opd')->where('opd_id', Auth::user()->opd_id);
         } else {
-            $opdPerjanjianKinerjas = OpdPerjanjianKinerja::with('opd')->paginate();
+            $datas = OpdPerjanjianKinerja::with('opd');
         }
-        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.index',compact('opdPerjanjianKinerjas'));
+        if ($year) {
+            $datas->where('year', $year);
+        }
+        if ($type) {
+            $datas->where('type', $type);
+        }
+        if ($status) {
+            $datas->where('status', $status);
+        }
+        $opdPerjanjianKinerjas = $datas->paginate();
+        $request->flash();
+        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.index', compact('opdPerjanjianKinerjas', 'types', 'statuses'));
     }
 
     /**
