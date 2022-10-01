@@ -17,8 +17,8 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">{{ $name }}</h6>
-                    <div class="text-end mb-2">
-                        <a class="btn btn-primary" href="{{ route('opdPerjanjianKinerja.create') }}">
+                    <div class="text-end">
+                        <a class="badge bg-primary" href="{{ route('opdPerjanjianKinerja.create') }}">
                             <i data-feather="plus"></i>
                             Create
                         </a>
@@ -30,6 +30,7 @@
                                     <th>Year</th>
                                     <th>OPD</th>
                                     <th>Type</th>
+                                    <th>Status</th>
                                     <th>File</th>
                                     <th>Action</th>
                                 </tr>
@@ -41,8 +42,13 @@
                                         <td>{{ $opdPerjanjianKinerja->opd->nama_opd }}</td>
                                         <td>{{ $opdPerjanjianKinerja->type }}</td>
                                         <td>
+                                            <div class="badge bg-info">
+                                                {{ $opdPerjanjianKinerja->status ?? '-' }}
+                                            </div>
+                                        </td>
+                                        <td>
                                             @if ($opdPerjanjianKinerja->file)
-                                                <a class="btn btn-sm btn-success" target="_blank"
+                                                <a class="badge bg-danger" target="_blank"
                                                     href="{{ $opdPerjanjianKinerja->file_url }}"> Open File</a>
                                             @else
                                                 -
@@ -53,8 +59,9 @@
                                                 class="btn btn-sm btn-primary ml-1">Detail</a>
                                             <a href="{{ route('opdPerjanjianKinerja.edit', $opdPerjanjianKinerja->id) }}"
                                                 class="btn btn-sm btn-warning ml-1">Edit</a>
-                                            <form action="{{ route('opdPerjanjianKinerja.destroy', $opdPerjanjianKinerja->id) }}" method="POST"
-                                                class="d-inline">
+                                            <form
+                                                action="{{ route('opdPerjanjianKinerja.destroy', $opdPerjanjianKinerja->id) }}"
+                                                method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"
@@ -67,6 +74,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $opdPerjanjianKinerjas->links() }}
                     </div>
                 </div>
             </div>
