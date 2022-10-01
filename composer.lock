@@ -1645,7 +1645,7 @@
                 },
                 "laravel": {
                     "providers": [
-                        "Laravel\\Ui\\ServiceProvider"
+                        "Laravel\\Ui\\UiServiceProvider"
                     ]
                 }
             },
