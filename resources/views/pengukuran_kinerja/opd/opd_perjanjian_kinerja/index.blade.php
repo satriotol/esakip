@@ -35,6 +35,36 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($opdPerjanjianKinerjas as $opdPerjanjianKinerja)
+                                    <tr>
+                                        <td>{{ $opdPerjanjianKinerja->year }}</td>
+                                        <td>{{ $opdPerjanjianKinerja->opd->nama_opd }}</td>
+                                        <td>{{ $opdPerjanjianKinerja->type }}</td>
+                                        <td>
+                                            @if ($opdPerjanjianKinerja->file)
+                                                <a class="btn btn-sm btn-success" target="_blank"
+                                                    href="{{ $opdPerjanjianKinerja->file_url }}"> Open File</a>
+                                            @else
+                                                -
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja->id) }}"
+                                                class="btn btn-sm btn-primary ml-1">Detail</a>
+                                            <a href="{{ route('opdPerjanjianKinerja.edit', $opdPerjanjianKinerja->id) }}"
+                                                class="btn btn-sm btn-warning ml-1">Edit</a>
+                                            <form action="{{ route('opdPerjanjianKinerja.destroy', $opdPerjanjianKinerja->id) }}" method="POST"
+                                                class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('Are you sure?')">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -50,45 +80,4 @@
 @endpush
 
 @push('custom-scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var table = $('#dataTableExample').DataTable({
-                autoWidth: false,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('opdPerjanjianKinerja.getOpdPerjanjianKinerja') }}",
-                    method: 'POST',
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                    },
-                },
-                columns: [{
-                        data: 'year',
-                        name: 'year'
-                    },
-                    {
-                        data: 'opd.nama_opd',
-                        name: 'opd.nama_opd'
-                    },
-                    {
-                        data: 'type',
-                        name: 'type'
-                    },
-                    {
-                        data: 'pdf',
-                        name: 'pdf',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-        });
-    </script>
 @endpush

@@ -62,7 +62,12 @@ class OpdPerjanjianKinerjaController extends Controller
     }
     public function index()
     {
-        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.index');
+        if (Auth::user()->opd_id) {
+            $opdPerjanjianKinerjas = OpdPerjanjianKinerja::with('opd')->where('opd_id', Auth::user()->opd_id)->paginate();
+        } else {
+            $opdPerjanjianKinerjas = OpdPerjanjianKinerja::with('opd')->paginate();
+        }
+        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.index',compact('opdPerjanjianKinerjas'));
     }
 
     /**

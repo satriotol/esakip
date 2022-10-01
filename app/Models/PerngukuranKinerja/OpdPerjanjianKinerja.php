@@ -6,6 +6,7 @@ use App\Blameable;
 use App\Models\Opd;
 use App\Models\OpdPerjanjianKinerjaProgramAnggaran;
 use App\Models\OpdPerjanjianKinerjaSasaran;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -26,6 +27,13 @@ class OpdPerjanjianKinerja extends Model
     const STATUSES = [
         self::STATUS1, self::STATUS2, self::STATUS3
     ];
+    protected static function boot()
+    {
+        parent::boot();
+        static::addGlobalScope('order', function (Builder $builder) {
+            $builder->orderBy('year', 'desc')->orderBy('opd_id', 'asc');
+        });
+    }
     public function opd()
     {
         return $this->belongsTo(Opd::class, 'opd_id');
