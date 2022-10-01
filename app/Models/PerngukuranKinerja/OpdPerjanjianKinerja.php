@@ -14,11 +14,17 @@ class OpdPerjanjianKinerja extends Model
 {
     use HasFactory, Blameable;
 
-    protected $fillable = ['year', 'opd_id', 'file', 'type'];
+    protected $fillable = ['year', 'opd_id', 'file', 'type', 'status', 'note'];
     protected $appends = ['file_url', 'opd_name', 'total_anggaran'];
 
     const TYPE = [
         'INDUK', 'PERUBAHAN'
+    ];
+    const STATUS1 = 'DIAJUKAN';
+    const STATUS2 = 'DITERIMA';
+    const STATUS3 = 'DITOLAK';
+    const STATUSES = [
+        self::STATUS1, self::STATUS2, self::STATUS3
     ];
     public function opd()
     {

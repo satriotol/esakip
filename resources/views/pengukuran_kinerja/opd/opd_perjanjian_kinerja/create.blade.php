@@ -29,70 +29,73 @@
                     <div class="mb-3">
                         <label for="year" class="form-label">Year</label>
                         <input id="year" class="form-control" name="year" type="number" placeholder="yyyy" required
-                            value="{{ isset($opdPerjanjianKinerja) ? $opdPerjanjianKinerja->year : '' }}">
+                            value="{{ isset($opdPerjanjianKinerja) ? $opdPerjanjianKinerja->year : @old('year') }}">
+                    </div>
+                    @if (Auth::user()->opd_id == null)
+                        <div class="mb-3">
+                            <label for="name" class="form-label">OPD</label>
+                            <select class="js-example-basic-single form-select" data-width="100%" name="opd_id" required>
+                                <option value="">Select OPD</option>
+                                @foreach ($opds as $opd)
+                                    <option value="{{ $opd->id }}"
+                                        @isset($opdPerjanjianKinerja) 
+                                    @if ($opd->id === $opdPerjanjianKinerja->opd_id) selected  @endif
+                                @endisset>
+                                        {{ $opd->nama_opd }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Type</label>
+                        <select class="js-example-basic-single form-select" data-width="100%" required name="type">
+                            <option value="">Select Type</option>
+                            @foreach ($types as $type)
+                                <option value="{{ $type }}"
+                                    @isset($opdPerjanjianKinerja) @if ($type === $opdPerjanjianKinerja->type) selected @endif
+                            @endisset>
+                                    {{ $type }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label">OPD</label>
-                        <select class="js-example-basic-single form-select" data-width="100%" required name="opd_id">
-                            <option value="">Select OPD</option>
-                            @foreach ($opds as $opd)
-                                <option value="{{ $opd->id }}"
-                                    @isset($opdPerjanjianKinerja) @if ($opd->id === $opdPerjanjianKinerja->opd_id) selected @endif
-                                @endisset>
-                                {{ $opd->nama_opd }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="name" class="form-label">Type</label>
-                    <select class="js-example-basic-single form-select" data-width="100%" required name="type">
-                        <option value="">Select Type</option>
-                        @foreach ($types as $type)
-                            <option value="{{ $type }}"
-                                @isset($opdPerjanjianKinerja) @if ($type === $opdPerjanjianKinerja->type) selected @endif
-                            @endisset>
-                            {{ $type }}
-                        </option>
-                    @endforeach
-                </select>
+                        <label for="file" class="form-label">File</label>
+                        <input type="file" id="file" name="file" @empty($opdPerjanjianKinerja) @endempty />
+                        @isset($opdPerjanjianKinerja)
+                            <object data="{{ asset('uploads/' . $opdPerjanjianKinerja->file) }}" class="w-100 mt-5"
+                                style="height: 550px" type="application/pdf">
+                                <div>No online PDF viewer installed</div>
+                            </object>
+                        @endisset
+                    </div>
+                    <div class="text-end">
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+                </form>
             </div>
-            <div class="mb-3">
-                <label for="file" class="form-label">File</label>
-                <input type="file" id="file" name="file"
-                    @empty($opdPerjanjianKinerja) required @endempty />
-                @isset($opdPerjanjianKinerja)
-                    <object data="{{ asset('uploads/' . $opdPerjanjianKinerja->file) }}" class="w-100 mt-5" style="height: 550px"
-                        type="application/pdf">
-                        <div>No online PDF viewer installed</div>
-                    </object>
-                @endisset
-            </div>
-            <div class="text-end">
-                <input class="btn btn-primary" type="submit" value="Submit">
-            </div>
-        </form>
+        </div>
     </div>
-</div>
-</div>
 @endsection
 
 @push('plugin-scripts')
-<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-<script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+    <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
-<script>
-    const inputElement = document.querySelector('input[id="file"]');
-    const pond = FilePond.create(inputElement);
-    FilePond.setOptions({
-        server: {
-            url: '{{ route('opdPerjanjianKinerja.store_file') }}',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    <script>
+        const inputElement = document.querySelector('input[id="file"]');
+        const pond = FilePond.create(inputElement);
+        FilePond.setOptions({
+            server: {
+                url: '{{ route('opdPerjanjianKinerja.store_file') }}',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
             }
-        }
-    });
-</script><script src="{{ asset('assets/js/select2.js') }}"></script>
+        });
+    </script>
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endpush

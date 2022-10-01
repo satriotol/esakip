@@ -32,7 +32,11 @@ class OpdPerjanjianKinerjaController extends Controller
     public function getOpdPerjanjianKinerja(Request $request)
     {
         if ($request->ajax()) {
-            $opdPerjanjianKinerja = OpdPerjanjianKinerja::with('opd')->get();
+            if (Auth::user()->opd_id) {
+                $opdPerjanjianKinerja = OpdPerjanjianKinerja::with('opd')->where('opd_id', Auth::user()->opd_id)->get();
+            } else {
+                $opdPerjanjianKinerja = OpdPerjanjianKinerja::with('opd')->get();
+            }
             return DataTables::of($opdPerjanjianKinerja)->addIndexColumn()
                 ->addColumn('pdf', function ($row) {
                     $btn = '<a class="btn btn-sm btn-success" target="_blank" href="' . asset('uploads/' . $row->file) . '"> Open File</a>';
@@ -83,7 +87,10 @@ class OpdPerjanjianKinerjaController extends Controller
     {
         $data = $request->all();
         $data['file'] = $request->file;
-
+        if (Auth::user()->opd_id) {
+            $data['opd_id'] = Auth::user()->opd_id;
+            $data['status'] = OpdPerjanjianKinerja::STATUS1;
+        }
         OpdPerjanjianKinerja::create($data);
         session()->flash('success');
         return redirect(route('opdPerjanjianKinerja.index'));
@@ -154,7 +161,9 @@ class OpdPerjanjianKinerjaController extends Controller
     public function destroy(OpdPerjanjianKinerja $opdPerjanjianKinerja)
     {
         $opdPerjanjianKinerja->delete();
-        $opdPerjanjianKinerja->deleteFile();
+        if ($opdPerjanjianKinerja->file) {
+            $opdPerjanjianKinerja->deleteFile();
+        }
 
         session()->flash('success');
         return redirect(route('opdPerjanjianKinerja.index'));
