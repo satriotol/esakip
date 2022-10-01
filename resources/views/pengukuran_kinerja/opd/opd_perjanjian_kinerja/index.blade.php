@@ -1,7 +1,7 @@
 @extends('layout.master')
 
 @push('plugin-styles')
-    <link href="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -46,6 +46,18 @@
                                         @foreach ($statuses as $status)
                                             <option {{ old('status') == $status ? 'selected' : '' }}
                                                 value="{{ $status }}">{{ $status }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>OPD</label>
+                                    <select name="opd_id" class="js-example-basic-single form-select" id="">
+                                        <option value="">Pilih OPD</option>
+                                        @foreach ($opds as $opd)
+                                            <option {{ old('opd_id') == $opd->id ? 'selected' : '' }}
+                                                value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -121,9 +133,9 @@
 @endsection
 
 @push('plugin-scripts')
-    <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endpush

@@ -64,8 +64,11 @@ class OpdPerjanjianKinerjaController extends Controller
         $year = $request->year;
         $type = $request->type;
         $status = $request->status;
+        $opd_id = $request->opd_id;
+
         $types = OpdPerjanjianKinerja::TYPE;
         $statuses = OpdPerjanjianKinerja::STATUSES;
+        $opds = Opd::all();
         if (Auth::user()->opd_id) {
             $datas = OpdPerjanjianKinerja::with('opd')->where('opd_id', Auth::user()->opd_id);
         } else {
@@ -80,9 +83,12 @@ class OpdPerjanjianKinerjaController extends Controller
         if ($status) {
             $datas->where('status', $status);
         }
+        if ($opd_id) {
+            $datas->where('opd_id', $opd_id);
+        }
         $opdPerjanjianKinerjas = $datas->paginate();
         $request->flash();
-        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.index', compact('opdPerjanjianKinerjas', 'types', 'statuses'));
+        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.index', compact('opdPerjanjianKinerjas', 'types', 'statuses', 'opds'));
     }
 
     /**
