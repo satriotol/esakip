@@ -137,6 +137,9 @@ class OpdPerjanjianKinerjaController extends Controller
             $data['file'] = $request->file;
             $opdPerjanjianKinerja->deleteFile();
         };
+        if (Auth::user()->opd_id) {
+            $data['opd_id'] = Auth::user()->opd_id;
+        }
         $opdPerjanjianKinerja->update($data);
         session()->flash('success');
         return redirect(route('opdPerjanjianKinerja.index'));
