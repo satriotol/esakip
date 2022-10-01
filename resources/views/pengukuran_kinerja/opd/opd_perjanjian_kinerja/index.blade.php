@@ -50,18 +50,20 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>OPD</label>
-                                    <select name="opd_id" class="js-example-basic-single form-select" id="">
-                                        <option value="">Pilih OPD</option>
-                                        @foreach ($opds as $opd)
-                                            <option {{ old('opd_id') == $opd->id ? 'selected' : '' }}
-                                                value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>
-                                        @endforeach
-                                    </select>
+                            @if (!Auth::user()->opd_id)
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>OPD</label>
+                                        <select name="opd_id" class="js-example-basic-single form-select" id="">
+                                            <option value="">Pilih OPD</option>
+                                            @foreach ($opds as $opd)
+                                                <option {{ old('opd_id') == $opd->id ? 'selected' : '' }}
+                                                    value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                         <div class="text-end">
                             <button class="btn btn-sm btn-success">Cari</button>
