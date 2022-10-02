@@ -7,7 +7,7 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('opdPerjanjianKinerja.index') }}">{{ $name }}</a>
+            <li class="breadcrumb-item"><a href="{{ route('rencanaAksi.index') }}">{{ $name }}</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Tabel {{ $name }}</li>
         </ol>
@@ -69,12 +69,6 @@
                             <button class="btn btn-sm btn-success">Cari</button>
                         </div>
                     </form> --}}
-                    <div class="text-end mt-2">
-                        <a class="badge bg-primary" href="{{ route('opdPerjanjianKinerja.create') }}">
-                            <i data-feather="plus"></i>
-                            Create
-                        </a>
-                    </div>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
@@ -82,7 +76,6 @@
                                     <th>Year</th>
                                     <th>OPD</th>
                                     <th>Type</th>
-                                    <th>Status</th>
                                     <th>File</th>
                                     <th>Action</th>
                                 </tr>
@@ -94,11 +87,6 @@
                                         <td>{{ $opdPerjanjianKinerja->opd->nama_opd }}</td>
                                         <td>{{ $opdPerjanjianKinerja->type }}</td>
                                         <td>
-                                            <div class="badge bg-info">
-                                                {{ $opdPerjanjianKinerja->status ?? '-' }}
-                                            </div>
-                                        </td>
-                                        <td>
                                             @if ($opdPerjanjianKinerja->file)
                                                 <a class="badge bg-danger" target="_blank"
                                                     href="{{ $opdPerjanjianKinerja->file_url }}"> Open File</a>
@@ -107,9 +95,9 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja->id) }}"
+                                            <a href="{{ route('rencanaAksi.show', $opdPerjanjianKinerja->id) }}"
                                                 class="btn btn-sm btn-primary ml-1">Detail</a>
-                                            <a href="{{ route('opdPerjanjianKinerja.edit', $opdPerjanjianKinerja->id) }}"
+                                            <a href="{{ route('rencanaAksi.edit', $opdPerjanjianKinerja->id) }}"
                                                 class="btn btn-sm btn-warning ml-1">Edit</a>
                                         </td>
                                     </tr>

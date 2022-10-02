@@ -8,7 +8,7 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('opdPerjanjianKinerja.index') }}">{{ $name }}</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('rencanaAksi.index') }}">{{ $name }}</a></li>
             <li class="breadcrumb-item active" aria-current="page">Detail {{ $name }}
                 {{ $opdPerjanjianKinerja->opd_name }} {{ $opdPerjanjianKinerja->year }}</li>
         </ol>
@@ -24,80 +24,28 @@
                     <a class="nav-link active" id="detail-tab" data-bs-toggle="tab" data-bs-target="#detail" role="tab"
                         aria-controls="detail" aria-selected="true">Detail</a>
                 </li>
-                @can('opdPerjanjianKinerjaSasaran-list')
+                @foreach ($opdPerjanjianKinerja->rencana_aksis as $key => $rencanaAksi)
                     <li class="nav-item">
-                        <a class="nav-link" id="sasaran-tab" data-bs-toggle="tab" data-bs-target="#sasaran" role="tab"
-                            aria-controls="sasaran" aria-selected="false">Sasaran</a>
+                        <a class="nav-link" id="{{ $rencanaAksi->slug }}-tab" data-bs-toggle="tab"
+                            data-bs-target="#{{ $rencanaAksi->slug }}" role="tab"
+                            aria-controls="{{ $rencanaAksi->slug }}" aria-selected="true">{{ $rencanaAksi->name }}</a>
                     </li>
-                @endcan
-                @can('opdPerjanjianKinerjaIndikator-list')
-                    <li class="nav-item">
-                        <a class="nav-link" id="indikator-tab" data-bs-toggle="tab" data-bs-target="#indikator" role="tab"
-                            aria-controls="indikator" aria-selected="false">Indikator</a>
-                    </li>
-                @endcan
-                @can('opdPerjanjianKinerjaProgramAnggaran-list')
-                    <li class="nav-item">
-                        <a class="nav-link" id="program_anggaran-tab" data-bs-toggle="tab" data-bs-target="#program_anggaran"
-                            role="tab" aria-controls="program_anggaran" aria-selected="false">Program Anggaran</a>
-                    </li>
-                @endcan
+                @endforeach
             </ul>
             <div class="tab-content border border-top-0 p-3" id="myTabContent" style="background-color: white">
                 <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="detail-tab">
-                    <div class="row">
-                        <div class="col-md-8">
-                            <p>
-                                Tahun : {{ $opdPerjanjianKinerja->year }} <br>
-                                OPD : {{ $opdPerjanjianKinerja->opd_name }} <br>
-                                Type : {{ $opdPerjanjianKinerja->type }}
-                            </p>
-                            <object data="{{ asset('uploads/' . $opdPerjanjianKinerja->file) }}" class="w-100 mt-1"
-                                style="height: 550px" type="application/pdf">
-                                <div>No online PDF viewer installed</div>
-                            </object>
-                        </div>
-                        <div class="col-md-4">
-                            <form action="{{ route('opdPerjanjianKinerja.updateStatus', $opdPerjanjianKinerja->id) }}"
-                                method="POST">
-                                @method('PUT')
-                                @csrf
-                                <div class="mb-3">
-                                    <label>Status</label>
-                                    <select name="status" id="" required class="form-control"
-                                        {{ Auth::user()->opd_id ? 'disabled' : '' }}>
-                                        <option value="">Pilih Status</option>
-                                        @foreach ($statuses as $status)
-                                            <option value="{{ $status }}"
-                                                {{ $status == $opdPerjanjianKinerja->status ? 'selected' : '' }}>
-                                                {{ $status }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label>Catatan</label>
-                                    <textarea name="note" class="form-control" id="" cols="30" rows="10"
-                                        {{ Auth::user()->opd_id ? 'disabled' : '' }}>{{ $opdPerjanjianKinerja->note }}</textarea>
-                                </div>
-                                @if (!Auth::user()->opd_id)
-                                    <div class="text-end">
-                                        <button class="btn btn-sm btn-success" type="submit">Update</button>
-                                    </div>
-                                @endif
-                            </form>
-                        </div>
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quis consequuntur ipsam maxime tempore sequi
+                    accusantium vel dolorum impedit! Quo deleniti quisquam officiis consequuntur asperiores cupiditate autem
+                    nesciunt voluptates ducimus ut?
+                </div>
+                @foreach ($opdPerjanjianKinerja->rencana_aksis as $rencana_aksi)
+                    <div class="tab-pane fade" id="{{ $rencana_aksi->slug }}" role="tabpanel"
+                        aria-labelledby="{{ $rencana_aksi->slug }}-tab">
+                        @include('rencanaAksi.rencanaAksiTarget', [
+                            'rencanaAksi' => $rencana_aksi,
+                        ])
                     </div>
-                </div>
-                <div class="tab-pane fade" id="sasaran" role="tabpanel" aria-labelledby="sasaran-tab">
-                    @include('pengukuran_kinerja.opd.opd_perjanjian_kinerja.sasaran.index')
-                </div>
-                <div class="tab-pane fade" id="indikator" role="tabpanel" aria-labelledby="indikator-tab">
-                    @include('pengukuran_kinerja.opd.opd_perjanjian_kinerja.indikator.index')
-                </div>
-                <div class="tab-pane fade" id="program_anggaran" role="tabpanel" aria-labelledby="program_anggaran-tab">
-                    @include('pengukuran_kinerja.opd.opd_perjanjian_kinerja.program_anggaran.index')
-                </div>
+                @endforeach
             </div>
         </div>
     </div>

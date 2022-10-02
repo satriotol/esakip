@@ -62,9 +62,10 @@ class RencanaAksiController extends Controller
      * @param  \App\Models\RencanaAksi  $rencanaAksi
      * @return \Illuminate\Http\Response
      */
-    public function show(RencanaAksi $rencanaAksi)
+    public function show($opdPerjanjianKinerja)
     {
-        //
+        $opdPerjanjianKinerja = OpdPerjanjianKinerja::find($opdPerjanjianKinerja);
+        return view('rencanaAksi.show', compact('opdPerjanjianKinerja'));
     }
 
     /**

@@ -10,7 +10,7 @@ class RencanaAksi extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'opd_perjanjian_kinerja_id'];
+    protected $fillable = ['name', 'opd_perjanjian_kinerja_id', 'slug'];
 
     public function opd_perjanjian_kinerja()
     {
