@@ -7,6 +7,7 @@ use App\Http\Requests\PengukuranKinerja\UpdateOpdPerjanjianKinerjaRequest;
 use App\Models\Opd;
 use App\Models\OpdPerjanjianKinerjaIndikator;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
+use App\Models\RencanaAksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
@@ -173,7 +174,21 @@ class OpdPerjanjianKinerjaController extends Controller
             'status' => 'required',
             'note' => 'nullable'
         ]);
+
         $opdPerjanjianKinerja->update($data);
+        if ($data['status'] == OpdPerjanjianKinerja::STATUS2) {
+            $triwulan = [
+                'TRIWULAN 1',
+                'TRIWULAN 2',
+                'TRIWULAN 3',
+                'TRIWULAN 4',
+            ];
+            foreach ($triwulan as $t) {
+                RencanaAksi::updateOrCreate(
+                    ['name' => $t, 'opd_perjanjian_kinerja_id' => $opdPerjanjianKinerja->id],
+                );
+            }
+        }
         session()->flash('success');
         return back();
     }

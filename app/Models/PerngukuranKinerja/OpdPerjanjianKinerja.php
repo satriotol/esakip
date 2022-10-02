@@ -6,6 +6,7 @@ use App\Blameable;
 use App\Models\Opd;
 use App\Models\OpdPerjanjianKinerjaProgramAnggaran;
 use App\Models\OpdPerjanjianKinerjaSasaran;
+use App\Models\RencanaAksi;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -63,5 +64,9 @@ class OpdPerjanjianKinerja extends Model
     public function getTotalAnggaranAttribute()
     {
         return $this->opd_perjanjian_kinerja_program_anggarans->sum('anggaran') ?? 0;
+    }
+    public function rencana_aksis()
+    {
+        return $this->hasMany(RencanaAksi::class, 'opd_perjanjian_kinerja_id', 'id');
     }
 }

@@ -19,6 +19,7 @@ use App\Http\Controllers\PerencanaanKinerjaRkpdController;
 use App\Http\Controllers\PerencanaanKinerjaRpjmdController;
 use App\Http\Controllers\PeriodeRenstraOpdController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RencanaAksiController;
 use App\Http\Controllers\RenjaOpdController;
 use App\Http\Controllers\RenstraOpdController;
 use App\Http\Controllers\RktOpdController;
@@ -91,6 +92,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('getIkuOpd', [IkuOpdController::class, 'getIkuOpd'])->name('ikuOpd.getIkuOpd');
     Route::post('ikuOpd/store_file', [IkuOpdController::class, 'store_file'])->name('ikuOpd.store_file');
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);
+    Route::resource('rencanaAksi', RencanaAksiController::class);
     Route::post('getOpdPerjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'getOpdPerjanjianKinerja'])->name('opdPerjanjianKinerja.getOpdPerjanjianKinerja');
     Route::post('opdPerjanjianKinerja/store_file', [OpdPerjanjianKinerjaController::class, 'store_file'])->name('opdPerjanjianKinerja.store_file');
     Route::put('opdPerjanjianKinerja/updateStatus/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaController::class, 'updateStatus'])->name('opdPerjanjianKinerja.updateStatus');

@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">{{ $name }}</h6>
-                    <form action="">
+                    {{-- <form action="">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -68,7 +68,7 @@
                         <div class="text-end">
                             <button class="btn btn-sm btn-success">Cari</button>
                         </div>
-                    </form>
+                    </form> --}}
                     <div class="text-end mt-2">
                         <a class="badge bg-primary" href="{{ route('opdPerjanjianKinerja.create') }}">
                             <i data-feather="plus"></i>
@@ -108,21 +108,9 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja->id) }}"
-                                                class="badge bg-primary ml-1">Detail</a>
+                                                class="btn btn-sm btn-primary ml-1">Detail</a>
                                             <a href="{{ route('opdPerjanjianKinerja.edit', $opdPerjanjianKinerja->id) }}"
-                                                class="badge bg-warning ml-1">Edit</a>
-                                            @if ($opdPerjanjianKinerja->status != 'DITERIMA')
-                                                <form
-                                                    action="{{ route('opdPerjanjianKinerja.destroy', $opdPerjanjianKinerja->id) }}"
-                                                    method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="badge bg-danger"
-                                                        onclick="return confirm('Are you sure?')">
-                                                        Delete
-                                                    </button>
-                                                </form>
-                                            @endif
+                                                class="btn btn-sm btn-warning ml-1">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach
