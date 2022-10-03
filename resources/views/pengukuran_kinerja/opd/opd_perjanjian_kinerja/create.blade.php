@@ -39,10 +39,9 @@
                                 @foreach ($opds as $opd)
                                     <option value="{{ $opd->id }}"
                                         @isset($opdPerjanjianKinerja) 
-                                    @if ($opd->id === $opdPerjanjianKinerja->opd_id) selected  @endif
-                                @endisset>
-                                        {{ $opd->nama_opd }}
-                                    </option>
+                                        @selected ($opd->id == $opdPerjanjianKinerja->opd_id) 
+                                        @endisset>
+                                        {{ $opd->nama_opd }} </option>
                                 @endforeach
                             </select>
                         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use App\Models\RencanaAksi;
+use App\Models\RencanaAksiTarget;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -65,7 +66,9 @@ class RencanaAksiController extends Controller
     public function show($opdPerjanjianKinerja)
     {
         $opdPerjanjianKinerja = OpdPerjanjianKinerja::find($opdPerjanjianKinerja);
-        return view('rencanaAksi.show', compact('opdPerjanjianKinerja'));
+        $statuses = RencanaAksiTarget::STATUSES;
+        $realisasis = RencanaAksiTarget::REALISASIS;
+        return view('rencanaAksi.show', compact('opdPerjanjianKinerja', 'statuses', 'realisasis'));
     }
 
     /**

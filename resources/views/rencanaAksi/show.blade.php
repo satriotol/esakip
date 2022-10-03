@@ -12,7 +12,7 @@
             <li class="breadcrumb-item active" aria-current="page">Detail {{ $name }}
                 {{ $opdPerjanjianKinerja->opd_name }} {{ $opdPerjanjianKinerja->year }}</li>
         </ol>
-        <a href="{{ route('opdPerjanjianKinerja.index') }}" class="badge rounded-pill bg-primary">
+        <a href="{{ route('rencanaAksi.index') }}" class="badge rounded-pill bg-primary">
             <i data-feather="arrow-left"></i> Back
         </a>
     </nav>
@@ -20,27 +20,18 @@
     <div class="row">
         <div class="col-xl-12 main-content ps-xl-4 pe-xl-5">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="detail-tab" data-bs-toggle="tab" data-bs-target="#detail" role="tab"
-                        aria-controls="detail" aria-selected="true">Detail</a>
-                </li>
                 @foreach ($opdPerjanjianKinerja->rencana_aksis as $key => $rencanaAksi)
                     <li class="nav-item">
-                        <a class="nav-link" id="{{ $rencanaAksi->slug }}-tab" data-bs-toggle="tab"
+                        <a class="nav-link  @if ($loop->first) active @endif" id="{{ $rencanaAksi->slug }}-tab" data-bs-toggle="tab"
                             data-bs-target="#{{ $rencanaAksi->slug }}" role="tab"
                             aria-controls="{{ $rencanaAksi->slug }}" aria-selected="true">{{ $rencanaAksi->name }}</a>
                     </li>
                 @endforeach
             </ul>
             <div class="tab-content border border-top-0 p-3" id="myTabContent" style="background-color: white">
-                <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="detail-tab">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quis consequuntur ipsam maxime tempore sequi
-                    accusantium vel dolorum impedit! Quo deleniti quisquam officiis consequuntur asperiores cupiditate autem
-                    nesciunt voluptates ducimus ut?
-                </div>
                 @foreach ($opdPerjanjianKinerja->rencana_aksis as $rencana_aksi)
-                    <div class="tab-pane fade" id="{{ $rencana_aksi->slug }}" role="tabpanel"
-                        aria-labelledby="{{ $rencana_aksi->slug }}-tab">
+                    <div class="tab-pane fade @if ($loop->first) show active @endif"
+                        id="{{ $rencana_aksi->slug }}" role="tabpanel" aria-labelledby="{{ $rencana_aksi->slug }}-tab">
                         @include('rencanaAksi.rencanaAksiTarget', [
                             'rencanaAksi' => $rencana_aksi,
                         ])

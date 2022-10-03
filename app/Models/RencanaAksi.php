@@ -16,4 +16,8 @@ class RencanaAksi extends Model
     {
         return $this->belongsTo(OpdPerjanjianKinerja::class, 'opd_perjanjian_kinerja_id', 'id');
     }
+    public function rencana_aksi_targets()
+    {
+        return $this->hasMany(RencanaAksiTarget::class, 'rencana_aksi_id', 'id');
+    }
 }
