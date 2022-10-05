@@ -97,8 +97,6 @@
                                         <td>
                                             <a href="{{ route('rencanaAksi.show', $opdPerjanjianKinerja->id) }}"
                                                 class="btn btn-sm btn-primary ml-1">Detail</a>
-                                            <a href="{{ route('rencanaAksi.edit', $opdPerjanjianKinerja->id) }}"
-                                                class="btn btn-sm btn-warning ml-1">Edit</a>
                                         </td>
                                     </tr>
                                 @endforeach
