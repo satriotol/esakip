@@ -30,8 +30,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $user = User::where('email', $request->email)->first();
-        if ($user->password == '') {
+        $user = User::where('email', $request->email)->where('password', '')->first();
+        if ($user) {
             $user->update([
                 'password' => Hash::make($request->password)
             ]);
