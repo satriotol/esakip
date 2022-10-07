@@ -36,6 +36,7 @@ class AuthenticatedSessionController extends Controller
                 'password' => Hash::make($request->password)
             ]);
         }
+        
         $request->authenticate();
 
         $request->session()->regenerate();
