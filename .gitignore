@@ -14,3 +14,10 @@ yarn-error.log
 /.idea
 /.vscode
 vendor.zip
+.htaccess
+.user.ini
+error_log
+index.php
+php.ini
+public/error_log
+sitamu/
