@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('rencana_aksi_targets', function (Blueprint $table) {
-            $table->text('rencana_aksi')->nullable();
+            $table->text('rencana_aksi_note')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('rencana_aksi_targets', function (Blueprint $table) {
-            $table->dropColumn('rencana_aksi');
+            $table->dropColumn('rencana_aksi_note');
         });
     }
 };

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\RencanaAksiTargetCollection;
 use App\Models\RencanaAksi;
 use App\Models\RencanaAksiTarget;
 use Illuminate\Http\Request;
@@ -39,6 +40,12 @@ class RencanaAksiTargetController extends Controller
         return view('rencanaAksiTarget.create', compact('rencanaAksi', 'realisasis'));
     }
 
+    public function getRencanaAksiTarget($rencana_aksi_id)
+    {
+        $rencanaAksiTargets = RencanaAksiTarget::where('rencana_aksi_id', $rencana_aksi_id)->get();
+        return $rencanaAksiTargets;
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -52,7 +59,7 @@ class RencanaAksiTargetController extends Controller
             'rencana_aksi_id' => 'required',
             'target' => 'required',
             'realisasi' => 'required',
-            'rencana_aksi' => 'required',
+            'rencana_aksi_note' => 'required',
         ]);
         RencanaAksiTarget::create(
             [
@@ -62,7 +69,7 @@ class RencanaAksiTargetController extends Controller
                 'target' => $request->target,
                 'realisasi' => $request->realisasi,
                 'status' => RencanaAksiTarget::STATUS1,
-                'rencana_aksi' => $request->rencana_aksi
+                'rencana_aksi_note' => $request->rencana_aksi_note
             ]
         );
         session()->flash('success');
@@ -100,7 +107,14 @@ class RencanaAksiTargetController extends Controller
      */
     public function update(Request $request, RencanaAksiTarget $rencanaAksiTarget)
     {
-        //
+        $rencanaAksiTarget->update(
+            [
+                'opd_perjanjian_kinerja_sasaran_id' => $request->opd_perjanjian_kinerja_sasaran_id,
+                'realisasi' => $request->realisasi,
+                'target' => $request->target,
+                'rencana_aksi_note' => $request->rencana_aksi_note,
+            ]
+        );
     }
 
     /**
@@ -111,6 +125,7 @@ class RencanaAksiTargetController extends Controller
      */
     public function destroy(RencanaAksiTarget $rencanaAksiTarget)
     {
-        //
+        $rencanaAksiTarget->delete();
+        session()->flash('success');
     }
 }
