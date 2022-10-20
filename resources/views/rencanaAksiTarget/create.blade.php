@@ -12,12 +12,15 @@
             </li>
             <li class="breadcrumb-item active" aria-current="page">Form {{ $name }}</li>
         </ol>
+        <a href="{{ route('rencanaAksi.show', $rencanaAksi->opd_perjanjian_kinerja_id) }}" class="badge rounded-pill bg-primary">
+            <i data-feather="arrow-left"></i> Back
+        </a>
     </nav>
 
     <div class="grid-margin stretch-card" id="app">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Form {{ $name }}</h4>
+                <h4 class="card-title">Form {{$rencanaAksi->opd_perjanjian_kinerja->opd_name}} {{$rencanaAksi->opd_perjanjian_kinerja->year}} {{$rencanaAksi->name}}</h4>
                 @include('partials.errors')
                 <div class="mb-3">
                     <label class="form-label">Sasaran</label>
@@ -50,6 +53,15 @@
                 <div class="text-end">
                     <button class="btn btn-primary" @click="postData()">Submit</button>
                 </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <table>
+                    <thead>
+                        
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
@@ -96,8 +108,8 @@
                             console.log(error);
                         });
                 },
-                getData(){
-                    
+                getData() {
+
                 }
             },
         }).mount('#app')
