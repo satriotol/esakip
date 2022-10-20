@@ -15,22 +15,16 @@ class DataUnitController extends Controller
     public function getApbdAnggaran(Request $request)
     {
         if ($request->year) {
-            $year = $request->year;
-            $ApbdAnggarans = DataUnit::whereHas('apbd_anggarans', function ($q) use ($request, $year) {
-                $q->where('tahun', $year)->when($request->id_skpd, function ($sq) use ($request) {
-                    $sq->where('id_skpd', $request->id_skpd);
-                });
-            })->orderBy('nama_skpd')->get();
+            $ApbdAnggarans = DataUnit::getDataUnitNow($request->year, $request->id_skpd);
         } else {
             $year = Carbon::now()->format('Y');
-            $ApbdAnggarans = DataUnit::whereHas('apbd_anggarans', function ($q) use ($request, $year) {
-                $q->where('tahun', $year)->when($request->id_skpd, function ($sq) use ($request) {
-                    $sq->where('id_skpd', $request->id_skpd);
-                });
-            })->orderBy('nama_skpd')->get();
+            $ApbdAnggarans = DataUnit::getDataUnitNow($year, $request->id_skpd);
         }
 
         return $this->successResponse(['ApbdAnggaran' => ApbdAnggaranResource::collection($ApbdAnggarans)]);
+    }
+    public function getApbdAnggaranExport()
+    {
     }
     public function getRealisasiAnggaran(Request $request)
     {
