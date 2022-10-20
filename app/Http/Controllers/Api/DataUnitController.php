@@ -17,17 +17,17 @@ class DataUnitController extends Controller
     public function getApbdAnggaran(Request $request)
     {
         if ($request->year) {
-            $ApbdAnggarans = DataUnit::getDataUnitNow($request->year, $request->id_skpd);
+            $ApbdAnggarans = DataUnit::getDataUnit($request->year, $request->id_skpd);
         } else {
             $year = Carbon::now()->format('Y');
-            $ApbdAnggarans = DataUnit::getDataUnitNow($year, $request->id_skpd);
+            $ApbdAnggarans = DataUnit::getDataUnit($year, $request->id_skpd);
         }
 
         return $this->successResponse(['ApbdAnggaran' => ApbdAnggaranResource::collection($ApbdAnggarans)]);
     }
     public function getApbdAnggaranExport(Request $request)
     {
-        return Excel::download(new DataUnitExcel($request), 'users.xlsx');
+        return Excel::download(new DataUnitExcel($request), 'Anggaran APBD.xlsx');
     }
     public function getRealisasiAnggaran(Request $request)
     {

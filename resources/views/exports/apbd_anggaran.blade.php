@@ -9,13 +9,13 @@
         </tr>
     </thead>
     <tbody>
-        @foreach ($ApbdAnggarans as $ApbdAnggaran)
+        @foreach ($ApbdAnggarans as $apbd)
             <tr>
-                <td>{{ $ApbdAnggaran->tahun }}</td>
-                <td>{{ $ApbdAnggaran->nama_skpd }}</td>
-                <td>{{ $ApbdAnggaran->anggaran }}</td>
-                <td>{{ $ApbdAnggaran->anggaran_pergeseran }}</td>
-                <td>{{ $ApbdAnggaran->anggaran_perubahan }}</td>
+                <td>{{ $apbd['tahun'] }}</td>
+                <td>{{ $apbd['nama_skpd'] }}</td>
+                <td data-format="0.00">{{ $apbd['anggaran'] }}</td>
+                <td data-format="0.00">{{ $apbd['anggaran_pergeseran'] }}</td>
+                <td data-format="0.00">{{ $apbd['anggaran_perubahan'] }}</td>
             </tr>
         @endforeach
     </tbody>

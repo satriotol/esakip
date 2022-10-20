@@ -22,13 +22,13 @@ class DataUnitExcel implements FromView
     public function view(): View
     {
         if ($this->request->year) {
-            $ApbdAnggarans = DataUnit::getDataUnitNow($this->year, $this->id_skpd);
+            $ApbdAnggarans = DataUnit::getDataUnit($this->request->year, $this->request->id_skpd);
         } else {
             $year = Carbon::now()->format('Y');
-            $ApbdAnggarans = DataUnit::getDataUnitNow($year, $this->request->id_skpd);
+            $ApbdAnggarans = DataUnit::getDataUnit($year, $this->request->id_skpd);
         }
         return view('exports.apbd_anggaran', [
-            'ApbdAnggarans' => ApbdAnggaranResource::collection($ApbdAnggarans)
+            'ApbdAnggarans' => ApbdAnggaranResource::collection($ApbdAnggarans)->resolve()
         ]);
     }
 }

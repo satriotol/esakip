@@ -58,6 +58,9 @@
     </div>
 @endsection
 @push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/downloadjs/1.4.8/download.min.js"
+        integrity="sha512-WiGQZv8WpmQVRUFXZywo7pHIO0G/o3RyiAJZj8YXNN4AV7ReR1RYWVmZJ6y3H06blPcjJmG/sBpOVZjTSFFlzQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         const {
             createApp
@@ -110,8 +113,17 @@
                             console.log(error);
                         })
                 },
-                getApdbAngggaranExport(){
-                    
+                exportApbdAnggaran() {
+                    axios.get('/api/getApbdAnggaran/export', {
+                            params: {
+                                year: this.year_search,
+                            },
+                            responseType: 'blob',
+                        })
+                        .then((response) => {
+                            const content = response.headers['content-type'];
+                            download(response.data, 'Anggaran-Apbd.xlsx', content)
+                        });
                 },
                 getRealisasiAnggaran(pageUrl) {
                     axios.get(this.urlRealisasiAnggaran, {
