@@ -51,6 +51,9 @@ License: For each use you must have a valid license purchased only from above li
         .required {
             color: red;
         }
+        html{
+            zoom: 85%;
+        }
     </style>
     @stack('style')
 </head>
