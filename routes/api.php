@@ -31,6 +31,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('opd', [OpdController::class, 'index']);
 Route::get('skpd', [SkpdController::class, 'getSkpd']);
 Route::get('getApbdAnggaran', [DataUnitController::class, 'getApbdAnggaran']);
+Route::get('getApbdAnggaran/export', [DataUnitController::class, 'getApbdAnggaranExport'])->name('getApbdAnggaranExport');
 Route::get('getRealisasiAnggaran', [DataUnitController::class, 'getRealisasiAnggaran']);
 Route::get('evaluasi_kinerja_akip', [EvaluasiKinerjaAkipController::class, 'index']);
 Route::get('kotaLkjip', [KotaLkjipController::class, 'index']);

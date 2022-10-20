@@ -16,6 +16,7 @@
                     </div>
                 </div>
                 <div class="text-right">
+                    <a class="btn btn-success" href="{{ route('getApbdAnggaranExport') }}">Download Excel</a>
                     <button class="btn btn-primary" @click="getApbdAnggaran()">Cari</button>
                 </div>
             </div>
@@ -54,6 +55,7 @@
                     <img src="{{ asset('no-results.png') }}" style="height: 200px;"><br>
                     <h2>Data Tidak Ditemukan</h2>
                 </div>
+
             </div>
         </div>
     </div>

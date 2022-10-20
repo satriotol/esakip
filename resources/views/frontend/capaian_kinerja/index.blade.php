@@ -76,6 +76,7 @@
                     urlSkpd: API_URL + 'skpd',
                     skpd_search: "",
                     year_search: "",
+                    loading: true,
                 }
             },
             mounted() {
@@ -95,7 +96,6 @@
                         .finally(() => this.loading = false)
                 },
                 getApbdAnggaran(pageUrl) {
-                    this.loading = true;
                     axios.get(this.urlApbdAnggaran, {
                             params: {
                                 id_skpd: this.skpd_search,
@@ -109,6 +109,9 @@
                         .catch(function(error) {
                             console.log(error);
                         })
+                },
+                getApdbAngggaranExport(){
+                    
                 },
                 getRealisasiAnggaran(pageUrl) {
                     axios.get(this.urlRealisasiAnggaran, {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Exports\DataUnitExcel;
 use App\Http\Controllers\API\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApbdAnggaranResource;
@@ -9,6 +10,7 @@ use App\Http\Resources\ARealisasiKeunganResource;
 use App\Models\DataUnit;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DataUnitController extends Controller
 {
@@ -23,8 +25,9 @@ class DataUnitController extends Controller
 
         return $this->successResponse(['ApbdAnggaran' => ApbdAnggaranResource::collection($ApbdAnggarans)]);
     }
-    public function getApbdAnggaranExport()
+    public function getApbdAnggaranExport(Request $request)
     {
+        return Excel::download(new DataUnitExcel($request), 'users.xlsx');
     }
     public function getRealisasiAnggaran(Request $request)
     {
