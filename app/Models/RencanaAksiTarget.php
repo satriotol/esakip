@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RencanaAksiTarget extends Model
 {
     use HasFactory;
-    protected $fillable = ['opd_perjanjian_kinerja_sasaran_id', 'rencana_aksi_id', 'target', 'realisasi', 'status', 'note'];
+    protected $fillable = ['opd_perjanjian_kinerja_sasaran_id', 'rencana_aksi_id', 'target', 'realisasi', 'status', 'note', 'rencana_aksi'];
 
     const STATUS1 = 'DIAJUKAN';
     const STATUS2 = 'DIATAS';

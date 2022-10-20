@@ -94,7 +94,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('ikuOpd/store_file', [IkuOpdController::class, 'store_file'])->name('ikuOpd.store_file');
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);
     Route::resource('rencanaAksi', RencanaAksiController::class);
-    Route::resource('rencanaAksiTarget', RencanaAksiTargetController::class);
+    Route::resource('rencanaAksiTarget', RencanaAksiTargetController::class)->except([
+        'create'
+    ]);
+    Route::get('rencanaAksiTarget/create/{rencanaAksi}', [RencanaAksiTargetController::class, 'create'])->name('rencanaAksiTarget.create');
     Route::post('getOpdPerjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'getOpdPerjanjianKinerja'])->name('opdPerjanjianKinerja.getOpdPerjanjianKinerja');
     Route::post('opdPerjanjianKinerja/store_file', [OpdPerjanjianKinerjaController::class, 'store_file'])->name('opdPerjanjianKinerja.store_file');
     Route::put('opdPerjanjianKinerja/updateStatus/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaController::class, 'updateStatus'])->name('opdPerjanjianKinerja.updateStatus');

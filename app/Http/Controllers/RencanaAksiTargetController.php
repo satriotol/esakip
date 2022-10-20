@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RencanaAksi;
 use App\Models\RencanaAksiTarget;
 use Illuminate\Http\Request;
 
@@ -12,6 +13,16 @@ class RencanaAksiTargetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        // Fetch the Site Settings object
+        // $this->middleware('permission:opdPerjanjianKinerja-list|opdPerjanjianKinerja-create|opdPerjanjianKinerja-edit|opdPerjanjianKinerja-delete', ['only' => ['index', 'show']]);
+        // $this->middleware('permission:opdPerjanjianKinerja-create', ['only' => ['create', 'store']]);
+        // $this->middleware('permission:opdPerjanjianKinerja-edit', ['only' => ['edit', 'update']]);
+        // $this->middleware('permission:opdPerjanjianKinerja-delete', ['only' => ['destroy']]);
+        $name = "Rencana Aksi Target";
+        view()->share('name', $name);
+    }
     public function index()
     {
         //
@@ -22,9 +33,10 @@ class RencanaAksiTargetController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(RencanaAksi $rencanaAksi)
     {
-        //
+        $realisasis = RencanaAksiTarget::REALISASIS;
+        return view('rencanaAksiTarget.create', compact('rencanaAksi', 'realisasis'));
     }
 
     /**
@@ -36,24 +48,23 @@ class RencanaAksiTargetController extends Controller
     public function store(Request $request)
     {
         $data = $this->validate($request, [
-            'realisasiAksiTarget.*.opd_perjanjian_kinerja_sasaran_id' => 'required',
-            'realisasiAksiTarget.*.rencana_aksi_id' => 'required',
-            'realisasiAksiTarget.*.target' => 'required',
-            'realisasiAksiTarget.*.realisasi' => 'required',
+            'opd_perjanjian_kinerja_sasaran_id' => 'required',
+            'rencana_aksi_id' => 'required',
+            'target' => 'required',
+            'realisasi' => 'required',
+            'rencana_aksi' => 'required',
         ]);
-        foreach ($request->realisasiAksiTarget as $key) {
-            RencanaAksiTarget::updateOrCreate(
-                [
-                    'opd_perjanjian_kinerja_sasaran_id' => $key['opd_perjanjian_kinerja_sasaran_id'],
-                    'rencana_aksi_id' => $key['rencana_aksi_id']
-                ],
-                [
-                    'target' => $key['target'],
-                    'realisasi' => $key['realisasi'],
-                    'status' => RencanaAksiTarget::STATUS1,
-                ]
-            );
-        }
+        RencanaAksiTarget::create(
+            [
+
+                'opd_perjanjian_kinerja_sasaran_id' => $request->opd_perjanjian_kinerja_sasaran_id,
+                'rencana_aksi_id' => $request->rencana_aksi_id,
+                'target' => $request->target,
+                'realisasi' => $request->realisasi,
+                'status' => RencanaAksiTarget::STATUS1,
+                'rencana_aksi' => $request->rencana_aksi
+            ]
+        );
         session()->flash('success');
         return back();
     }
