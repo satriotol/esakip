@@ -70,9 +70,15 @@ class OpdController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Opd $opd)
     {
-        //
+        $data = $request->validate([
+            'nama_opd' => 'required',
+            'opd_category_id' => 'required',  
+        ]);
+        $opd->update($data);
+        session()->flash('success');
+        return redirect(route('opds.index'));
     }
 
     /**
