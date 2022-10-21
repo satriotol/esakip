@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->bigInteger('reformasi_birokrasi');
             $table->bigInteger('sakip');
+            $table->bigInteger('iku');
             $table->bigInteger('penyerapan_anggaran_belanja');
             $table->bigInteger('realisasi_target_pendapatan');
             $table->bigInteger('p3dn');

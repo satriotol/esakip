@@ -9,7 +9,7 @@ class OpdCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'reformasi_birokrasi', 'sakip', 'penyerapan_anggaran_belanja', 'realisasi_target_pendapatan', 'p3dn', 'inovasi_prestasi_daerah'];
+    protected $fillable = ['name', 'reformasi_birokrasi', 'sakip', 'iku', 'penyerapan_anggaran_belanja', 'realisasi_target_pendapatan', 'p3dn', 'inovasi_prestasi_daerah'];
 
     public function opds()
     {
