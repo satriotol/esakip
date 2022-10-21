@@ -12,6 +12,8 @@ class Opd extends Model
 
     protected $guarded = ['id'];
 
+    protected $fillable = ['nama_opd', 'opd_category_id'];
+
     public function evaluasi_kinerjas()
     {
         return $this->hasMany(EvaluasiKinerja::class, 'opd_id', 'id');

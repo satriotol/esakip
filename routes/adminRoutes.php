@@ -10,6 +10,7 @@ use App\Http\Controllers\KotaPerjanjianKinerjaController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\LkjipOpdController;
+use App\Http\Controllers\OpdController;
 use App\Http\Controllers\OpdPerjanjianKinerjaController;
 use App\Http\Controllers\OpdPerjanjianKinerjaIndikatorController;
 use App\Http\Controllers\OpdPerjanjianKinerjaProgramAnggaranController;
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('userOpd', UserOpdController::class);
     Route::resource('role', RoleController::class);
     Route::resource('permission', PermissionController::class);
+    Route::resource('opds', OpdController::class);
 
     // ===========================
     //perencanaan kinerja
