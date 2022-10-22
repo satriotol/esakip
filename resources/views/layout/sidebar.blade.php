@@ -246,7 +246,7 @@
                 <li class="nav-item {{ active_class(['opds.*', 'role']) }}">
                     <a href="{{ route('opds.index') }}" class="nav-link">
                         <i class="link-icon" data-feather="user"></i>
-                        <span class="link-title">opd</span>
+                        <span class="link-title">OPD</span>
                     </a>
                 </li>
                 <li class="nav-item {{ active_class(['opdCategories.*', 'role']) }}">
