@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Exports\DataUnitExcel;
+use App\Exports\RealisasiAnggaranExport;
 use App\Http\Controllers\API\ResponseFormatter;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApbdAnggaranResource;
@@ -17,10 +18,10 @@ class DataUnitController extends Controller
     public function getApbdAnggaran(Request $request)
     {
         if ($request->year) {
-            $ApbdAnggarans = DataUnit::getDataUnit($request->year, $request->id_skpd);
+            $ApbdAnggarans = DataUnit::getApbdAnggaran($request->year, $request->id_skpd);
         } else {
             $year = Carbon::now()->format('Y');
-            $ApbdAnggarans = DataUnit::getDataUnit($year, $request->id_skpd);
+            $ApbdAnggarans = DataUnit::getApbdAnggaran($year, $request->id_skpd);
         }
 
         return $this->successResponse(['ApbdAnggaran' => ApbdAnggaranResource::collection($ApbdAnggarans)]);
@@ -47,5 +48,9 @@ class DataUnitController extends Controller
             })->orderBy('nama_skpd')->get();
         }
         return $this->successResponse(['RealisasiAnggaran' => ARealisasiKeunganResource::collection($RealisasiAnggaran)]);
+    }
+    public function getRealisasiAnggaranExport(Request $request)
+    {
+        return Excel::download(new RealisasiAnggaranExport($request), 'Realisasi Anggaran.xlsx');
     }
 }

@@ -21,7 +21,7 @@ class DataUnit extends Model
         return $this->hasMany(ARealisasiKeuangan::class, 'id_skpd', 'id_skpd');
     }
 
-    public static function getDataUnit($year, $id_skpd)
+    public static function getApbdAnggaran($year, $id_skpd)
     {
         $dataUnit = DataUnit::whereHas('apbd_anggarans', function ($q) use ($year, $id_skpd) {
             $q->where('tahun', $year)->when($id_skpd, function ($sq) use ($id_skpd) {

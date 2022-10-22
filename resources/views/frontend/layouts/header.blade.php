@@ -43,6 +43,10 @@
                     <a href="{{ route('evaluasi_kinerja') }}"
                         class="{{ active_class(['evaluasi_kinerja']) }}">Evaluasi Kinerja</a>
                 </li>
+                <li>
+                    <a href="{{ route('dashboard') }}"
+                        class="{{ active_class(['dashboard']) }}">Login</a>
+                </li>
             </ul>
         </div>
     </div>
