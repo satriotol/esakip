@@ -30,4 +30,13 @@ class DataUnit extends Model
         })->orderBy('nama_skpd')->get();
         return $dataUnit;
     }
+    public static function getRealisasiAnggaran($year, $id_skpd)
+    {
+        $RealisasiAnggaran = DataUnit::whereHas('a_realisasi_keuangans', function ($q) use ($year, $id_skpd) {
+            $q->where('tahun', $year)->when($id_skpd, function ($sq) use ($id_skpd) {
+                $sq->where('id_skpd', $id_skpd);
+            });
+        })->orderBy('nama_skpd')->get();
+        return $RealisasiAnggaran;
+    }
 }

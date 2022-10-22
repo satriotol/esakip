@@ -33,19 +33,10 @@ class DataUnitController extends Controller
     public function getRealisasiAnggaran(Request $request)
     {
         if ($request->year) {
-            $year = $request->year;
-            $RealisasiAnggaran = DataUnit::whereHas('a_realisasi_keuangans', function ($q) use ($request, $year) {
-                $q->where('tahun', $year)->when($request->id_skpd, function ($sq) use ($request) {
-                    $sq->where('id_skpd', $request->id_skpd);
-                });
-            })->orderBy('nama_skpd')->get();
+            $RealisasiAnggaran = DataUnit::getRealisasiAnggaran($request->year, $request->id_skpd);
         } else {
             $year = Carbon::now()->format('Y');
-            $RealisasiAnggaran = DataUnit::whereHas('a_realisasi_keuangans', function ($q) use ($request, $year) {
-                $q->where('tahun', $year)->when($request->id_skpd, function ($sq) use ($request) {
-                    $sq->where('id_skpd', $request->id_skpd);
-                });
-            })->orderBy('nama_skpd')->get();
+            $RealisasiAnggaran = DataUnit::getRealisasiAnggaran($year, $request->id_skpd);
         }
         return $this->successResponse(['RealisasiAnggaran' => ARealisasiKeunganResource::collection($RealisasiAnggaran)]);
     }

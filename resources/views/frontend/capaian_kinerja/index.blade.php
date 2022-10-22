@@ -125,6 +125,18 @@
                             download(response.data, 'Anggaran-Apbd.xlsx', content)
                         });
                 },
+                exportApbdAnggaran() {
+                    axios.get('/api/getRealisasiAnggaran/export', {
+                            params: {
+                                year: this.year_search,
+                            },
+                            responseType: 'blob',
+                        })
+                        .then((response) => {
+                            const content = response.headers['content-type'];
+                            download(response.data, 'Realisasi-Anggaran.xlsx', content)
+                        });
+                },
                 getRealisasiAnggaran(pageUrl) {
                     axios.get(this.urlRealisasiAnggaran, {
                             params: {
