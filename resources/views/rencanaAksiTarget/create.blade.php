@@ -8,12 +8,11 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('opdPerjanjianKinerja.index') }}">{{ $name }}</a>
+            <li class="breadcrumb-item"><a href="{{ route('rencanaAksi.index') }}">Rencana Aksi</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Form {{ $name }}</li>
+            <li class="breadcrumb-item active" aria-current="page">Form Rencana Aksi</li>
         </ol>
-        <a href="{{ route('rencanaAksi.show', $rencanaAksi->opd_perjanjian_kinerja_id) }}"
-            class="badge rounded-pill bg-primary">
+        <a href="{{ route('rencanaAksi.index') }}" class="badge rounded-pill bg-primary">
             <i data-feather="arrow-left"></i> Back
         </a>
     </nav>

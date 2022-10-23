@@ -45,7 +45,13 @@ class OpdPenilaianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'opd_id' => 'required',
+            'year' => 'required',
+        ]);
+        OpdPenilaian::create($request->all());
+        session()->flash('success');
+        return redirect(route('opdPenilaian.index'));
     }
 
     /**
@@ -67,7 +73,8 @@ class OpdPenilaianController extends Controller
      */
     public function edit(OpdPenilaian $opdPenilaian)
     {
-        //
+        $opds = Opd::getOpd();
+        return view('opdPenilaian.create', compact('opdPenilaian', 'opds'));
     }
 
     /**
@@ -79,7 +86,13 @@ class OpdPenilaianController extends Controller
      */
     public function update(Request $request, OpdPenilaian $opdPenilaian)
     {
-        //
+        $request->validate([
+            'opd_id' => 'required',
+            'year' => 'required',
+        ]);
+        $opdPenilaian->update($request->all());
+        session()->flash('success');
+        return redirect(route('opdPenilaian.index'));
     }
 
     /**

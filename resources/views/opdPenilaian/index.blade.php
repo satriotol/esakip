@@ -29,8 +29,6 @@
                                 <tr>
                                     <th>Year</th>
                                     <th>OPD</th>
-                                    <th>Type</th>
-                                    <th>File</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -39,18 +37,14 @@
                                     <tr>
                                         <td>{{ $opdPenilaian->year }}</td>
                                         <td>{{ $opdPenilaian->opd->nama_opd }}</td>
-                                        <td>{{ $opdPenilaian->type }}</td>
                                         <td>
-                                            @if ($opdPenilaian->file)
-                                                <a class="badge bg-danger" target="_blank"
-                                                    href="{{ $opdPenilaian->file_url }}"> Open File</a>
-                                            @else
-                                                -
-                                            @endif
-                                        </td>
-                                        <td>
+
                                             <a href="{{ route('opdPenilaian.show', $opdPenilaian->id) }}"
                                                 class="btn btn-sm btn-primary ml-1">Detail</a>
+                                            <a class="btn btn-sm btn-warning"
+                                                href="{{ route('opdPenilaian.edit', $opdPenilaian->id) }}">
+                                                Edit
+                                            </a>
                                         </td>
                                     </tr>
                                 @endforeach

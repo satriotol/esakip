@@ -95,8 +95,10 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{ route('rencanaAksi.show', $opdPerjanjianKinerja->id) }}"
-                                                class="btn btn-sm btn-primary ml-1">Detail</a>
+                                            @foreach ($opdPerjanjianKinerja->rencana_aksis as $rencana_aksi)
+                                                <a href="{{ route('rencanaAksiTarget.create', $rencana_aksi->id) }}"
+                                                    class="badge bg-success">{{ $rencana_aksi->name }}</a>
+                                            @endforeach
                                         </td>
                                     </tr>
                                 @endforeach
