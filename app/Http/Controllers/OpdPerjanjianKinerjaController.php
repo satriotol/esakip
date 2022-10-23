@@ -38,7 +38,7 @@ class OpdPerjanjianKinerjaController extends Controller
 
         $types = OpdPerjanjianKinerja::TYPE;
         $statuses = OpdPerjanjianKinerja::STATUSES;
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         if (Auth::user()->opd_id) {
             $datas = OpdPerjanjianKinerja::with('opd')->where('opd_id', Auth::user()->opd_id);
         } else {
@@ -68,7 +68,7 @@ class OpdPerjanjianKinerjaController extends Controller
      */
     public function create()
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         $types = OpdPerjanjianKinerja::TYPE;
         return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.create', compact('opds', 'types'));
     }
@@ -84,7 +84,6 @@ class OpdPerjanjianKinerjaController extends Controller
         $data = $request->all();
         $data['file'] = $request->file;
         if (Auth::user()->opd_id) {
-            $data['opd_id'] = Auth::user()->opd_id;
             $data['status'] = OpdPerjanjianKinerja::STATUS1;
         }
         OpdPerjanjianKinerja::create($data);
@@ -115,7 +114,7 @@ class OpdPerjanjianKinerjaController extends Controller
      */
     public function edit(OpdPerjanjianKinerja $opdPerjanjianKinerja)
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         $types = OpdPerjanjianKinerja::TYPE;
         return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.create', compact('opds', 'types', 'opdPerjanjianKinerja'));
     }
@@ -134,9 +133,6 @@ class OpdPerjanjianKinerjaController extends Controller
             $data['file'] = $request->file;
             $opdPerjanjianKinerja->deleteFile();
         };
-        if (Auth::user()->opd_id) {
-            $data['opd_id'] = Auth::user()->opd_id;
-        }
         $opdPerjanjianKinerja->update($data);
         session()->flash('success');
         return redirect(route('opdPerjanjianKinerja.index'));

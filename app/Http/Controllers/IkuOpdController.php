@@ -63,7 +63,7 @@ class IkuOpdController extends Controller
      */
     public function create()
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('pengukuran_kinerja.opd.iku.create', compact('opds'));
     }
 
@@ -101,7 +101,7 @@ class IkuOpdController extends Controller
      */
     public function edit(IkuOpd $ikuOpd)
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('pengukuran_kinerja.opd.iku.create', compact('opds', 'ikuOpd'));
     }
 

@@ -61,7 +61,7 @@ class LkjipOpdController extends Controller
      */
     public function create()
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('pelaporan_kinerja.lkjip_opd.create', compact('opds'));
     }
 
@@ -100,7 +100,7 @@ class LkjipOpdController extends Controller
      */
     public function edit(LkjipOpd $lkjip_opd)
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('pelaporan_kinerja.lkjip_opd.create', compact('lkjip_opd', 'opds'));
     }
 

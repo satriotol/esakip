@@ -33,7 +33,7 @@ class UserOpdController extends Controller
      */
     public function create()
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('userOpd.create', compact('opds'));
     }
 
@@ -77,7 +77,7 @@ class UserOpdController extends Controller
      */
     public function edit(User $userOpd)
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('userOpd.create', compact('userOpd', 'opds'));
     }
 

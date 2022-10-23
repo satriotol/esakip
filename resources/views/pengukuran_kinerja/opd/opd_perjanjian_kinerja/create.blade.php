@@ -31,21 +31,19 @@
                         <input id="year" class="form-control" name="year" type="number" placeholder="yyyy" required
                             value="{{ isset($opdPerjanjianKinerja) ? $opdPerjanjianKinerja->year : @old('year') }}">
                     </div>
-                    @if (Auth::user()->opd_id == null)
-                        <div class="mb-3">
-                            <label for="name" class="form-label">OPD</label>
-                            <select class="js-example-basic-single form-select" data-width="100%" name="opd_id" required>
-                                <option value="">Select OPD</option>
-                                @foreach ($opds as $opd)
-                                    <option value="{{ $opd->id }}"
-                                        @isset($opdPerjanjianKinerja) 
+                    <div class="mb-3">
+                        <label for="name" class="form-label">OPD</label>
+                        <select class="js-example-basic-single form-select" data-width="100%" name="opd_id" required>
+                            <option value="">Select OPD</option>
+                            @foreach ($opds as $opd)
+                                <option value="{{ $opd->id }}"
+                                    @isset($opdPerjanjianKinerja) 
                                         @selected ($opd->id == $opdPerjanjianKinerja->opd_id) 
                                         @endisset>
-                                        {{ $opd->nama_opd }} </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    @endif
+                                    {{ $opd->nama_opd }} </option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="mb-3">
                         <label for="name" class="form-label">Type</label>
                         <select class="js-example-basic-single form-select" data-width="100%" required name="type">

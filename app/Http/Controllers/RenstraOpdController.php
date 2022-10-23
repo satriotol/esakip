@@ -29,7 +29,7 @@ class RenstraOpdController extends Controller
      */
     public function create(PeriodeRenstraOpd $periodeRenstraOpd)
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('perencanaan_kinerja.opd.renstra.renstra_detail.create', compact('periodeRenstraOpd', 'opds'));
     }
 
@@ -68,7 +68,7 @@ class RenstraOpdController extends Controller
      */
     public function edit(PeriodeRenstraOpd $periodeRenstraOpd, RenstraOpd $renstraOpd)
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('perencanaan_kinerja.opd.renstra.renstra_detail.create', compact('renstraOpd', 'periodeRenstraOpd', 'opds'));
     }
 

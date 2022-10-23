@@ -15,7 +15,7 @@ class OpdController extends Controller
      */
     public function index()
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('opds.index', compact('opds'));
     }
 

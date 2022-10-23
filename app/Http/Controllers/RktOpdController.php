@@ -68,7 +68,7 @@ class RktOpdController extends Controller
      */
     public function create()
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('perencanaan_kinerja.opd.rkt.create', compact('opds'));
     }
 
@@ -106,7 +106,7 @@ class RktOpdController extends Controller
      */
     public function edit(RktOpd $rktOpd)
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('perencanaan_kinerja.opd.rkt.create', compact('rktOpd', 'opds'));
     }
 

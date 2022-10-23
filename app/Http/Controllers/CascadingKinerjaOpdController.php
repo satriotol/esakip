@@ -63,7 +63,7 @@ class CascadingKinerjaOpdController extends Controller
      */
     public function create()
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         $types = CascadingKinerjaOpd::TYPE;
         return view('perencanaan_kinerja.opd.cascading_kinerja.create', compact('opds', 'types'));
     }
@@ -103,7 +103,7 @@ class CascadingKinerjaOpdController extends Controller
     public function edit(CascadingKinerjaOpd $cascadingKinerjaOpd)
     {
         $types = CascadingKinerjaOpd::TYPE;
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('perencanaan_kinerja.opd.cascading_kinerja.create', compact('cascadingKinerjaOpd', 'types', 'opds'));
     }
 

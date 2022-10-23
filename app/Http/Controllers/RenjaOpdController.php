@@ -65,7 +65,7 @@ class RenjaOpdController extends Controller
      */
     public function create()
     {
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         $types = RenjaOpd::TYPE;
         return view('perencanaan_kinerja.opd.renja.create', compact('opds', 'types'));
     }
@@ -105,7 +105,7 @@ class RenjaOpdController extends Controller
     public function edit(RenjaOpd $renjaOpd)
     {
         $types = RenjaOpd::TYPE;
-        $opds = Opd::all();
+        $opds = Opd::getOpd();
         return view('perencanaan_kinerja.opd.renja.create', compact('renjaOpd', 'types', 'opds'));
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Opd;
 use App\Models\OpdPenilaian;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,8 @@ class OpdPenilaianController extends Controller
     }
     public function index()
     {
-        //
+        $opdPenilaians = OpdPenilaian::getOpdPenilaian();
+        return view('opdPenilaian.index', compact('opdPenilaians'));
     }
 
     /**
@@ -31,7 +33,8 @@ class OpdPenilaianController extends Controller
      */
     public function create()
     {
-        //
+        $opds = Opd::getOpd();
+        return view('opdPenilaian.create', compact('opds'));
     }
 
     /**
