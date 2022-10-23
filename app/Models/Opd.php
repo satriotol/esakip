@@ -22,4 +22,8 @@ class Opd extends Model
     {
         return $this->belongsTo(OpdCategory::class, 'opd_category_id', 'id');
     }
+    public function opd_penilaians()
+    {
+        return $this->hasMany(OpdPenilaian::class, 'opd_id', 'id');
+    }
 }

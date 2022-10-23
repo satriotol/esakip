@@ -228,6 +228,14 @@
                         <span class="link-title">Rencana Aksi</span>
                     </a>
                 </li>
+                <li class="nav-item nav-category">Penilaian OPD</li>
+                <li
+                    class="nav-item {{ active_class(['opdPenilaian.*']) }}">
+                    <a href="{{ route('opdPenilaian.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="award"></i>
+                        <span class="link-title">Penilaian OPD</span>
+                    </a>
+                </li>
             @endcan
             @can('user-list')
                 <li class="nav-item nav-category">Setting</li>

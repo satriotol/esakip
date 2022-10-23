@@ -12,6 +12,7 @@ use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\LkjipOpdController;
 use App\Http\Controllers\OpdCategoryController;
 use App\Http\Controllers\OpdController;
+use App\Http\Controllers\OpdPenilaianController;
 use App\Http\Controllers\OpdPerjanjianKinerjaController;
 use App\Http\Controllers\OpdPerjanjianKinerjaIndikatorController;
 use App\Http\Controllers\OpdPerjanjianKinerjaProgramAnggaranController;
@@ -96,6 +97,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('ikuOpd', IkuOpdController::class);
     Route::post('getIkuOpd', [IkuOpdController::class, 'getIkuOpd'])->name('ikuOpd.getIkuOpd');
     Route::post('ikuOpd/store_file', [IkuOpdController::class, 'store_file'])->name('ikuOpd.store_file');
+    Route::resource('opdPenilaian', OpdPenilaianController::class);
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);
     Route::resource('rencanaAksi', RencanaAksiController::class);
     Route::resource('rencanaAksiTarget', RencanaAksiTargetController::class)->except([
