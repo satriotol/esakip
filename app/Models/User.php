@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -46,5 +47,14 @@ class User extends Authenticatable
     public function opd()
     {
         return $this->belongsTo(Opd::class, 'opd_id', 'id');
+    }
+    public static function getOpdUsers()
+    {
+        if (Auth::user()->opd_id) {
+            $getOpdUsers = User::where('email', '!=', 'satriotol69@gmail.com')->has('opd')->where('opd_id', Auth::user()->opd_id)->get();
+        } else {
+            $getOpdUsers = User::where('email', '!=', 'satriotol69@gmail.com')->has('opd')->get();
+        }
+        return $getOpdUsers;
     }
 }

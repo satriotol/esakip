@@ -22,7 +22,7 @@ class UserOpdController extends Controller
     }
     public function index()
     {
-        $users = User::where('email', '!=', 'satriotol69@gmail.com')->has('opd')->get();
+        $users = User::getOpdUsers();
         return view('userOpd.index', compact('users'));
     }
 
