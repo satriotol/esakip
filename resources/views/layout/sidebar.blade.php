@@ -238,6 +238,15 @@
                     </a>
                 </li>
             @endcan
+            @can('opdVariable-list')
+                <li class="nav-item nav-category">Variable OPD</li>
+                <li class="nav-item {{ active_class(['opdVariable.*']) }}">
+                    <a href="{{ route('opdVariable.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="bar-chart"></i>
+                        <span class="link-title">Variable OPD</span>
+                    </a>
+                </li>
+            @endcan
             @can('user-list')
                 <li class="nav-item nav-category">Setting</li>
                 <li class="nav-item {{ active_class(['user.*', 'role']) }}">

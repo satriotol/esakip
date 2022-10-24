@@ -17,6 +17,7 @@ use App\Http\Controllers\OpdPerjanjianKinerjaController;
 use App\Http\Controllers\OpdPerjanjianKinerjaIndikatorController;
 use App\Http\Controllers\OpdPerjanjianKinerjaProgramAnggaranController;
 use App\Http\Controllers\OpdPerjanjianKinerjaSasaranController;
+use App\Http\Controllers\OpdVariableController;
 use App\Http\Controllers\PerencanaanKinerjaCascadingKinerjaController;
 use App\Http\Controllers\PerencanaanKinerjaRkpdController;
 use App\Http\Controllers\PerencanaanKinerjaRpjmdController;
@@ -98,6 +99,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('getIkuOpd', [IkuOpdController::class, 'getIkuOpd'])->name('ikuOpd.getIkuOpd');
     Route::post('ikuOpd/store_file', [IkuOpdController::class, 'store_file'])->name('ikuOpd.store_file');
     Route::resource('opdPenilaian', OpdPenilaianController::class);
+    Route::resource('opdVariable', OpdVariableController::class);
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);
     Route::resource('rencanaAksi', RencanaAksiController::class);
     Route::resource('rencanaAksiTarget', RencanaAksiTargetController::class)->except([

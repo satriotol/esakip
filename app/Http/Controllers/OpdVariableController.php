@@ -12,9 +12,17 @@ class OpdVariableController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('permission:opdVariable-list|opdVariable-create|opdVariable-edit|opdVariable-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:opdVariable-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opdVariable-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opdVariable-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
-        //
+        $opdVariables = OpdVariable::all();
+        return view('opdVariable.index', compact('opdVariables'));
     }
 
     /**
@@ -24,7 +32,8 @@ class OpdVariableController extends Controller
      */
     public function create()
     {
-        //
+        $pics = OpdVariable::PICS;
+        return view('opdVariable.create', compact('pics'));
     }
 
     /**
@@ -35,7 +44,14 @@ class OpdVariableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'bobot' => 'required',
+            'pic' => 'required',
+        ]);
+        OpdVariable::create($data);
+        session()->flash('success');
+        return redirect(route('opdVariable.index'));
     }
 
     /**
@@ -57,7 +73,8 @@ class OpdVariableController extends Controller
      */
     public function edit(OpdVariable $opdVariable)
     {
-        //
+        $pics = OpdVariable::PICS;
+        return view('opdVariable.create', compact('opdVariable', 'pics'));
     }
 
     /**
@@ -69,7 +86,14 @@ class OpdVariableController extends Controller
      */
     public function update(Request $request, OpdVariable $opdVariable)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'bobot' => 'required',
+            'pic' => 'required',
+        ]);
+        $opdVariable->update($data);
+        session()->flash('success');
+        return redirect(route('opdVariable.index'));
     }
 
     /**
@@ -80,6 +104,8 @@ class OpdVariableController extends Controller
      */
     public function destroy(OpdVariable $opdVariable)
     {
-        //
+        $opdVariable->delete();
+        session()->flash('success');
+        return back();
     }
 }

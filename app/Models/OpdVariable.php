@@ -14,7 +14,7 @@ class OpdVariable extends Model
     const OPD = 'OPD';
     const INSPEKTORAT = 'INSPEKTORAT';
     const BAPPEDA = 'BAPPEDA';
-    const STATUSES = [
+    const PICS = [
         self::OPD, self::INSPEKTORAT, self::BAPPEDA
     ];
 
