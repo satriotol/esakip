@@ -9,10 +9,10 @@ class OpdCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'reformasi_birokrasi', 'sakip', 'iku', 'penyerapan_anggaran_belanja', 'realisasi_target_pendapatan', 'p3dn', 'inovasi_prestasi_daerah'];
-
-    public function opds()
-    {
-        return $this->hasMany(Opd::class, 'opd_id', 'id');
-    }
+    protected $fillable = ['name', 'type'];
+    const TRIWULAN = 'TRIWULAN';
+    const TAHUNAN = 'TAHUNAN';
+    const STATUSES = [
+        self::TRIWULAN, self::TAHUNAN
+    ];
 }

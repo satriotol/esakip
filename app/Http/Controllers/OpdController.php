@@ -59,8 +59,7 @@ class OpdController extends Controller
      */
     public function edit(Opd $opd)
     {
-        $opd_categories = OpdCategory::all();
-        return view('opds.create', compact('opd', 'opd_categories'));
+        return view('opds.create', compact('opd'));
     }
 
     /**
@@ -74,7 +73,6 @@ class OpdController extends Controller
     {
         $data = $request->validate([
             'nama_opd' => 'required',
-            'opd_category_id' => 'required',  
         ]);
         $opd->update($data);
         session()->flash('success');

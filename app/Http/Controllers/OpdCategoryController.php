@@ -38,13 +38,7 @@ class OpdCategoryController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'reformasi_birokrasi' => 'required',
-            'sakip' => 'required',
-            'iku' => 'required',
-            'penyerapan_anggaran_belanja' => 'required',
-            'realisasi_target_pendapatan' => 'required',
-            'p3dn' => 'required',
-            'inovasi_prestasi_daerah' => 'required',
+            'type' => 'required'
         ]);
 
         OpdCategory::create($data);

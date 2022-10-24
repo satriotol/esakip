@@ -19,14 +19,6 @@ class Opd extends Model
     {
         return $this->hasMany(EvaluasiKinerja::class, 'opd_id', 'id');
     }
-    public function opd_category()
-    {
-        return $this->belongsTo(OpdCategory::class, 'opd_category_id', 'id');
-    }
-    public function opd_penilaians()
-    {
-        return $this->hasMany(OpdPenilaian::class, 'opd_id', 'id');
-    }
     public static function getOpd()
     {
         if (Auth::user()->opd_id) {

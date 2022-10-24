@@ -27,15 +27,6 @@
                         <input id="nama_opd" class="form-control" name="nama_opd" type="text" required
                             value="{{ isset($opd) ? $opd->nama_opd : @old('nama_opd') }}">
                     </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Kategori</label>
-                        <select name="opd_category_id" class="form-control" required @selected(old('opd_category_id'))>
-                            <option value="">Pilih Kategori</option>
-                            @foreach ($opd_categories as $opd_category)
-                                <option value="{{ $opd_category->id }}">{{ $opd_category->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
                     <div class="text-end">
                         <a href="{{ url()->previous() }}" class="btn btn-warning">Kembali</a>
                         <input class="btn btn-primary" type="submit" value="Submit">
