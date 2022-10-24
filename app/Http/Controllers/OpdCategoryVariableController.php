@@ -35,7 +35,17 @@ class OpdCategoryVariableController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'opd_category_id' => 'required',
+            'opd_variable_id' => 'required',
+        ]);
+
+        OpdCategoryVariable::updateOrCreate([
+            'opd_category_id' => $data['opd_category_id'],
+            'opd_variable_id' => $data['opd_variable_id'],
+        ]);
+        session()->flash('success');
+        return back();
     }
 
     /**
@@ -80,6 +90,8 @@ class OpdCategoryVariableController extends Controller
      */
     public function destroy(OpdCategoryVariable $opdCategoryVariable)
     {
-        //
+        $opdCategoryVariable->delete();
+        session()->flash('success');
+        return back();
     }
 }

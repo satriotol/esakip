@@ -28,13 +28,8 @@
                             <thead>
                                 <tr>
                                     <th>Nama</th>
-                                    <th>Reformasi Birokrasi</th>
-                                    <th>SAKIP</th>
-                                    <th>IKU</th>
-                                    <th>Penyerapan Anggaran Belanja</th>
-                                    <th>Realisasi Target Pendapatan</th>
-                                    <th>P3DN</th>
-                                    <th>Inovasi Prestasi Daerah</th>
+                                    <th>Tipe</th>
+                                    <th>Variabel</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -45,33 +40,23 @@
                                             {{ $opdCategory->name }}
                                         </td>
                                         <td>
-                                            {{ $opdCategory->reformasi_birokrasi }}
+                                            {{ $opdCategory->type }}
                                         </td>
                                         <td>
-                                            {{ $opdCategory->sakip }}
+                                            @foreach ($opdCategory->opd_category_variables as $opd_category_variable)
+                                                <div class="badge bg-success">
+                                                    {{ $opd_category_variable->opd_variable->name }} |
+                                                    {{ $opd_category_variable->opd_variable->bobot }}
+                                                </div> <br>
+                                            @endforeach
                                         </td>
                                         <td>
-                                            {{ $opdCategory->iku }}
-                                        </td>
-                                        <td>
-                                            {{ $opdCategory->penyerapan_anggaran_belanja }}
-                                        </td>
-                                        <td>
-                                            {{ $opdCategory->realisasi_target_pendapatan }}
-                                        </td>
-                                        <td>
-                                            {{ $opdCategory->p3dn }}
-                                        </td>
-                                        <td>
-                                            {{ $opdCategory->inovasi_prestasi_daerah }}
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-warning"
-                                                href="{{ route('opdCategories.edit', $opdCategory->id) }}">
-                                                Edit
+                                            <a class="btn btn-primary"
+                                                href="{{ route('opdCategories.show', $opdCategory->id) }}">
+                                                Detail
                                             </a>
-                                            <form action="{{ route('opdCategories.destroy', $opdCategory->id) }}" method="POST"
-                                                class="d-inline">
+                                            <form action="{{ route('opdCategories.destroy', $opdCategory->id) }}"
+                                                method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger"

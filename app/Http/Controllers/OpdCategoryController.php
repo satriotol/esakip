@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\OpdCategory;
+use App\Models\OpdCategoryVariable;
+use App\Models\OpdVariable;
 use Illuminate\Http\Request;
 
 class OpdCategoryController extends Controller
@@ -25,7 +27,9 @@ class OpdCategoryController extends Controller
      */
     public function create()
     {
-        return view('opdCategories.create');
+        $opdVariables = OpdVariable::orderBy('name', 'asc')->get();
+        $types = OpdCategory::TYPES;
+        return view('opdCategories.create', compact('opdVariables', 'types'));
     }
 
     /**
@@ -38,10 +42,17 @@ class OpdCategoryController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'type' => 'required'
+            'type' => 'required',
+            'opd_variable_id' => 'required',
         ]);
+        $opdCategory = OpdCategory::create($data);
+        foreach ($request->opd_variable_id as $opd_variable_id) {
+            OpdCategoryVariable::create([
+                'opd_variable_id' => $opd_variable_id,
+                'opd_category_id' => $opdCategory->id
+            ]);
+        }
 
-        OpdCategory::create($data);
         session()->flash('success');
         return redirect(route('opdCategories.index'));
     }
@@ -52,9 +63,11 @@ class OpdCategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(OpdCategory $opdCategory)
     {
-        //
+        $opdVariables = OpdVariable::orderBy('name', 'asc')->get();
+        $types = OpdCategory::TYPES;
+        return view('opdCategories.show', compact('opdCategory', 'opdVariables', 'types'));
     }
 
     /**
@@ -65,7 +78,9 @@ class OpdCategoryController extends Controller
      */
     public function edit(OpdCategory $opdCategory)
     {
-        return view('opdCategories.create', compact('opdCategory'));
+        $types = OpdCategory::TYPES;
+        $opdVariables = OpdVariable::orderBy('name', 'asc')->get();
+        return view('opdCategories.create', compact('opdCategory', 'types', 'opdVariables'));
     }
 
     /**
@@ -79,18 +94,12 @@ class OpdCategoryController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'reformasi_birokrasi' => 'required',
-            'sakip' => 'required',
-            'iku' => 'required',
-            'penyerapan_anggaran_belanja' => 'required',
-            'realisasi_target_pendapatan' => 'required',
-            'p3dn' => 'required',
-            'inovasi_prestasi_daerah' => 'required',
+            'type' => 'required',
         ]);
 
         $opdCategory->update($data);
         session()->flash('success');
-        return redirect(route('opdCategories.index'));
+        return back();
     }
 
     /**

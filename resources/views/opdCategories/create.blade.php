@@ -23,44 +23,28 @@
                         @method('PUT')
                     @endisset
                     <div class="mb-3">
-                        <label for="name" class="form-label">NAMA KATEGORI</label>
+                        <label for="name" class="form-label">Nama Kategori</label>
                         <input id="name" class="form-control" name="name" type="text" required
                             value="{{ isset($opdCategory) ? $opdCategory->name : @old('name') }}">
                     </div>
                     <div class="mb-3">
-                        <label for="reformasi_birokrasi" class="form-label">REFORMASI BIROKRASI</label>
-                        <input id="reformasi_birokrasi" class="form-control" name="reformasi_birokrasi" type="number" required
-                            value="{{ isset($opdCategory) ? $opdCategory->reformasi_birokrasi : @old('reformasi_birokrasi') }}">
+                        <label for="type">Tipe</label>
+                        <select name="type" class="form-control" id="" required>
+                            <option value="">Pilih Tipe</option>
+                            @foreach ($types as $type)
+                                <option value="{{ $type }}" @selected(isset($opdCategory) ? $opdCategory->type == $type : @old('type'))>{{ $type }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <label for="sakip" class="form-label">SAKIP</label>
-                        <input id="sakip" class="form-control" name="sakip" type="number" required
-                            value="{{ isset($opdCategory) ? $opdCategory->sakip : @old('sakip') }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="iku" class="form-label">IKU</label>
-                        <input id="iku" class="form-control" name="iku" type="number" required
-                            value="{{ isset($opdCategory) ? $opdCategory->iku : @old('iku') }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="penyerapan_anggaran_belanja" class="form-label">PENYERAPAN ANGGARAN BELANJA</label>
-                        <input id="penyerapan_anggaran_belanja" class="form-control" name="penyerapan_anggaran_belanja" type="number" required
-                            value="{{ isset($opdCategory) ? $opdCategory->penyerapan_anggaran_belanja : @old('penyerapan_anggaran_belanja') }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="realisasi_target_pendapatan" class="form-label">REALISASI TARGET PENDAPATAN</label>
-                        <input id="realisasi_target_pendapatan" class="form-control" name="realisasi_target_pendapatan" type="number" required
-                            value="{{ isset($opdCategory) ? $opdCategory->realisasi_target_pendapatan : @old('realisasi_target_pendapatan') }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="p3dn" class="form-label">P3DN</label>
-                        <input id="p3dn" class="form-control" name="p3dn" type="number" required
-                            value="{{ isset($opdCategory) ? $opdCategory->p3dn : @old('p3dn') }}">
-                    </div>
-                    <div class="mb-3">
-                        <label for="inovasi_prestasi_daerah" class="form-label">INOVASI PRESTASI DAERAH</label>
-                        <input id="inovasi_prestasi_daerah" class="form-control" name="inovasi_prestasi_daerah" type="number" required
-                            value="{{ isset($opdCategory) ? $opdCategory->inovasi_prestasi_daerah : @old('inovasi_prestasi_daerah') }}">
+                        <label for="opd_variable_id">Variable</label>
+                        <select name="opd_variable_id[]" class="js-example-basic-single form-select" required multiple>
+                            @foreach ($opdVariables as $opdVariable)
+                                <option value="{{ $opdVariable->id }}">
+                                    {{ $opdVariable->name }} | {{ $opdVariable->bobot }} </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="text-end">
                         <a href="{{ url()->previous() }}" class="btn btn-warning">Kembali</a>

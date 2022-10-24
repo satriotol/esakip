@@ -11,6 +11,7 @@ use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\LkjipOpdController;
 use App\Http\Controllers\OpdCategoryController;
+use App\Http\Controllers\OpdCategoryVariableController;
 use App\Http\Controllers\OpdController;
 use App\Http\Controllers\OpdPenilaianController;
 use App\Http\Controllers\OpdPerjanjianKinerjaController;
@@ -101,6 +102,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('opdPenilaian', OpdPenilaianController::class);
     Route::resource('opdVariable', OpdVariableController::class);
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);
+    Route::resource('opdCategoryVariable', OpdCategoryVariableController::class);
     Route::resource('rencanaAksi', RencanaAksiController::class);
     Route::resource('rencanaAksiTarget', RencanaAksiTargetController::class)->except([
         'create'
