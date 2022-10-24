@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class OpdPenilaian extends Model
 {
@@ -17,5 +18,15 @@ class OpdPenilaian extends Model
     public function opd_category()
     {
         return $this->belongsTo(OpdCategory::class, 'opd_category_id', 'id');
+    }
+    public static function getOpdPenilaian()
+    {
+        $opd_id = Auth::user()->opd_id;
+        if ($opd_id) {
+            $getOpdPenilaian = OpdPenilaian::where('opd_id', $opd_id)->paginate();
+        }else{
+            $getOpdPenilaian = OpdPenilaian::paginate();
+        }
+        return $getOpdPenilaian;
     }
 }

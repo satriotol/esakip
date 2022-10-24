@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Opd;
+use App\Models\OpdCategory;
 use App\Models\OpdPenilaian;
 use Illuminate\Http\Request;
 
@@ -14,7 +16,8 @@ class OpdPenilaianController extends Controller
      */
     public function index()
     {
-        //
+        $opdPenilaians = OpdPenilaian::getOpdPenilaian();
+        return view('opdPenilaian.index', compact('opdPenilaians'));
     }
 
     /**
@@ -24,7 +27,9 @@ class OpdPenilaianController extends Controller
      */
     public function create()
     {
-        //
+        $opds = Opd::getOpd();
+        $opdCategories = OpdCategory::all();
+        return view('opdPenilaian.create', compact('opds', 'opdCategories'));
     }
 
     /**
@@ -35,7 +40,15 @@ class OpdPenilaianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'opd_category_id' => 'required',
+            'year' => 'required',
+            'inovasi_prestasi_daerah' => 'required'
+        ]);
+        OpdPenilaian::create($data);
+        session()->flash('success');
+        return redirect(route('opdPenilaian.index'));
     }
 
     /**
@@ -57,7 +70,9 @@ class OpdPenilaianController extends Controller
      */
     public function edit(OpdPenilaian $opdPenilaian)
     {
-        //
+        $opds = Opd::getOpd();
+        $opdCategories = OpdCategory::all();
+        return view('opdPenilaian.create', compact('opdPenilaian', 'opds', 'opdCategories'));
     }
 
     /**

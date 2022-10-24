@@ -27,16 +27,20 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
-                                    <th>Year</th>
+                                    <th>Tahun</th>
+                                    <th>Kategori</th>
                                     <th>OPD</th>
+                                    <th>Inovasi Prestasi Daerah</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($opdPenilaians as $opdPenilaian)
                                     <tr>
-                                        <td>{{ $opdPenilaian->year }}</td>
+                                        <td>{{ $opdPenilaian->year }} {{ $opdPenilaian->name }}</td>
+                                        <td>{{ $opdPenilaian->opd_category->name }}</td>
                                         <td>{{ $opdPenilaian->opd->nama_opd }}</td>
+                                        <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
                                         <td>
 
                                             <a href="{{ route('opdPenilaian.show', $opdPenilaian->id) }}"
