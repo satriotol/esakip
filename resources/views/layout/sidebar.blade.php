@@ -222,7 +222,7 @@
                     </a>
                 </li>
                 <li
-                    class="nav-item {{ active_class(['rencanaAksi.*', 'rencanaAksiSasaran.*', 'rencanaAksiIndikator.*']) }}">
+                    class="nav-item {{ active_class(['rencanaAksi.*', 'rencanaAksiSasaran.*', 'rencanaAksiIndikator.*', 'rencanaAksiTarget.*']) }}">
                     <a href="{{ route('rencanaAksi.index') }}" class="nav-link">
                         <i class="link-icon" data-feather="award"></i>
                         <span class="link-title">Rencana Aksi</span>
