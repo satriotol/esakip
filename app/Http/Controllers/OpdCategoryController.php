@@ -6,6 +6,7 @@ use App\Models\OpdCategory;
 use App\Models\OpdCategoryVariable;
 use App\Models\OpdVariable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class OpdCategoryController extends Controller
 {
@@ -16,6 +17,8 @@ class OpdCategoryController extends Controller
      */
     public function index()
     {
+        // $data = Http::get('http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad');
+        // return $data['data']['pad'][1]['rincian'];
         $opdCategories = OpdCategory::all();
         return view('opdCategories.index', compact('opdCategories'));
     }

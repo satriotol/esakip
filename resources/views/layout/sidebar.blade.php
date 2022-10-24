@@ -229,8 +229,26 @@
                     </a>
                 </li>
             @endcan
+            <li class="nav-item nav-category">OPD</li>
+            <li class="nav-item {{ active_class(['opds.*', 'role']) }}">
+                <a href="{{ route('opds.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="home"></i>
+                    <span class="link-title">Master OPD</span>
+                </a>
+            </li>
+            <li class="nav-item {{ active_class(['userOpd.*', 'role']) }}">
+                <a href="{{ route('userOpd.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="user"></i>
+                    <span class="link-title">User Opd</span>
+                </a>
+            </li>
+            <li class="nav-item {{ active_class(['opdCategories.*', 'role']) }}">
+                <a href="{{ route('opdCategories.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="battery"></i>
+                    <span class="link-title">Kategori OPD</span>
+                </a>
+            </li>
             @can('opdPenilaian-list')
-                <li class="nav-item nav-category">Penilaian OPD</li>
                 <li class="nav-item {{ active_class(['opdPenilaian.*']) }}">
                     <a href="{{ route('opdPenilaian.index') }}" class="nav-link">
                         <i class="link-icon" data-feather="bar-chart"></i>
@@ -239,10 +257,9 @@
                 </li>
             @endcan
             @can('opdVariable-list')
-                <li class="nav-item nav-category">Variable OPD</li>
                 <li class="nav-item {{ active_class(['opdVariable.*']) }}">
                     <a href="{{ route('opdVariable.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="bar-chart"></i>
+                        <i class="link-icon" data-feather="anchor"></i>
                         <span class="link-title">Variable OPD</span>
                     </a>
                 </li>
@@ -253,24 +270,6 @@
                     <a href="{{ route('user.index') }}" class="nav-link">
                         <i class="link-icon" data-feather="user"></i>
                         <span class="link-title">User</span>
-                    </a>
-                </li>
-                <li class="nav-item {{ active_class(['userOpd.*', 'role']) }}">
-                    <a href="{{ route('userOpd.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="user"></i>
-                        <span class="link-title">User Opd</span>
-                    </a>
-                </li>
-                <li class="nav-item {{ active_class(['opds.*', 'role']) }}">
-                    <a href="{{ route('opds.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="user"></i>
-                        <span class="link-title">OPD</span>
-                    </a>
-                </li>
-                <li class="nav-item {{ active_class(['opdCategories.*', 'role']) }}">
-                    <a href="{{ route('opdCategories.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="user"></i>
-                        <span class="link-title">Kategori OPD</span>
                     </a>
                 </li>
             @endcan
