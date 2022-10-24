@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Opd;
 use App\Models\OpdPenilaian;
 use Illuminate\Http\Request;
 
@@ -13,17 +12,9 @@ class OpdPenilaianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __construct()
-    {
-        $this->middleware('permission:opdPenilaian-list|opdPenilaian-create|opdPenilaian-edit|opdPenilaian-delete', ['only' => ['index', 'show']]);
-        $this->middleware('permission:opdPenilaian-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:opdPenilaian-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:opdPenilaian-delete', ['only' => ['destroy']]);
-    }
     public function index()
     {
-        $opdPenilaians = OpdPenilaian::getOpdPenilaian();
-        return view('opdPenilaian.index', compact('opdPenilaians'));
+        //
     }
 
     /**
@@ -33,8 +24,7 @@ class OpdPenilaianController extends Controller
      */
     public function create()
     {
-        $opds = Opd::getOpd();
-        return view('opdPenilaian.create', compact('opds'));
+        //
     }
 
     /**
@@ -45,13 +35,7 @@ class OpdPenilaianController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'opd_id' => 'required',
-            'year' => 'required',
-        ]);
-        OpdPenilaian::create($request->all());
-        session()->flash('success');
-        return redirect(route('opdPenilaian.index'));
+        //
     }
 
     /**
@@ -73,8 +57,7 @@ class OpdPenilaianController extends Controller
      */
     public function edit(OpdPenilaian $opdPenilaian)
     {
-        $opds = Opd::getOpd();
-        return view('opdPenilaian.create', compact('opdPenilaian', 'opds'));
+        //
     }
 
     /**
@@ -86,13 +69,7 @@ class OpdPenilaianController extends Controller
      */
     public function update(Request $request, OpdPenilaian $opdPenilaian)
     {
-        $request->validate([
-            'opd_id' => 'required',
-            'year' => 'required',
-        ]);
-        $opdPenilaian->update($request->all());
-        session()->flash('success');
-        return redirect(route('opdPenilaian.index'));
+        //
     }
 
     /**
