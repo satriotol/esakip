@@ -11,6 +11,7 @@ class OpdPenilaianKinerja extends Model
 
     protected $fillable = ['opd_penilaian_id', 'opd_category_variable_id', 'target', 'realisasi', 'capaian', 'nilai_akhir', 'status', 'user_id'];
 
+
     public function opd_penilaian()
     {
         return $this->belongsTo(OpdPenilaian::class, 'opd_penilaian_id', 'id');
@@ -23,4 +24,5 @@ class OpdPenilaianKinerja extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
+
 }

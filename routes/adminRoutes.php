@@ -15,6 +15,7 @@ use App\Http\Controllers\OpdCategoryController;
 use App\Http\Controllers\OpdCategoryVariableController;
 use App\Http\Controllers\OpdController;
 use App\Http\Controllers\OpdPenilaianController;
+use App\Http\Controllers\OpdPenilaianKinerjaController;
 use App\Http\Controllers\OpdPerjanjianKinerjaController;
 use App\Http\Controllers\OpdPerjanjianKinerjaIndikatorController;
 use App\Http\Controllers\OpdPerjanjianKinerjaProgramAnggaranController;
@@ -47,6 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('opds', OpdController::class);
     Route::resource('opdCategories', OpdCategoryController::class);
     Route::resource('inovasiPrestasiDaerah', InovasiPrestasiDaerahController::class);
+    Route::get('opdPenilaianKinerja/store/{name}/{opd_penilaian_id}/{opd_category_variable_id}', [OpdPenilaianKinerjaController::class, 'getRealisasiTargetPendapatan'])->name('opdPenilaianKinerja.getRealisasiTargetPendapatan');
 
     // ===========================
     //perencanaan kinerja

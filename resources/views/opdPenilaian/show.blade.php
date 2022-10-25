@@ -50,20 +50,34 @@
                                     <tr>
                                         <td>
                                             {{ $opd_category_variable->opd_variable->name }}
+                                            @if ($opd_category_variable->opd_variable->pic == 'BAPENDA')
+                                                | <a
+                                                    href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->opd->nama_opd, $opdPenilaian->id, $opd_category_variable->id]) }}">Tarik
+                                                    Data</a>
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $opd_category_variable->opd_variable->bobot }}
                                         </td>
                                         <td>
-
+                                            {{ number_format((float) $opdPenilaian->target($opd_category_variable->id)) }}
+                                        </td>
+                                        <td>
+                                            {{ number_format((float) $opdPenilaian->realisasi($opd_category_variable->id)) }}
+                                        </td>
+                                        <td>
+                                            {{ $opdPenilaian->capaian($opd_category_variable->id) }} %
+                                        </td>
+                                        <td>
+                                            {{ $opdPenilaian->nilai_akhir($opd_category_variable->id) }}
                                         </td>
                                     </tr>
                                 @endforeach
                                 <tr>
                                     <td class="text-center">Total</td>
-                                    <td>{{$opdPenilaian->opd_category->total_bobot}}</td>
+                                    <td>{{ $opdPenilaian->opd_category->total_bobot }}</td>
                                     <td colspan="3" class="text-center">Total</td>
-                                    <td>50</td>
+                                    <td>{{ $opdPenilaian->total }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="5">

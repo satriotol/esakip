@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('opd_penilaian_kinerjas', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('opd_penilian_id');
+            $table->unsignedBigInteger('opd_penilaian_id');
             $table->unsignedBigInteger('opd_category_variable_id');
-            $table->bigInteger('target')->nullable();
-            $table->bigInteger('realisasi')->nullable();
-            $table->bigInteger('capaian')->nullable();
-            $table->bigInteger('nilai_akhir')->nullable();
+            $table->text('target')->nullable();
+            $table->text('realisasi')->nullable();
+            $table->text('capaian')->nullable();
+            $table->text('nilai_akhir')->nullable();
             $table->string('status')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->timestamps();

@@ -11,6 +11,8 @@ class OpdPenilaian extends Model
     use HasFactory;
     protected $fillable = ['opd_id', 'opd_category_id', 'year', 'name', 'inovasi_prestasi_daerah'];
 
+    protected $appends = ['capaian'];
+
     public function opd()
     {
         return $this->belongsTo(Opd::class, 'opd_id', 'id');
@@ -24,7 +26,7 @@ class OpdPenilaian extends Model
         $opd_id = Auth::user()->opd_id;
         if ($opd_id) {
             $getOpdPenilaian = OpdPenilaian::where('opd_id', $opd_id)->paginate();
-        }else{
+        } else {
             $getOpdPenilaian = OpdPenilaian::paginate();
         }
         return $getOpdPenilaian;
@@ -33,6 +35,29 @@ class OpdPenilaian extends Model
     {
         $ifTahunan =  OpdCategory::where('id', $opd_category_id)->first()->type == 'TAHUNAN';
         return $ifTahunan;
-
+    }
+    public function opd_penilaian_kinerjas()
+    {
+        return $this->hasMany(OpdPenilaianKinerja::class, 'opd_penilaian_id', 'id');
+    }
+    public function realisasi($opd_category_variable_id)
+    {
+        return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->realisasi ?? '';
+    }
+    public function target($opd_category_variable_id)
+    {
+        return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->target ?? '';
+    }
+    public function capaian($opd_category_variable_id)
+    {
+        return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->capaian ?? '';
+    }
+    public function nilai_akhir($opd_category_variable_id)
+    {
+        return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->nilai_akhir ?? '';
+    }
+    public function total()
+    {
+        return $this->opd_penilaian_kinerjas;
     }
 }

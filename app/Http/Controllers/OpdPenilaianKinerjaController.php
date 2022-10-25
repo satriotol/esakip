@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OpdCategory;
+use App\Models\OpdCategoryVariable;
 use App\Models\OpdPenilaianKinerja;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class OpdPenilaianKinerjaController extends Controller
 {
@@ -25,6 +28,32 @@ class OpdPenilaianKinerjaController extends Controller
     public function create()
     {
         //
+    }
+    public function getRealisasiTargetPendapatan(Request $request, $name, $opd_penilaian_id, $opd_category_variable_id)
+    {
+        $request->name = $name;
+        $data = Http::get('http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad')['data']['pad'][1]['rincian'];
+        $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
+        $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+        if ($request->name) {
+            foreach ($data as $d) {
+                if ($request->name == strtoupper($d['pendapatan'])) {
+                    if ((float)$d['persenRealisasi'] > 100) {
+                        $d['persenRealisasi'] = 100;
+                    }
+                    OpdPenilaianKinerja::create([
+                        'opd_penilaian_id' => $opd_penilaian_id,
+                        'opd_category_variable_id' => $opd_category_variable_id,
+                        'target' => $d['target'],
+                        'realisasi' => $d['realisasi'],
+                        'capaian' => $d['persenRealisasi'],
+                        'nilai_akhir' => (float)$d['persenRealisasi'] * $bobot
+                    ]);
+                    session()->flash('success');
+                    return back();
+                }
+            }
+        }
     }
 
     /**
