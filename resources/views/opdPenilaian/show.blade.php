@@ -62,10 +62,22 @@
                                                     href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->opd->nama_opd, $opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
                                                     DATA</a>
                                             @else
-                                                <a type="button" class="badge bg-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
-                                                    {{ $opd_category_variable->opd_variable->pic }}
-                                                </a>
+                                                @if ($opd_category_variable->opd_variable->pic == 'OPD' && Auth::user()->opd_id)
+                                                    <a type="button" class="badge bg-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
+                                                        {{ $opd_category_variable->opd_variable->pic }}
+                                                    </a>
+                                                @elseif($opd_category_variable->opd_variable->pic == 'INSPEKTORAT' && Auth::user()->hasRole('INSPEKTORAT'))
+                                                    <a type="button" class="badge bg-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
+                                                        {{ $opd_category_variable->opd_variable->pic }}
+                                                    </a>
+                                                @else
+                                                    <a type="button" class="badge bg-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
+                                                        {{ $opd_category_variable->opd_variable->pic }}
+                                                    </a>
+                                                @endif
                                                 <div class="modal fade bd-example-modal-lg"
                                                     id="exampleModal{{ $opd_category_variable->id }}" tabindex="-1"
                                                     aria-labelledby="exampleModalLabel" aria-hidden="true">
