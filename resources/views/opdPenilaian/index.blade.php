@@ -49,6 +49,15 @@
                                                 href="{{ route('opdPenilaian.edit', $opdPenilaian->id) }}">
                                                 Edit
                                             </a>
+                                            <form action="{{ route('opdPenilaian.destroy', $opdPenilaian->id) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger"
+                                                    onclick="return confirm('Are you sure?')">
+                                                    Delete
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

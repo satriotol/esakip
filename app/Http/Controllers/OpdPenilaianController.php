@@ -95,6 +95,8 @@ class OpdPenilaianController extends Controller
      */
     public function destroy(OpdPenilaian $opdPenilaian)
     {
-        //
+        $opdPenilaian->delete();
+        session()->flash('success');
+        return back();
     }
 }
