@@ -63,7 +63,7 @@ class OpdPenilaianController extends Controller
      */
     public function show(OpdPenilaian $opdPenilaian)
     {
-        //
+        return view('opdPenilaian.show', compact('opdPenilaian'));
     }
 
     /**
