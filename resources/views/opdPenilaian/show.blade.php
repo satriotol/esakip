@@ -2,6 +2,13 @@
 @push('plugin-styles')
     <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
 @endpush
+@push('style')
+    <style>
+        html {
+            zoom: 100%;
+        }
+    </style>
+@endpush
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
@@ -14,7 +21,7 @@
     </nav>
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Detail Penilaian OPD</h4>
@@ -29,10 +36,10 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12 mt-2">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Penilaian Opd</h6>
+                    <h6 class="card-title">Penilaian Kinerja Opd</h6>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
@@ -51,16 +58,17 @@
                                         <td>
                                             {{ $opd_category_variable->opd_variable->name }} |
                                             @if ($opd_category_variable->opd_variable->pic == 'BAPENDA')
-                                                <a
-                                                    href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->opd->nama_opd, $opdPenilaian->id, $opd_category_variable->id]) }}">Tarik
-                                                    Data</a>
+                                                <a class="badge bg-primary"
+                                                    href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->opd->nama_opd, $opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
+                                                    DATA</a>
                                             @else
-                                                <button type="button" class="badge bg-primary" data-bs-toggle="modal"
+                                                <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                     data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                     {{ $opd_category_variable->opd_variable->pic }}
-                                                </button>
-                                                <div class="modal fade" id="exampleModal{{ $opd_category_variable->id }}"
-                                                    tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                </a>
+                                                <div class="modal fade bd-example-modal-lg"
+                                                    id="exampleModal{{ $opd_category_variable->id }}" tabindex="-1"
+                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                     <div class="modal-dialog">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
