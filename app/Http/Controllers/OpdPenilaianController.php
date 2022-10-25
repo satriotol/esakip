@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InovasiPrestasiDaerah;
 use App\Models\Opd;
 use App\Models\OpdCategory;
 use App\Models\OpdPenilaian;
@@ -44,8 +45,11 @@ class OpdPenilaianController extends Controller
             'opd_id' => 'required',
             'opd_category_id' => 'required',
             'year' => 'required',
-            'inovasi_prestasi_daerah' => 'required'
+            'inovasi_prestasi_daerah' => 'nullable'
         ]);
+        if (OpdPenilaian::ifTahunan($request->opd_category_id)) {
+            $data['inovasi_prestasi_daerah'] = InovasiPrestasiDaerah::first()->nilai;
+        }
         OpdPenilaian::create($data);
         session()->flash('success');
         return redirect(route('opdPenilaian.index'));

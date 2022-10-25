@@ -45,10 +45,6 @@
 
                                             <a href="{{ route('opdPenilaian.show', $opdPenilaian->id) }}"
                                                 class="btn btn-sm btn-primary ml-1">Detail</a>
-                                            <a class="btn btn-sm btn-warning"
-                                                href="{{ route('opdPenilaian.edit', $opdPenilaian->id) }}">
-                                                Edit
-                                            </a>
                                             <form action="{{ route('opdPenilaian.destroy', $opdPenilaian->id) }}"
                                                 method="POST" class="d-inline">
                                                 @csrf

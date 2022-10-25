@@ -29,4 +29,10 @@ class OpdPenilaian extends Model
         }
         return $getOpdPenilaian;
     }
+    public static function ifTahunan($opd_category_id)
+    {
+        $ifTahunan =  OpdCategory::where('id', $opd_category_id)->first()->type == 'TAHUNAN';
+        return $ifTahunan;
+
+    }
 }
