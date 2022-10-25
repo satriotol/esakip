@@ -77,13 +77,18 @@
                                     <td class="text-center">Total</td>
                                     <td>{{ $opdPenilaian->opd_category->total_bobot }}</td>
                                     <td colspan="3" class="text-center">Total</td>
-                                    <td>{{ $opdPenilaian->total }}</td>
+                                    <td>{{ $opdPenilaian->totalNilaiAkhir() }}</td>
                                 </tr>
                                 <tr>
                                     <td colspan="5">
                                         Inovasi dan Prestasi Daerah
                                     </td>
                                     <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" class="text-center">Total Akhir</th>
+                                    <th>{{ $opdPenilaian->totalAkhir() }}
+                                    </th>
                                 </tr>
                             </tbody>
                         </table>

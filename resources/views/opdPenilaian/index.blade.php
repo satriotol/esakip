@@ -31,6 +31,7 @@
                                     <th>Kategori</th>
                                     <th>OPD</th>
                                     <th>Inovasi Prestasi Daerah</th>
+                                    <th>Total Akhir</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -41,6 +42,7 @@
                                         <td>{{ $opdPenilaian->opd_category->name }}</td>
                                         <td>{{ $opdPenilaian->opd->nama_opd }}</td>
                                         <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
+                                        <td>{{ $opdPenilaian->totalAkhir() }}</td>
                                         <td>
 
                                             <a href="{{ route('opdPenilaian.show', $opdPenilaian->id) }}"

@@ -41,14 +41,18 @@ class OpdPenilaianKinerjaController extends Controller
                     if ((float)$d['persenRealisasi'] > 100) {
                         $d['persenRealisasi'] = 100;
                     }
-                    OpdPenilaianKinerja::create([
-                        'opd_penilaian_id' => $opd_penilaian_id,
-                        'opd_category_variable_id' => $opd_category_variable_id,
-                        'target' => $d['target'],
-                        'realisasi' => $d['realisasi'],
-                        'capaian' => $d['persenRealisasi'],
-                        'nilai_akhir' => (float)$d['persenRealisasi'] * $bobot
-                    ]);
+                    OpdPenilaianKinerja::updateOrCreate(
+                        [
+                            'opd_penilaian_id' => $opd_penilaian_id,
+                            'opd_category_variable_id' => $opd_category_variable_id,
+                        ],
+                        [
+                            'target' => $d['target'],
+                            'realisasi' => $d['realisasi'],
+                            'capaian' => $d['persenRealisasi'],
+                            'nilai_akhir' => (float)$d['persenRealisasi'] * $bobot
+                        ]
+                    );
                     session()->flash('success');
                     return back();
                 }

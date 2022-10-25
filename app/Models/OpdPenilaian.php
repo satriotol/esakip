@@ -54,10 +54,14 @@ class OpdPenilaian extends Model
     }
     public function nilai_akhir($opd_category_variable_id)
     {
-        return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->nilai_akhir ?? '';
+        return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->nilai_akhir ?? '-';
     }
-    public function total()
+    public function totalNilaiAkhir()
     {
-        return $this->opd_penilaian_kinerjas;
+        return $this->opd_penilaian_kinerjas->sum('nilai_akhir');
+    }
+    public function totalAkhir()
+    {
+        return $this->totalNilaiAkhir() + $this->inovasi_prestasi_daerah;
     }
 }
