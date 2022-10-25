@@ -68,7 +68,28 @@ class OpdPenilaianKinerjaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'target' => 'required',
+            'realisasi' => 'required',
+        ]);
+        $opdCategoryVariable = OpdCategoryVariable::where('id', $request->opd_category_variable_id)->first();
+        $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+        $capaian = $request->realisasi / $request->target * 100;
+        if ($capaian > 100) {
+            $capaian = 100;
+        }
+        OpdPenilaianKinerja::updateOrCreate([
+            'opd_penilaian_id' => $request->opd_penilaian_id,
+            'opd_category_variable_id' => $request->opd_category_variable_id,
+        ],
+        [
+            'target' => $request->target,
+            'realisasi' => $request->realisasi,
+            'capaian' => $capaian,
+            'nilai_akhir' => $capaian * $bobot
+        ]);
+        session()->flash('success');
+        return back();
     }
 
     /**
