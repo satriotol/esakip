@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('role', RoleController::class);
     Route::resource('permission', PermissionController::class);
     Route::resource('opds', OpdController::class);
-    Route::resource('opdCategories', OpdCategoryController::class);
+    Route::resource('opdCategory', OpdCategoryController::class);
     Route::resource('inovasiPrestasiDaerah', InovasiPrestasiDaerahController::class);
     Route::resource('opdPenilaianKinerja', OpdPenilaianKinerjaController::class);
     Route::get('opdPenilaianKinerja/store/{name}/{opd_penilaian_id}/{opd_category_variable_id}', [OpdPenilaianKinerjaController::class, 'getRealisasiTargetPendapatan'])->name('opdPenilaianKinerja.getRealisasiTargetPendapatan');

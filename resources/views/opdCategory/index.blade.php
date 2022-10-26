@@ -7,7 +7,7 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('opdCategories.index') }}">Kategori Opd</a>
+            <li class="breadcrumb-item"><a href="{{ route('opdCategory.index') }}">Kategori Opd</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Tabel Kategori Opd</li>
         </ol>
@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h6 class="card-title">Kategori Opd</h6>
                     <div class="text-end mb-2">
-                        <a class="btn btn-primary" href="{{ route('opdCategories.create') }}">
+                        <a class="btn btn-primary" href="{{ route('opdCategory.create') }}">
                             <i data-feather="plus"></i>
                             Create
                         </a>
@@ -34,7 +34,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($opdCategories as $opdCategory)
+                                @foreach ($opdCategory as $opdCategory)
                                     <tr>
                                         <td>
                                             {{ $opdCategory->name }}
@@ -52,10 +52,10 @@
                                         </td>
                                         <td>
                                             <a class="btn btn-primary"
-                                                href="{{ route('opdCategories.show', $opdCategory->id) }}">
+                                                href="{{ route('opdCategory.show', $opdCategory->id) }}">
                                                 Detail
                                             </a>
-                                            <form action="{{ route('opdCategories.destroy', $opdCategory->id) }}"
+                                            <form action="{{ route('opdCategory.destroy', $opdCategory->id) }}"
                                                 method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')

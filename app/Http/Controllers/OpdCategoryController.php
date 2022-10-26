@@ -18,7 +18,7 @@ class OpdCategoryController extends Controller
     public function index()
     {
         $opdCategories = OpdCategory::all();
-        return view('opdCategories.index', compact('opdCategories'));
+        return view('opdCategory.index', compact('opdCategories'));
     }
 
     /**
@@ -30,7 +30,7 @@ class OpdCategoryController extends Controller
     {
         $opdVariables = OpdVariable::orderBy('name', 'asc')->get();
         $types = OpdCategory::TYPES;
-        return view('opdCategories.create', compact('opdVariables', 'types'));
+        return view('opdCategory.create', compact('opdVariables', 'types'));
     }
 
     /**
@@ -55,7 +55,7 @@ class OpdCategoryController extends Controller
         }
 
         session()->flash('success');
-        return redirect(route('opdCategories.index'));
+        return redirect(route('opdCategory.index'));
     }
 
     /**
@@ -68,7 +68,7 @@ class OpdCategoryController extends Controller
     {
         $opdVariables = OpdVariable::orderBy('name', 'asc')->get();
         $types = OpdCategory::TYPES;
-        return view('opdCategories.show', compact('opdCategory', 'opdVariables', 'types'));
+        return view('opdCategory.show', compact('opdCategory', 'opdVariables', 'types'));
     }
 
     /**
@@ -81,7 +81,7 @@ class OpdCategoryController extends Controller
     {
         $types = OpdCategory::TYPES;
         $opdVariables = OpdVariable::orderBy('name', 'asc')->get();
-        return view('opdCategories.create', compact('opdCategory', 'types', 'opdVariables'));
+        return view('opdCategory.create', compact('opdCategory', 'types', 'opdVariables'));
     }
 
     /**

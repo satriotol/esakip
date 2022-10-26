@@ -242,8 +242,8 @@
                     <span class="link-title">User Opd</span>
                 </a>
             </li>
-            <li class="nav-item {{ active_class(['opdCategories.*']) }}">
-                <a href="{{ route('opdCategories.index') }}" class="nav-link">
+            <li class="nav-item {{ active_class(['opdCategory.*']) }}">
+                <a href="{{ route('opdCategory.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="battery"></i>
                     <span class="link-title">Kategori OPD</span>
                 </a>

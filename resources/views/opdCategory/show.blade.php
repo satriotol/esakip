@@ -5,10 +5,10 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('opdCategories.index') }}">Kategori OPD</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('opdCategory.index') }}">Kategori OPD</a></li>
             <li class="breadcrumb-item active" aria-current="page">Form Kategori OPD</li>
         </ol>
-        <a href="{{ route('opdCategories.index') }}" class="badge rounded-pill bg-primary">
+        <a href="{{ route('opdCategory.index') }}" class="badge rounded-pill bg-primary">
             <i data-feather="arrow-left"></i> Back
         </a>
     </nav>
@@ -20,7 +20,7 @@
                     <h4 class="card-title">Form Kategori OPD</h4>
                     @include('partials.errors')
                     <form
-                        action="@isset($opdCategory) {{ route('opdCategories.update', $opdCategory->id) }} @endisset @empty($opdCategory) {{ route('opdCategories.store') }} @endempty"
+                        action="@isset($opdCategory) {{ route('opdCategory.update', $opdCategory->id) }} @endisset @empty($opdCategory) {{ route('opdCategory.store') }} @endempty"
                         method="POST" enctype="multipart/form-data">
                         @csrf
                         @isset($opdCategory)
