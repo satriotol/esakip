@@ -58,7 +58,6 @@ class RencanaAksiTargetController extends Controller
             'opd_perjanjian_kinerja_sasaran_id' => 'required',
             'rencana_aksi_id' => 'required',
             'target' => 'required',
-            'realisasi' => 'required',
             'rencana_aksi_note' => 'required',
         ]);
         RencanaAksiTarget::create(

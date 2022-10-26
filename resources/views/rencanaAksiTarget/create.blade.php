@@ -37,16 +37,6 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Realisasi</label>
-                            <select name="" class="form-control" v-model="form.realisasi" required>
-                                <option value="">Pilih Realisasi</option>
-                                @foreach ($realisasis as $realisasi)
-                                    <option value="{{ $realisasi }}">
-                                        {{ $realisasi }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
                             <label class="form-label">Target</label>
                             <textarea name="" class="form-control" v-model="form.target" required></textarea>
                         </div>
@@ -55,7 +45,7 @@
                             <textarea name="" class="form-control" v-model="form.rencana_aksi_note" required></textarea>
                         </div>
                         <div class="text-end">
-                            <button class="btn btn-primary" @click="postData()">Submit</button>
+                            <button class="btn btn-primary" @click="postData()" :disabled="loading">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -63,34 +53,26 @@
             <div class="col-md-9">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Tabel</h4>
+                        <h4 class="card-title">Tabel Rencana Aksi Target</h4>
                         <table class="table table-responsive">
                             <thead>
                                 <th>Sasaran</th>
-                                <th>Realisasi</th>
-                                <th>Target</th>
+                                <th>Status</th>
                                 <th>Rencana Aksi</th>
+                                <th>Target</th>
                                 <th>Aksi</th>
                             </thead>
                             <tbody>
                                 <tr v-for="(data, index) in datas">
                                     <td>@{{ data.opd_perjanjian_kinerja_sasaran_name }}</td>
+                                    <td>@{{ data.status }}</td>
                                     <td>
-                                        <select name="" class="form-control" v-model="data.realisasi" required>
-                                            <option value="">Pilih Realisasi</option>
-                                            @foreach ($realisasis as $realisasi)
-                                                <option value="{{ $realisasi }}">
-                                                    {{ $realisasi }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" v-model='data.rencana_aksi_note' class="form-control"
+                                            name="" id="">
                                     </td>
                                     <td>
                                         <input type="text" v-model='data.target' class="form-control" name=""
                                             id="">
-                                    </td>
-                                    <td>
-                                        <input type="text" v-model='data.rencana_aksi_note' class="form-control"
-                                            name="" id="">
                                     </td>
                                     <td>
                                         <button class="badge bg-warning"
@@ -157,6 +139,8 @@
                                 title: 'Error',
                                 message: 'Terjadi Kesalahan',
                             });
+                        }).finally(() => {
+                            this.loading = false;
                         });
                 },
                 getData() {
