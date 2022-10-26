@@ -101,8 +101,7 @@
                                 <tr v-for="(data, index) in datas">
                                     <td>@{{ data.opd_perjanjian_kinerja_sasaran_name }}</td>
                                     <td>
-                                        <textarea v-model='data.rencana_aksi_note' :readonly="data.rencana_aksi.status == 'DISETUJUI'" class="form-control"
-                                            name="" id=""></textarea>
+                                        <textarea v-model='data.rencana_aksi_note' class="form-control" name="" id=""></textarea>
                                     </td>
                                     @if ($rencanaAksi->status == 'DISETUJUI')
                                         <td>
