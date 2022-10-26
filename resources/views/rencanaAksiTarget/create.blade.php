@@ -20,7 +20,7 @@
     <div id="app">
         <div class="row">
             <div class="col-md-6">
-                @if ($rencanaAksi->status != 'DISETUJUI')
+                @if ($rencanaAksi->status != 'DISETUJUI' && Auth::user()->opd_id || Auth::user()->hasRole('SUPERADMIN'))
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Form {{ $rencanaAksi->opd_perjanjian_kinerja->opd_name }}
@@ -62,7 +62,7 @@
                             @include('partials.errors')
                             <div class="mb-3">
                                 <label class="form-label">Status</label>
-                                <select name="status" required class="form-control" required>
+                                <select name="status" required class="form-control" @disabled(Auth::user()->opd_id) required>
                                     <option value="">Pilih Status</option>
                                     @foreach ($statuses as $status)
                                         <option value="{{ $status }}" @selected($status == $rencanaAksi->status)>
@@ -72,12 +72,14 @@
                             </div>
                             <div class="mb-3">
                                 <label for="form-lable">Note</label>
-                                <textarea name="note" class="form-control">{{ $rencanaAksi->note }}</textarea>
+                                <textarea @disabled(Auth::user()->opd_id) name="note" class="form-control">{{ $rencanaAksi->note }}</textarea>
                                 <small>Tambahkan Catatan Jika Ditolak</small>
                             </div>
-                            <div class="text-end">
-                                <button class="btn btn-primary">Submit</button>
-                            </div>
+                            @if (!Auth::user()->opd_id)
+                                <div class="text-end">
+                                    <button class="btn btn-primary">Submit</button>
+                                </div>
+                            @endif
                         </form>
 
                     </div>
@@ -114,10 +116,12 @@
                                             v-model='data.target' class="form-control" name="" id="">
                                     </td>
                                     <td>
-                                        <button class="badge bg-warning"
-                                            @click='updateData(data.id, index)'>Update</button><br>
-                                        <button class="badge bg-danger" v-if="data.rencana_aksi.status != 'DISETUJUI'"
-                                            @click='deleteData(data.id)'>Delete</button>
+                                        @if (Auth::user()->opd_id || Auth::user()->hasRole('SUPERADMIN'))
+                                            <button class="badge bg-warning"
+                                                @click='updateData(data.id, index)'>Update</button><br>
+                                            <button class="badge bg-danger" v-if="data.rencana_aksi.status != 'DISETUJUI'"
+                                                @click='deleteData(data.id)'>Delete</button>
+                                        @endif
                                     </td>
                                 </tr>
                             </tbody>
