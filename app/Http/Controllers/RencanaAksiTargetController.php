@@ -71,6 +71,10 @@ class RencanaAksiTargetController extends Controller
                 'rencana_aksi_note' => $request->rencana_aksi_note
             ]
         );
+        $rencanaAksi = RencanaAksi::where('id', $request->rencana_aksi_id)->first();
+        $rencanaAksi->update([
+            'status' => RencanaAksi::STATUS1
+        ]);
         session()->flash('success');
         return back();
     }

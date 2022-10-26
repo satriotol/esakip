@@ -27,13 +27,10 @@ class RencanaAksiController extends Controller
     }
     public function index()
     {
-        if (Auth::user()->opd_id) {
-            $datas = OpdPerjanjianKinerja::has('rencana_aksis')->where('status', OpdPerjanjianKinerja::STATUS2)->where('opd_id', Auth::user()->opd_id);
-        } else {
-            $datas = OpdPerjanjianKinerja::has('rencana_aksis')->where('status', OpdPerjanjianKinerja::STATUS2);
-        }
+        $datas = OpdPerjanjianKinerja::getRencanaAksi();
+        $statuses = RencanaAksi::STATUSES;
         $opdPerjanjianKinerjas = $datas->paginate();
-        return view('rencanaAksi.index', compact('opdPerjanjianKinerjas'));
+        return view('rencanaAksi.index', compact('opdPerjanjianKinerjas', 'statuses'));
     }
 
     /**

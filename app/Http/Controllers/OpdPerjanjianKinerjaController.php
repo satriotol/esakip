@@ -197,7 +197,14 @@ class OpdPerjanjianKinerjaController extends Controller
             ];
             foreach ($triwulan as $t) {
                 RencanaAksi::updateOrCreate(
-                    ['name' => $t['name'], 'opd_perjanjian_kinerja_id' => $opdPerjanjianKinerja->id, 'slug' => $t['slug']],
+                    [
+                        'name' => $t['name'],
+                        'opd_perjanjian_kinerja_id' => $opdPerjanjianKinerja->id,
+                        'slug' => $t['slug'],
+                    ],
+                    [
+                        'status' => '',
+                    ],
                 );
             }
         }

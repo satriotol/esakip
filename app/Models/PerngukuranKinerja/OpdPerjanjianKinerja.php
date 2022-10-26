@@ -10,6 +10,7 @@ use App\Models\RencanaAksi;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class OpdPerjanjianKinerja extends Model
@@ -68,5 +69,14 @@ class OpdPerjanjianKinerja extends Model
     public function rencana_aksis()
     {
         return $this->hasMany(RencanaAksi::class, 'opd_perjanjian_kinerja_id', 'id');
+    }
+    public static function getRencanaAksi()
+    {
+
+        if (Auth::user()->opd_id) {
+            return OpdPerjanjianKinerja::has('rencana_aksis')->where('status', OpdPerjanjianKinerja::STATUS2)->where('opd_id', Auth::user()->opd_id);
+        }else{
+            return OpdPerjanjianKinerja::has('rencana_aksis')->where('status', OpdPerjanjianKinerja::STATUS2);
+        }
     }
 }
