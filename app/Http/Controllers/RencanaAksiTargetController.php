@@ -37,12 +37,13 @@ class RencanaAksiTargetController extends Controller
     public function create(RencanaAksi $rencanaAksi)
     {
         $realisasis = RencanaAksiTarget::REALISASIS;
-        return view('rencanaAksiTarget.create', compact('rencanaAksi', 'realisasis'));
+        $statuses = RencanaAksi::STATUSES;
+        return view('rencanaAksiTarget.create', compact('rencanaAksi', 'realisasis', 'statuses'));
     }
 
     public function getRencanaAksiTarget($rencana_aksi_id)
     {
-        $rencanaAksiTargets = RencanaAksiTarget::where('rencana_aksi_id', $rencana_aksi_id)->get();
+        $rencanaAksiTargets = RencanaAksiTarget::where('rencana_aksi_id', $rencana_aksi_id)->with('rencana_aksi')->get();
         return $rencanaAksiTargets;
     }
 

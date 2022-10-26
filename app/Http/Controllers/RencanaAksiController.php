@@ -33,6 +33,18 @@ class RencanaAksiController extends Controller
         return view('rencanaAksi.index', compact('opdPerjanjianKinerjas', 'statuses'));
     }
 
+    public function updateStatus($rencanaAksi, Request $request)
+    {
+        $rencanaAksi = RencanaAksi::where('id', $rencanaAksi)->first();
+        $data = $request->validate([
+            'status' => 'required',
+            'note' => 'nullable',
+        ]);
+        $rencanaAksi->update($data);
+        session()->flash('success');
+        return back();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

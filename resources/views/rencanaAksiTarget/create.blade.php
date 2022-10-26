@@ -10,7 +10,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('rencanaAksi.index') }}">Rencana Aksi</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Form Rencana Aksi</li>
+            <li class="breadcrumb-item active" aria-current="page">Form Rencana Aksi Target</li>
         </ol>
         <a href="{{ route('rencanaAksi.index') }}" class="badge rounded-pill bg-primary">
             <i data-feather="arrow-left"></i> Back
@@ -19,39 +19,71 @@
 
     <div id="app">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-6">
+                @if ($rencanaAksi->status != 'DISETUJUI')
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Form {{ $rencanaAksi->opd_perjanjian_kinerja->opd_name }}
+                                {{ $rencanaAksi->opd_perjanjian_kinerja->year }} {{ $rencanaAksi->name }}</h4>
+                            @include('partials.errors')
+                            <div class="mb-3">
+                                <label class="form-label">Sasaran</label>
+                                <select name="" class="form-control" v-model="form.opd_perjanjian_kinerja_sasaran_id"
+                                    required>
+                                    <option value="">Pilih Sasaran</option>
+                                    @foreach ($rencanaAksi->opd_perjanjian_kinerja->opd_perjanjian_kinerja_sasarans as $opd_perjanjian_kinerja_sasaran)
+                                        <option value="{{ $opd_perjanjian_kinerja_sasaran->id }}">
+                                            {{ $opd_perjanjian_kinerja_sasaran->sasaran }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Target</label>
+                                <textarea name="" class="form-control" v-model="form.target" required></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Rencana Aksi</label>
+                                <textarea name="" class="form-control" v-model="form.rencana_aksi_note" required></textarea>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-primary" disabled v-if="loading">Loading</button>
+                                <button class="btn btn-primary" @click="postData()" v-else="loading">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Form {{ $rencanaAksi->opd_perjanjian_kinerja->opd_name }}
-                            {{ $rencanaAksi->opd_perjanjian_kinerja->year }} {{ $rencanaAksi->name }}</h4>
-                        @include('partials.errors')
-                        <div class="mb-3">
-                            <label class="form-label">Sasaran</label>
-                            <select name="" class="form-control" v-model="form.opd_perjanjian_kinerja_sasaran_id"
-                                required>
-                                <option value="">Pilih Sasaran</option>
-                                @foreach ($rencanaAksi->opd_perjanjian_kinerja->opd_perjanjian_kinerja_sasarans as $opd_perjanjian_kinerja_sasaran)
-                                    <option value="{{ $opd_perjanjian_kinerja_sasaran->id }}">
-                                        {{ $opd_perjanjian_kinerja_sasaran->sasaran }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Target</label>
-                            <textarea name="" class="form-control" v-model="form.target" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Rencana Aksi</label>
-                            <textarea name="" class="form-control" v-model="form.rencana_aksi_note" required></textarea>
-                        </div>
-                        <div class="text-end">
-                            <button class="btn btn-primary" disabled v-if="loading">Loading</button>
-                            <button class="btn btn-primary" @click="postData()" v-else="loading">Submit</button>
-                        </div>
+                        <h4 class="card-title">Form Status</h4>
+                        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" method="post">
+                            @csrf
+                            @include('partials.errors')
+                            <div class="mb-3">
+                                <label class="form-label">Status</label>
+                                <select name="status" required class="form-control" required>
+                                    <option value="">Pilih Status</option>
+                                    @foreach ($statuses as $status)
+                                        <option value="{{ $status }}" @selected($status == $rencanaAksi->status)>
+                                            {{ $status }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="form-lable">Note</label>
+                                <textarea name="note" class="form-control">{{ $rencanaAksi->note }}</textarea>
+                                <small>Tambahkan Catatan Jika Ditolak</small>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-primary">Submit</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-12 mt-2">
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Tabel Rencana Aksi Target</h4>
@@ -59,6 +91,9 @@
                             <thead>
                                 <th>Sasaran</th>
                                 <th>Rencana Aksi</th>
+                                @if ($rencanaAksi->status == 'DISETUJUI')
+                                    <th>Realisasi</th>
+                                @endif
                                 <th>Target</th>
                                 <th>Aksi</th>
                             </thead>
@@ -66,17 +101,24 @@
                                 <tr v-for="(data, index) in datas">
                                     <td>@{{ data.opd_perjanjian_kinerja_sasaran_name }}</td>
                                     <td>
-                                        <input type="text" v-model='data.rencana_aksi_note' class="form-control"
-                                            name="" id="">
+                                        <textarea v-model='data.rencana_aksi_note' :readonly="data.rencana_aksi.status == 'DISETUJUI'" class="form-control"
+                                            name="" id=""></textarea>
                                     </td>
+                                    @if ($rencanaAksi->status == 'DISETUJUI')
+                                        <td>
+                                            <input type="text" v-model='data.realisasi' class="form-control"
+                                                name="" id="">
+                                        </td>
+                                    @endif
                                     <td>
-                                        <input type="text" v-model='data.target' class="form-control" name=""
-                                            id="">
+                                        <input type="text" :readonly="data.rencana_aksi.status == 'DISETUJUI'"
+                                            v-model='data.target' class="form-control" name="" id="">
                                     </td>
                                     <td>
                                         <button class="badge bg-warning"
                                             @click='updateData(data.id, index)'>Update</button><br>
-                                        <button class="badge bg-danger" @click='deleteData(data.id)'>Delete</button>
+                                        <button class="badge bg-danger" v-if="data.rencana_aksi.status != 'DISETUJUI'"
+                                            @click='deleteData(data.id)'>Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -112,6 +154,9 @@
                         realisasi: "",
                         rencana_aksi_note: "",
                     },
+                    formStatus: {
+                        status: "{{ $rencanaAksi->status }}",
+                    }
                 }
             },
             mounted() {
