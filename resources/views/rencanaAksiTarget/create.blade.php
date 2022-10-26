@@ -45,7 +45,8 @@
                             <textarea name="" class="form-control" v-model="form.rencana_aksi_note" required></textarea>
                         </div>
                         <div class="text-end">
-                            <button class="btn btn-primary" @click="postData()" :disabled="loading">Submit</button>
+                            <button class="btn btn-primary" disabled v-if="loading">Loading</button>
+                            <button class="btn btn-primary" @click="postData()" v-else="loading">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -57,7 +58,6 @@
                         <table class="table table-responsive">
                             <thead>
                                 <th>Sasaran</th>
-                                <th>Status</th>
                                 <th>Rencana Aksi</th>
                                 <th>Target</th>
                                 <th>Aksi</th>
@@ -65,7 +65,6 @@
                             <tbody>
                                 <tr v-for="(data, index) in datas">
                                     <td>@{{ data.opd_perjanjian_kinerja_sasaran_name }}</td>
-                                    <td>@{{ data.status }}</td>
                                     <td>
                                         <input type="text" v-model='data.rencana_aksi_note' class="form-control"
                                             name="" id="">

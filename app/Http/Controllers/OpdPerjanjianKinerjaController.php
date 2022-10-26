@@ -190,6 +190,10 @@ class OpdPerjanjianKinerjaController extends Controller
                     'name' =>  'TRIWULAN 4',
                     'slug' => 'triwulanempat',
                 ],
+                [
+                    'name' => 'TAHUNAN',
+                    'slug' => 'tahunan',
+                ],
             ];
             foreach ($triwulan as $t) {
                 RencanaAksi::updateOrCreate(
