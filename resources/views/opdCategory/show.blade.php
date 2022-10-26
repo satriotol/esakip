@@ -60,7 +60,8 @@
                                 required>
                                 <option value="">Pilih Variabel</option>
                                 @foreach ($opdVariables as $opdVariable)
-                                    <option value="{{ $opdVariable->id }}" required>{{ $opdVariable->name }}
+                                    <option value="{{ $opdVariable->id }}" required>{{ $opdVariable->name }} |
+                                        {{ $opdVariable->bobot }}
                                     </option>
                                 @endforeach
                             </select>
@@ -111,7 +112,7 @@
                             </tbody>
                             <tfoot>
                                 <th colspan="1">Total</th>
-                                <th>{{$opdCategory->total_bobot}}</th>
+                                <th>{{ $opdCategory->total_bobot }}</th>
                             </tfoot>
                         </table>
                     </div>

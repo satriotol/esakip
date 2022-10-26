@@ -34,7 +34,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($opdCategory as $opdCategory)
+                                @foreach ($opdCategories as $opdCategory)
                                     <tr>
                                         <td>
                                             {{ $opdCategory->name }}
