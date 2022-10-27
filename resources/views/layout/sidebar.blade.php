@@ -242,17 +242,19 @@
                     <span class="link-title">User Opd</span>
                 </a>
             </li>
-            <li class="nav-item {{ active_class(['opdCategory.*']) }}">
-                <a href="{{ route('opdCategory.index') }}" class="nav-link">
-                    <i class="link-icon" data-feather="battery"></i>
-                    <span class="link-title">Kategori OPD</span>
-                </a>
-            </li>
             @can('opdPenilaian-list')
                 <li class="nav-item {{ active_class(['opdPenilaian.*']) }}">
                     <a href="{{ route('opdPenilaian.index') }}" class="nav-link">
                         <i class="link-icon" data-feather="bar-chart"></i>
                         <span class="link-title">Penilaian OPD</span>
+                    </a>
+                </li>
+            @endcan
+            @can('opdCategory-list')
+                <li class="nav-item {{ active_class(['opdCategory.*']) }}">
+                    <a href="{{ route('opdCategory.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="battery"></i>
+                        <span class="link-title">Kategori OPD</span>
                     </a>
                 </li>
             @endcan

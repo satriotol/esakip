@@ -15,6 +15,13 @@ class OpdCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('permission:opdCategory-list|opdCategory-create|opdCategory-edit|opdCategory-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:opdCategory-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opdCategory-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opdCategory-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $opdCategories = OpdCategory::all();
