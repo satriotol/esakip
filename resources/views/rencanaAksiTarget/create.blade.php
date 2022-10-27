@@ -121,10 +121,13 @@
                                     </td>
                                     <td>
                                         @if (Auth::user()->opd_id || Auth::user()->hasRole('SUPERADMIN'))
-                                            <button class="badge bg-warning"
-                                                @click='updateData(data.id, index)'>Update</button><br>
-                                            <button class="badge bg-danger" v-if="data.rencana_aksi.status != 'DISETUJUI'"
-                                                @click='deleteData(data.id)'>Delete</button>
+                                            @if (!$rencanaAksi->status_penilaian)
+                                                <button class="badge bg-warning"
+                                                    @click='updateData(data.id, index)'>Update</button><br>
+                                                <button class="badge bg-danger"
+                                                    v-if="data.rencana_aksi.status != 'DISETUJUI'"
+                                                    @click='deleteData(data.id)'>Delete</button>
+                                            @endif
                                         @endif
                                     </td>
                                 </tr>
