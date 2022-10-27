@@ -61,7 +61,7 @@
                                     <th>OPD</th>
                                     <th>Type</th>
                                     <th>File</th>
-                                    <th>Action</th>
+                                    <th>Rencana Aksi | Penilaian</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,17 +82,19 @@
                                             @foreach ($opdPerjanjianKinerja->rencana_aksis as $rencana_aksi)
                                                 @if ($rencana_aksi->status == $statuses[0])
                                                     <a href="{{ route('rencanaAksiTarget.create', $rencana_aksi->id) }}"
-                                                        class="badge bg-info">{{ $rencana_aksi->name }}</a> <br>
+                                                        class="badge bg-info">{{ $rencana_aksi->name }}</a>
                                                 @elseif($rencana_aksi->status == $statuses[1])
                                                     <a href="{{ route('rencanaAksiTarget.create', $rencana_aksi->id) }}"
-                                                        class="badge bg-success">{{ $rencana_aksi->name }}</a> <br>
+                                                        class="badge bg-success">{{ $rencana_aksi->name }}</a>
                                                 @elseif($rencana_aksi->status == $statuses[2])
                                                     <a href="{{ route('rencanaAksiTarget.create', $rencana_aksi->id) }}"
-                                                        class="badge bg-danger">{{ $rencana_aksi->name }}</a> <br>
+                                                        class="badge bg-danger">{{ $rencana_aksi->name }}</a>
                                                 @else
                                                     <a href="{{ route('rencanaAksiTarget.create', $rencana_aksi->id) }}"
-                                                        class="badge bg-warning">{{ $rencana_aksi->name }}</a> <br>
+                                                        class="badge bg-warning">{{ $rencana_aksi->name }}</a>
                                                 @endif
+                                                <div class="badge bg-primary">{{ $rencana_aksi->status_penilaian }}</div>
+                                                <br>
                                             @endforeach
                                         </td>
                                     </tr>

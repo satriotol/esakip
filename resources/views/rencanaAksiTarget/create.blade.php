@@ -19,72 +19,76 @@
 
     <div id="app">
         <div class="row">
-            <div class="col-md-6">
-                @if (($rencanaAksi->status != 'DISETUJUI' && Auth::user()->opd_id) || Auth::user()->hasRole('SUPERADMIN'))
-                    <div class="card">
-                        <div class="card-body">
-                            <h4 class="card-title">Form {{ $rencanaAksi->opd_perjanjian_kinerja->opd_name }}
-                                {{ $rencanaAksi->opd_perjanjian_kinerja->year }} {{ $rencanaAksi->name }}</h4>
-                            @include('partials.errors')
-                            <div class="mb-3">
-                                <label class="form-label">Sasaran</label>
-                                <select name="" class="form-control" v-model="form.opd_perjanjian_kinerja_sasaran_id"
-                                    required>
-                                    <option value="">Pilih Sasaran</option>
-                                    @foreach ($rencanaAksi->opd_perjanjian_kinerja->opd_perjanjian_kinerja_sasarans as $opd_perjanjian_kinerja_sasaran)
-                                        <option value="{{ $opd_perjanjian_kinerja_sasaran->id }}">
-                                            {{ $opd_perjanjian_kinerja_sasaran->sasaran }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Target</label>
-                                <textarea name="" class="form-control" v-model="form.target" required></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Rencana Aksi</label>
-                                <textarea name="" class="form-control" v-model="form.rencana_aksi_note" required></textarea>
-                            </div>
-                            <div class="text-end">
-                                <button class="btn btn-primary" disabled v-if="loading">Loading</button>
-                                <button class="btn btn-primary" @click="postData()" v-else="loading">Submit</button>
+            @if (!$rencanaAksi->status_penilaian)
+                <div class="col-md-6">
+                    @if (($rencanaAksi->status != 'DISETUJUI' && Auth::user()->opd_id) || Auth::user()->hasRole('SUPERADMIN'))
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Form {{ $rencanaAksi->opd_perjanjian_kinerja->opd_name }}
+                                    {{ $rencanaAksi->opd_perjanjian_kinerja->year }} {{ $rencanaAksi->name }}</h4>
+                                @include('partials.errors')
+                                <div class="mb-3">
+                                    <label class="form-label">Sasaran</label>
+                                    <select name="" class="form-control"
+                                        v-model="form.opd_perjanjian_kinerja_sasaran_id" required>
+                                        <option value="">Pilih Sasaran</option>
+                                        @foreach ($rencanaAksi->opd_perjanjian_kinerja->opd_perjanjian_kinerja_sasarans as $opd_perjanjian_kinerja_sasaran)
+                                            <option value="{{ $opd_perjanjian_kinerja_sasaran->id }}">
+                                                {{ $opd_perjanjian_kinerja_sasaran->sasaran }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Target</label>
+                                    <textarea name="" class="form-control" v-model="form.target" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Rencana Aksi</label>
+                                    <textarea name="" class="form-control" v-model="form.rencana_aksi_note" required></textarea>
+                                </div>
+                                <div class="text-end">
+                                    <button class="btn btn-primary" disabled v-if="loading">Loading</button>
+                                    <button class="btn btn-primary" @click="postData()" v-else="loading">Submit</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endif
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Form Status</h4>
-                        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" method="post">
-                            @csrf
-                            @include('partials.errors')
-                            <div class="mb-3">
-                                <label class="form-label">Status</label>
-                                <select name="status" required class="form-control" @disabled(Auth::user()->opd_id) required>
-                                    <option value="">Pilih Status</option>
-                                    @foreach ($statuses as $status)
-                                        <option value="{{ $status }}" @selected($status == $rencanaAksi->status)>
-                                            {{ $status }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="form-lable">Note</label>
-                                <textarea @disabled(Auth::user()->opd_id) name="note" class="form-control">{{ $rencanaAksi->note }}</textarea>
-                                <small>Tambahkan Catatan Jika Ditolak</small>
-                            </div>
-                            @if (!Auth::user()->opd_id)
-                                <div class="text-end">
-                                    <button class="btn btn-primary">Submit</button>
+                    @endif
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Form Status</h4>
+                            <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" method="post">
+                                @csrf
+                                @include('partials.errors')
+                                <div class="mb-3">
+                                    <label class="form-label">Status</label>
+                                    <select name="status" required class="form-control" @disabled(Auth::user()->opd_id)
+                                        required>
+                                        <option value="">Pilih Status</option>
+                                        @foreach ($statuses as $status)
+                                            <option value="{{ $status }}" @selected($status == $rencanaAksi->status)>
+                                                {{ $status }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
-                            @endif
-                        </form>
+                                <div class="mb-3">
+                                    <label for="form-lable">Note</label>
+                                    <textarea @disabled(Auth::user()->opd_id) name="note" class="form-control">{{ $rencanaAksi->note }}</textarea>
+                                    <small>Tambahkan Catatan Jika Ditolak</small>
+                                </div>
+                                @if (!Auth::user()->opd_id)
+                                    <div class="text-end">
+                                        <button class="btn btn-primary">Submit</button>
+                                    </div>
+                                @endif
+                            </form>
 
+                        </div>
                     </div>
                 </div>
-            </div>
+            @else
+            @endif
             <div class="col-md-12 mt-2">
                 <div class="card">
                     <div class="card-body">
@@ -127,10 +131,12 @@
                             </tbody>
                         </table>
                         @if ($rencanaAksi->status == 'DISETUJUI' && !Auth::user()->hasRole('VERIFIKATOR'))
-                            <div class="text-end mt-2">
-                                <a href="{{ route('rencanaAksi.updateStatusSelesai', $rencanaAksi->id) }}"
-                                    class="btn btn-success" onclick="return confirm('Apakah Anda Yakin?')">Selesai</a>
-                            </div>
+                            @if (!$rencanaAksi->status_penilaian)
+                                <div class="text-end mt-2">
+                                    <a href="{{ route('rencanaAksi.updateStatusSelesai', $rencanaAksi->id) }}"
+                                        class="btn btn-success" onclick="return confirm('Apakah Anda Yakin?')">Selesai</a>
+                                </div>
+                            @endif
                         @endif
                     </div>
                 </div>
