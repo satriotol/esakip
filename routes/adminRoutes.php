@@ -110,6 +110,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('opdCategoryVariable', OpdCategoryVariableController::class);
     Route::resource('rencanaAksi', RencanaAksiController::class);
     Route::post('rencanaAksi/updateStatus/{rencanaAksi}', [RencanaAksiController::class, 'updateStatus'])->name('rencanaAksi.updateStatus');
+    Route::get('rencanaAksi/updateStatusSelesai/{rencanaAksi}', [RencanaAksiController::class, 'updateStatusSelesai'])->name('rencanaAksi.updateStatusSelesai');
     Route::resource('rencanaAksiTarget', RencanaAksiTargetController::class)->except([
         'create'
     ]);

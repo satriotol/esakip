@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Opd;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use App\Models\RencanaAksi;
 use App\Models\RencanaAksiTarget;
@@ -25,12 +26,14 @@ class RencanaAksiController extends Controller
         $name = "Rencana Aksi";
         view()->share('name', $name);
     }
-    public function index()
+    public function index(Request $request)
     {
-        $datas = OpdPerjanjianKinerja::getRencanaAksi();
+
+        $opdPerjanjianKinerjas = OpdPerjanjianKinerja::getRencanaAksi($request)->paginate();
         $statuses = RencanaAksi::STATUSES;
-        $opdPerjanjianKinerjas = $datas->paginate();
-        return view('rencanaAksi.index', compact('opdPerjanjianKinerjas', 'statuses'));
+        $opds = Opd::getOpd();
+        $request->flash();
+        return view('rencanaAksi.index', compact('opdPerjanjianKinerjas', 'statuses', 'opds'));
     }
 
     public function updateStatus($rencanaAksi, Request $request)
@@ -40,6 +43,17 @@ class RencanaAksiController extends Controller
             'status' => 'required',
             'note' => 'nullable',
         ]);
+        $rencanaAksi->update($data);
+        session()->flash('success');
+        return back();
+    }
+    public function updateStatusSelesai($rencanaAksi, Request $request)
+    {
+        $rencanaAksi = RencanaAksi::where('id', $rencanaAksi)->first();
+        $data = $request->validate([
+            'status' => 'nullable',
+        ]);
+        $data['status'] = RencanaAksi::STATUS4;
         $rencanaAksi->update($data);
         session()->flash('success');
         return back();

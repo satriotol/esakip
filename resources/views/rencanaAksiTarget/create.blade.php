@@ -20,7 +20,7 @@
     <div id="app">
         <div class="row">
             <div class="col-md-6">
-                @if ($rencanaAksi->status != 'DISETUJUI' && Auth::user()->opd_id || Auth::user()->hasRole('SUPERADMIN'))
+                @if (($rencanaAksi->status != 'DISETUJUI' && Auth::user()->opd_id) || Auth::user()->hasRole('SUPERADMIN'))
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Form {{ $rencanaAksi->opd_perjanjian_kinerja->opd_name }}
@@ -126,6 +126,10 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <div class="text-end mt-2">
+                            <a href="{{ route('rencanaAksi.updateStatusSelesai', $rencanaAksi->id) }}"
+                                class="btn btn-success">Selesai</a>
+                        </div>
                     </div>
                 </div>
             </div>

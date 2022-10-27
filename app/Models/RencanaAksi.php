@@ -14,8 +14,9 @@ class RencanaAksi extends Model
     const STATUS1 = 'DIAJUKAN';
     const STATUS2 = 'DISETUJUI';
     const STATUS3 = 'DITOLAK';
+    const STATUS4 = 'PENILAIAN';
     const STATUSES = [
-        self::STATUS1, self::STATUS2, self::STATUS3
+        self::STATUS1, self::STATUS2, self::STATUS3, self::STATUS4
     ];
     public function opd_perjanjian_kinerja()
     {

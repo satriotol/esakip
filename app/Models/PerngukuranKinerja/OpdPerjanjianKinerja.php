@@ -70,13 +70,26 @@ class OpdPerjanjianKinerja extends Model
     {
         return $this->hasMany(RencanaAksi::class, 'opd_perjanjian_kinerja_id', 'id');
     }
-    public static function getRencanaAksi()
+    public static function getRencanaAksi($request)
     {
+        $opd_id = $request->opd_id;
+        $year = $request->year;
 
         if (Auth::user()->opd_id) {
-            return OpdPerjanjianKinerja::has('rencana_aksis')->where('status', OpdPerjanjianKinerja::STATUS2)->where('opd_id', Auth::user()->opd_id);
-        }else{
-            return OpdPerjanjianKinerja::has('rencana_aksis')->where('status', OpdPerjanjianKinerja::STATUS2);
+            $opdPerjanjianKinerjas = OpdPerjanjianKinerja::has('rencana_aksis')->where('status', OpdPerjanjianKinerja::STATUS2)->where('opd_id', Auth::user()->opd_id);
+            if ($year) {
+                $opdPerjanjianKinerjas->where('opd_id', $year);
+            }
+            return $opdPerjanjianKinerjas;
+        } else {
+            $opdPerjanjianKinerjas = OpdPerjanjianKinerja::has('rencana_aksis')->where('status', OpdPerjanjianKinerja::STATUS2);
+            if ($opd_id) {
+                $opdPerjanjianKinerjas->where('opd_id', $opd_id);
+            }
+            if ($year) {
+                $opdPerjanjianKinerjas->where('opd_id', $year);
+            }
+            return $opdPerjanjianKinerjas;
         }
     }
 }

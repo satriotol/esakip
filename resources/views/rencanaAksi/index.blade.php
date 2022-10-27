@@ -17,58 +17,42 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">{{ $name }}</h6>
-                    {{-- <form action="">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Tahun</label>
-                                    <input type="number" class="form-control" name="year" value="{{ old('year') }}"
-                                        id="">
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Tipe</label>
-                                    <select name="type" class="form-control" id="">
-                                        <option value="">Pilih Tipe</option>
-                                        @foreach ($types as $type)
-                                            <option {{ old('type') == $type ? 'selected' : '' }}
-                                                value="{{ $type }}">{{ $type }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Status</label>
-                                    <select name="status" class="form-control" id="">
-                                        <option value="">Pilih Status</option>
-                                        @foreach ($statuses as $status)
-                                            <option {{ old('status') == $status ? 'selected' : '' }}
-                                                value="{{ $status }}">{{ $status }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            @if (!Auth::user()->opd_id)
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>OPD</label>
-                                        <select name="opd_id" class="js-example-basic-single form-select" id="">
-                                            <option value="">Pilih OPD</option>
-                                            @foreach ($opds as $opd)
-                                                <option {{ old('opd_id') == $opd->id ? 'selected' : '' }}
-                                                    value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>
-                                            @endforeach
-                                        </select>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label>OPD</label>
+                                            <select name="opd_id" class="js-example-basic-single form-select"
+                                                id="">
+                                                <option value="">Pilih OPD</option>
+                                                @foreach ($opds as $opd)
+                                                    <option {{ old('opd_id') == $opd->id ? 'selected' : '' }}
+                                                        value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Tahun</label>
+                                        <input type="number" class="form-control" name="year"
+                                            value="{{ old('year') }}" id="">
                                     </div>
                                 </div>
-                            @endif
+                                <div class="text-end">
+                                    <button class="btn btn-sm btn-success">Cari</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="text-end">
-                            <button class="btn btn-sm btn-success">Cari</button>
+                        <div class="col-md-4">
+                            <h6 class="card-title">Indikator</h6>
+                            <div class="badge bg-warning">Belum Terisi</div>
+                            <div class="badge bg-info">Diajukan</div>
+                            <div class="badge bg-success">Disetujui</div>
+                            <div class="badge bg-danger">Ditolak</div>
                         </div>
-                    </form> --}}
+                    </div>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
