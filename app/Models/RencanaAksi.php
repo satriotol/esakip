@@ -22,6 +22,15 @@ class RencanaAksi extends Model
     const PENILAIANS = [
         self::PENILAIAN1, self::PENILAIAN2
     ];
+
+    const PREDIKAT1 = 'ISTIMEWA';
+    const PREDIKAT2 = 'BAIK';
+    const PREDIKAT3 = 'BUTUH PERBAIKAN';
+    const PREDIKAT4 = 'KURANG';
+    const PREDIKAT5 = 'SANGAT KURANG';
+    const PREDIKATS = [
+        self::PREDIKAT1, self::PREDIKAT2, self::PREDIKAT3, self::PREDIKAT4, self::PREDIKAT5
+    ];
     public function opd_perjanjian_kinerja()
     {
         return $this->belongsTo(OpdPerjanjianKinerja::class, 'opd_perjanjian_kinerja_id', 'id');

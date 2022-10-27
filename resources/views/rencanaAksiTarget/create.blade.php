@@ -88,6 +88,27 @@
                     </div>
                 </div>
             @else
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Form Penilaian</h4>
+                            @include('partials.errors')
+                            <div class="mb-3">
+                                <label class="form-label">Predikat Penilaian</label>
+                                <select name="" id="" class="js-example-basic-single form-select"
+                                    @disabled(Auth::user()->opd_id) required>
+                                    <option value="">Pilih Predikat Penilaian</option>
+                                    @foreach ($predikats as $predikat)
+                                        <option value="{{ $predikat }}">{{ $predikat }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             @endif
             <div class="col-md-12 mt-2">
                 <div class="card">
@@ -107,12 +128,14 @@
                                 <tr v-for="(data, index) in datas">
                                     <td>@{{ data.opd_perjanjian_kinerja_sasaran_name }}</td>
                                     <td>
-                                        <textarea v-model='data.rencana_aksi_note' class="form-control" name="" id=""></textarea>
+                                        <textarea v-model='data.rencana_aksi_note' class="form-control" name="" id=""
+                                            :disabled="data.rencana_aksi.status_penilaian"></textarea>
                                     </td>
                                     @if ($rencanaAksi->status == 'DISETUJUI')
                                         <td>
                                             <input type="text" v-model='data.realisasi' class="form-control"
-                                                name="" id="">
+                                                name="" id=""
+                                                :disabled="data.rencana_aksi.status_penilaian">
                                         </td>
                                     @endif
                                     <td>

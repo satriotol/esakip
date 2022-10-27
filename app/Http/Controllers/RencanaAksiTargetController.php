@@ -38,7 +38,8 @@ class RencanaAksiTargetController extends Controller
     {
         $realisasis = RencanaAksiTarget::REALISASIS;
         $statuses = RencanaAksi::STATUSES;
-        return view('rencanaAksiTarget.create', compact('rencanaAksi', 'realisasis', 'statuses'));
+        $predikats = RencanaAksi::PREDIKATS;
+        return view('rencanaAksiTarget.create', compact('rencanaAksi', 'realisasis', 'statuses', 'predikats'));
     }
 
     public function getRencanaAksiTarget($rencana_aksi_id)
