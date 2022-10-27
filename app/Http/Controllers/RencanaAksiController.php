@@ -51,9 +51,10 @@ class RencanaAksiController extends Controller
     {
         $rencanaAksi = RencanaAksi::where('id', $rencanaAksi)->first();
         $data = $request->validate([
-            'status' => 'nullable',
+            'status_penilaian' => 'nullable',
+            'nilai' => 'nullable',
         ]);
-        $data['status'] = RencanaAksi::STATUS4;
+        $data['status_penilaian'] = RencanaAksi::PENILAIAN1;
         $rencanaAksi->update($data);
         session()->flash('success');
         return back();

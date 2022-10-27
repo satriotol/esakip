@@ -45,12 +45,10 @@
                                 <label class="form-label">Rencana Aksi</label>
                                 <textarea name="" class="form-control" v-model="form.rencana_aksi_note" required></textarea>
                             </div>
-                            @if ($rencanaAksi->status != 'PENILAIAN')
-                                <div class="text-end">
-                                    <button class="btn btn-primary" disabled v-if="loading">Loading</button>
-                                    <button class="btn btn-primary" @click="postData()" v-else="loading">Submit</button>
-                                </div>
-                            @endif
+                            <div class="text-end">
+                                <button class="btn btn-primary" disabled v-if="loading">Loading</button>
+                                <button class="btn btn-primary" @click="postData()" v-else="loading">Submit</button>
+                            </div>
                         </div>
                     </div>
                 @endif
@@ -95,7 +93,7 @@
                             <thead>
                                 <th>Sasaran</th>
                                 <th>Rencana Aksi</th>
-                                @if ($rencanaAksi->status == 'DISETUJUI' || $rencanaAksi->status == 'PENILAIAN')
+                                @if ($rencanaAksi->status == 'DISETUJUI')
                                     <th>Realisasi</th>
                                 @endif
                                 <th>Target</th>
@@ -105,25 +103,21 @@
                                 <tr v-for="(data, index) in datas">
                                     <td>@{{ data.opd_perjanjian_kinerja_sasaran_name }}</td>
                                     <td>
-                                        <textarea v-model='data.rencana_aksi_note' :readonly="data.rencana_aksi.status == 'PENILAIAN'" class="form-control"
-                                            name="" id=""></textarea>
+                                        <textarea v-model='data.rencana_aksi_note' class="form-control" name="" id=""></textarea>
                                     </td>
-                                    @if ($rencanaAksi->status == 'DISETUJUI' || $rencanaAksi->status == 'PENILAIAN')
+                                    @if ($rencanaAksi->status == 'DISETUJUI')
                                         <td>
                                             <input type="text" v-model='data.realisasi' class="form-control"
-                                                :readonly="data.rencana_aksi.status == 'PENILAIAN'" name=""
-                                                id="">
+                                                name="" id="">
                                         </td>
                                     @endif
                                     <td>
-                                        <input type="text"
-                                            :readonly="data.rencana_aksi.status == 'DISETUJUI' || data.rencana_aksi.status ==
-                                                'PENILAIAN'"
+                                        <input type="text" :readonly="data.rencana_aksi.status == 'DISETUJUI'"
                                             v-model='data.target' class="form-control" name="" id="">
                                     </td>
                                     <td>
                                         @if (Auth::user()->opd_id || Auth::user()->hasRole('SUPERADMIN'))
-                                            <button class="badge bg-warning" v-if="data.rencana_aksi.status != 'PENILAIAN'"
+                                            <button class="badge bg-warning"
                                                 @click='updateData(data.id, index)'>Update</button><br>
                                             <button class="badge bg-danger" v-if="data.rencana_aksi.status != 'DISETUJUI'"
                                                 @click='deleteData(data.id)'>Delete</button>

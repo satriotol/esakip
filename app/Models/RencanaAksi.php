@@ -10,13 +10,17 @@ class RencanaAksi extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'opd_perjanjian_kinerja_id', 'slug', 'status', 'note'];
+    protected $fillable = ['name', 'opd_perjanjian_kinerja_id', 'slug', 'status', 'note', 'status_penilaian', 'nilai'];
     const STATUS1 = 'DIAJUKAN';
     const STATUS2 = 'DISETUJUI';
     const STATUS3 = 'DITOLAK';
-    const STATUS4 = 'PENILAIAN';
     const STATUSES = [
-        self::STATUS1, self::STATUS2, self::STATUS3, self::STATUS4
+        self::STATUS1, self::STATUS2, self::STATUS3
+    ];
+    const PENILAIAN1 = 'PROSES';
+    const PENILAIAN2 = 'SELESAI';
+    const PENILAIANS = [
+        self::PENILAIAN1, self::PENILAIAN2
     ];
     public function opd_perjanjian_kinerja()
     {
