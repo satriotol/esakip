@@ -51,6 +51,7 @@
                             <div class="badge bg-info">Diajukan</div>
                             <div class="badge bg-success">Disetujui</div>
                             <div class="badge bg-danger">Ditolak</div>
+                            <div class="badge bg-primary">Proses Penilaian</div>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -89,6 +90,9 @@
                                                 @elseif($rencana_aksi->status == $statuses[2])
                                                     <a href="{{ route('rencanaAksiTarget.create', $rencana_aksi->id) }}"
                                                         class="badge bg-danger">{{ $rencana_aksi->name }}</a> <br>
+                                                @elseif($rencana_aksi->status == $statuses[3])
+                                                    <a href="{{ route('rencanaAksiTarget.create', $rencana_aksi->id) }}"
+                                                        class="badge bg-primary">{{ $rencana_aksi->name }}</a> <br>
                                                 @else
                                                     <a href="{{ route('rencanaAksiTarget.create', $rencana_aksi->id) }}"
                                                         class="badge bg-warning">{{ $rencana_aksi->name }}</a> <br>

@@ -20,9 +20,7 @@
     <div id="app">
         <div class="row">
             <div class="col-md-6">
-                @if (($rencanaAksi->status != 'DISETUJUI' && Auth::user()->opd_id) ||
-                    Auth::user()->hasRole('SUPERADMIN') ||
-                    $rencanaAksi->status == 'PENILAIAN')
+                @if (($rencanaAksi->status != 'DISETUJUI' && Auth::user()->opd_id) || Auth::user()->hasRole('SUPERADMIN'))
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Form {{ $rencanaAksi->opd_perjanjian_kinerja->opd_name }}
@@ -47,10 +45,12 @@
                                 <label class="form-label">Rencana Aksi</label>
                                 <textarea name="" class="form-control" v-model="form.rencana_aksi_note" required></textarea>
                             </div>
-                            <div class="text-end">
-                                <button class="btn btn-primary" disabled v-if="loading">Loading</button>
-                                <button class="btn btn-primary" @click="postData()" v-else="loading">Submit</button>
-                            </div>
+                            @if ($rencanaAksi->status != 'PENILAIAN')
+                                <div class="text-end">
+                                    <button class="btn btn-primary" disabled v-if="loading">Loading</button>
+                                    <button class="btn btn-primary" @click="postData()" v-else="loading">Submit</button>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 @endif
@@ -125,18 +125,19 @@
                                         @if (Auth::user()->opd_id || Auth::user()->hasRole('SUPERADMIN'))
                                             <button class="badge bg-warning" v-if="data.rencana_aksi.status != 'PENILAIAN'"
                                                 @click='updateData(data.id, index)'>Update</button><br>
-                                            <button class="badge bg-danger"
-                                                v-if="data.rencana_aksi.status != 'DISETUJUI', data.rencana_aksi.status != 'PENILAIAN'"
+                                            <button class="badge bg-danger" v-if="data.rencana_aksi.status != 'DISETUJUI'"
                                                 @click='deleteData(data.id)'>Delete</button>
                                         @endif
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="text-end mt-2">
-                            <a href="{{ route('rencanaAksi.updateStatusSelesai', $rencanaAksi->id) }}"
-                                class="btn btn-success" onclick="return confirm('Apakah Anda Yakin?')">Selesai</a>
-                        </div>
+                        @if ($rencanaAksi->status == 'DISETUJUI' && !Auth::user()->hasRole('VERIFIKATOR'))
+                            <div class="text-end mt-2">
+                                <a href="{{ route('rencanaAksi.updateStatusSelesai', $rencanaAksi->id) }}"
+                                    class="btn btn-success" onclick="return confirm('Apakah Anda Yakin?')">Selesai</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
