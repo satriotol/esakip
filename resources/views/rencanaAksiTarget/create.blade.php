@@ -20,7 +20,9 @@
     <div id="app">
         <div class="row">
             <div class="col-md-6">
-                @if (($rencanaAksi->status != 'DISETUJUI' && Auth::user()->opd_id) || Auth::user()->hasRole('SUPERADMIN'))
+                @if (($rencanaAksi->status != 'DISETUJUI' && Auth::user()->opd_id) ||
+                    Auth::user()->hasRole('SUPERADMIN') ||
+                    $rencanaAksi->status == 'PENILAIAN')
                     <div class="card">
                         <div class="card-body">
                             <h4 class="card-title">Form {{ $rencanaAksi->opd_perjanjian_kinerja->opd_name }}
@@ -93,7 +95,7 @@
                             <thead>
                                 <th>Sasaran</th>
                                 <th>Rencana Aksi</th>
-                                @if ($rencanaAksi->status == 'DISETUJUI')
+                                @if ($rencanaAksi->status == 'DISETUJUI' || $rencanaAksi->status == 'PENILAIAN')
                                     <th>Realisasi</th>
                                 @endif
                                 <th>Target</th>
@@ -103,23 +105,28 @@
                                 <tr v-for="(data, index) in datas">
                                     <td>@{{ data.opd_perjanjian_kinerja_sasaran_name }}</td>
                                     <td>
-                                        <textarea v-model='data.rencana_aksi_note' class="form-control" name="" id=""></textarea>
+                                        <textarea v-model='data.rencana_aksi_note' :readonly="data.rencana_aksi.status == 'PENILAIAN'" class="form-control"
+                                            name="" id=""></textarea>
                                     </td>
-                                    @if ($rencanaAksi->status == 'DISETUJUI')
+                                    @if ($rencanaAksi->status == 'DISETUJUI' || $rencanaAksi->status == 'PENILAIAN')
                                         <td>
                                             <input type="text" v-model='data.realisasi' class="form-control"
-                                                name="" id="">
+                                                :readonly="data.rencana_aksi.status == 'PENILAIAN'" name=""
+                                                id="">
                                         </td>
                                     @endif
                                     <td>
-                                        <input type="text" :readonly="data.rencana_aksi.status == 'DISETUJUI'"
+                                        <input type="text"
+                                            :readonly="data.rencana_aksi.status == 'DISETUJUI' || data.rencana_aksi.status ==
+                                                'PENILAIAN'"
                                             v-model='data.target' class="form-control" name="" id="">
                                     </td>
                                     <td>
                                         @if (Auth::user()->opd_id || Auth::user()->hasRole('SUPERADMIN'))
-                                            <button class="badge bg-warning"
+                                            <button class="badge bg-warning" v-if="data.rencana_aksi.status != 'PENILAIAN'"
                                                 @click='updateData(data.id, index)'>Update</button><br>
-                                            <button class="badge bg-danger" v-if="data.rencana_aksi.status != 'DISETUJUI'"
+                                            <button class="badge bg-danger"
+                                                v-if="data.rencana_aksi.status != 'DISETUJUI', data.rencana_aksi.status != 'PENILAIAN'"
                                                 @click='deleteData(data.id)'>Delete</button>
                                         @endif
                                     </td>
@@ -128,7 +135,7 @@
                         </table>
                         <div class="text-end mt-2">
                             <a href="{{ route('rencanaAksi.updateStatusSelesai', $rencanaAksi->id) }}"
-                                class="btn btn-success">Selesai</a>
+                                class="btn btn-success" onclick="return confirm('Apakah Anda Yakin?')">Selesai</a>
                         </div>
                     </div>
                 </div>
