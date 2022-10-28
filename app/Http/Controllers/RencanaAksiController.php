@@ -54,7 +54,11 @@ class RencanaAksiController extends Controller
             'status_penilaian' => 'nullable',
             'nilai' => 'nullable',
         ]);
-        $data['status_penilaian'] = RencanaAksi::PENILAIAN1;
+        if ($request->nilai) {
+            $data['status_penilaian'] = RencanaAksi::PENILAIAN2;
+        } else {
+            $data['status_penilaian'] = RencanaAksi::PENILAIAN1;
+        }
         $rencanaAksi->update($data);
         session()->flash('success');
         return back();

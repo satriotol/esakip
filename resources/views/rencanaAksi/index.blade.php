@@ -94,6 +94,7 @@
                                                         class="badge bg-warning">{{ $rencana_aksi->name }}</a>
                                                 @endif
                                                 <div class="badge bg-primary">{{ $rencana_aksi->status_penilaian }}</div>
+                                                <div class="badge bg-info">{{ $rencana_aksi->nilai }}</div>
                                                 <br>
                                             @endforeach
                                         </td>

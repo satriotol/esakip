@@ -93,19 +93,24 @@
                         <div class="card-body">
                             <h4 class="card-title">Form Penilaian</h4>
                             @include('partials.errors')
-                            <div class="mb-3">
-                                <label class="form-label">Predikat Penilaian</label>
-                                <select name="" id="" class="js-example-basic-single form-select"
-                                    @disabled(Auth::user()->opd_id) required>
-                                    <option value="">Pilih Predikat Penilaian</option>
-                                    @foreach ($predikats as $predikat)
-                                        <option value="{{ $predikat }}">{{ $predikat }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="text-end">
-                                <button class="btn btn-primary">Submit</button>
-                            </div>
+                            <form action="{{ route('rencanaAksi.updateStatusPenilaian', $rencanaAksi->id) }}"
+                                method="post">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label">Predikat Penilaian</label>
+                                    <select name="nilai" id="" class="js-example-basic-single form-select"
+                                        @disabled(Auth::user()->opd_id) required>
+                                        <option value="">Pilih Predikat Penilaian</option>
+                                        @foreach ($predikats as $predikat)
+                                            <option value="{{ $predikat }}" @selected($predikat == $rencanaAksi->nilai)>
+                                                {{ $predikat }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="text-end">
+                                    <button class="btn btn-primary">Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
