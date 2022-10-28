@@ -161,7 +161,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        @if ($rencanaAksi->status == 'DISETUJUI' && !Auth::user()->hasRole('VERIFIKATOR'))
+                        @if ($rencanaAksi->status == 'DISETUJUI' && Auth::user()->opd_id)
                             @if (!$rencanaAksi->status_penilaian)
                                 <div class="text-end mt-2">
                                     <a href="{{ route('rencanaAksi.updateStatusSelesai', $rencanaAksi->id) }}"

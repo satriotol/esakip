@@ -49,7 +49,7 @@
                         <select class="js-example-basic-single form-select" data-width="100%" name="opd_category_id"
                             required>
                             <option value="">Pilih Kategori Penilaian</option>
-                            @foreach ($opdCategory as $opdCategory)
+                            @foreach ($opdCategories as $opdCategory)
                                 <option value="{{ $opdCategory->id }}"
                                     @isset($opdPenilaian) 
                                         @if ($opdCategory->id === $opdPenilaian->opd_category_id) selected  @endif
