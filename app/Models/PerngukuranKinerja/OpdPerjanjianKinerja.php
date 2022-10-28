@@ -78,7 +78,7 @@ class OpdPerjanjianKinerja extends Model
         if (Auth::user()->opd_id) {
             $opdPerjanjianKinerjas = OpdPerjanjianKinerja::has('rencana_aksis')->where('status', OpdPerjanjianKinerja::STATUS2)->where('opd_id', Auth::user()->opd_id);
             if ($year) {
-                $opdPerjanjianKinerjas->where('opd_id', $year);
+                $opdPerjanjianKinerjas->where('year', $year);
             }
             return $opdPerjanjianKinerjas;
         } else {
@@ -87,9 +87,26 @@ class OpdPerjanjianKinerja extends Model
                 $opdPerjanjianKinerjas->where('opd_id', $opd_id);
             }
             if ($year) {
-                $opdPerjanjianKinerjas->where('opd_id', $year);
+                $opdPerjanjianKinerjas->where('year', $year);
             }
             return $opdPerjanjianKinerjas;
         }
+    }
+    public static function getRencanaAksiApi($request)
+    {
+        $opd_id = $request->opd_id;
+        $year = (int)$request->year;
+        $paginate = $request->paginate;
+        $opdPerjanjianKinerjas = OpdPerjanjianKinerja::with('rencana_aksis.rencana_aksi_targets')->where('status', OpdPerjanjianKinerja::STATUS2);
+        if ($opd_id) {
+            $opdPerjanjianKinerjas->where('opd_id', $opd_id);
+        }
+        if ($year) {
+            $opdPerjanjianKinerjas->where('year', $year);
+        }
+        if ($paginate) {
+            return $opdPerjanjianKinerjas->paginate($paginate);
+        }
+        return $opdPerjanjianKinerjas->get();
     }
 }
