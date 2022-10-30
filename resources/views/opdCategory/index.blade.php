@@ -45,8 +45,8 @@
                                         <td>
                                             @foreach ($opdCategory->opd_category_variables as $opd_category_variable)
                                                 <div class="badge bg-success">
-                                                    {{ $opd_category_variable->opd_variable->name }} |
-                                                    {{ $opd_category_variable->opd_variable->bobot }}
+                                                    {{ $opd_category_variable->opd_variable?->name }} |
+                                                    {{ $opd_category_variable->opd_variable?->bobot }}
                                                 </div> <br>
                                             @endforeach
                                         </td>

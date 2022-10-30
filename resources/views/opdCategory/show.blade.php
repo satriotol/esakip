@@ -90,10 +90,10 @@
                                 @foreach ($opdCategory->opd_category_variables as $opd_category_variable)
                                     <tr>
                                         <td>
-                                            {{ $opd_category_variable->opd_variable->name }}
+                                            {{ $opd_category_variable->opd_variable?->name }}
                                         </td>
                                         <td>
-                                            {{ $opd_category_variable->opd_variable->bobot }}
+                                            {{ $opd_category_variable->opd_variable?->bobot }}
                                         </td>
                                         <td>
                                             <form
