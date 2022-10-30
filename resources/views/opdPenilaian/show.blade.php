@@ -85,10 +85,10 @@
                                             {{ $opd_category_variable->opd_variable->bobot }}
                                         </td>
                                         <td>
-                                            {{ number_format((float) $opdPenilaian->target($opd_category_variable->id)) }}
+                                            {{ $opdPenilaian->target($opd_category_variable->id) }}
                                         </td>
                                         <td>
-                                            {{ number_format((float) $opdPenilaian->realisasi($opd_category_variable->id)) }}
+                                            {{ $opdPenilaian->realisasi($opd_category_variable->id) }}
                                         </td>
                                         <td>
                                             {{ $opdPenilaian->capaian($opd_category_variable->id) }} %

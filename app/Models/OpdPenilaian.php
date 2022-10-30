@@ -42,11 +42,21 @@ class OpdPenilaian extends Model
     }
     public function realisasi($opd_category_variable_id)
     {
-        return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->realisasi ?? '';
+        $opdCategoryVariable = OpdCategoryVariable::find($opd_category_variable_id);
+        if ($opdCategoryVariable->opd_variable->pic == 'BAPENDA') {
+            return 'Rp ' .(number_format((float)$this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->realisasi ?? ''));
+        } else {
+            return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->realisasi ?? '';
+        }
     }
     public function target($opd_category_variable_id)
     {
-        return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->target ?? '';
+        $opdCategoryVariable = OpdCategoryVariable::find($opd_category_variable_id);
+        if ($opdCategoryVariable->opd_variable->pic == 'BAPENDA') {
+            return 'Rp ' . (number_format((float)$this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->target ?? ''));
+        } else {
+            return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->target ?? '';
+        }
     }
     public function capaian($opd_category_variable_id)
     {

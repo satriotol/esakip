@@ -69,8 +69,8 @@ class OpdPenilaianKinerjaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'target' => 'required',
-            'realisasi' => 'required',
+            'target' => 'required|numeric',
+            'realisasi' => 'required|numeric',
         ]);
         $opdCategoryVariable = OpdCategoryVariable::where('id', $request->opd_category_variable_id)->first();
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
