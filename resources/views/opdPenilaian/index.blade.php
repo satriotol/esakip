@@ -41,7 +41,7 @@
                                         <td>{{ $opdPenilaian->year }} {{ $opdPenilaian->name }}</td>
                                         <td>{{ $opdPenilaian->opd_category->name }}</td>
                                         <td>{{ $opdPenilaian->opd->nama_opd }}</td>
-                                        <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
+                                        <td>{{ $opdPenilaian->inovasi_prestasi_daerah ?? 'TRIWULAN' }}</td>
                                         <td>{{ $opdPenilaian->totalAkhir() }}</td>
                                         <td>
 
