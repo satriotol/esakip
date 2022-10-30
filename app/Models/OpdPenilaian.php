@@ -43,19 +43,21 @@ class OpdPenilaian extends Model
     public function realisasi($opd_category_variable_id)
     {
         $opdCategoryVariable = OpdCategoryVariable::find($opd_category_variable_id);
-        if ($opdCategoryVariable->opd_variable->pic == 'BAPENDA') {
-            return 'Rp ' .(number_format((float)$this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->realisasi ?? ''));
+        $data = $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->realisasi ?? '';
+        if ($opdCategoryVariable->opd_variable->pic == 'BAPENDA' && $data) {
+            return 'Rp ' . (number_format((float)$data));
         } else {
-            return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->realisasi ?? '';
+            return $data;
         }
     }
     public function target($opd_category_variable_id)
     {
         $opdCategoryVariable = OpdCategoryVariable::find($opd_category_variable_id);
-        if ($opdCategoryVariable->opd_variable->pic == 'BAPENDA') {
-            return 'Rp ' . (number_format((float)$this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->target ?? ''));
+        $data = $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->target ?? '';
+        if ($opdCategoryVariable->opd_variable->pic == 'BAPENDA' && $data) {
+            return 'Rp ' . (number_format((float)$data));
         } else {
-            return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->target ?? '';
+            return $data;
         }
     }
     public function capaian($opd_category_variable_id)
