@@ -15,10 +15,13 @@ class OpdPenilaianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $opdPenilaians = OpdPenilaian::getOpdPenilaian();
-        return view('opdPenilaian.index', compact('opdPenilaians'));
+        $opds = Opd::getOpd();
+        $opdPenilaians = OpdPenilaian::getOpdPenilaian($request);
+        $opdCategories = OpdCategory::all();
+        $request->flash();
+        return view('opdPenilaian.index', compact('opdPenilaians', 'opds','opdCategories'));
     }
 
     /**

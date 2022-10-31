@@ -21,15 +21,26 @@ class OpdPenilaian extends Model
     {
         return $this->belongsTo(OpdCategory::class, 'opd_category_id', 'id');
     }
-    public static function getOpdPenilaian()
+    public static function getOpdPenilaian($request)
     {
-        $opd_id = Auth::user()->opd_id;
-        if ($opd_id) {
-            $getOpdPenilaian = OpdPenilaian::where('opd_id', $opd_id)->paginate();
+        $opd_id = $request->opd_id;
+        $year = $request->year;
+        $opd_category_id = $request->opd_category_id;
+        if (Auth::user()->opd_id) {
+            $getOpdPenilaian = OpdPenilaian::where('opd_id', Auth::user()->opd_id)->query();
         } else {
-            $getOpdPenilaian = OpdPenilaian::paginate();
+            $getOpdPenilaian = OpdPenilaian::query();
         }
-        return $getOpdPenilaian;
+        if ($opd_id) {
+            $getOpdPenilaian->where('opd_id', $opd_id);
+        }
+        if ($year) {
+            $getOpdPenilaian->where('year', $year);
+        }
+        if ($opd_category_id) {
+            $getOpdPenilaian->where('opd_category_id', $opd_category_id);
+        }
+        return $getOpdPenilaian->orderBy('year', 'desc')->paginate();
     }
     public static function ifTahunan($opd_category_id)
     {

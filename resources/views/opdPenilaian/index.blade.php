@@ -23,6 +23,42 @@
                             Create
                         </a>
                     </div>
+                    <form action="">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label>OPD</label>
+                                    <select name="opd_id" class="js-example-basic-single form-select" id="">
+                                        <option value="">Pilih OPD</option>
+                                        @foreach ($opds as $opd)
+                                            <option @selected(old('opd_id') == $opd->id) value="{{ $opd->id }}">
+                                                {{ $opd->nama_opd }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="mb-3">
+                                    <label>Kategori OPD</label>
+                                    <select name="opd_category_id" class="js-example-basic-single form-select" id="">
+                                        <option value="">Pilih Kategori OPD</option>
+                                        @foreach ($opdCategories as $opdCategory)
+                                            <option @selected(old('opd_category_id') == $opdCategory->id) value="{{ $opdCategory->id }}">
+                                                {{ $opdCategory->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Tahun</label>
+                                <input type="number" class="form-control" name="year" value="{{ old('year') }}"
+                                    id="">
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-sm btn-success">Cari</button>
+                        </div>
+                    </form>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
