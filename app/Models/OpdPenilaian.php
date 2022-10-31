@@ -27,7 +27,7 @@ class OpdPenilaian extends Model
         $year = $request->year;
         $opd_category_id = $request->opd_category_id;
         if (Auth::user()->opd_id) {
-            $getOpdPenilaian = OpdPenilaian::where('opd_id', Auth::user()->opd_id)->query();
+            $getOpdPenilaian = OpdPenilaian::query()->where('opd_id', Auth::user()->opd_id);
         } else {
             $getOpdPenilaian = OpdPenilaian::query();
         }
