@@ -7,6 +7,7 @@ use App\Models\Opd;
 use App\Models\OpdCategory;
 use App\Models\OpdPenilaian;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OpdPenilaianController extends Controller
 {
@@ -21,7 +22,7 @@ class OpdPenilaianController extends Controller
         $opdPenilaians = OpdPenilaian::getOpdPenilaian($request);
         $opdCategories = OpdCategory::all();
         $request->flash();
-        return view('opdPenilaian.index', compact('opdPenilaians', 'opds','opdCategories'));
+        return view('opdPenilaian.index', compact('opdPenilaians', 'opds', 'opdCategories'));
     }
 
     /**
@@ -48,7 +49,7 @@ class OpdPenilaianController extends Controller
             'opd_id' => 'required',
             'opd_category_id' => 'required',
             'year' => 'required',
-            'inovasi_prestasi_daerah' => 'nullable'
+            'inovasi_prestasi_daerah' => 'nullable',
         ]);
         if (OpdPenilaian::ifTahunan($request->opd_category_id)) {
             $data['inovasi_prestasi_daerah'] = InovasiPrestasiDaerah::first()->nilai;

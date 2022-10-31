@@ -6,6 +6,7 @@ use App\Models\OpdCategory;
 use App\Models\OpdCategoryVariable;
 use App\Models\OpdPenilaianKinerja;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class OpdPenilaianKinerjaController extends Controller
@@ -87,7 +88,8 @@ class OpdPenilaianKinerjaController extends Controller
                 'target' => $request->target,
                 'realisasi' => $request->realisasi,
                 'capaian' => round($capaian, 2),
-                'nilai_akhir' => round($capaian * $bobot, 2)
+                'nilai_akhir' => round($capaian * $bobot, 2),
+                'user_id' => Auth::user()->id
             ]
         );
         session()->flash('success');
