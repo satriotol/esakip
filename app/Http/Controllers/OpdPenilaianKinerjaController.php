@@ -38,24 +38,34 @@ class OpdPenilaianKinerjaController extends Controller
         $data = Http::get('http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad')['data']['pad'][1]['rincian'];
         $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+        $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
         if ($request->name) {
             foreach ($data as $d) {
                 if ($request->name == strtoupper($d['pendapatan'])) {
                     if ((float)$d['persenRealisasi'] > 100) {
                         $d['persenRealisasi'] = 100;
                     }
-                    OpdPenilaianKinerja::updateOrCreate(
-                        [
-                            'opd_penilaian_id' => $opd_penilaian_id,
-                            'opd_category_variable_id' => $opd_category_variable_id,
-                        ],
-                        [
-                            'target' => $d['target'],
-                            'realisasi' => $d['realisasi'],
-                            'capaian' => $d['persenRealisasi'],
-                            'nilai_akhir' => (float)$d['persenRealisasi'] * $bobot
-                        ]
-                    );
+                    DB::beginTransaction();
+                    try {
+                        OpdPenilaianKinerja::updateOrCreate(
+                            [
+                                'opd_penilaian_id' => $opd_penilaian_id,
+                                'opd_category_variable_id' => $opd_category_variable_id,
+                            ],
+                            [
+                                'target' => $d['target'],
+                                'realisasi' => $d['realisasi'],
+                                'capaian' => $d['persenRealisasi'],
+                                'nilai_akhir' => (float)$d['persenRealisasi'] * $bobot
+                            ]
+                        );
+                        $opdPenilaian->update([
+                            'status' => OpdPenilaian::STATUSES[0]
+                        ]);
+                    } catch (\Throwable $th) {
+                        DB::rollback();
+                    }
+
                     session()->flash('success');
                     return back();
                 }
