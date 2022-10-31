@@ -79,7 +79,7 @@
                     urlSkpd: API_URL + 'skpd',
                     skpd_search: "",
                     year_search: "",
-                    loading: true,
+                    loading: false,
                 }
             },
             mounted() {
@@ -114,6 +114,7 @@
                         })
                 },
                 exportApbdAnggaran() {
+                    this.loading = true;
                     axios.get('/api/getApbdAnggaran/export', {
                             params: {
                                 year: this.year_search,
@@ -123,9 +124,12 @@
                         .then((response) => {
                             const content = response.headers['content-type'];
                             download(response.data, 'Anggaran-Apbd.xlsx', content)
+                        }).finally(() => {
+                            this.loading = false;
                         });
                 },
                 exportRealisasiAnggaran() {
+                    this.loading = true;
                     axios.get('/api/getRealisasiAnggaran/export', {
                             params: {
                                 year: this.year_search,
@@ -135,6 +139,8 @@
                         .then((response) => {
                             const content = response.headers['content-type'];
                             download(response.data, 'Realisasi-Anggaran.xlsx', content)
+                        }).finally(() => {
+                            this.loading = false;
                         });
                 },
                 getRealisasiAnggaran(pageUrl) {

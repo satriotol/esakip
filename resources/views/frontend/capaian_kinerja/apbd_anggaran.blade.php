@@ -16,7 +16,8 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <button class="btn btn-success" @click="exportApbdAnggaran" target="_blank">Download Excel</button>
+                    <button class="btn btn-success" @click="exportApbdAnggaran" :disabled="loading"
+                        target="_blank">Download Excel</button>
                     <button class="btn btn-primary" @click="getApbdAnggaran()">Cari</button>
                 </div>
             </div>
