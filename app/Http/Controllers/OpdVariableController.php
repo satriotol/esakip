@@ -48,6 +48,7 @@ class OpdVariableController extends Controller
             'name' => 'required',
             'bobot' => 'required',
             'pic' => 'required',
+            'is_efisiensi' => 'nullable',
         ]);
         OpdVariable::create($data);
         session()->flash('success');

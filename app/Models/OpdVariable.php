@@ -9,7 +9,10 @@ class OpdVariable extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'bobot', 'pic'];
+    protected $fillable = ['name', 'bobot', 'pic', 'is_efisiensi'];
+    protected $casts = [
+        'is_efisiensi' => 'boolean',
+    ];
 
     const OPD = 'OPD';
     const INSPEKTORAT = 'INSPEKTORAT';
@@ -17,7 +20,7 @@ class OpdVariable extends Model
     const BAPENDA = 'BAPENDA';
     const SIPD = 'SIPD';
     const PICS = [
-        self::OPD, self::INSPEKTORAT, self::BAPPEDA, self::BAPENDA, self::SIPD, 
+        self::OPD, self::INSPEKTORAT, self::BAPPEDA, self::BAPENDA, self::SIPD,
     ];
 
     public function opd_category_variables()

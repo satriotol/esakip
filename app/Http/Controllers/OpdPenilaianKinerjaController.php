@@ -79,6 +79,9 @@ class OpdPenilaianKinerjaController extends Controller
         if ($capaian > 100) {
             $capaian = 100;
         }
+        if ($opdCategoryVariable->opd_variable->is_efisiensi) {
+            $capaian = 100;
+        }
         OpdPenilaianKinerja::updateOrCreate(
             [
                 'opd_penilaian_id' => $request->opd_penilaian_id,

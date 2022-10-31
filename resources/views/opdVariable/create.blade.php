@@ -42,6 +42,13 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="">Efisiensi</label>
+                        <select name="is_efisiensi" class="form-control" id="">
+                            <option value="">Pilih Efisiensi</option>
+                            <option value="1" @selected(isset($opdVariable) ? 1 == $opdVariable->is_efisiensi : @old('is_efisiensi'))>Ya</option>
+                        </select>
+                    </div>
                     <div class="text-end">
                         <a href="{{ url()->previous() }}" class="btn btn-warning">Kembali</a>
                         <input class="btn btn-primary" type="submit" value="Submit">
