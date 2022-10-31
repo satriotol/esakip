@@ -40,7 +40,8 @@
                             <div class="col-md-4">
                                 <div class="mb-3">
                                     <label>Kategori OPD</label>
-                                    <select name="opd_category_id" class="js-example-basic-single form-select" id="">
+                                    <select name="opd_category_id" class="js-example-basic-single form-select"
+                                        id="">
                                         <option value="">Pilih Kategori OPD</option>
                                         @foreach ($opdCategories as $opdCategory)
                                             <option @selected(old('opd_category_id') == $opdCategory->id) value="{{ $opdCategory->id }}">
@@ -68,6 +69,7 @@
                                     <th>OPD</th>
                                     <th>Inovasi Prestasi Daerah</th>
                                     <th>Total Akhir</th>
+                                    <th>Status Verifikasi</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -79,6 +81,9 @@
                                         <td>{{ $opdPenilaian->opd->nama_opd }}</td>
                                         <td>{{ $opdPenilaian->inovasi_prestasi_daerah ?? 'TRIWULAN' }}</td>
                                         <td>{{ $opdPenilaian->totalAkhir() }}</td>
+                                        <td>
+                                            <div class="badge bg-success">{{ $opdPenilaian->status }}</div>
+                                        </td>
                                         <td>
 
                                             <a href="{{ route('opdPenilaian.show', $opdPenilaian->id) }}"

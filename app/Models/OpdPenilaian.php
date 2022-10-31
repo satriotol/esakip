@@ -9,9 +9,15 @@ use Illuminate\Support\Facades\Auth;
 class OpdPenilaian extends Model
 {
     use HasFactory;
-    protected $fillable = ['opd_id', 'opd_category_id', 'year', 'name', 'inovasi_prestasi_daerah'];
+    protected $fillable = ['opd_id', 'opd_category_id', 'year', 'name', 'inovasi_prestasi_daerah', 'status', 'note'];
 
     protected $appends = ['capaian'];
+
+    const STATUSES = [
+        'BELUM',
+        'VERIFIKASI',
+        'SELESAI'
+    ];
 
     public function opd()
     {

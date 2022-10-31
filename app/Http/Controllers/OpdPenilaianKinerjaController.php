@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\OpdCategory;
 use App\Models\OpdCategoryVariable;
+use App\Models\OpdPenilaian;
 use App\Models\OpdPenilaianKinerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class OpdPenilaianKinerjaController extends Controller
@@ -82,19 +84,30 @@ class OpdPenilaianKinerjaController extends Controller
         if ($opdCategoryVariable->opd_variable->is_efisiensi) {
             $capaian = 100;
         }
-        OpdPenilaianKinerja::updateOrCreate(
-            [
-                'opd_penilaian_id' => $request->opd_penilaian_id,
-                'opd_category_variable_id' => $request->opd_category_variable_id,
-            ],
-            [
-                'target' => $request->target,
-                'realisasi' => $request->realisasi,
-                'capaian' => round($capaian, 2),
-                'nilai_akhir' => round($capaian * $bobot, 2),
-                'user_id' => Auth::user()->id
-            ]
-        );
+        $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
+        DB::beginTransaction();
+        try {
+            OpdPenilaianKinerja::updateOrCreate(
+                [
+                    'opd_penilaian_id' => $request->opd_penilaian_id,
+                    'opd_category_variable_id' => $request->opd_category_variable_id,
+                ],
+                [
+                    'target' => $request->target,
+                    'realisasi' => $request->realisasi,
+                    'capaian' => round($capaian, 2),
+                    'nilai_akhir' => round($capaian * $bobot, 2),
+                    'user_id' => Auth::user()->id
+                ]
+            );
+            $opdPenilaian->update([
+                'status' => OpdPenilaian::STATUSES[0]
+            ]);
+            DB::commit();
+        } catch (\Throwable $th) {
+            DB::rollback();
+        }
+
         session()->flash('success');
         return back();
     }
