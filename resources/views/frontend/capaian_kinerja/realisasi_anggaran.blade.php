@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="text-right">
-                    <button class="btn btn-success" @click="exportApbdAnggaran" target="_blank">Download Excel</button>
+                    <button class="btn btn-success" @click="exportRealisasiAnggaran" target="_blank">Download Excel</button>
                     <button class="btn btn-primary" @click="getRealisasiAnggaran()">Cari</button>
                 </div>
             </div>
