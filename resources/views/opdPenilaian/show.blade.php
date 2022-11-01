@@ -36,6 +36,35 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Status</h6>
+                    <form action="{{ route('opdPenilaian.updateStatus', $opdPenilaian->id) }}" method="post">
+                        @csrf
+                        <div class="mb-3">
+                            <label>Status</label>
+                            <select name="status" class="js-example-basic-single form-select" required
+                                @disabled(Auth::user()->opd_id)>
+                                <option value="">Pilih Status</option>
+                                @foreach ($statuses as $status)
+                                    <option @selected($status == $opdPenilaian->status) value="{{ $status }}">{{ $status }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>Catatan</label>
+                            <textarea name="note" class="form-control" @disabled(Auth::user()->opd_id)>{{ $opdPenilaian->note }}</textarea>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-sm btn-success" @disabled(Auth::user()->opd_id)
+                                type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="col-md-12 mt-2">
             <div class="card">
                 <div class="card-body">

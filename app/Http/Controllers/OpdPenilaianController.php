@@ -69,6 +69,17 @@ class OpdPenilaianController extends Controller
         return redirect(route('opdPenilaian.index'));
     }
 
+    public function updateStatus(Request $request, OpdPenilaian $opdPenilaian)
+    {
+        $data = $request->validate([
+            'status' => 'required',
+            'note' => 'nullable',
+        ]);
+        $opdPenilaian->update($data);
+        session()->flash('success');
+        return back();
+    }
+
     /**
      * Display the specified resource.
      *
@@ -77,7 +88,8 @@ class OpdPenilaianController extends Controller
      */
     public function show(OpdPenilaian $opdPenilaian)
     {
-        return view('opdPenilaian.show', compact('opdPenilaian'));
+        $statuses = OpdPenilaian::STATUSES;
+        return view('opdPenilaian.show', compact('opdPenilaian', 'statuses'));
     }
 
     /**
