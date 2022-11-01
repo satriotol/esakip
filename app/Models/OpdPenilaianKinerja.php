@@ -24,5 +24,8 @@ class OpdPenilaianKinerja extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
+    public function opd_penilaian_report()
+    {
+        return $this->hasOne(OpdPenilaianReport::class, 'opd_penilaian_id', 'id');
+    }
 }
