@@ -60,8 +60,9 @@ class OpdPenilaianKinerjaController extends Controller
                             ]
                         );
                         $opdPenilaian->update([
-                            'status' => OpdPenilaian::STATUSES[0]
+                            'status' => OpdPenilaian::STATUS1
                         ]);
+                        DB::commit();
                     } catch (\Throwable $th) {
                         DB::rollback();
                     }
@@ -111,7 +112,7 @@ class OpdPenilaianKinerjaController extends Controller
                 ]
             );
             $opdPenilaian->update([
-                'status' => OpdPenilaian::STATUSES[0]
+                'status' => OpdPenilaian::STATUS1
             ]);
             DB::commit();
         } catch (\Throwable $th) {

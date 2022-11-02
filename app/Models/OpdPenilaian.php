@@ -13,10 +13,12 @@ class OpdPenilaian extends Model
 
     protected $appends = ['capaian'];
 
+    const STATUS1 = 'BELUM';
+    const STATUS2 = 'VERIFIKASI';
+    const STATUS3 = 'SELESAI';
     const STATUSES = [
-        'BELUM',
-        'VERIFIKASI',
-        'SELESAI'
+        self::STATUS2,
+        self::STATUS3
     ];
 
     public function opd()
