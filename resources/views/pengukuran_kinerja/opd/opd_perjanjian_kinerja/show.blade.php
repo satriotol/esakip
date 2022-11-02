@@ -47,11 +47,25 @@
                 <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="detail-tab">
                     <div class="row">
                         <div class="col-md-8">
-                            <p>
-                                Tahun : {{ $opdPerjanjianKinerja->year }} <br>
-                                OPD : {{ $opdPerjanjianKinerja->opd_name }} <br>
-                                Type : {{ $opdPerjanjianKinerja->type }}
-                            </p>
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td>Tahun</td>
+                                        <td>:</td>
+                                        <td>{{ $opdPerjanjianKinerja->year }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>OPD</td>
+                                        <td>:</td>
+                                        <td>{{ $opdPerjanjianKinerja->opd_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tipe</td>
+                                        <td>:</td>
+                                        <td>{{ $opdPerjanjianKinerja->type }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             <object data="{{ asset('uploads/' . $opdPerjanjianKinerja->file) }}" class="w-100 mt-1"
                                 style="height: 550px" type="application/pdf">
                                 <div>No online PDF viewer installed</div>

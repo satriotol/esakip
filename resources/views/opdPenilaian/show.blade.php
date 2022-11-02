@@ -27,11 +27,30 @@
                     <h4 class="card-title">Detail Penilaian OPD</h4>
                     @include('partials.errors')
                     <div class="mb-3">
-                        <p>Tahun : {{ $opdPenilaian->year }} {{ $opdPenilaian->name }} <br>
-                            OPD : {{ $opdPenilaian->opd->nama_opd }} <br>
-                            Kategori : {{ $opdPenilaian->opd_category->name }} <br>
-                            Inovasi Prestasi Daerah : {{ $opdPenilaian->inovasi_prestasi_daerah }}
-                        </p>
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Tahun</td>
+                                    <td>:</td>
+                                    <td>{{ $opdPenilaian->year }} {{ $opdPenilaian->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>OPD</td>
+                                    <td>:</td>
+                                    <td>{{ $opdPenilaian->opd->nama_opd }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Kategori</td>
+                                    <td>:</td>
+                                    <td>{{ $opdPenilaian->opd_category->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Inovasi Prestasi Daerah</td>
+                                    <td>:</td>
+                                    <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
