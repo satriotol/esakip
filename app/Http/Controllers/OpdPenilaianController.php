@@ -22,8 +22,9 @@ class OpdPenilaianController extends Controller
         $opds = Opd::getOpd();
         $opdPenilaians = OpdPenilaian::getOpdPenilaian($request);
         $opdCategories = OpdCategory::all();
+        $statuses = OpdPenilaian::STATUSALL;
         $request->flash();
-        return view('opdPenilaian.index', compact('opdPenilaians', 'opds', 'opdCategories'));
+        return view('opdPenilaian.index', compact('opdPenilaians', 'opds', 'opdCategories','statuses'));
     }
 
     /**
@@ -52,6 +53,7 @@ class OpdPenilaianController extends Controller
             'year' => 'required',
             'inovasi_prestasi_daerah' => 'nullable',
         ]);
+        $data['status'] = OpdPenilaian::STATUS1;
         if (OpdPenilaian::ifTahunan($request->opd_category_id)) {
             $data['inovasi_prestasi_daerah'] = InovasiPrestasiDaerah::first()->nilai;
             OpdPenilaian::create($data);
@@ -63,6 +65,7 @@ class OpdPenilaianController extends Controller
                     'opd_id' => $data['opd_id'],
                     'opd_category_id' => $data['opd_category_id'],
                     'year' => $data['year'],
+                    'status' => $data['status']
                 ]);
             }
         }

@@ -25,7 +25,7 @@
                     </div>
                     <form action="">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label>OPD</label>
                                     <select name="opd_id" class="js-example-basic-single form-select" id="">
@@ -37,7 +37,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="mb-3">
                                     <label>Kategori OPD</label>
                                     <select name="opd_category_id" class="js-example-basic-single form-select"
@@ -50,10 +50,23 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <label>Tahun</label>
                                 <input type="number" class="form-control" name="year" value="{{ old('year') }}"
                                     id="">
+                            </div>
+                            <div class="col-md-3">
+                                <div class="mb-3">
+                                    <label>Status</label>
+                                    <select name="status" class="js-example-basic-single form-select"
+                                        id="">
+                                        <option value="">Pilih Status</option>
+                                        @foreach ($statuses as $status)
+                                            <option @selected(old('status') == $status) value="{{ $status }}">
+                                                {{ $status }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                         <div class="text-end">
