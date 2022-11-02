@@ -28,4 +28,15 @@ class OpdPenilaianKinerja extends Model
     {
         return $this->hasOne(OpdPenilaianReport::class, 'opd_penilaian_id', 'id');
     }
+
+    public static function checkStatus($opdPenilaian)
+    {
+        $statuses = OpdPenilaian::STATUSES;
+        foreach ($statuses as $status) {
+            if ($status == $opdPenilaian->status) {
+                return 1;
+            }
+        }
+        return 0;
+    }
 }

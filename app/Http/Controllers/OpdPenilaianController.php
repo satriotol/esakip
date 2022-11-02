@@ -6,6 +6,7 @@ use App\Models\InovasiPrestasiDaerah;
 use App\Models\Opd;
 use App\Models\OpdCategory;
 use App\Models\OpdPenilaian;
+use App\Models\OpdPenilaianKinerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -88,8 +89,9 @@ class OpdPenilaianController extends Controller
      */
     public function show(OpdPenilaian $opdPenilaian)
     {
+        $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
         $statuses = OpdPenilaian::STATUSES;
-        return view('opdPenilaian.show', compact('opdPenilaian', 'statuses'));
+        return view('opdPenilaian.show', compact('opdPenilaian', 'statuses','checkStatus'));
     }
 
     /**

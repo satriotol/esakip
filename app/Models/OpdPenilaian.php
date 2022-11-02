@@ -11,7 +11,6 @@ class OpdPenilaian extends Model
     use HasFactory;
     protected $fillable = ['opd_id', 'opd_category_id', 'year', 'name', 'inovasi_prestasi_daerah', 'status', 'note'];
 
-    protected $appends = ['capaian'];
 
     const STATUS1 = 'BELUM';
     const STATUS2 = 'VERIFIKASI';

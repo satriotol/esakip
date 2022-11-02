@@ -86,22 +86,24 @@
                                     <tr>
                                         <td>
                                             {{ $opd_category_variable->opd_variable->name }} |
-                                            @if ($opd_category_variable->opd_variable->pic == 'BAPENDA')
+                                            @if ($opd_category_variable->opd_variable->pic == 'BAPENDA' && $checkStatus != 1)
                                                 <a class="badge bg-primary"
                                                     href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->opd->nama_opd, $opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
                                                     DATA</a>
                                             @else
-                                                @if ($opd_category_variable->opd_variable->pic == 'OPD' && Auth::user()->opd_id)
+                                                @if ($opd_category_variable->opd_variable->pic == 'OPD' && Auth::user()->opd_id && $checkStatus != 1)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                         {{ $opd_category_variable->opd_variable->pic }}
                                                     </a>
-                                                @elseif($opd_category_variable->opd_variable->pic == 'INSPEKTORAT' && Auth::user()->hasRole('INSPEKTORAT'))
+                                                @elseif($opd_category_variable->opd_variable->pic == 'INSPEKTORAT' &&
+                                                    Auth::user()->hasRole('INSPEKTORAT') &&
+                                                    $checkStatus != 1)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                         {{ $opd_category_variable->opd_variable->pic }}
                                                     </a>
-                                                @elseif(Auth::user()->hasRole('SUPERADMIN'))
+                                                @elseif(Auth::user()->hasRole('SUPERADMIN') && $checkStatus != 1)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                         {{ $opd_category_variable->opd_variable->pic }}
