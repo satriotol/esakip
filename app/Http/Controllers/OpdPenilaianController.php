@@ -24,7 +24,7 @@ class OpdPenilaianController extends Controller
         $opdCategories = OpdCategory::all();
         $statuses = OpdPenilaian::STATUSALL;
         $request->flash();
-        return view('opdPenilaian.index', compact('opdPenilaians', 'opds', 'opdCategories','statuses'));
+        return view('opdPenilaian.index', compact('opdPenilaians', 'opds', 'opdCategories', 'statuses'));
     }
 
     /**
@@ -55,7 +55,7 @@ class OpdPenilaianController extends Controller
         ]);
         $data['status'] = OpdPenilaian::STATUS1;
         if (OpdPenilaian::ifTahunan($request->opd_category_id)) {
-            $data['inovasi_prestasi_daerah'] = InovasiPrestasiDaerah::first()->nilai;
+            $data['inovasi_prestasi_daerah'] = Opd::find($request->opd_id)->inovasi_prestasi_daerah;
             OpdPenilaian::create($data);
         } else {
             $triwulans = ['TRIWULAN 1', 'TRIWULAN 2', 'TRIWULAN 3', 'TRIWULAN 4'];
@@ -94,7 +94,7 @@ class OpdPenilaianController extends Controller
     {
         $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
         $statuses = OpdPenilaian::STATUSESVERIF;
-        return view('opdPenilaian.show', compact('opdPenilaian', 'statuses','checkStatus'));
+        return view('opdPenilaian.show', compact('opdPenilaian', 'statuses', 'checkStatus'));
     }
 
     /**
