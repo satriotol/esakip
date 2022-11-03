@@ -19,6 +19,10 @@ class Opd extends Model
     {
         return $this->hasMany(EvaluasiKinerja::class, 'opd_id', 'id');
     }
+    public function data_unit()
+    {
+        return $this->hasOne(DataUnit::class, 'nama_skpd', 'nama_opd');
+    }
     public static function getOpd()
     {
         if (Auth::user()->opd_id) {

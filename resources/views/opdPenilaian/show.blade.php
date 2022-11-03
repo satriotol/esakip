@@ -21,11 +21,11 @@
     </nav>
 
     <div class="row">
+        @include('partials.errors')
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Detail Penilaian OPD</h4>
-                    @include('partials.errors')
                     <div class="mb-3">
                         <table class="table">
                             <tbody>

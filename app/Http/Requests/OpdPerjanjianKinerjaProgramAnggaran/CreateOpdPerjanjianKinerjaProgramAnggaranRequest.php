@@ -25,9 +25,9 @@ class CreateOpdPerjanjianKinerjaProgramAnggaranRequest extends FormRequest
     {
         return [
             'opd_perjanjian_kinerja_id' => 'nullable',
-            'program' => 'required',
-            'anggaran' => 'required',
-            'keterangan' => 'required',
+            'program' => 'nullable',
+            'anggaran' => 'nullable',
+            'keterangan' => 'nullable',
         ];
     }
 }
