@@ -13,7 +13,7 @@ class Opd extends Model
 
     protected $guarded = ['id'];
 
-    protected $fillable = ['nama_opd', 'opd_category_id'];
+    protected $fillable = ['nama_opd', 'opd_category_id', 'inovasi_prestasi_daerah'];
 
     public function evaluasi_kinerjas()
     {
@@ -23,7 +23,7 @@ class Opd extends Model
     {
         if (Auth::user()->opd_id) {
             return Opd::where('id', Auth::user()->opd_id)->get();
-        }else{
+        } else {
             return Opd::all();
         }
     }

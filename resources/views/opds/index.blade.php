@@ -22,8 +22,8 @@
                             <thead>
                                 <tr>
                                     <th>Nama</th>
-                                    {{-- <th>Kategori</th>
-                                    <th>Action</th> --}}
+                                    <th>Inovasi Prestasi Daerah</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -32,14 +32,14 @@
                                         <td>
                                             {{ $opd->nama_opd }}
                                         </td>
-                                        {{-- <td>
-                                            {{ $opd->opd_category->name ?? '' }}
+                                        <td>
+                                            {{ $opd->inovasi_prestasi_daerah ?? '' }}
                                         </td>
                                         <td>
                                             <a class="btn btn-warning" href="{{ route('opds.edit', $opd->id) }}">
                                                 Edit
                                             </a>
-                                        </td> --}}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -73,6 +73,7 @@ class OpdController extends Controller
     {
         $data = $request->validate([
             'nama_opd' => 'required',
+            'inovasi_prestasi_daerah' => 'required|numeric'
         ]);
         $opd->update($data);
         session()->flash('success');

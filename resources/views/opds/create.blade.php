@@ -24,8 +24,13 @@
                     @endisset
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
-                        <input id="nama_opd" class="form-control" name="nama_opd" type="text" required
+                        <input id="nama_opd" class="form-control" name="nama_opd" type="text" readonly required
                             value="{{ isset($opd) ? $opd->nama_opd : @old('nama_opd') }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inovasi_prestasi_daerah" class="form-label">Inovasi Prestasi Daerah</label>
+                        <input id="inovasi_prestasi_daerah" class="form-control" name="inovasi_prestasi_daerah" type="number" required
+                            value="{{ isset($opd) ? $opd->inovasi_prestasi_daerah : @old('inovasi_prestasi_daerah') }}">
                     </div>
                     <div class="text-end">
                         <a href="{{ url()->previous() }}" class="btn btn-warning">Kembali</a>
