@@ -93,7 +93,7 @@ class OpdPenilaianController extends Controller
     public function show(OpdPenilaian $opdPenilaian)
     {
         $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
-        $statuses = OpdPenilaian::STATUSES;
+        $statuses = OpdPenilaian::STATUSESVERIF;
         return view('opdPenilaian.show', compact('opdPenilaian', 'statuses','checkStatus'));
     }
 

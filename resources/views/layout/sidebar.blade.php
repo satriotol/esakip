@@ -266,14 +266,6 @@
                     </a>
                 </li>
             @endcan
-            @can('inovasiPrestasiDaerah-list')
-                <li class="nav-item {{ active_class(['inovasiPrestasiDaerah.*']) }}">
-                    <a href="{{ route('inovasiPrestasiDaerah.create') }}" class="nav-link">
-                        <i class="link-icon" data-feather="anchor"></i>
-                        <span class="link-title">Inovasi Prestasi Daerah</span>
-                    </a>
-                </li>
-            @endcan
             @can('user-list')
                 <li class="nav-item nav-category">Setting</li>
                 <li class="nav-item {{ active_class(['user.*', 'role']) }}">

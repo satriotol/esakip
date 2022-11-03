@@ -21,14 +21,20 @@
                     </div>
                     <div class="mb-3">
                         <label>Realisasi</label>
-                        <input type="text" class="form-control" name="realisasi" required id="" value="{{ $opdPenilaian->realisasi($opd_category_variable->id) }}">
+                        <input type="text" class="form-control" name="realisasi" required id=""
+                            value="{{ $opdPenilaian->realisasi($opd_category_variable->id) }}">
                     </div>
+                    <small>
+                        Tidak Perlu Menggunakan % <br>
+                        Untuk Penggunaan Desimal, gunakan <b>Titik / "."</b>
+                    </small>
                     <div class="text-end">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Save
                             changes</button>
                     </div>
                 </form>
+
             </div>
         </div>
     </div>

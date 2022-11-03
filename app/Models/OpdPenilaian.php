@@ -15,13 +15,20 @@ class OpdPenilaian extends Model
     const STATUS1 = 'BELUM';
     const STATUS2 = 'VERIFIKASI';
     const STATUS3 = 'SELESAI';
+    const STATUS4 = 'PENGEMBALIAN';
     const STATUSES = [
         self::STATUS2,
         self::STATUS3
     ];
+    const STATUSESVERIF = [
+        self::STATUS4,
+        self::STATUS2,
+        self::STATUS3,
+    ];
     const STATUSALL = [
         self::STATUS1,
         self::STATUS2,
+        self::STATUS4,
         self::STATUS3,
     ];
 
