@@ -60,9 +60,10 @@ class OpdPerjanjianKinerjaProgramAnggaranController extends Controller
             $data['program'] = $q->nama_program;
             OpdPerjanjianKinerjaProgramAnggaran::updateOrCreate([
                 'opd_perjanjian_kinerja_id' => $data['opd_perjanjian_kinerja_id'],
-                'anggaran' => $data['anggaran'],
                 'program' => $data['program'],
                 'keterangan' => $data['keterangan'],
+            ], [
+                'anggaran' => $data['anggaran'],
             ]);
         }
         session()->flash('success');
