@@ -138,6 +138,10 @@
                                         </td>
                                         <td>
                                             {{ $opdPenilaian->target($opd_category_variable->id) }}
+                                            @if ($opdPenilaian->targetAtas($opd_category_variable->id))
+                                                -
+                                            @endif
+                                            {{ $opdPenilaian->targetAtas($opd_category_variable->id) }}
                                         </td>
                                         <td>
                                             {{ $opdPenilaian->realisasi($opd_category_variable->id) }}

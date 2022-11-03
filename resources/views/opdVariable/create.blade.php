@@ -49,6 +49,13 @@
                             <option value="1" @selected(isset($opdVariable) ? 1 == $opdVariable->is_efisiensi : @old('is_efisiensi'))>Ya</option>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="">Nilai Range</label>
+                        <select name="is_range" class="form-control" id="">
+                            <option value="">Pilih Efisiensi</option>
+                            <option value="1" @selected(isset($opdVariable) ? 1 == $opdVariable->is_range : @old('is_range'))>Ya</option>
+                        </select>
+                    </div>
                     <div class="text-end">
                         <a href="{{ url()->previous() }}" class="btn btn-warning">Kembali</a>
                         <input class="btn btn-primary" type="submit" value="Submit">

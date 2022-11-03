@@ -94,6 +94,16 @@ class OpdPenilaian extends Model
             return $data;
         }
     }
+    public function targetAtas($opd_category_variable_id)
+    {
+        $opdCategoryVariable = OpdCategoryVariable::find($opd_category_variable_id);
+        $data = $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->target_atas ?? '';
+        if ($opdCategoryVariable->opd_variable->pic == 'BAPENDA' && $data) {
+            return 'Rp ' . (number_format((float)$data));
+        } else {
+            return $data;
+        }
+    }
     public function capaian($opd_category_variable_id)
     {
         return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->capaian ?? '';

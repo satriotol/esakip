@@ -49,6 +49,7 @@ class OpdVariableController extends Controller
             'bobot' => 'required',
             'pic' => 'required',
             'is_efisiensi' => 'nullable',
+            'is_range' => 'nullable',
         ]);
         OpdVariable::create($data);
         session()->flash('success');
@@ -91,6 +92,9 @@ class OpdVariableController extends Controller
             'name' => 'required',
             'bobot' => 'required',
             'pic' => 'required',
+            'is_efisiensi' => 'nullable',
+            'is_range' => 'nullable',
+
         ]);
         $opdVariable->update($data);
         session()->flash('success');

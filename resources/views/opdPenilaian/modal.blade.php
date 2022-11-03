@@ -14,11 +14,31 @@
                     <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">
                     <input type="hidden" value="{{ $opd_category_variable->id }}" name="opd_category_variable_id"
                         id="">
-                    <div class="mb-3">
-                        <label>Target</label>
-                        <input type="number" class="form-control" name="target" required id=""
-                            value="{{ $opdPenilaian->target($opd_category_variable->id) }}">
-                    </div>
+                    @if (!$opd_category_variable->opd_variable->is_range)
+                        <div class="mb-3">
+                            <label>Target</label>
+                            <input type="number" class="form-control" name="target" required id=""
+                                value="{{ $opdPenilaian->target($opd_category_variable->id) }}">
+                        </div>
+                    @else
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Target Bawah</label>
+                                    <input type="number" class="form-control" name="target" step="any" required id=""
+                                        value="{{ $opdPenilaian->target($opd_category_variable->id) ?? '' }}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>Target Atas</label>
+                                    <input type="number" class="form-control" name="target_atas" step="any" required
+                                        id=""
+                                        value="{{ $opdPenilaian->targetAtas($opd_category_variable->id) ?? '' }}">
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                     <div class="mb-3">
                         <label>Realisasi</label>
                         <input type="number" class="form-control" name="realisasi" required id=""
