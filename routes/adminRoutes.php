@@ -16,6 +16,7 @@ use App\Http\Controllers\OpdCategoryVariableController;
 use App\Http\Controllers\OpdController;
 use App\Http\Controllers\OpdPenilaianController;
 use App\Http\Controllers\OpdPenilaianKinerjaController;
+use App\Http\Controllers\OpdPenilaianReportController;
 use App\Http\Controllers\OpdPerjanjianKinerjaController;
 use App\Http\Controllers\OpdPerjanjianKinerjaIndikatorController;
 use App\Http\Controllers\OpdPerjanjianKinerjaProgramAnggaranController;
@@ -105,6 +106,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('getIkuOpd', [IkuOpdController::class, 'getIkuOpd'])->name('ikuOpd.getIkuOpd');
     Route::post('ikuOpd/store_file', [IkuOpdController::class, 'store_file'])->name('ikuOpd.store_file');
     Route::resource('opdPenilaian', OpdPenilaianController::class);
+    Route::resource('opdPenilaianReport', OpdPenilaianReportController::class);
     Route::post('opdPenilaian/updateStatus/{opdPenilaian}', [OpdPenilaianController::class, 'updateStatus'])->name('opdPenilaian.updateStatus');
     Route::resource('opdVariable', OpdVariableController::class);
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);

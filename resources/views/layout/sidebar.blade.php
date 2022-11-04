@@ -250,11 +250,11 @@
                     </a>
                 </li>
             @endcan
-            @can('opdPenilaian-list')
-                <li class="nav-item {{ active_class(['opdPenilaian.*']) }}">
-                    <a href="{{ route('opdPenilaian.index') }}" class="nav-link">
+            @can('opdPenilaianReport-list')
+                <li class="nav-item {{ active_class(['opdPenilaianReport.*']) }}">
+                    <a href="{{ route('opdPenilaianReport.index') }}" class="nav-link">
                         <i class="link-icon" data-feather="bar-chart"></i>
-                        <span class="link-title">Penilaian OPD</span>
+                        <span class="link-title">Desk Timbal Balik</span>
                     </a>
                 </li>
             @endcan
