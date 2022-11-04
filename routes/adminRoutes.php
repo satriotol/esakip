@@ -11,6 +11,7 @@ use App\Http\Controllers\KotaPerjanjianKinerjaController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LkjipKotaController;
 use App\Http\Controllers\LkjipOpdController;
+use App\Http\Controllers\MasterController;
 use App\Http\Controllers\OpdCategoryController;
 use App\Http\Controllers\OpdCategoryVariableController;
 use App\Http\Controllers\OpdController;
@@ -49,6 +50,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('opds', OpdController::class);
     Route::resource('opdCategory', OpdCategoryController::class);
     Route::resource('inovasiPrestasiDaerah', InovasiPrestasiDaerahController::class);
+    Route::resource('master', MasterController::class);
     Route::resource('opdPenilaianKinerja', OpdPenilaianKinerjaController::class);
     Route::get('opdPenilaianKinerja/store/{name}/{opd_penilaian_id}/{opd_category_variable_id}', [OpdPenilaianKinerjaController::class, 'getRealisasiTargetPendapatan'])->name('opdPenilaianKinerja.getRealisasiTargetPendapatan');
 

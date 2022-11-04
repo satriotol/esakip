@@ -291,6 +291,14 @@
                     </a>
                 </li>
             @endcan
+            @can('role-list')
+                <li class="nav-item {{ active_class(['master.*']) }}">
+                    <a href="{{ route('master.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="unlock"></i>
+                        <span class="link-title">Master</span>
+                    </a>
+                </li>
+            @endcan
             @can('permission-list')
                 <li class="nav-item {{ active_class(['permission.*']) }}">
                     <a href="{{ route('permission.index') }}" class="nav-link">
