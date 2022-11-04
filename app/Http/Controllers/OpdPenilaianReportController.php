@@ -12,6 +12,16 @@ class OpdPenilaianReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        // Fetch the Site Settings object
+        $this->middleware('permission:opdPenilaianReport-list|opdPenilaianReport-create|opdPenilaianReport-edit|opdPenilaianReport-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:opdPenilaianReport-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opdPenilaianReport-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opdPenilaianReport-delete', ['only' => ['destroy']]);
+        $name = "Perjanjian Kinerja OPD";
+        view()->share('name', $name);
+    }
     public function index()
     {
         //
