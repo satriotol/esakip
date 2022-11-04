@@ -87,21 +87,27 @@ class OpdPenilaian extends Model
     public function target($opd_category_variable_id)
     {
         $opdCategoryVariable = OpdCategoryVariable::find($opd_category_variable_id);
+        $master = Master::first();
         $data = $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->target ?? '';
         if ($opdCategoryVariable->opd_variable->pic == 'BAPENDA' && $data) {
-            return 'Rp ' . (number_format((float)$data));
-        } else {
+            $data = [
+                'Rp ' . (number_format((float)$data))
+            ];
             return $data;
-        }
-    }
-    public function targetAtas($opd_category_variable_id)
-    {
-        $opdCategoryVariable = OpdCategoryVariable::find($opd_category_variable_id);
-        $data = $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->target_atas ?? '';
-        if ($opdCategoryVariable->opd_variable->pic == 'BAPENDA' && $data) {
-            return 'Rp ' . (number_format((float)$data));
-        } else {
+        } elseif ($opdCategoryVariable->opd_variable->is_reformasi_birokrasi) {
+            $data = [
+                $master->reformasi_birokrasi,
+                'disabled'
+            ];
             return $data;
+        } elseif ($opdCategoryVariable->opd_variable->is_sakip) {
+            $data = [
+                $master->sakip,
+                'disabled'
+            ];
+            return $data;
+        } else {
+            return [$data];
         }
     }
     public function capaian($opd_category_variable_id)

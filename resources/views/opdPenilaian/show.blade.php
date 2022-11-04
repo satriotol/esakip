@@ -137,11 +137,7 @@
                                             {{ $opd_category_variable->opd_variable->bobot }}%
                                         </td>
                                         <td>
-                                            {{ $opdPenilaian->target($opd_category_variable->id) }}
-                                            @if ($opdPenilaian->targetAtas($opd_category_variable->id))
-                                                -
-                                            @endif
-                                            {{ $opdPenilaian->targetAtas($opd_category_variable->id) }}
+                                            {{ $opdPenilaian->target($opd_category_variable->id)[0] }}
                                         </td>
                                         <td>
                                             {{ $opdPenilaian->realisasi($opd_category_variable->id) }}

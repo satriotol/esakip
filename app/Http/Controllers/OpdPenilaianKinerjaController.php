@@ -123,7 +123,6 @@ class OpdPenilaianKinerjaController extends Controller
     {
         $request->validate([
             'target' => 'required|numeric',
-            'target_atas' => 'nullable|numeric',
             'realisasi' => 'required|numeric',
         ]);
         $opdCategoryVariable = OpdCategoryVariable::where('id', $request->opd_category_variable_id)->first();
@@ -145,7 +144,6 @@ class OpdPenilaianKinerjaController extends Controller
                 ],
                 [
                     'target' => $request->target,
-                    'target_atas' => $request->target_atas,
                     'realisasi' => $request->realisasi,
                     'capaian' => round($capaian, 2),
                     'nilai_akhir' => round($capaian * $bobot, 2),

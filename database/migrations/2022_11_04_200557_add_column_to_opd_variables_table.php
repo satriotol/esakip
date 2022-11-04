@@ -1,0 +1,36 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('opd_variables', function (Blueprint $table) {
+            $table->bigInteger('is_reformasi_birokrasi')->nullable();
+            $table->bigInteger('is_sakip')->nullable();
+            $table->dropColumn('is_range');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('opd_variables', function (Blueprint $table) {
+            $table->dropColumn('is_reformasi_birokrasi');
+            $table->dropColumn('is_sakip');
+            $table->bigInteger('is_range')->nullable();
+        });
+    }
+};

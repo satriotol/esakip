@@ -50,10 +50,17 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="">Nilai Range</label>
-                        <select name="is_range" class="form-control" id="">
-                            <option value="">Pilih Efisiensi</option>
-                            <option value="1" @selected(isset($opdVariable) ? 1 == $opdVariable->is_range : @old('is_range'))>Ya</option>
+                        <label for="">SAKIP</label>
+                        <select name="is_sakip" class="form-control" id="">
+                            <option value="">Pilih Tipe</option>
+                            <option value="1" @selected(isset($opdVariable) ? 1 == $opdVariable->is_sakip : @old('is_sakip'))>Ya</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="">Reformasi Birokrasi</label>
+                        <select name="is_reformasi_birokrasi" class="form-control" id="">
+                            <option value="">Pilih Tipe</option>
+                            <option value="1" @selected(isset($opdVariable) ? 1 == $opdVariable->is_reformasi_birokrasi : @old('is_reformasi_birokrasi'))>Ya</option>
                         </select>
                     </div>
                     <div class="text-end">
