@@ -23,6 +23,7 @@
                                     <th>Target</th>
                                     <th>Tipe</th>
                                     <th>Realisasi</th>
+                                    <th>Capaian</th>
                                 </thead>
                                 <tbody>
                                     @foreach ($getOpdPerjanjianKinerjaIndikators as $getOpdPerjanjianKinerjaIndikator)
@@ -49,6 +50,9 @@
                                                     value="{{ $opd_category_variable->getIkuRealisasi($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}"
                                                     step="any" class="form-control" required
                                                     name="iku[{{ $loop->index }}][realisasi]" id="">
+                                            </td>
+                                            <td>
+                                                {{ $opd_category_variable->getIkuCapaian($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}
                                             </td>
                                             <input type="hidden"
                                                 name="iku[{{ $loop->index }}][opd_perjanjian_kinerja_indikator_id]"

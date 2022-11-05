@@ -33,4 +33,9 @@ class OpdCategoryVariable extends Model
         $data = $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus->where('opd_perjanjian_kinerja_indikator_id', $getOpdPerjanjianKinerjaIndikator)->first()->type ?? "";
         return $data;
     }
+    public function getIkuCapaian($opdPenilaian, $getOpdPerjanjianKinerjaIndikator)
+    {
+        $data = $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus->where('opd_perjanjian_kinerja_indikator_id', $getOpdPerjanjianKinerjaIndikator)->first()->capaian ?? "";
+        return $data;
+    }
 }

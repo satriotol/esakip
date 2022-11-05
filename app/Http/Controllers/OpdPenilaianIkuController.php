@@ -63,7 +63,7 @@ class OpdPenilaianIkuController extends Controller
                         [
                             'type' => $i['type'],
                             'realisasi' => $i['realisasi'],
-                            'capaian' => (float)$i['realisasi'] / (float)$opdPerjanjianKinerjaIndikator->target * 100,
+                            'capaian' => round((float)$i['realisasi'] / (float)$opdPerjanjianKinerjaIndikator->target * 100, 2),
                         ]
                     );
                 } else {
@@ -75,7 +75,7 @@ class OpdPenilaianIkuController extends Controller
                         [
                             'type' => $i['type'],
                             'realisasi' => $i['realisasi'],
-                            'capaian' => (float)$opdPerjanjianKinerjaIndikator->target / (float)$i['realisasi']  * 100,
+                            'capaian' => round(((float)$opdPerjanjianKinerjaIndikator->target - (float)$i['realisasi']) / (float)$opdPerjanjianKinerjaIndikator->target * 100, 2),
                         ]
                     );
                 }
@@ -83,13 +83,16 @@ class OpdPenilaianIkuController extends Controller
             $opdCategoryVariable = OpdCategoryVariable::where('id', $request->opd_category_variable_id)->first();
             $target = OpdPenilaian::getOpdPerjanjianKinerjaIndikator(OpdPenilaian::find($request->opd_penilaian_id))->sum('target');
             $realisasi = $opdPenilaianKinerja->opd_penilaian_ikus->sum('realisasi');
-            $capaian = $opdPenilaianKinerja->opd_penilaian_ikus->sum('capaian');
+            $capaian = round($opdPenilaianKinerja->opd_penilaian_ikus->sum('capaian') / $opdPenilaianKinerja->opd_penilaian_ikus->count(), 2);
+            if ($capaian > 100) {
+                $capaian = 100;
+            }
             $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
             $opdPenilaianKinerja->update([
                 'target' => $target,
                 'realisasi' => $realisasi,
-                'capaian' => round($capaian / $opdPenilaianKinerja->opd_penilaian_ikus->count(), 2),
-                'nilai_akhir' => round($capaian / $opdPenilaianKinerja->opd_penilaian_ikus->count() * $bobot, 2),
+                'capaian' => $capaian,
+                'nilai_akhir' => round($capaian * $bobot, 2),
                 'user_id' => Auth::user()->id
 
             ]);
