@@ -49,7 +49,7 @@
                                 <input type="text" required class="form-control" name="addMoreInputFields[0][indikator]">
                             </td>
                             <td>
-                                <input type="number" required class="form-control" name="addMoreInputFields[0][target]">
+                                <input type="number" step="any" required class="form-control" name="addMoreInputFields[0][target]">
                             </td>
                             <td>
                                 <input type="text" class="form-control" name="addMoreInputFields[0][satuan]">

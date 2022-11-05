@@ -44,7 +44,7 @@
                                                     @endforeach
                                                 </select>
                                             </td>
-                                            <td><input type="number" class="form-control" required
+                                            <td><input type="number" step="any" class="form-control" required
                                                     name="iku[{{ $loop->index }}][realisasi]" id="">
                                                 <input class="d-none" type="text"
                                                     name="opd_perjanjian_kinerja_indikator_id"
@@ -70,7 +70,7 @@
                             id="">
                         <div class="mb-3">
                             <label>Target</label>
-                            <input type="number" class="form-control" name="target" required id=""
+                            <input type="number" step="any" class="form-control" name="target" required id=""
                                 @isset($opdPenilaian->target($opd_category_variable->id)[1])
                             readonly
                         @endisset
@@ -78,7 +78,7 @@
                         </div>
                         <div class="mb-3">
                             <label>Realisasi</label>
-                            <input type="number" class="form-control" name="realisasi" required id=""
+                            <input type="number" step="any" class="form-control" name="realisasi" required id=""
                                 value="{{ $opdPenilaian->realisasi($opd_category_variable->id) }}">
                         </div>
                         <small>
