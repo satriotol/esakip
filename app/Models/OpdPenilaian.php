@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class OpdPenilaian extends Model
 {
     use HasFactory;
-    protected $fillable = ['opd_id', 'opd_category_id', 'year', 'name', 'inovasi_prestasi_daerah', 'status', 'note'];
+    protected $fillable = ['opd_id', 'opd_category_id', 'year', 'name', 'inovasi_prestasi_daerah', 'status', 'note', 'opd_perjanjian_kinerja_id'];
 
 
     const STATUS1 = 'BELUM';
@@ -39,6 +40,10 @@ class OpdPenilaian extends Model
     public function opd_category()
     {
         return $this->belongsTo(OpdCategory::class, 'opd_category_id', 'id');
+    }
+    public function opd_perjanjian_kinerja()
+    {
+        return $this->belongsTo(OpdPerjanjianKinerja::class, 'opd_perjanjian_kinerja_id', 'id');
     }
     public static function getOpdPenilaian($request)
     {

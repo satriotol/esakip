@@ -4,6 +4,7 @@ namespace App\Models\PerngukuranKinerja;
 
 use App\Blameable;
 use App\Models\Opd;
+use App\Models\OpdPenilaian;
 use App\Models\OpdPerjanjianKinerjaProgramAnggaran;
 use App\Models\OpdPerjanjianKinerjaSasaran;
 use App\Models\RencanaAksi;
@@ -35,6 +36,10 @@ class OpdPerjanjianKinerja extends Model
         static::addGlobalScope('order', function (Builder $builder) {
             $builder->orderBy('year', 'desc')->orderBy('opd_id', 'asc');
         });
+    }
+    public function opd_penilaians()
+    {
+        return $this->hasMany(OpdPenilaian::class, 'opd_perjanjian_kinerja_id', 'id');
     }
     public function opd()
     {
@@ -69,6 +74,14 @@ class OpdPerjanjianKinerja extends Model
     public function rencana_aksis()
     {
         return $this->hasMany(RencanaAksi::class, 'opd_perjanjian_kinerja_id', 'id');
+    }
+    public static function getPerjanjianKinerjas()
+    {
+        if (Auth::user()->opd_id) {
+            return OpdPerjanjianKinerja::where('opd_id', Auth::user()->opd_id)->get();
+        }else{
+            return OpdPerjanjianKinerja::all();
+        }
     }
     public static function getRencanaAksi($request)
     {

@@ -7,6 +7,7 @@ use App\Models\Opd;
 use App\Models\OpdCategory;
 use App\Models\OpdPenilaian;
 use App\Models\OpdPenilaianKinerja;
+use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,7 +37,8 @@ class OpdPenilaianController extends Controller
     {
         $opds = Opd::getOpd();
         $opdCategories = OpdCategory::all();
-        return view('opdPenilaian.create', compact('opds', 'opdCategories'));
+        $opdPerjanjianKinerjas = OpdPerjanjianKinerja::getPerjanjianKinerjas();
+        return view('opdPenilaian.create', compact('opds', 'opdCategories', 'opdPerjanjianKinerjas'));
     }
 
     /**
@@ -52,6 +54,7 @@ class OpdPenilaianController extends Controller
             'opd_category_id' => 'required',
             'year' => 'required',
             'inovasi_prestasi_daerah' => 'nullable',
+            'opd_perjanjian_kinerja_id' => 'nullable',
         ]);
         $data['status'] = OpdPenilaian::STATUS1;
         if (OpdPenilaian::ifTahunan($request->opd_category_id)) {
@@ -65,7 +68,8 @@ class OpdPenilaianController extends Controller
                     'opd_id' => $data['opd_id'],
                     'opd_category_id' => $data['opd_category_id'],
                     'year' => $data['year'],
-                    'status' => $data['status']
+                    'status' => $data['status'],
+                    'opd_perjanjian_kinerja_id' => $data['opd_perjanjian_kinerja_id']
                 ]);
             }
         }
