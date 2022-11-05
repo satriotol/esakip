@@ -9,7 +9,7 @@ class OpdVariable extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'bobot', 'pic', 'is_efisiensi', 'is_reformasi_birokrasi', 'is_sakip'];
+    protected $fillable = ['name', 'bobot', 'pic', 'is_efisiensi', 'is_reformasi_birokrasi', 'is_sakip', 'is_iku'];
     protected $casts = [
         'is_efisiensi' => 'boolean',
     ];

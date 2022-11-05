@@ -51,6 +51,7 @@ class OpdVariableController extends Controller
             'is_efisiensi' => 'nullable',
             'is_reformasi_birokrasi' => 'nullable',
             'is_sakip' => 'nullable',
+            'is_iku' => 'nullable',
         ]);
         OpdVariable::create($data);
         session()->flash('success');
@@ -96,6 +97,7 @@ class OpdVariableController extends Controller
             'is_efisiensi' => 'nullable',
             'is_reformasi_birokrasi' => 'nullable',
             'is_sakip' => 'nullable',
+            'is_iku' => 'nullable',
         ]);
         $opdVariable->update($data);
         session()->flash('success');
