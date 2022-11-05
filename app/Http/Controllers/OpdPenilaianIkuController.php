@@ -88,8 +88,8 @@ class OpdPenilaianIkuController extends Controller
             $opdPenilaianKinerja->update([
                 'target' => $target,
                 'realisasi' => $realisasi,
-                'capaian' => $capaian / $opdPenilaianKinerja->opd_penilaian_ikus->count(),
-                'nilai_akhir' => $capaian / $opdPenilaianKinerja->opd_penilaian_ikus->count() * $bobot,
+                'capaian' => round($capaian / $opdPenilaianKinerja->opd_penilaian_ikus->count(), 2),
+                'nilai_akhir' => round($capaian / $opdPenilaianKinerja->opd_penilaian_ikus->count() * $bobot, 2),
                 'user_id' => Auth::user()->id
 
             ]);

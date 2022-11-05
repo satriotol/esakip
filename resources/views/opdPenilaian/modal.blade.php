@@ -39,16 +39,16 @@
                                                 <select name="iku[{{ $loop->index }}][type]" class="form-control">
                                                     <option value="">Pilih Tipe</option>
                                                     @foreach ($ikuTypes as $ikuType)
-                                                        <option value="{{ $ikuType }}">{{ $ikuType }}
+                                                        <option value="{{ $ikuType }}"
+                                                            @selected($opd_category_variable->getIkuType($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) == $ikuType)>{{ $ikuType }}
                                                         </option>
                                                     @endforeach
                                                 </select>
                                             </td>
-                                            <td><input type="number" step="any" class="form-control" required
+                                            <td><input type="number"
+                                                    value="{{ $opd_category_variable->getIkuRealisasi($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}"
+                                                    step="any" class="form-control" required
                                                     name="iku[{{ $loop->index }}][realisasi]" id="">
-                                                <input class="d-none" type="text"
-                                                    name="opd_perjanjian_kinerja_indikator_id"
-                                                    value="{{ $getOpdPerjanjianKinerjaIndikator->id }}" id="">
                                             </td>
                                             <input type="hidden"
                                                 name="iku[{{ $loop->index }}][opd_perjanjian_kinerja_indikator_id]"
@@ -70,7 +70,8 @@
                             id="">
                         <div class="mb-3">
                             <label>Target</label>
-                            <input type="number" step="any" class="form-control" name="target" required id=""
+                            <input type="number" step="any" class="form-control" name="target" required
+                                id=""
                                 @isset($opdPenilaian->target($opd_category_variable->id)[1])
                             readonly
                         @endisset
@@ -78,8 +79,8 @@
                         </div>
                         <div class="mb-3">
                             <label>Realisasi</label>
-                            <input type="number" step="any" class="form-control" name="realisasi" required id=""
-                                value="{{ $opdPenilaian->realisasi($opd_category_variable->id) }}">
+                            <input type="number" step="any" class="form-control" name="realisasi" required
+                                id="" value="{{ $opdPenilaian->realisasi($opd_category_variable->id) }}">
                         </div>
                         <small>
                             Tidak Perlu Menggunakan % <br>
