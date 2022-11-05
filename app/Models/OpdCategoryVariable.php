@@ -25,17 +25,29 @@ class OpdCategoryVariable extends Model
     }
     public function getIkuRealisasi($opdPenilaian, $getOpdPerjanjianKinerjaIndikator)
     {
-        $data = $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus->where('opd_perjanjian_kinerja_indikator_id', $getOpdPerjanjianKinerjaIndikator)->first()->realisasi ?? "";
-        return $data;
+        $opdPenilaianIku =  $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus ?? "";
+        if ($opdPenilaianIku) {
+            $data = $opdPenilaianIku->where('opd_perjanjian_kinerja_indikator_id', $getOpdPerjanjianKinerjaIndikator)->first()->realisasi ?? "";
+            return $data;
+        }
+        return $opdPenilaianIku;
     }
     public function getIkuType($opdPenilaian, $getOpdPerjanjianKinerjaIndikator)
     {
-        $data = $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus->where('opd_perjanjian_kinerja_indikator_id', $getOpdPerjanjianKinerjaIndikator)->first()->type ?? "";
-        return $data;
+        $opdPenilaianIku =  $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus ?? "";
+        if ($opdPenilaianIku) {
+            $data = $opdPenilaianIku->where('opd_perjanjian_kinerja_indikator_id', $getOpdPerjanjianKinerjaIndikator)->first()->type ?? "";
+            return $data;
+        }
+        return $opdPenilaianIku;
     }
     public function getIkuCapaian($opdPenilaian, $getOpdPerjanjianKinerjaIndikator)
     {
-        $data = $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus->where('opd_perjanjian_kinerja_indikator_id', $getOpdPerjanjianKinerjaIndikator)->first()->capaian ?? "";
-        return $data;
+        $opdPenilaianIku =  $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus ?? "";
+        if ($opdPenilaianIku) {
+            $data = $opdPenilaianIku->where('opd_perjanjian_kinerja_indikator_id', $getOpdPerjanjianKinerjaIndikator)->first()->capaian ?? "";
+            return $data;
+        }
+        return $opdPenilaianIku;
     }
 }

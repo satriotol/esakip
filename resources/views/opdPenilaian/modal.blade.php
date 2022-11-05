@@ -64,7 +64,9 @@
                         </div>
                         <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">
                         <input type="hidden" value="{{ $opd_category_variable->id }}" name="opd_category_variable_id">
-                        <button class="btn btn-success">Submit</button>
+                        <div class="text-end">
+                            <button class="btn btn-success">Submit</button>
+                        </div>
                     </form>
                 @else
                     <form action="{{ route('opdPenilaianKinerja.store') }}" method="post">
