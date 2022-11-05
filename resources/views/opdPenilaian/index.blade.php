@@ -58,8 +58,7 @@
                             <div class="col-md-3">
                                 <div class="mb-3">
                                     <label>Status</label>
-                                    <select name="status" class="js-example-basic-single form-select"
-                                        id="">
+                                    <select name="status" class="js-example-basic-single form-select" id="">
                                         <option value="">Pilih Status</option>
                                         @foreach ($statuses as $status)
                                             <option @selected(old('status') == $status) value="{{ $status }}">
@@ -78,6 +77,7 @@
                             <thead>
                                 <tr>
                                     <th>Tahun</th>
+                                    <th>Perjanjian Kinerja</th>
                                     <th>Kategori</th>
                                     <th>OPD</th>
                                     <th>Inovasi Prestasi Daerah</th>
@@ -90,6 +90,12 @@
                                 @foreach ($opdPenilaians as $opdPenilaian)
                                     <tr>
                                         <td>{{ $opdPenilaian->year }} {{ $opdPenilaian->name }}</td>
+                                        <td>
+                                            <a href="{{ route('opdPerjanjianKinerja.show', $opdPenilaian->opd_perjanjian_kinerja_id) }}"
+                                                target="_blank">
+                                                {{ $opdPenilaian->opd_perjanjian_kinerja->type }}
+                                            </a>
+                                        </td>
                                         <td>{{ $opdPenilaian->opd_category->name }}</td>
                                         <td>{{ $opdPenilaian->opd->nama_opd }}</td>
                                         <td>{{ $opdPenilaian->inovasi_prestasi_daerah ?? 'TRIWULAN' }}</td>

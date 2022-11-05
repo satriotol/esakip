@@ -50,7 +50,7 @@
                             name="opd_perjanjian_kinerja_id" required>
                             <option value="">Pilih Perjanjian Kinerja</option>
                             @foreach ($opdPerjanjianKinerjas as $opdPerjanjianKinerja)
-                                <option value="{{ $opd->id }}"
+                                <option value="{{ $opdPerjanjianKinerja->id }}"
                                     @isset($opdPenilaian) 
                                     @if ($opdPerjanjianKinerja->id === $opdPenilaian->opd_perjanjian_kinerja_id) selected  @endif
                                 @endisset>
