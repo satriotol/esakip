@@ -18,7 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('opd_penilaian_kinerja_id');
             $table->unsignedBigInteger('opd_perjanjian_kinerja_indikator_id');
             $table->string('type');
-            $table->text('capaian');
+            $table->unsignedBigInteger('realisasi');
+            $table->unsignedBigInteger('capaian');
             $table->timestamps();
         });
     }

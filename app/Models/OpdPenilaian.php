@@ -70,6 +70,13 @@ class OpdPenilaian extends Model
         }
         return $getOpdPenilaian->orderBy('year', 'desc')->paginate();
     }
+    public static function getOpdPerjanjianKinerjaIndikator($opdPenilaian)
+    {
+        $datas = OpdPerjanjianKinerjaIndikator::whereHas('opd_perjanjian_kinerja_sasaran', function ($q) use ($opdPenilaian) {
+            $q->where('opd_perjanjian_kinerja_id', $opdPenilaian->opd_perjanjian_kinerja_id);
+        })->get();
+        return $datas;
+    }
     public static function ifTahunan($opd_category_id)
     {
         $ifTahunan =  OpdCategory::where('id', $opd_category_id)->first()->type == 'TAHUNAN';

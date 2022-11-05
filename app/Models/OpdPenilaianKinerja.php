@@ -20,6 +20,10 @@ class OpdPenilaianKinerja extends Model
     {
         return $this->belongsTo(OpdCategoryVariable::class, 'opd_category_variable_id', 'id');
     }
+    public function opd_penilaian_ikus()
+    {
+        return $this->hasMany(OpdPenilaianIku::class, 'opd_penilaian_kinerja_id', 'id');
+    }
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');

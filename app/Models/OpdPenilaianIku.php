@@ -9,12 +9,15 @@ class OpdPenilaianIku extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['opd_penilaian_kinerja_id', 'opd_perjanjian_kinerja_indikator_id', 'type', 'capaian'];
+    protected $fillable = ['opd_penilaian_kinerja_id', 'opd_perjanjian_kinerja_indikator_id', 'type', 'capaian', 'realisasi'];
     const TYPE1 = 'UMUM';
     const TYPE2 = 'KHUSUS';
     const TYPES = [
         self::TYPE1,
         self::TYPE2,
+    ];
+    protected $cast = [
+        'capaian' => 'float'
     ];
     public function opd_penilaian_kinerja()
     {

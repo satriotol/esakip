@@ -10,46 +10,58 @@
             </div>
             <div class="modal-body">
                 @if ($opd_category_variable->opd_variable->is_iku)
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead>
+                    <form action="{{ route('opdPenilaianIku.store') }}" method="POST">
+                        @csrf
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
 
-                                <th>Sasaran
-                                    <br>
-                                    Indikator
-                                </th>
-                                <th>Target</th>
-                                <th>Tipe</th>
-                                <th>Realisasi</th>
-                            </thead>
-                            <tbody>
-                                @foreach ($opdPenilaian->opd_perjanjian_kinerja->opd_perjanjian_kinerja_sasarans as $opd_perjanjian_kinerja_sasaran)
-                                    @foreach ($opd_perjanjian_kinerja_sasaran->opd_perjanjian_kinerja_indikators as $opd_perjanjian_kinerja_indikator)
+                                    <th>Sasaran
+                                        <br>
+                                        Indikator
+                                    </th>
+                                    <th>Target</th>
+                                    <th>Tipe</th>
+                                    <th>Realisasi</th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($getOpdPerjanjianKinerjaIndikators as $getOpdPerjanjianKinerjaIndikator)
                                         <tr>
-                                            <td>{{ $opd_perjanjian_kinerja_indikator->opd_perjanjian_kinerja_sasaran->sasaran }}
+                                            <td>
+                                                {{ $getOpdPerjanjianKinerjaIndikator->opd_perjanjian_kinerja_sasaran->sasaran }}
                                                 <br>
                                                 <small>
-                                                    {{ $opd_perjanjian_kinerja_indikator->indikator }}
+                                                    {{ $getOpdPerjanjianKinerjaIndikator->indikator }}
                                                 </small>
                                             </td>
-                                            <td>{{ $opd_perjanjian_kinerja_indikator->target }}</td>
+                                            <td>{{ $getOpdPerjanjianKinerjaIndikator->target }}</td>
                                             <td>
-                                                <select name="type" class="form-control">
+                                                <select name="iku[{{ $loop->index }}][type]" class="form-control">
                                                     <option value="">Pilih Tipe</option>
                                                     @foreach ($ikuTypes as $ikuType)
-                                                        <option value="{{ $ikuType }}">{{ $ikuType }}</option>
+                                                        <option value="{{ $ikuType }}">{{ $ikuType }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </td>
-                                            <td><input type="number" class="form-control" required name="realisasi"
-                                                    id="">
+                                            <td><input type="number" class="form-control" required
+                                                    name="iku[{{ $loop->index }}][realisasi]" id="">
+                                                <input class="d-none" type="text"
+                                                    name="opd_perjanjian_kinerja_indikator_id"
+                                                    value="{{ $getOpdPerjanjianKinerjaIndikator->id }}" id="">
                                             </td>
+                                            <input type="hidden"
+                                                name="iku[{{ $loop->index }}][opd_perjanjian_kinerja_indikator_id]"
+                                                value="{{ $getOpdPerjanjianKinerjaIndikator->id }}" id="">
                                         </tr>
                                     @endforeach
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                </tbody>
+                            </table>
+                        </div>
+                        <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">
+                        <input type="hidden" value="{{ $opd_category_variable->id }}" name="opd_category_variable_id">
+                        <button class="btn btn-success">Submit</button>
+                    </form>
                 @else
                     <form action="{{ route('opdPenilaianKinerja.store') }}" method="post">
                         @csrf

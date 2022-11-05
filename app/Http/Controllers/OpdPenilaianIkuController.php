@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OpdCategoryVariable;
+use App\Models\OpdPenilaian;
 use App\Models\OpdPenilaianIku;
+use App\Models\OpdPenilaianKinerja;
+use App\Models\OpdPerjanjianKinerjaIndikator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OpdPenilaianIkuController extends Controller
 {
@@ -35,7 +41,66 @@ class OpdPenilaianIkuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'iku.type.*' => 'required',
+            'iku.realisasi.*' => 'required',
+        ]);
+        DB::beginTransaction();
+        try {
+            $opdPenilaianKinerja = OpdPenilaianKinerja::updateOrCreate([
+                'opd_penilaian_id' => $request->opd_penilaian_id,
+                'opd_category_variable_id' => $request->opd_category_variable_id,
+            ]);
+            foreach ($request->iku as $i) {
+                $opdPerjanjianKinerjaIndikator = OpdPerjanjianKinerjaIndikator::find($i['opd_perjanjian_kinerja_indikator_id']);
+                // OpdPenilaianIku::where('opd_penilaian_kinerja_id', $opdPenilaianKinerja->id)->where('opd_perjanjian_kinerja_indikator_id', $i['opd_perjanjian_kinerja_indikator_id'])->delete();
+                if ($i['type'] == OpdPenilaianIku::TYPE1) {
+                    OpdPenilaianIku::updateOrCreate(
+                        [
+                            'opd_penilaian_kinerja_id' => $opdPenilaianKinerja->id,
+                            'opd_perjanjian_kinerja_indikator_id' => $i['opd_perjanjian_kinerja_indikator_id'],
+                        ],
+                        [
+                            'type' => $i['type'],
+                            'realisasi' => $i['realisasi'],
+                            'capaian' => (float)$i['realisasi'] / (float)$opdPerjanjianKinerjaIndikator->target * 100,
+                        ]
+                    );
+                } else {
+                    OpdPenilaianIku::updateOrCreate(
+                        [
+                            'opd_penilaian_kinerja_id' => $opdPenilaianKinerja->id,
+                            'opd_perjanjian_kinerja_indikator_id' => $i['opd_perjanjian_kinerja_indikator_id'],
+                        ],
+                        [
+                            'type' => $i['type'],
+                            'realisasi' => $i['realisasi'],
+                            'capaian' => (float)$opdPerjanjianKinerjaIndikator->target / (float)$i['realisasi']  * 100,
+                        ]
+                    );
+                }
+            }
+            $opdCategoryVariable = OpdCategoryVariable::where('id', $request->opd_category_variable_id)->first();
+            $target = OpdPenilaian::getOpdPerjanjianKinerjaIndikator(OpdPenilaian::find($request->opd_penilaian_id))->sum('target');
+            $realisasi = $opdPenilaianKinerja->opd_penilaian_ikus->sum('realisasi');
+            $capaian = $opdPenilaianKinerja->opd_penilaian_ikus->sum('capaian');
+            $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+            $opdPenilaianKinerja->update([
+                'target' => $target,
+                'realisasi' => $realisasi,
+                'capaian' => $capaian / $opdPenilaianKinerja->opd_penilaian_ikus->count(),
+                'nilai_akhir' => $capaian / $opdPenilaianKinerja->opd_penilaian_ikus->count() * $bobot,
+                'user_id' => Auth::user()->id
+
+            ]);
+            DB::commit();
+        } catch (\Throwable $th) {
+            return $th;
+            DB::rollback();
+        }
+
+
+        return back();
     }
 
     /**
