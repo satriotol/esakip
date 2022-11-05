@@ -6,6 +6,7 @@ use App\Models\InovasiPrestasiDaerah;
 use App\Models\Opd;
 use App\Models\OpdCategory;
 use App\Models\OpdPenilaian;
+use App\Models\OpdPenilaianIku;
 use App\Models\OpdPenilaianKinerja;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Http\Request;
@@ -98,7 +99,8 @@ class OpdPenilaianController extends Controller
     {
         $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
         $statuses = OpdPenilaian::STATUSESVERIF;
-        return view('opdPenilaian.show', compact('opdPenilaian', 'statuses', 'checkStatus'));
+        $ikuTypes = OpdPenilaianIku::TYPES;
+        return view('opdPenilaian.show', compact('opdPenilaian', 'statuses', 'checkStatus', 'ikuTypes'));
     }
 
     /**

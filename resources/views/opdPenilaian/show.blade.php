@@ -40,6 +40,16 @@
                                     <td>{{ $opdPenilaian->opd->nama_opd }}</td>
                                 </tr>
                                 <tr>
+                                    <td>Perjanjian Kinerja</td>
+                                    <td>:</td>
+                                    <td>
+                                        <a href="{{ route('opdPerjanjianKinerja.show', $opdPenilaian->opd_perjanjian_kinerja_id) }}"
+                                            target="_blank">
+                                            {{ $opdPenilaian->opd_perjanjian_kinerja->type }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
                                     <td>Kategori</td>
                                     <td>:</td>
                                     <td>{{ $opdPenilaian->opd_category->name }}</td>
