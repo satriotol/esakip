@@ -45,12 +45,16 @@ class OpdPenilaian extends Model
     {
         return $this->belongsTo(OpdPerjanjianKinerja::class, 'opd_perjanjian_kinerja_id', 'id');
     }
-    public static function getOpdPenilaian($request)
+    public static function getOpdPenilaian($request, $verifikasi)
     {
+        if ($verifikasi == 'VERIFIKASI') {
+            $status = in_array(self::STATUS1, self::STATUSESVERIF);
+        } else {
+            $status = $request->status;
+        }
         $opd_id = $request->opd_id;
         $year = $request->year;
         $opd_category_id = $request->opd_category_id;
-        $status = $request->status;
         if (Auth::user()->opd_id) {
             $getOpdPenilaian = OpdPenilaian::query()->where('opd_id', Auth::user()->opd_id);
         } else {
@@ -70,6 +74,7 @@ class OpdPenilaian extends Model
         }
         return $getOpdPenilaian->orderBy('year', 'desc')->paginate();
     }
+
     public static function getOpdPerjanjianKinerjaIndikator($opdPenilaian)
     {
         $datas = OpdPerjanjianKinerjaIndikator::whereHas('opd_perjanjian_kinerja_sasaran', function ($q) use ($opdPenilaian) {

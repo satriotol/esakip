@@ -22,7 +22,7 @@ class OpdPenilaianController extends Controller
     public function index(Request $request)
     {
         $opds = Opd::getOpd();
-        $opdPenilaians = OpdPenilaian::getOpdPenilaian($request);
+        $opdPenilaians = OpdPenilaian::getOpdPenilaian($request, '');
         $opdCategories = OpdCategory::all();
         $statuses = OpdPenilaian::STATUSALL;
         $request->flash();
