@@ -65,7 +65,7 @@
                         <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">
                         <input type="hidden" value="{{ $opd_category_variable->id }}" name="opd_category_variable_id">
                         <div class="text-end">
-                            <button class="btn btn-success">Submit</button>
+                            <button class="btn btn-success">Simpan</button>
                         </div>
                     </form>
                 @elseif ($opd_category_variable->opd_variable->pic == 'SIPD')
@@ -86,8 +86,9 @@
                         </div>
                         <div class="text-end">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save
-                                changes</button>
+                            <input type="submit" class="btn btn-primary me-2 mb-2 mb-md-0" name=""
+                                onclick="this.disabled=true;this.value='Loading...';this.form.submit();" id=""
+                                value="Simpan">
                         </div>
                     </form>
                 @else
@@ -115,8 +116,7 @@
                         </small>
                         <div class="text-end">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Save
-                                changes</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                         </div>
                     </form>
                 @endif
