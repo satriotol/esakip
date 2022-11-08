@@ -27,6 +27,7 @@
                             <thead>
                                 <tr>
                                     <th>Tahun</th>
+                                    <th>Nama</th>
                                     <th>File</th>
                                     <th>Action</th>
                                 </tr>
@@ -35,6 +36,7 @@
                                 @foreach ($ikuKotas as $ikuKota)
                                     <tr>
                                         <td>{{ $ikuKota->year }}</td>
+                                        <td>{{ $ikuKota->name }}</td>
                                         <td>
                                             <a class="btn btn-success" href="{{ asset('uploads/' . $ikuKota->file) }}"
                                                 target="_blank">

@@ -25,6 +25,8 @@ class UpdateIkuKotaRequest extends FormRequest
     {
         return [
             'file' => 'nullable|max:500000',
+            'name' => 'required',
+            'year' => 'required',
         ];
     }
 }

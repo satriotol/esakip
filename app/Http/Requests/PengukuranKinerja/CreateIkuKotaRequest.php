@@ -25,7 +25,8 @@ class CreateIkuKotaRequest extends FormRequest
     {
         return [
             'file' => 'required|max:500000',
-            'year' => 'required'
+            'year' => 'required',
+            'name' => 'required',
         ];
     }
 }

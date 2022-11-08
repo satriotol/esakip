@@ -30,6 +30,11 @@
                             value="{{ isset($ikuKotum) ? $ikuKotum->year : '' }}">
                     </div>
                     <div class="mb-3">
+                        <label for="name" class="form-label">Nama</label>
+                        <input id="name" class="form-control" name="name" type="text" required
+                            value="{{ isset($ikuKotum) ? $ikuKotum->name : '' }}">
+                    </div>
+                    <div class="mb-3">
                         <label for="file" class="form-label">File</label>
                         <input type="file" id="file" name="file"
                             @empty($ikuKotum) required @endempty />

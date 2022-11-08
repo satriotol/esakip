@@ -10,7 +10,7 @@ class IkuKota extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['file', 'year'];
+    protected $fillable = ['file', 'year', 'name'];
     protected $appends = ['file_url'];
     public function deleteFile()
     {
