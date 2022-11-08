@@ -18,9 +18,8 @@
                                 <a href="#" class="noble-ui-logo d-block mb-2">E-SAKIP PEMKOT SEMARANG</a>
                                 <h5 class="text-muted fw-normal mb-4">Selamat Datang Kembali</h5>
                                 @include('partials.errors')
-                                <form method="POST" class="forms-sample" action="{{ route('login') }}">
+                                <form method="post" class="forms-sample" action="{{ route('login.store') }}">
                                     @csrf
-
                                     <div class="mb-3">
                                         <label for="userEmail" class="form-label">Email address</label>
                                         <input type="email" class="form-control" name="email" id="userEmail"
