@@ -30,12 +30,12 @@
                                         <input type="password" class="form-control" name="password" id="userPassword"
                                             autocomplete="current-password" placeholder="Password">
                                     </div>
-                                    <div class="form-check mb-3">
+                                    {{-- <div class="form-check mb-3">
                                         <input type="checkbox" class="form-check-input" id="authCheck">
                                         <label class="form-check-label" for="authCheck">
                                             Remember me
                                         </label>
-                                    </div>
+                                    </div> --}}
                                     <div>
                                         <button class="btn btn-primary me-2 mb-2 mb-md-0" type="submit">Login</button>
                                     </div>
