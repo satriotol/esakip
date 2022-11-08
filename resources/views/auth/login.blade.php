@@ -30,12 +30,12 @@
                                         <input type="password" class="form-control" name="password" id="userPassword"
                                             autocomplete="current-password" placeholder="Password">
                                     </div>
-                                    {{-- <div class="form-check mb-3">
+                                    <div class="form-check mb-3">
                                         <input type="checkbox" class="form-check-input" id="authCheck">
                                         <label class="form-check-label" for="authCheck">
-                                            Remember me
+                                            Ingat Saya
                                         </label>
-                                    </div> --}}
+                                    </div>
                                     <div>
                                         <input type="submit" class="btn btn-primary me-2 mb-2 mb-md-0" name=""
                                             onclick="this.disabled=true;this.value='Loading...';this.form.submit();"
