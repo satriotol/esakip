@@ -76,7 +76,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Kategori Opd</h6>
+                    <h6 class="card-title">Kategori OPD</h6>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>

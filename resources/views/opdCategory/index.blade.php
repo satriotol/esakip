@@ -7,16 +7,16 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('opdCategory.index') }}">Kategori Opd</a>
+            <li class="breadcrumb-item"><a href="{{ route('opdCategory.index') }}">Kategori OPD</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Tabel Kategori Opd</li>
+            <li class="breadcrumb-item active" aria-current="page">Tabel Kategori OPD</li>
         </ol>
     </nav>
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Kategori Opd</h6>
+                    <h6 class="card-title">Kategori OPD</h6>
                     <div class="text-end mb-2">
                         <a class="btn btn-primary" href="{{ route('opdCategory.create') }}">
                             <i data-feather="plus"></i>

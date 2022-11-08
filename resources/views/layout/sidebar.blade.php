@@ -239,7 +239,7 @@
             <li class="nav-item {{ active_class(['userOpd.*']) }}">
                 <a href="{{ route('userOpd.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="user"></i>
-                    <span class="link-title">User Opd</span>
+                    <span class="link-title">User OPD</span>
                 </a>
             </li>
             @can('opdPenilaian-list')

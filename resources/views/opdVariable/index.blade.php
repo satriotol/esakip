@@ -7,16 +7,16 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('opdVariable.index') }}">Variable Opd</a>
+            <li class="breadcrumb-item"><a href="{{ route('opdVariable.index') }}">Variable OPD</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Tabel Variable Opd</li>
+            <li class="breadcrumb-item active" aria-current="page">Tabel Variable OPD</li>
         </ol>
     </nav>
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Variable Opd</h6>
+                    <h6 class="card-title">Variable OPD</h6>
                     <div class="text-end mb-2">
                         <a class="btn btn-primary" href="{{ route('opdVariable.create') }}">
                             <i data-feather="plus"></i>

@@ -31,7 +31,7 @@ class OpdPerjanjianKinerjaController extends Controller
             });
         }
         if ($perjanjian_kinerja == null) {
-            return $this->failedResponse([], 'Oops, ada yang salah, Pastikan Nama Opd Yang Anda Masukkan Benar');
+            return $this->failedResponse([], 'Oops, ada yang salah, Pastikan Nama OPD Yang Anda Masukkan Benar');
         }
         return $this->successResponse(['perjanjian_kinerja' => OpdPerjanjianKinerjaResource::collection($perjanjian_kinerja->paginate($limit))]);
     }

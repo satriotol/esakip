@@ -27,7 +27,7 @@ class IndexController extends Controller
     }
     public function perencanaan_kinerja_opd()
     {
-        $name = 'Perencanaan Kinerja Opd';
+        $name = 'Perencanaan Kinerja OPD';
         return view('frontend.perencanaan_kinerja_opd.index', compact('name'));
     }
     public function pengukuran_kinerja_kota()
@@ -38,7 +38,7 @@ class IndexController extends Controller
     }
     public function pengukuran_kinerja_opd()
     {
-        $name = 'Pengukuran Kinerja Opd';
+        $name = 'Pengukuran Kinerja OPD';
         return view('frontend.pengukuran_kinerja_opd.index', compact('name'));
     }
     public function capaian_kinerja()
