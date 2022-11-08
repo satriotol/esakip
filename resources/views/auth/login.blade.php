@@ -37,7 +37,8 @@
                                         </label>
                                     </div> --}}
                                     <div>
-                                        <button class="btn btn-primary me-2 mb-2 mb-md-0" type="submit">Login</button>
+                                        <button class="btn btn-primary me-2 mb-2 mb-md-0" type="submit"
+                                            onclick="this.disabled=true;this.form.submit();">Login</button>
                                     </div>
                                 </form>
                             </div>
@@ -46,6 +47,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 @endsection
