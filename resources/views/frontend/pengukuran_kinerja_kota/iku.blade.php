@@ -17,6 +17,7 @@
                     <thead>
                         <tr>
                             <th>Tahun</th>
+                            <th>Name</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -24,6 +25,9 @@
                         <tr v-for="(data, index) in dataIku">
                             <td>
                                 @{{ data.year }}
+                            </td>
+                            <td>
+                                @{{ data.name }}
                             </td>
                             <td>
                                 <a :href="data.file_url" target="_blank" class="btn btn-success"><i
