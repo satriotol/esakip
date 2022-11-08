@@ -24,7 +24,9 @@ class UpdateRpjmdRequest extends FormRequest
     public function rules()
     {
         return [
-            'file' => 'nullable|max:500000'
+            'file' => 'nullable|max:500000',
+            'year' => 'required',
+            'name' => 'required',
         ];
     }
 }

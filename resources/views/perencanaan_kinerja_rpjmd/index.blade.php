@@ -28,6 +28,7 @@
                             <thead>
                                 <tr>
                                     <th>Tahun</th>
+                                    <th>Nama</th>
                                     <th>File</th>
                                     <th>Action</th>
                                 </tr>
@@ -36,6 +37,7 @@
                                 @foreach ($perencanaan_kinerja_rpjmds as $perencanaan_kinerja_rpjmd)
                                     <tr>
                                         <td>{{ $perencanaan_kinerja_rpjmd->year }}</td>
+                                        <td>{{ $perencanaan_kinerja_rpjmd->name }}</td>
                                         <td>
                                             <a class="btn btn-success"
                                                 href="{{ asset('uploads/' . $perencanaan_kinerja_rpjmd->file) }}"

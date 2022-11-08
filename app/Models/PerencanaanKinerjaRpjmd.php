@@ -10,7 +10,7 @@ class PerencanaanKinerjaRpjmd extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['year', 'file'];
+    protected $fillable = ['year', 'file', 'name'];
     protected $appends = ['file_url'];
 
     public function deleteFile()

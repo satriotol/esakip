@@ -26,6 +26,11 @@
                         @method('PUT')
                     @endisset
                     <div class="mb-3">
+                        <label for="name" class="form-label">Nama</label>
+                        <input id="name" class="form-control" name="name" type="text" required
+                            value="{{ isset($perencanaan_kinerja_rpjmd) ? $perencanaan_kinerja_rpjmd->name : '' }}">
+                    </div>
+                    <div class="mb-3">
                         <label for="year" class="form-label">Year</label>
                         <input id="year" class="form-control" name="year" type="number" placeholder="yyyy" required
                             value="{{ isset($perencanaan_kinerja_rpjmd) ? $perencanaan_kinerja_rpjmd->year : '' }}">
