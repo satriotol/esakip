@@ -19,8 +19,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     <!-- End fonts -->
 
-    {{-- <!-- CSRF Token -->
-    <meta name="_token" content="{{ csrf_token() }}"> --}}
+    <!-- CSRF Token -->
+    <meta name="_token" content="{{ csrf_token() }}">
 
     <link rel="shortcut icon" href="{{ asset('frontend/img/pemkot.png') }}" type="image/x-icon">
 
