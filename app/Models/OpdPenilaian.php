@@ -97,6 +97,8 @@ class OpdPenilaian extends Model
         $data = $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->realisasi ?? '';
         if ($opdCategoryVariable->opd_variable->pic == 'BAPENDA' && $data) {
             return 'Rp ' . (number_format((float)$data));
+        } elseif ($opdCategoryVariable->opd_variable->pic == 'SIPD' && $data) {
+            return 'Rp ' . (number_format((float)$data));
         } else {
             return $data;
         }
@@ -107,6 +109,11 @@ class OpdPenilaian extends Model
         $master = Master::first();
         $data = $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->target ?? '';
         if ($opdCategoryVariable->opd_variable->pic == 'BAPENDA' && $data) {
+            $data = [
+                'Rp ' . (number_format((float)$data))
+            ];
+            return $data;
+        } elseif ($opdCategoryVariable->opd_variable->pic == 'SIPD' && $data) {
             $data = [
                 'Rp ' . (number_format((float)$data))
             ];

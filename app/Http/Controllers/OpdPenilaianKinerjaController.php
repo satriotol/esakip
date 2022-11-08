@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataUnit;
+use App\Models\Opd;
 use App\Models\OpdCategory;
 use App\Models\OpdCategoryVariable;
 use App\Models\OpdPenilaian;
@@ -162,6 +164,36 @@ class OpdPenilaianKinerjaController extends Controller
         return back();
     }
 
+    public function storeSipd(Request $request)
+    {
+        $opd = Opd::find($request->opd_id)->nama_opd;
+        $dataUnit = DataUnit::where('nama_skpd', $opd)->first();
+        $data = Http::withHeaders(['x-api-key' => 'FD59804809A3DFD300C1E49F6E6FD23D'])
+            ->get(
+                'http://ekontrak.semarangkota.go.id/ekontrak/api/ekontrak/monitoring_kegiatan',
+                [
+                    'idskpd' => $dataUnit->id_unit,
+                    'tahap' => $request->tahap
+                ]
+            )->json();
+        $opdCategoryVariable = OpdCategoryVariable::where('id', $request->opd_category_variable_id)->first();
+        $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+        OpdPenilaianKinerja::updateOrCreate(
+            [
+                'opd_penilaian_id' => $request->opd_penilaian_id,
+                'opd_category_variable_id' => $request->opd_category_variable_id,
+            ],
+            [
+                'target' => $data['data']['target'],
+                'realisasi' => $data['data']['realisasi'],
+                'capaian' => round($data['data']['persenRealisasi'], 2),
+                'nilai_akhir' => round($data['data']['persenRealisasi'] * $bobot, 2),
+                'user_id' => Auth::user()->id
+            ]
+        );
+        session()->flash('success');
+        return back();
+    }
     /**
      * Display the specified resource.
      *

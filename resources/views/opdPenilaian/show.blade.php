@@ -125,6 +125,11 @@
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                         {{ $opd_category_variable->opd_variable->pic }}
                                                     </a>
+                                                @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && $checkStatus != 1)
+                                                    <a type="button" class="badge bg-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
+                                                        {{ $opd_category_variable->opd_variable->pic }}
+                                                    </a>
                                                 @elseif($opd_category_variable->opd_variable->pic == 'INSPEKTORAT' &&
                                                     Auth::user()->hasRole('INSPEKTORAT') &&
                                                     $checkStatus != 1)
