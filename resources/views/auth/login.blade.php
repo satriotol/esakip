@@ -37,8 +37,9 @@
                                         </label>
                                     </div> --}}
                                     <div>
-                                        <button class="btn btn-primary me-2 mb-2 mb-md-0" type="submit"
-                                            onclick="this.disabled=true;this.form.submit();">Login</button>
+                                        <input type="submit" class="btn btn-primary me-2 mb-2 mb-md-0" name=""
+                                            onclick="this.disabled=true;this.value='Loading...';this.form.submit();"
+                                            id="" value="Login">
                                     </div>
                                 </form>
                             </div>
