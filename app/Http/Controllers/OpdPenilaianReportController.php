@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Opd;
 use App\Models\OpdCategory;
 use App\Models\OpdPenilaian;
+use App\Models\OpdPenilaianIku;
+use App\Models\OpdPenilaianKinerja;
 use App\Models\OpdPenilaianReport;
 use Illuminate\Http\Request;
 
@@ -31,7 +33,7 @@ class OpdPenilaianReportController extends Controller
         $opdPenilaianReports = OpdPenilaian::getOpdPenilaian($request, 'VERIFIKASI');
         $opdCategories = OpdCategory::all();
         $statuses = OpdPenilaian::STATUSES;
-        $request->flash();        
+        $request->flash();
         return view('opdPenilaianReport.index', compact('opdPenilaianReports', 'opds', 'opdCategories', 'statuses'));
     }
 
@@ -62,9 +64,14 @@ class OpdPenilaianReportController extends Controller
      * @param  \App\Models\OpdPenilaianReport  $opdPenilaianReport
      * @return \Illuminate\Http\Response
      */
-    public function show(OpdPenilaianReport $opdPenilaianReport)
+    public function show(OpdPenilaian $opdPenilaian)
     {
-        //
+        $getOpdPerjanjianKinerjaIndikators = OpdPenilaian::getOpdPerjanjianKinerjaIndikator($opdPenilaian);
+        $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
+        $statuses = OpdPenilaian::STATUSESVERIF;
+        $ikuTypes = OpdPenilaianIku::TYPES;
+        dd($opdPenilaian);
+        return view('opdPenilaianReport.show', compact('opdPenilaian', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
     }
 
     /**
