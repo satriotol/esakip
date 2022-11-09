@@ -30,6 +30,18 @@
                                         <input type="password" class="form-control" name="password" id="userPassword"
                                             autocomplete="current-password" placeholder="Password">
                                     </div>
+                                    <div class="mb-3">
+                                        <div class="captcha">
+                                            <span>{!! captcha_img() !!}</span>
+                                            <button type="button" class="btn btn-danger" class="reload" id="reload">
+                                                &#x21bb;
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input id="captcha" type="text" class="form-control"
+                                            placeholder="Enter Captcha" name="captcha">
+                                    </div>
                                     <div class="form-check mb-3">
                                         <input type="checkbox" class="form-check-input" id="authCheck">
                                         <label class="form-check-label" for="authCheck">

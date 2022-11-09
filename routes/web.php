@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CaptchaServiceController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
 
@@ -13,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);
 
 Route::prefix('administrator')->group(__DIR__ . '/adminRoutes.php');
 Route::get('/', [IndexController::class, 'home'])->name('home');
