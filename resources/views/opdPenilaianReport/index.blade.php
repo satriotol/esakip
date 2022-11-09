@@ -7,22 +7,16 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('opdPenilaian.index') }}">Penilaian OPD</a>
+            <li class="breadcrumb-item"><a href="{{ route('opdPenilaianReport.index') }}">Desk Penilaian OPD</a>
             </li>
-            <li class="breadcrumb-item active" aria-current="page">Tabel Penilaian OPD</li>
+            <li class="breadcrumb-item active" aria-current="page">Tabel Desk Penilaian OPD</li>
         </ol>
     </nav>
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h6 class="card-title">Penilaian OPD</h6>
-                    <div class="text-end mb-2">
-                        <a class="btn btn-primary" href="{{ route('opdPenilaian.create') }}">
-                            <i data-feather="plus"></i>
-                            Create
-                        </a>
-                    </div>
+                    <h6 class="card-title">Desk Penilaian OPD</h6>
                     <form action="">
                         <div class="row">
                             <div class="col-md-3">
@@ -87,41 +81,32 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($opdPenilaians as $opdPenilaian)
+                                @foreach ($opdPenilaianReports as $opdPenilaianReport)
                                     <tr>
-                                        <td>{{ $opdPenilaian->year }} {{ $opdPenilaian->name }}</td>
+                                        <td>{{ $opdPenilaianReport->year }} {{ $opdPenilaianReport->name }}</td>
                                         <td>
-                                            <a href="{{ route('opdPerjanjianKinerja.show', $opdPenilaian->opd_perjanjian_kinerja_id) }}"
+                                            <a href="{{ route('opdPerjanjianKinerja.show', $opdPenilaianReport->opd_perjanjian_kinerja_id) }}"
                                                 target="_blank">
-                                                {{ $opdPenilaian->opd_perjanjian_kinerja->type }}
+                                                {{ $opdPenilaianReport->opd_perjanjian_kinerja->type }}
                                             </a>
                                         </td>
-                                        <td>{{ $opdPenilaian->opd_category->name }}</td>
-                                        <td>{{ $opdPenilaian->opd->nama_opd }}</td>
-                                        <td>{{ $opdPenilaian->inovasi_prestasi_daerah ?? 'TRIWULAN' }}</td>
-                                        <td>{{ $opdPenilaian->totalAkhir() }}</td>
+                                        <td>{{ $opdPenilaianReport->opd_category->name }}</td>
+                                        <td>{{ $opdPenilaianReport->opd->nama_opd }}</td>
+                                        <td>{{ $opdPenilaianReport->inovasi_prestasi_daerah ?? 'TRIWULAN' }}</td>
+                                        <td>{{ $opdPenilaianReport->totalAkhir() }}</td>
                                         <td>
-                                            <div class="badge bg-success">{{ $opdPenilaian->status }}</div>
+                                            <div class="badge bg-success">{{ $opdPenilaianReport->status }}</div>
                                         </td>
                                         <td>
 
-                                            <a href="{{ route('opdPenilaian.show', $opdPenilaian->id) }}"
+                                            <a href="{{ route('opdPenilaianReport.show', $opdPenilaianReport->id) }}"
                                                 class="btn btn-sm btn-primary ml-1">Detail</a>
-                                            <form action="{{ route('opdPenilaian.destroy', $opdPenilaian->id) }}"
-                                                method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Are you sure?')">
-                                                    Delete
-                                                </button>
-                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $opdPenilaians->links() }}
+                        {{ $opdPenilaianReports->links() }}
                     </div>
                 </div>
             </div>
