@@ -26,6 +26,10 @@ class OpdPenilaian extends Model
         self::STATUS2,
         self::STATUS3,
     ];
+    const STATUSBELUM = [
+        self::STATUS1,
+        self::STATUS4,
+    ];
     const STATUSALL = [
         self::STATUS1,
         self::STATUS2,
@@ -47,11 +51,7 @@ class OpdPenilaian extends Model
     }
     public static function getOpdPenilaian($request, $verifikasi)
     {
-        if ($verifikasi == 'VERIFIKASI') {
-            $status = in_array(self::STATUS1, self::STATUSESVERIF);
-        } else {
-            $status = $request->status;
-        }
+
         $opd_id = $request->opd_id;
         $year = $request->year;
         $opd_category_id = $request->opd_category_id;
@@ -69,8 +69,20 @@ class OpdPenilaian extends Model
         if ($opd_category_id) {
             $getOpdPenilaian->where('opd_category_id', $opd_category_id);
         }
-        if ($status) {
-            $getOpdPenilaian->where('status', $status);
+        if ($verifikasi == 'VERIFIKASI') {
+            $status = $request->status;
+            if ($status) {
+                $getOpdPenilaian->where('status', $status);
+            }else{
+                $getOpdPenilaian->whereNot('status', self::STATUS1)->whereNot('status', self::STATUS4);
+            }
+        } else {
+            $status = $request->status;
+            if ($status) {
+                $getOpdPenilaian->where('status', $status);
+            }else{
+                $getOpdPenilaian->whereNot('status', self::STATUS2)->whereNot('status', self::STATUS3);
+            }
         }
         return $getOpdPenilaian->orderBy('year', 'desc')->paginate();
     }

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Opd;
+use App\Models\OpdCategory;
+use App\Models\OpdPenilaian;
 use App\Models\OpdPenilaianReport;
 use Illuminate\Http\Request;
 
@@ -22,9 +25,14 @@ class OpdPenilaianReportController extends Controller
         $name = "Perjanjian Kinerja OPD";
         view()->share('name', $name);
     }
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $opds = Opd::getOpd();
+        $opdPenilaians = OpdPenilaian::getOpdPenilaian($request, 'VERIFIKASI');
+        $opdCategories = OpdCategory::all();
+        $statuses = OpdPenilaian::STATUSES;
+        $request->flash();        
+        return view('opdPenilaianReport.index', compact('opdPenilaians', 'opds', 'opdCategories', 'statuses'));
     }
 
     /**

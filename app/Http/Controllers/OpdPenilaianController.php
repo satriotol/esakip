@@ -24,7 +24,7 @@ class OpdPenilaianController extends Controller
         $opds = Opd::getOpd();
         $opdPenilaians = OpdPenilaian::getOpdPenilaian($request, '');
         $opdCategories = OpdCategory::all();
-        $statuses = OpdPenilaian::STATUSALL;
+        $statuses = OpdPenilaian::STATUSBELUM;
         $request->flash();
         return view('opdPenilaian.index', compact('opdPenilaians', 'opds', 'opdCategories', 'statuses'));
     }
