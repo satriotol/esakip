@@ -192,6 +192,7 @@
 @endsection
 @push('plugin-scripts')
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script>
 @endpush
 
 @push('custom-scripts')
