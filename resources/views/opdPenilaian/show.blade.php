@@ -116,7 +116,7 @@
                                         <td>
                                             {{ $opd_category_variable->opd_variable->name }} |
                                             @if ($opd_category_variable->opd_variable->pic == 'BAPENDA' && $checkStatus != 1)
-                                                <a class="badge bg-primary"
+                                                <a class="badge bg-primary tarik-data"
                                                     href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->opd->nama_opd, $opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
                                                     DATA</a>
                                             @else
@@ -192,8 +192,22 @@
 @endsection
 @push('plugin-scripts')
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script>
 @endpush
 
 @push('custom-scripts')
     <script src="{{ asset('assets/js/select2.js') }}"></script>
+    <script>
+        $(".tarik-data").click(function() {
+            Swal.fire({
+                title: 'Loading',
+                text: 'Sedang Mengambil Data',
+                icon: 'info',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                },
+            })
+        });
+    </script>
 @endpush

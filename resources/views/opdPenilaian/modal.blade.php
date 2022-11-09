@@ -86,7 +86,7 @@
                         </div>
                         <div class="text-end">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary me-2 mb-2 mb-md-0" name=""
+                            <input type="submit" class="btn btn-primary me-2 mb-2 mb-md-0 tarik-data" name=""
                                 onclick="this.disabled=true;this.value='Loading...';this.form.submit();" id=""
                                 value="Simpan">
                         </div>
