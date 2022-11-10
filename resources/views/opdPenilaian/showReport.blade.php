@@ -2,6 +2,13 @@
 @push('plugin-styles')
     <link href="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.css') }}" rel="stylesheet" />
 @endpush
+@push('style')
+    <style>
+        html {
+            zoom: 100%;
+        }
+    </style>
+@endpush
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
@@ -129,10 +136,12 @@
                                             {{ $opdPenilaian->nilai_akhir($opd_category_variable->id) }}
                                         </td>
                                         <td>
-                                            <textarea name="catatan" class="form-control" id="" cols="30" rows="5"></textarea>
+                                            <textarea placeholder="Masukan Catatan..." name="catatan" class="form-control" id="" cols="30"
+                                                rows="5"></textarea>
                                         </td>
                                         <td>
-                                            <textarea name="rekomendasi" class="form-control" id="" cols="30" rows="5"></textarea>
+                                            <textarea name="rekomendasi" placeholder="Masukan Rekomendasi..." class="form-control" id="" cols="30"
+                                                rows="5"></textarea>
                                         </td>
                                     </tr>
                                 @endforeach

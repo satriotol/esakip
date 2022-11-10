@@ -182,6 +182,7 @@
 
 @push('custom-scripts')
     <script src="{{ asset('assets/js/select2.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script>
     <script>
         const {
             createApp
@@ -211,6 +212,14 @@
             methods: {
                 postData() {
                     this.loading = true;
+                    Swal.fire({
+                        title: 'Loading',
+                        icon: 'info',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        },
+                    })
                     axios.post('/administrator/rencanaAksiTarget', this.form)
                         .then((response) => {
                             this.form.opd_perjanjian_kinerja_sasaran_id = "";
@@ -231,9 +240,15 @@
                             });
                         }).finally(() => {
                             this.loading = false;
+                            Swal.fire(
+                                'Sukses',
+                                'Inputan Anda Berhasil Tersimpan',
+                                'success'
+                            )
                         });
                 },
                 getData() {
+
                     axios.get('/administrator/getRencanaAksiTarget/' + this.form.rencana_aksi_id)
                         .then((response) => {
                             this.loading = false;
@@ -241,7 +256,16 @@
                         })
                 },
                 deleteData(id) {
+
                     if (confirm("Apakah Anda Yakin Menghapus Data Ini ?")) {
+                        Swal.fire({
+                            title: 'Loading',
+                            icon: 'info',
+                            allowOutsideClick: false,
+                            didOpen: () => {
+                                Swal.showLoading()
+                            },
+                        })
                         axios.delete('/administrator/rencanaAksiTarget/' + id)
                             .then((response) => {
                                 iziToast.success({
@@ -252,10 +276,25 @@
                             })
                             .catch(function(error) {
                                 console.log(error);
-                            });
+                            })
+                            .finally(() => {
+                                Swal.fire(
+                                    'Sukses',
+                                    'Data Anda Berhasil Dihapus',
+                                    'success'
+                                )
+                            })
                     }
                 },
                 updateData(id, index) {
+                    Swal.fire({
+                        title: 'Loading',
+                        icon: 'info',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        },
+                    })
                     axios.put('/administrator/rencanaAksiTarget/' + id, this.datas[index])
                         .then((response) => {
                             iziToast.success({
@@ -270,6 +309,13 @@
                                 title: 'Error',
                                 message: 'Terjadi Kesalahan',
                             });
+                        })
+                        .finally(() => {
+                            Swal.fire(
+                                'Sukses',
+                                'Inputan Anda Berhasil Terupdate',
+                                'success'
+                            )
                         });
                 }
             },
