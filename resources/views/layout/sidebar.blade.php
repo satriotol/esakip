@@ -250,14 +250,6 @@
                     </a>
                 </li>
             @endcan
-            @can('opdPenilaianReport-list')
-                <li class="nav-item {{ active_class(['opdPenilaianReport.*']) }}">
-                    <a href="{{ route('opdPenilaianReport.index') }}" class="nav-link">
-                        <i class="link-icon" data-feather="bar-chart"></i>
-                        <span class="link-title">Desk Timbal Balik</span>
-                    </a>
-                </li>
-            @endcan
             @can('opdCategory-list')
                 <li class="nav-item {{ active_class(['opdCategory.*']) }}">
                     <a href="{{ route('opdCategory.index') }}" class="nav-link">

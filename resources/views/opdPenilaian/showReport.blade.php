@@ -58,6 +58,33 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Perhitungan Penilaian OPD</h4>
+                    <div class="mb-3">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Nilai Akhir</td>
+                                    <td>:</td>
+                                    <td>{{ $opdPenilaian->totalNilaiAkhir() }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Inovasi Prestasi Daerah</td>
+                                    <td>:</td>
+                                    <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="text-end">
+                            <small>Total Nilai Akhir</small>
+                            <h4>{{ $opdPenilaian->totalAkhir() }}</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-md-12 mt-2">
             <div class="card">
                 <div class="card-body">
@@ -67,7 +94,10 @@
                             <thead>
                                 <tr>
                                     <th>Aspek</th>
+                                    <th>Target</th>
+                                    <th>Realisasi</th>
                                     <th>Nilai Akhir</th>
+                                    <th>Capaian</th>
                                     <th>Catatan</th>
                                     <th>Rekomendasi</th>
                                 </tr>
@@ -87,6 +117,15 @@
                                             <small>{{ $opdPenilaian->getDate($opd_category_variable->id) }}</small>
                                         </td>
                                         <td>
+                                            {{ $opdPenilaian->target($opd_category_variable->id)[0] }}
+                                        </td>
+                                        <td>
+                                            {{ $opdPenilaian->realisasi($opd_category_variable->id) }}
+                                        </td>
+                                        <td>
+                                            {{ $opdPenilaian->capaian($opd_category_variable->id) }} %
+                                        </td>
+                                        <td>
                                             {{ $opdPenilaian->nilai_akhir($opd_category_variable->id) }}
                                         </td>
                                         <td>
@@ -100,21 +139,10 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td class="text-center" colspan="3">Total</td>
+                                    <td class="text-center" colspan="4">Total</td>
                                     <td>{{ $opdPenilaian->totalNilaiAkhir() }}</td>
+                                    <td colspan="2"></td>
                                 </tr>
-                                <tr>
-                                    <td colspan="3">
-                                        Inovasi dan Prestasi Daerah
-                                    </td>
-                                    <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
-                                </tr>
-                                <tr>
-                                    <th class="text-center" colspan="3">Total Akhir</th>
-                                    <th>{{ $opdPenilaian->totalAkhir() }}
-                                    </th>
-                                </tr>
-
                             </tfoot>
                         </table>
                     </div>
