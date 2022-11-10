@@ -24,7 +24,7 @@ class OpdPenilaianController extends Controller
         $opds = Opd::getOpd();
         $opdPenilaians = OpdPenilaian::getOpdPenilaian($request, '');
         $opdCategories = OpdCategory::all();
-        $statuses = OpdPenilaian::STATUSBELUM;
+        $statuses = OpdPenilaian::STATUSALL;
         $request->flash();
         return view('opdPenilaian.index', compact('opdPenilaians', 'opds', 'opdCategories', 'statuses'));
     }
@@ -102,6 +102,14 @@ class OpdPenilaianController extends Controller
         $statuses = OpdPenilaian::STATUSESVERIF;
         $ikuTypes = OpdPenilaianIku::TYPES;
         return view('opdPenilaian.show', compact('opdPenilaian', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
+    }
+    public function showReport(OpdPenilaian $opdPenilaian)
+    {
+        $getOpdPerjanjianKinerjaIndikators = OpdPenilaian::getOpdPerjanjianKinerjaIndikator($opdPenilaian);
+        $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
+        $statuses = OpdPenilaian::STATUSESVERIF;
+        $ikuTypes = OpdPenilaianIku::TYPES;
+        return view('opdPenilaian.showReport', compact('opdPenilaian', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
     }
 
     /**

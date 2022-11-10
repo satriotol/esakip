@@ -55,6 +55,7 @@ class OpdPenilaian extends Model
         $opd_id = $request->opd_id;
         $year = $request->year;
         $opd_category_id = $request->opd_category_id;
+        $status = $request->status;
         if (Auth::user()->opd_id) {
             $getOpdPenilaian = OpdPenilaian::query()->where('opd_id', Auth::user()->opd_id);
         } else {
@@ -69,20 +70,8 @@ class OpdPenilaian extends Model
         if ($opd_category_id) {
             $getOpdPenilaian->where('opd_category_id', $opd_category_id);
         }
-        if ($verifikasi == 'VERIFIKASI') {
-            $status = $request->status;
-            if ($status) {
-                $getOpdPenilaian->where('status', $status);
-            }else{
-                $getOpdPenilaian->whereNot('status', self::STATUS1)->whereNot('status', self::STATUS4);
-            }
-        } else {
-            $status = $request->status;
-            if ($status) {
-                $getOpdPenilaian->where('status', $status);
-            }else{
-                $getOpdPenilaian->whereNot('status', self::STATUS2)->whereNot('status', self::STATUS3);
-            }
+        if ($status) {
+            $getOpdPenilaian->where('status', $status);
         }
         return $getOpdPenilaian->orderBy('year', 'desc')->paginate();
     }

@@ -111,6 +111,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('getIkuOpd', [IkuOpdController::class, 'getIkuOpd'])->name('ikuOpd.getIkuOpd');
     Route::post('ikuOpd/store_file', [IkuOpdController::class, 'store_file'])->name('ikuOpd.store_file');
     Route::resource('opdPenilaian', OpdPenilaianController::class);
+    Route::get('opdPenilaian/showReport/{opdPenilaian}', [OpdPenilaianController::class, 'showReport'])->name('opdPenilaian.showReport');
     Route::resource('opdPenilaianReport', OpdPenilaianReportController::class);
     Route::post('opdPenilaian/updateStatus/{opdPenilaian}', [OpdPenilaianController::class, 'updateStatus'])->name('opdPenilaian.updateStatus');
     Route::resource('opdVariable', OpdVariableController::class);

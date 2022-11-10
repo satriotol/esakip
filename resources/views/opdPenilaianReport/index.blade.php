@@ -98,7 +98,6 @@
                                             <div class="badge bg-success">{{ $opdPenilaianReport->status }}</div>
                                         </td>
                                         <td>
-
                                             <a href="{{ route('opdPenilaianReport.show', $opdPenilaianReport->id) }}"
                                                 class="btn btn-sm btn-primary ml-1">Detail</a>
                                         </td>

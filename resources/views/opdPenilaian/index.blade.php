@@ -104,18 +104,22 @@
                                             <div class="badge bg-success">{{ $opdPenilaian->status }}</div>
                                         </td>
                                         <td>
-
-                                            <a href="{{ route('opdPenilaian.show', $opdPenilaian->id) }}"
-                                                class="btn btn-sm btn-primary ml-1">Detail</a>
-                                            <form action="{{ route('opdPenilaian.destroy', $opdPenilaian->id) }}"
-                                                method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Are you sure?')">
-                                                    Delete
-                                                </button>
-                                            </form>
+                                            @if ($opdPenilaian->status == 'BELUM' || $opdPenilaian->status == 'PENGEMBALIAN')
+                                                <a href="{{ route('opdPenilaian.show', $opdPenilaian->id) }}"
+                                                    class="btn btn-sm btn-primary ml-1">Detail</a>
+                                                <form action="{{ route('opdPenilaian.destroy', $opdPenilaian->id) }}"
+                                                    method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Are you sure?')">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            @else
+                                                <a href="{{ route('opdPenilaian.showReport', $opdPenilaian->id) }}"
+                                                    class="btn btn-sm btn-primary ml-1">Detail Timbal Balik</a>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

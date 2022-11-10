@@ -66,12 +66,6 @@ class OpdPenilaianReportController extends Controller
      */
     public function show(OpdPenilaian $opdPenilaian)
     {
-        $getOpdPerjanjianKinerjaIndikators = OpdPenilaian::getOpdPerjanjianKinerjaIndikator($opdPenilaian);
-        $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
-        $statuses = OpdPenilaian::STATUSESVERIF;
-        $ikuTypes = OpdPenilaianIku::TYPES;
-        dd($opdPenilaian);
-        return view('opdPenilaianReport.show', compact('opdPenilaian', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
     }
 
     /**
