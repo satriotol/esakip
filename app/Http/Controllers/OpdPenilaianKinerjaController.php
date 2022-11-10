@@ -166,6 +166,9 @@ class OpdPenilaianKinerjaController extends Controller
 
     public function storeSipd(Request $request)
     {
+        $request->validate([
+            'tahap' => 'required'
+        ]);
         $opd = Opd::find($request->opd_id)->nama_opd;
         $dataUnit = DataUnit::where('nama_skpd', $opd)->first();
         $data = Http::withHeaders(['x-api-key' => 'FD59804809A3DFD300C1E49F6E6FD23D'])
