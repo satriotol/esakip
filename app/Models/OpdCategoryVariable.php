@@ -23,6 +23,11 @@ class OpdCategoryVariable extends Model
     {
         return $this->hasMany(OpdPenilaianKinerja::class, 'opd_category_variable_id', 'id');
     }
+    public function getOpdPenilaian($opdPenilaian)
+    {
+        $opdPenilaianKinerja = $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first() ?? '';
+        return $opdPenilaianKinerja;
+    }
     public function getIkuRealisasi($opdPenilaian, $getOpdPerjanjianKinerjaIndikator)
     {
         $opdPenilaianIku =  $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus ?? "";

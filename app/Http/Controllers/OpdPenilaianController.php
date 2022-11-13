@@ -8,9 +8,11 @@ use App\Models\OpdCategory;
 use App\Models\OpdPenilaian;
 use App\Models\OpdPenilaianIku;
 use App\Models\OpdPenilaianKinerja;
+use App\Models\OpdPenilaianReport;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OpdPenilaianController extends Controller
 {
@@ -77,6 +79,33 @@ class OpdPenilaianController extends Controller
         session()->flash('success');
         return redirect(route('opdPenilaian.index'));
     }
+    public function storeReport(Request $request)
+    {
+        $data = $request->validate([
+            'data.*.catatan' => 'nullable',
+            'data.*.rekomendasi' => 'nullable',
+            'data.*.opd_penilaian_kinerja' => 'required',
+        ]);
+        DB::beginTransaction();
+        try {
+            foreach ($request->data as $d) {
+                OpdPenilaianReport::updateOrCreate([
+                    'opd_penilaian_kinerja_id' => $d['opd_penilaian_kinerja'],
+                    'user_id' => Auth::user()->id,
+                ], [
+                    'catatan' => $d['catatan'],
+                    'rekomendasi' => $d['rekomendasi'],
+                ]);
+            }
+            DB::commit();
+        } catch (\Throwable $th) {
+            return $th;
+            DB::rollback();
+        }
+
+        session()->flash('success');
+        return back();
+    }
 
     public function updateStatus(Request $request, OpdPenilaian $opdPenilaian)
     {
@@ -101,7 +130,11 @@ class OpdPenilaianController extends Controller
         $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
         $statuses = OpdPenilaian::STATUSESVERIF;
         $ikuTypes = OpdPenilaianIku::TYPES;
-        return view('opdPenilaian.show', compact('opdPenilaian', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
+        if ($opdPenilaian->checkStatusReport()) {
+            return redirect(route('opdPenilaian.showReport', $opdPenilaian->id));
+        } else {
+            return view('opdPenilaian.show', compact('opdPenilaian', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
+        }
     }
     public function showReport(OpdPenilaian $opdPenilaian)
     {
@@ -109,7 +142,11 @@ class OpdPenilaianController extends Controller
         $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
         $statuses = OpdPenilaian::STATUSESVERIF;
         $ikuTypes = OpdPenilaianIku::TYPES;
-        return view('opdPenilaian.showReport', compact('opdPenilaian', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
+        if ($opdPenilaian->checkStatusReport()) {
+            return view('opdPenilaian.showReport', compact('opdPenilaian', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
+        } else {
+            return redirect(route('opdPenilaian.show', $opdPenilaian->id));
+        }
     }
 
     /**

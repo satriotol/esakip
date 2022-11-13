@@ -30,7 +30,7 @@ class OpdPenilaianKinerja extends Model
     }
     public function opd_penilaian_report()
     {
-        return $this->hasOne(OpdPenilaianReport::class, 'opd_penilaian_id', 'id');
+        return $this->hasOne(OpdPenilaianReport::class, 'opd_penilaian_kinerja_id', 'id');
     }
 
     public static function checkStatus($opdPenilaian)

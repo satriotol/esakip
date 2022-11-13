@@ -97,63 +97,78 @@
                 <div class="card-body">
                     <h6 class="card-title">Penilaian Kinerja OPD</h6>
                     <div class="table-responsive">
-                        <table id="dataTableExample" class="table">
-                            <thead>
-                                <tr>
-                                    <th>Aspek</th>
-                                    <th>Target</th>
-                                    <th>Realisasi</th>
-                                    <th>Nilai Akhir</th>
-                                    <th>Capaian</th>
-                                    <th>Catatan</th>
-                                    <th>Rekomendasi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($opdPenilaian->opd_category->opd_category_variables as $opd_category_variable)
+                        <form action="{{ route('opdPenilaian.storeReport') }}" method="post">
+
+                            <table id="dataTableExample" class="table">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            {{ $opd_category_variable->opd_variable->name }}
-                                            @if ($opd_category_variable->opd_variable->is_iku)
-                                                <a type="button" class="badge bg-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
-                                                    Detail
-                                                </a>
-                                            @endif
-                                            <br>
-                                            <small>{{ $opdPenilaian->getDate($opd_category_variable->id) }}</small>
-                                        </td>
-                                        <td>
-                                            {{ $opdPenilaian->target($opd_category_variable->id)[0] }}
-                                        </td>
-                                        <td>
-                                            {{ $opdPenilaian->realisasi($opd_category_variable->id) }}
-                                        </td>
-                                        <td>
-                                            {{ $opdPenilaian->capaian($opd_category_variable->id) }} %
-                                        </td>
-                                        <td>
-                                            {{ $opdPenilaian->nilai_akhir($opd_category_variable->id) }}
-                                        </td>
-                                        <td>
-                                            <textarea placeholder="Masukan Catatan..." name="catatan" class="form-control" id="" cols="30"
-                                                rows="5"></textarea>
-                                        </td>
-                                        <td>
-                                            <textarea name="rekomendasi" placeholder="Masukan Rekomendasi..." class="form-control" id="" cols="30"
-                                                rows="5"></textarea>
-                                        </td>
+                                        <th>Aspek</th>
+                                        <th>Target</th>
+                                        <th>Realisasi</th>
+                                        <th>Nilai Akhir</th>
+                                        <th>Capaian</th>
+                                        <th>Catatan</th>
+                                        <th>Rekomendasi</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td class="text-center" colspan="4">Total</td>
-                                    <td>{{ $opdPenilaian->totalNilaiAkhir() }}</td>
-                                    <td colspan="2"></td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @csrf
+                                    @foreach ($opdPenilaian->opd_category->opd_category_variables as $opd_category_variable)
+                                        <tr>
+                                            <td>
+                                                {{ $opd_category_variable->opd_variable->name }}
+                                                @if ($opd_category_variable->opd_variable->is_iku)
+                                                    <a type="button" class="badge bg-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
+                                                        Detail
+                                                    </a>
+                                                    @include('opdPenilaian.modalReport')
+                                                @endif
+                                                <br>
+                                                <small>{{ $opdPenilaian->getDate($opd_category_variable->id) }}</small>
+                                            </td>
+                                            <td>
+                                                {{ $opdPenilaian->target($opd_category_variable->id)[0] }}
+                                            </td>
+                                            <td>
+                                                {{ $opdPenilaian->realisasi($opd_category_variable->id) }}
+                                            </td>
+                                            <td>
+                                                {{ $opdPenilaian->capaian($opd_category_variable->id) }} %
+                                            </td>
+                                            <td>
+                                                {{ $opdPenilaian->nilai_akhir($opd_category_variable->id) }}
+                                            </td>
+                                            <td>
+                                                <textarea placeholder="Masukan Catatan..." name="data[{{ $loop->index }}][catatan]" class="form-control"
+                                                    id="" cols="30" rows="5">{{ $opdPenilaian->getOpdPenilaianReportValue($opd_category_variable->id)->catatan }}</textarea>
+                                            </td>
+                                            <td>
+                                                <textarea placeholder="Masukan Rekomendasi..." name="data[{{ $loop->index }}][rekomendasi]" class="form-control"
+                                                    id="" cols="30" rows="5">{{ $opdPenilaian->getOpdPenilaianReportValue($opd_category_variable->id)->rekomendasi }}</textarea>
+                                                <input type="text" hidden
+                                                    value="{{ $opd_category_variable->getOpdPenilaian($opdPenilaian->id)->id ?? '' }}"
+                                                    name="data[{{ $loop->index }}][opd_penilaian_kinerja]" id="">
+                                                <input type="text" hidden value="{{ $opdPenilaian->id }}"
+                                                    name="opdPenilaian" id="">
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td class="text-center" colspan="4">Total</td>
+                                        <td>{{ $opdPenilaian->totalNilaiAkhir() }}</td>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <div class="text-end">
+                                <button class="btn btn-success" type="submit">Submit</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
