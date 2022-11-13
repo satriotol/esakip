@@ -141,11 +141,11 @@
                                             </td>
                                             <td>
                                                 <textarea placeholder="Masukan Catatan..." name="data[{{ $loop->index }}][catatan]" class="form-control"
-                                                    id="" cols="30" rows="5">{{ $opdPenilaian->getOpdPenilaianReportValue($opd_category_variable->id)->catatan }}</textarea>
+                                                    id="" cols="30" rows="5">{{ $opdPenilaian->getOpdPenilaianReportValue($opd_category_variable->id)->catatan ?? '' }}</textarea>
                                             </td>
                                             <td>
                                                 <textarea placeholder="Masukan Rekomendasi..." name="data[{{ $loop->index }}][rekomendasi]" class="form-control"
-                                                    id="" cols="30" rows="5">{{ $opdPenilaian->getOpdPenilaianReportValue($opd_category_variable->id)->rekomendasi }}</textarea>
+                                                    id="" cols="30" rows="5">{{ $opdPenilaian->getOpdPenilaianReportValue($opd_category_variable->id)->rekomendasi ?? '' }}</textarea>
                                                 <input type="text" hidden
                                                     value="{{ $opd_category_variable->getOpdPenilaian($opdPenilaian->id)->id ?? '' }}"
                                                     name="data[{{ $loop->index }}][opd_penilaian_kinerja]" id="">

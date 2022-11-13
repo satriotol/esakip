@@ -113,7 +113,7 @@ class OpdPenilaian extends Model
     }
     public function getOpdPenilaianReportValue($opd_category_variable_id)
     {
-        $data = $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->opd_penilaian_report;
+        $data = $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->opd_penilaian_report ?? '';
         return $data;
     }
     public function target($opd_category_variable_id)
