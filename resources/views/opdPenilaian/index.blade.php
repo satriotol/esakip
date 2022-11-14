@@ -82,6 +82,7 @@
                                     <th>OPD</th>
                                     <th>Inovasi Prestasi Daerah</th>
                                     <th>Total Akhir</th>
+                                    <th>Predikat</th>
                                     <th>Status Verifikasi</th>
                                     <th>Action</th>
                                 </tr>
@@ -100,6 +101,7 @@
                                         <td>{{ $opdPenilaian->opd->nama_opd }}</td>
                                         <td>{{ $opdPenilaian->inovasi_prestasi_daerah ?? 'TRIWULAN' }}</td>
                                         <td>{{ $opdPenilaian->totalAkhir() }}</td>
+                                        <td>{{ $opdPenilaian->totalAkhirPredikat() }}</td>
                                         <td>
                                             <div class="badge bg-success">{{ $opdPenilaian->status }}</div>
                                         </td>

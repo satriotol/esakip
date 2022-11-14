@@ -169,4 +169,18 @@ class OpdPenilaian extends Model
     {
         return $this->totalNilaiAkhir() + $this->inovasi_prestasi_daerah;
     }
+    public function totalAkhirPredikat()
+    {
+        if ($this->totalAkhir() >= 90) {
+            return 'ISTIMEWA';
+        } elseif ($this->totalAkhir() >= 80) {
+            return 'BAIK';
+        } elseif ($this->totalAkhir() >= 70) {
+            return 'BUTUH PERBAIKAN';
+        } elseif ($this->totalAkhir() >= 60) {
+            return 'KURANG';
+        } else {
+            return 'SANGAT KURANG';
+        }
+    }
 }
