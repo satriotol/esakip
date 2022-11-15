@@ -181,6 +181,11 @@ class OpdPenilaianKinerjaController extends Controller
             )->json();
         $opdCategoryVariable = OpdCategoryVariable::where('id', $request->opd_category_variable_id)->first();
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+        $capaian = round($data['data']['persenRealisasi'], 2);
+        if ($capaian > 100) {
+            $capaian = 100;
+        }
+        $nilaiAkhir = round($capaian * $bobot, 2);
         OpdPenilaianKinerja::updateOrCreate(
             [
                 'opd_penilaian_id' => $request->opd_penilaian_id,
@@ -189,8 +194,8 @@ class OpdPenilaianKinerjaController extends Controller
             [
                 'target' => $data['data']['target'],
                 'realisasi' => $data['data']['realisasi'],
-                'capaian' => round($data['data']['persenRealisasi'], 2),
-                'nilai_akhir' => round($data['data']['persenRealisasi'] * $bobot, 2),
+                'capaian' => $capaian,
+                'nilai_akhir' => $nilaiAkhir,
                 'user_id' => Auth::user()->id
             ]
         );
