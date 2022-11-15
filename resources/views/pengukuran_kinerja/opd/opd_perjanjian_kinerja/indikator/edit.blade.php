@@ -30,7 +30,8 @@
                     @endisset
                     <div class="mb-3">
                         <label for="opd_perjanjian_kinerja_sasaran_id" class="form-label">Sasaran</label>
-                        <select class="js-example-basic-single form-select" data-width="100%" required name="opd_perjanjian_kinerja_sasaran_id">
+                        <select class="js-example-basic-single form-select" data-width="100%" required
+                            name="opd_perjanjian_kinerja_sasaran_id">
                             <option value="">Pilih Sasaran</option>
                             @foreach ($opd_perjanjian_kinerja_sasarans as $opd_perjanjian_kinerja_sasaran)
                                 <option value="{{ $opd_perjanjian_kinerja_sasaran->id }}"
@@ -48,8 +49,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="target" class="form-label">Target</label>
-                        <input id="target" class="form-control" name="target" type="text" placeholder="Sasaran"
-                            required
+                        <input id="target" class="form-control" name="target" type="number" step="any"
+                            placeholder="Sasaran" required
                             value="{{ isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->target : '' }}">
                     </div>
                     <div class="mb-3">
