@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\DataUnitController;
 use App\Http\Controllers\Api\EvaluasiKinerjaAkipController;
 use App\Http\Controllers\Api\OpdController;
+use App\Http\Controllers\Api\OpdPenilaianController;
 use App\Http\Controllers\Api\OpdPerjanjianKinerjaController;
 use App\Http\Controllers\Api\PelaporanKinerja\KotaLkjipController;
 use App\Http\Controllers\Api\PelaporanKinerja\OpdLkjipController;
@@ -59,6 +60,8 @@ Route::get('pengukurankinerjaopd/perjanjian_kinerja', [PengukuranKinerjaOpdContr
 
 Route::get('perjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'index']);
 Route::get('rencanaAksi', [RencanaAksiController::class, 'index']);
+
+Route::get('opdPenilaian', [OpdPenilaianController::class, 'index']);
 
 Route::get('getRealisasiAnggaranService', function (Request $request) {
     $data = Http::get('http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad')['data']['pad'][1]['rincian'];
