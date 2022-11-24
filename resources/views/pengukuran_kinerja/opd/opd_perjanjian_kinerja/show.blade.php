@@ -32,7 +32,7 @@
                 @endcan
                 @can('opdPerjanjianKinerjaIndikator-list')
                     <li class="nav-item">
-                        <a class="nav-link" id="indikator-tab" data-bs-toggle="tab" data-bs-target="#indikator" role="tab"
+                        <a class="nav-link" id="indikator-tab"data-bs-toggle="tab" data-bs-target="#indikator" role="tab"
                             aria-controls="indikator" aria-selected="false">Indikator</a>
                     </li>
                 @endcan
