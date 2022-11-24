@@ -19,7 +19,7 @@
 
     <div class="row">
         <div class="col-xl-12 main-content ps-xl-4 pe-xl-5">
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <ul class="nav nav-tabs" id="myTab app" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link active" id="detail-tab" data-bs-toggle="tab" data-bs-target="#detail" role="tab"
                         aria-controls="detail" aria-selected="true">Detail</a>
@@ -126,4 +126,58 @@
 
 @push('custom-scripts')
     <script src="{{ asset('assets/js/data-table.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+        integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const {
+            createApp
+        } = Vue
+
+        createApp({
+            data() {
+                return {
+                    message: 'Hello Vue!',
+                }
+            },
+            mounted() {},
+            methods: {
+                opdPerjanjianKinerjaProgramAnggaran() {
+                    Swal.fire({
+                        title: 'Sedang Menarik Data',
+                        icon: 'info',
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        },
+                        allowOutsideClick: false
+                    });
+                    // console.log(this.form);
+                    axios.post('{{ route('opdPerjanjianKinerjaProgramAnggaran.store', $opdPerjanjianKinerja) }}')
+                        .then((res) => {
+                            console.log(res);
+                            Swal.fire({
+                                title: 'Sukses',
+                                icon: 'success',
+                                confirmButtonText: 'Lanjut',
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+                        }).catch((err) => {
+                            Swal.fire({
+                                title: 'Error',
+                                icon: 'error',
+                                text: err.response.data.message,
+                                confirmButtonText: 'Ok',
+                            })
+                        });
+                },
+            }
+        }, ).mount('#app')
+    </script>
 @endpush

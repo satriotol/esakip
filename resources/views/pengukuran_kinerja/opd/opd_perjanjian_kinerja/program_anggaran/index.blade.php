@@ -9,10 +9,10 @@
     </div>
 </div>
 <div class="text-end">
-    <form action=" {{ route('opdPerjanjianKinerjaProgramAnggaran.store', $opdPerjanjianKinerja) }}" method="POST">
-        @csrf
-        <button type="submit" class="btn btn-sm btn-success ml-1">Tarik Program Anggaran</button>
-    </form>
+    {{-- <form action="{{ route('opdPerjanjianKinerjaProgramAnggaran.store', $opdPerjanjianKinerja) }}" method="POST"> --}}
+    <button type="submit" class="btn btn-sm btn-success ml-1" @click="opdPerjanjianKinerjaProgramAnggaran">Tarik Program
+        Anggaran</button>
+    {{-- </form> --}}
 </div>
 <div class="table-responsive mt-2">
     <table id="dataTableExample" class="table dataTableExample">
