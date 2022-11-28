@@ -41,6 +41,7 @@ class MasterController extends Controller
         $data = $request->validate([
             'reformasi_birokrasi' => 'required',
             'sakip' => 'required',
+            'tahun_awal' => 'required'
         ]);
         Master::create($data);
         session()->flash('success');
@@ -81,6 +82,7 @@ class MasterController extends Controller
         $data = $request->validate([
             'reformasi_birokrasi' => 'required',
             'sakip' => 'required',
+            'tahun_awal' => 'required'
         ]);
         $master->update($data);
         session()->flash('success');

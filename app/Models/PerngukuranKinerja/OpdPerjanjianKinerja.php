@@ -3,6 +3,7 @@
 namespace App\Models\PerngukuranKinerja;
 
 use App\Blameable;
+use App\Models\Master;
 use App\Models\Opd;
 use App\Models\OpdPenilaian;
 use App\Models\OpdPerjanjianKinerjaProgramAnggaran;
@@ -79,7 +80,7 @@ class OpdPerjanjianKinerja extends Model
     {
         if (Auth::user()->opd_id) {
             return OpdPerjanjianKinerja::where('opd_id', Auth::user()->opd_id)->get();
-        }else{
+        } else {
             return OpdPerjanjianKinerja::all();
         }
     }
@@ -121,5 +122,12 @@ class OpdPerjanjianKinerja extends Model
             return $opdPerjanjianKinerjas->paginate($paginate);
         }
         return $opdPerjanjianKinerjas->get();
+    }
+    public static function getTotalTahun($opdPerjanjianKinerja)
+    {
+        $tahun_awal = Master::first()->tahun_awal;
+        $yearNow = $opdPerjanjianKinerja->year;
+        $totalTahun = $yearNow - $tahun_awal;
+        return $totalTahun;
     }
 }

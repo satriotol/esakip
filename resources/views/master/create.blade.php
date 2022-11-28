@@ -24,13 +24,21 @@
                     @endisset
                     <div class="mb-3">
                         <label for="reformasi_birokrasi" class="form-label">Reformasi Birokrasi</label>
-                        <input id="reformasi_birokrasi" class="form-control" name="reformasi_birokrasi" type="number" placeholder="Reformasi Birokrasi" required
+                        <input id="reformasi_birokrasi" class="form-control" name="reformasi_birokrasi" type="number"
+                            placeholder="Reformasi Birokrasi" required
                             value="{{ isset($master) ? $master->reformasi_birokrasi : @old('reformasi_birokrasi') }}">
                     </div>
                     <div class="mb-3">
                         <label for="sakip" class="form-label">SAKIP</label>
-                        <input id="sakip" class="form-control" name="sakip" type="number" placeholder="Reformasi Birokrasi" required
+                        <input id="sakip" class="form-control" name="sakip" type="number"
+                            placeholder="Reformasi Birokrasi" required
                             value="{{ isset($master) ? $master->sakip : @old('sakip') }}">
+                    </div>
+                    <div class="mb-3">
+                        <label for="sakip" class="form-label">Tahun Awal</label>
+                        <input id="tahun_awal" class="form-control" name="tahun_awal" type="number"
+                            placeholder="Tahun Awal" required
+                            value="{{ isset($master) ? $master->tahun_awal : @old('tahun_awal') }}">
                     </div>
                     <div class="text-end">
                         <input class="btn btn-primary" type="submit" value="Submit">
@@ -42,9 +50,7 @@
 @endsection
 
 @push('plugin-scripts')
-
 @endpush
 
 @push('custom-scripts')
-
 @endpush
