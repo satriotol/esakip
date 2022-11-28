@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DataUnit;
 use App\Models\Opd;
 use App\Models\OpdCategory;
 use Illuminate\Http\Request;
@@ -13,6 +14,13 @@ class OpdController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('permission:opd-list|opd-create|opd-edit|opd-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:opd-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opd-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opd-delete', ['only' => ['destroy']]);
+    }
     public function index()
     {
         $opds = Opd::getOpd();
@@ -59,7 +67,8 @@ class OpdController extends Controller
      */
     public function edit(Opd $opd)
     {
-        return view('opds.create', compact('opd'));
+        $dataUnits = DataUnit::all();
+        return view('opds.create', compact('opd', 'dataUnits'));
     }
 
     /**
@@ -73,6 +82,7 @@ class OpdController extends Controller
     {
         $data = $request->validate([
             'nama_opd' => 'required',
+            'data_unit_id' => 'required',
             'inovasi_prestasi_daerah' => 'required|numeric'
         ]);
         $opd->update($data);

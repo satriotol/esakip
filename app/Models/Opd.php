@@ -13,7 +13,7 @@ class Opd extends Model
 
     protected $guarded = ['id'];
 
-    protected $fillable = ['nama_opd', 'opd_category_id', 'inovasi_prestasi_daerah'];
+    protected $fillable = ['nama_opd', 'opd_category_id', 'inovasi_prestasi_daerah', 'data_unit_id'];
 
     public function evaluasi_kinerjas()
     {
@@ -21,7 +21,7 @@ class Opd extends Model
     }
     public function data_unit()
     {
-        return $this->hasOne(DataUnit::class, 'nama_skpd', 'nama_opd');
+        return $this->belongsTo(DataUnit::class, 'data_unit_id', 'id_skpd');
     }
     public static function getOpd()
     {

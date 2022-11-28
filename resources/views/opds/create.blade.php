@@ -28,8 +28,19 @@
                             value="{{ isset($opd) ? $opd->nama_opd : @old('nama_opd') }}">
                     </div>
                     <div class="mb-3">
+                        <label for="data_unit_id" class="form-label">Data Unit</label>
+                        <select class="js-example-basic-single form-select" data-width="100%" name="data_unit_id" required>
+                            <option value="">Select Data Unit</option>
+                            @foreach ($dataUnits as $dataUnit)
+                                <option value="{{ $dataUnit->id_skpd }}">
+                                    {{ $dataUnit->nama_skpd }} </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label for="inovasi_prestasi_daerah" class="form-label">Inovasi Prestasi Daerah</label>
-                        <input id="inovasi_prestasi_daerah" class="form-control" name="inovasi_prestasi_daerah" type="number" required
+                        <input id="inovasi_prestasi_daerah" class="form-control" name="inovasi_prestasi_daerah"
+                            type="number" required
                             value="{{ isset($opd) ? $opd->inovasi_prestasi_daerah : @old('inovasi_prestasi_daerah') }}">
                     </div>
                     <div class="text-end">

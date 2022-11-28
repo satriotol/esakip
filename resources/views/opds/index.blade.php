@@ -22,6 +22,7 @@
                             <thead>
                                 <tr>
                                     <th>Nama</th>
+                                    <th>Data Unit</th>
                                     <th>Inovasi Prestasi Daerah</th>
                                     <th>Action</th>
                                 </tr>
@@ -31,6 +32,9 @@
                                     <tr>
                                         <td>
                                             {{ $opd->nama_opd }}
+                                        </td>
+                                        <td>
+                                            {{ $opd->data_unit->nama_skpd ?? '' }}
                                         </td>
                                         <td>
                                             {{ $opd->inovasi_prestasi_daerah ?? '' }}
