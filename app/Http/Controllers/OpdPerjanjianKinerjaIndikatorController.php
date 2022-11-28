@@ -37,50 +37,62 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
     public function create(OpdPerjanjianKinerja $opdPerjanjianKinerja)
     {
         $totalTahun = OpdPerjanjianKinerja::getTotalTahun($opdPerjanjianKinerja);
-        $query = DB::connection('mysql2')->select("select a.*, b.uraian as sasaran from indikator_sasaran_ranakhir_renstra a left join sasaran_ranakhir_renstra b on b.id=a.id_sasaran left join data_unit c on c.id_skpd=b.id_skpd where c.id_unit=" . $opdPerjanjianKinerja->opd->data_unit_id . ";");
+        $query = DB::connection('mysql2')->select("select a.*, b.uraian as sasaran from indikator_sasaran_ranakhir_renstra a left join sasaran_ranakhir_renstra b on b.id=a.id_sasaran left join data_unit c on c.id_skpd=b.id_skpd where c.id_unit=" . $opdPerjanjianKinerja->opd->data_unit->id_skpd . ";");
         foreach ($query as $q) {
-            $opdPerjanjianKinerjaSasaran = OpdPerjanjianKinerjaSasaran::where('sasaran', $q->sasaran)->first();
+            $opdPerjanjianKinerjaSasaran = OpdPerjanjianKinerjaSasaran::where('sasaran', 'LIKE', '%' . $q->sasaran . '%')->first();
             if ($totalTahun == 0) {
                 OpdPerjanjianKinerjaIndikator::updateOrCreate([
                     'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
                     'indikator' => $q->uraian,
+                ], [
                     'target' => $q->awal,
                     'satuan' => $q->satuan,
+
                 ]);
             } elseif ($totalTahun == 1) {
                 OpdPerjanjianKinerjaIndikator::updateOrCreate([
                     'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
                     'indikator' => $q->uraian,
+                ], [
                     'target' => $q->target1,
                     'satuan' => $q->satuan,
+
                 ]);
             } elseif ($totalTahun == 2) {
                 OpdPerjanjianKinerjaIndikator::updateOrCreate([
                     'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
                     'indikator' => $q->uraian,
+                ], [
                     'target' => $q->target2,
                     'satuan' => $q->satuan,
+
                 ]);
             } elseif ($totalTahun == 3) {
                 OpdPerjanjianKinerjaIndikator::updateOrCreate([
                     'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
                     'indikator' => $q->uraian,
+                ], [
                     'target' => $q->target3,
                     'satuan' => $q->satuan,
+
                 ]);
             } elseif ($totalTahun == 4) {
                 OpdPerjanjianKinerjaIndikator::updateOrCreate([
                     'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
                     'indikator' => $q->uraian,
+                ], [
                     'target' => $q->target4,
                     'satuan' => $q->satuan,
+
                 ]);
             } elseif ($totalTahun == 5) {
                 OpdPerjanjianKinerjaIndikator::updateOrCreate([
                     'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
                     'indikator' => $q->uraian,
+                ], [
                     'target' => $q->target5,
                     'satuan' => $q->satuan,
+
                 ]);
             }
         }

@@ -169,13 +169,12 @@ class OpdPenilaianKinerjaController extends Controller
         $request->validate([
             'tahap' => 'required'
         ]);
-        $opd = Opd::find($request->opd_id)->nama_opd;
-        $dataUnit = DataUnit::where('nama_skpd', $opd)->first();
+        $opd = Opd::find($request->opd_id);
         $data = Http::withHeaders(['x-api-key' => 'FD59804809A3DFD300C1E49F6E6FD23D'])
             ->get(
                 'http://ekontrak.semarangkota.go.id/ekontrak/api/ekontrak/monitoring_kegiatan',
                 [
-                    'idskpd' => $dataUnit->id_unit,
+                    'idskpd' => $opd->data_unit_id,
                     'tahap' => $request->tahap
                 ]
             )->json();

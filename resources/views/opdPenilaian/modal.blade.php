@@ -35,7 +35,8 @@
                                                     {{ $getOpdPerjanjianKinerjaIndikator->indikator }}
                                                 </small>
                                             </td>
-                                            <td>{{ $getOpdPerjanjianKinerjaIndikator->target }}</td>
+                                            <td>{{ $getOpdPerjanjianKinerjaIndikator->target }}
+                                                {{ $getOpdPerjanjianKinerjaIndikator->satuan }}</td>
                                             <td>
                                                 <select name="iku[{{ $loop->index }}][type]" class="form-control">
                                                     <option value="">Pilih Tipe</option>

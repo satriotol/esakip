@@ -177,6 +177,73 @@
                             })
                         });
                 },
+
+                opdPerjanjianKinerjaSasaran() {
+                    Swal.fire({
+                        title: 'Sedang Menarik Data',
+                        icon: 'info',
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        },
+                        allowOutsideClick: false
+                    });
+                    // console.log(this.form);
+                    axios.get('{{ route('opdPerjanjianKinerjaSasaran.create', [$opdPerjanjianKinerja]) }}')
+                        .then((res) => {
+                            console.log(res);
+                            Swal.fire({
+                                title: 'Sukses',
+                                icon: 'success',
+                                confirmButtonText: 'Lanjut',
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+                        }).catch((err) => {
+                            Swal.fire({
+                                title: 'Error',
+                                icon: 'error',
+                                text: err.response.data.message,
+                                confirmButtonText: 'Ok',
+                            })
+                        });
+                },
+                opdPerjanjianKinerjaIndikator() {
+                    Swal.fire({
+                        title: 'Sedang Menarik Data',
+                        icon: 'info',
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        },
+                        allowOutsideClick: false
+                    });
+                    // console.log(this.form);
+                    axios.get('{{ route('opdPerjanjianKinerjaIndikator.create', [$opdPerjanjianKinerja]) }}')
+                        .then((res) => {
+                            console.log(res);
+                            Swal.fire({
+                                title: 'Sukses',
+                                icon: 'success',
+                                confirmButtonText: 'Lanjut',
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    location.reload();
+                                }
+                            })
+                        }).catch((err) => {
+                            Swal.fire({
+                                title: 'Error',
+                                icon: 'error',
+                                text: err.response.data.message,
+                                confirmButtonText: 'Ok',
+                            })
+                        });
+                },
             }
         }, ).mount('#app')
     </script>
