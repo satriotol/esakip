@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\OpdPerjanjianKinerjaSasaran\CreateOpdPerjanjianKinerjaSasaranRequest;
 use App\Http\Requests\OpdPerjanjianKinerjaSasaran\UpdateOpdPerjanjianKinerjaSasaranRequest;
 use App\Models\OpdPerjanjianKinerjaSasaran;
+use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Termwind\Components\Dd;
 
 class OpdPerjanjianKinerjaSasaranController extends Controller
 {
@@ -30,9 +33,17 @@ class OpdPerjanjianKinerjaSasaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($opdPerjanjianKinerja)
+    public function create(OpdPerjanjianKinerja $opdPerjanjianKinerja)
     {
-        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.sasaran.create', compact('opdPerjanjianKinerja'));
+        $query = DB::connection('mysql2')->select("SELECT * FROM sasaran_ranakhir_renstra WHERE id_skpd=" . $opdPerjanjianKinerja->opd->data_unit_id . ";");
+        foreach ($query as $q) {
+            OpdPerjanjianKinerjaSasaran::updateOrCreate([
+                'opd_perjanjian_kinerja_id' => $opdPerjanjianKinerja->id,
+                'sasaran' => $q->uraian,
+            ]);
+        }
+        session()->flash('success');
+        return back();
     }
 
     /**

@@ -32,7 +32,10 @@
                         <select class="js-example-basic-single form-select" data-width="100%" name="data_unit_id" required>
                             <option value="">Select Data Unit</option>
                             @foreach ($dataUnits as $dataUnit)
-                                <option value="{{ $dataUnit->id_skpd }}">
+                                <option value="{{ $dataUnit->id_skpd }}"
+                                    @isset($opd)
+                                    @selected($opd->data_unit_id == $dataUnit->id_skpd)
+                                @endisset>
                                     {{ $dataUnit->nama_skpd }} </option>
                             @endforeach
                         </select>

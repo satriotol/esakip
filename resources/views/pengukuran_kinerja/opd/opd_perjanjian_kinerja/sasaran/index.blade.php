@@ -15,10 +15,10 @@
                 <tr>
                     <td>{{ $opd_perjanjian_kinerja_sasaran->sasaran }}</td>
                     <td>
-                        <a class="badge rounded-pill bg-warning text-dark"
+                        {{-- <a class="badge rounded-pill bg-warning text-dark"
                             href="{{ route('opdPerjanjianKinerjaSasaran.edit', [$opdPerjanjianKinerja->id, $opd_perjanjian_kinerja_sasaran->id]) }}">
                             Edit
-                        </a>
+                        </a> --}}
                         <form
                             action="{{ route('opdPerjanjianKinerjaSasaran.destroy', $opd_perjanjian_kinerja_sasaran->id) }}"
                             method="POST" class="d-inline">
