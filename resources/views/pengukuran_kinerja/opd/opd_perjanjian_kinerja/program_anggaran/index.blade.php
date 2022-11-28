@@ -21,7 +21,7 @@
                 <th>Program</th>
                 <th>Anggaran</th>
                 <th>Keterangan</th>
-                <th>Action</th>
+                {{-- <th>Action</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -30,7 +30,7 @@
                     <td>{{ $opd_perjanjian_kinerja_program_anggaran->program }}</td>
                     <td>Rp. {{ number_format($opd_perjanjian_kinerja_program_anggaran->anggaran) }}</td>
                     <td>{{ $opd_perjanjian_kinerja_program_anggaran->keterangan }}</td>
-                    <td>
+                    {{-- <td>
                         <form
                             action="{{ route('opdPerjanjianKinerjaProgramAnggaran.destroy', $opd_perjanjian_kinerja_program_anggaran->id) }}"
                             method="POST" class="d-inline">
@@ -41,7 +41,7 @@
                                 Delete
                             </button>
                         </form>
-                    </td>
+                    </td> --}}
                 </tr>
             @endforeach
         </tbody>

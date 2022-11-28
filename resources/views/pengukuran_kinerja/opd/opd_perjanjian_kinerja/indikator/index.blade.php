@@ -1,6 +1,6 @@
 <div class="text-end">
     <a href="{{ route('opdPerjanjianKinerjaIndikator.create', [$opdPerjanjianKinerja]) }}"
-        class="btn btn-sm btn-success ml-1">Tambah Indikator</a>
+        class="btn btn-sm btn-success ml-1">Tarik Indikator</a>
 </div>
 <div class="table-responsive mt-2">
     <table id="dataTableExample" class="table dataTableExample">
@@ -9,7 +9,7 @@
                 <th>Sasaran</th>
                 <th>Indikator</th>
                 <th>Target</th>
-                <th>Action</th>
+                {{-- <th>Action</th> --}}
             </tr>
         </thead>
         <tbody>
@@ -18,7 +18,7 @@
                     <td>{{ $opd_perjanjian_kinerja_indikator->opd_perjanjian_kinerja_sasaran->sasaran }}</td>
                     <td>{{ $opd_perjanjian_kinerja_indikator->indikator }}</td>
                     <td>{{ $opd_perjanjian_kinerja_indikator->target }} {{$opd_perjanjian_kinerja_indikator->satuan}}</td>
-                    <td>
+                    {{-- <td>
                         <a class="badge rounded-pill bg-warning text-dark"
                             href="{{ route('opdPerjanjianKinerjaIndikator.edit', [$opdPerjanjianKinerja, $opd_perjanjian_kinerja_indikator->id]) }}">
                             Edit
@@ -33,7 +33,7 @@
                                 Delete
                             </button>
                         </form>
-                    </td>
+                    </td> --}}
                 </tr>
             @endforeach
         </tbody>
