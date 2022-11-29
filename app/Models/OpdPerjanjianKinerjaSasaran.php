@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class OpdPerjanjianKinerjaSasaran extends Model
 {
     use HasFactory;
-    protected $fillable = ['opd_perjanjian_kinerja_id', 'sasaran'];
+    protected $fillable = ['opd_perjanjian_kinerja_id', 'sasaran', 'sasaran_lama_id'];
 
     public function opd_perjanjian_kinerja()
     {
