@@ -38,7 +38,7 @@
                                             <td>{{ $getOpdPerjanjianKinerjaIndikator->target }}
                                                 {{ $getOpdPerjanjianKinerjaIndikator->satuan }}</td>
                                             <td>
-                                                <select name="iku[{{ $loop->index }}][type]" class="form-control">
+                                                <select name="iku[{{ $loop->index }}][type]">
                                                     <option value="">Pilih Tipe</option>
                                                     @foreach ($ikuTypes as $ikuType)
                                                         <option value="{{ $ikuType }}"
@@ -49,8 +49,8 @@
                                             </td>
                                             <td><input type="number"
                                                     value="{{ $opd_category_variable->getIkuRealisasi($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}"
-                                                    step="any" class="form-control" required
-                                                    name="iku[{{ $loop->index }}][realisasi]" id="">
+                                                    step="any" required name="iku[{{ $loop->index }}][realisasi]"
+                                                    id="">
                                             </td>
                                             <td>
                                                 {{ $opd_category_variable->getIkuCapaian($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}
