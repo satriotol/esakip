@@ -39,10 +39,11 @@ class OpdPenilaianKinerjaController extends Controller
         $request->name = $name;
         $data2 = null;
         $data = null;
+        $url = 'http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad';
         if ($name == 'BADAN PENDAPATAN DAERAH') {
-            $data2 = Http::get('http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad')['data']['pad'][0]['subtotal'];
+            $data2 = Http::get($url)['data']['pad'][0]['subtotal'];
         } else {
-            $data = Http::get('http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad')['data']['pad'][1]['rincian'];
+            $data = Http::get($url)['data']['pad'][1]['rincian'];
         }
         $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
