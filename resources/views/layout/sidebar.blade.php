@@ -221,13 +221,13 @@
                         <span class="link-title">Perjanjian Kinerja</span>
                     </a>
                 </li>
-                <li
+                {{-- <li
                     class="nav-item {{ active_class(['rencanaAksi.*', 'rencanaAksiSasaran.*', 'rencanaAksiIndikator.*', 'rencanaAksiTarget.*']) }}">
                     <a href="{{ route('rencanaAksi.index') }}" class="nav-link">
                         <i class="link-icon" data-feather="award"></i>
                         <span class="link-title">Rencana Aksi</span>
                     </a>
-                </li>
+                </li> --}}
             @endcan
             <li class="nav-item nav-category">OPD</li>
             <li class="nav-item {{ active_class(['opds.*']) }}">

@@ -55,6 +55,10 @@ class OpdPenilaianIkuController extends Controller
                 $opdPerjanjianKinerjaIndikator = OpdPerjanjianKinerjaIndikator::find($i['opd_perjanjian_kinerja_indikator_id']);
                 // OpdPenilaianIku::where('opd_penilaian_kinerja_id', $opdPenilaianKinerja->id)->where('opd_perjanjian_kinerja_indikator_id', $i['opd_perjanjian_kinerja_indikator_id'])->delete();
                 if ($i['type'] == OpdPenilaianIku::TYPE1) {
+                    $capaian = round((float)$i['realisasi'] / (float)$opdPerjanjianKinerjaIndikator->target * 100, 2);
+                    if ($capaian > 100) {
+                        $capaian = 100;
+                    }
                     OpdPenilaianIku::updateOrCreate(
                         [
                             'opd_penilaian_kinerja_id' => $opdPenilaianKinerja->id,
@@ -63,10 +67,14 @@ class OpdPenilaianIkuController extends Controller
                         [
                             'type' => $i['type'],
                             'realisasi' => $i['realisasi'],
-                            'capaian' => round((float)$i['realisasi'] / (float)$opdPerjanjianKinerjaIndikator->target * 100, 2),
+                            'capaian' => $capaian,
                         ]
                     );
                 } else {
+                    $capaian = round((1 - (((float)$i['realisasi'] - (float)$opdPerjanjianKinerjaIndikator->target)) / (float)$opdPerjanjianKinerjaIndikator->target) * 100, 2);
+                    if ($capaian > 100) {
+                        $capaian = 100;
+                    }
                     OpdPenilaianIku::updateOrCreate(
                         [
                             'opd_penilaian_kinerja_id' => $opdPenilaianKinerja->id,
@@ -75,7 +83,7 @@ class OpdPenilaianIkuController extends Controller
                         [
                             'type' => $i['type'],
                             'realisasi' => $i['realisasi'],
-                            'capaian' => round(((float)$opdPerjanjianKinerjaIndikator->target - (float)$i['realisasi']) / (float)$opdPerjanjianKinerjaIndikator->target * 100, 2),
+                            'capaian' => $capaian,
                         ]
                     );
                 }
