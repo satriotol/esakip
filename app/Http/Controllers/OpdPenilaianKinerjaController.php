@@ -186,8 +186,9 @@ class OpdPenilaianKinerjaController extends Controller
                 ]
             )->json();
         $opdCategoryVariable = OpdCategoryVariable::where('id', $request->opd_category_variable_id)->first();
+        $dataPersen = str_replace(',', '', $data['data']['persenRealisasi']);
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
-        $capaian = round($data['data']['persenRealisasi'], 2);
+        $capaian = round($dataPersen, 2);
         if ($capaian > 100) {
             $capaian = 100;
         }
