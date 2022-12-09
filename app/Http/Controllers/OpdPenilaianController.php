@@ -21,6 +21,13 @@ class OpdPenilaianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('permission:opdPenilaian-list|opdPenilaian-create|opdPenilaian-edit|opdPenilaian-delete', ['only' => ['index', 'store']]);
+        $this->middleware('permission:opdPenilaian-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opdPenilaian-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opdPenilaian-delete', ['only' => ['destroy']]);
+    }
     public function index(Request $request)
     {
         $opds = Opd::getOpd();
