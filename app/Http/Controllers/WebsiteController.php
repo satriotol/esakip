@@ -24,8 +24,11 @@ class WebsiteController extends Controller
     }
     public function index()
     {
-        $websites = Website::all();
-        return view('website.index', compact('websites'));
+        $website = Website::first();
+        if ($website) {
+            return view('website.create', compact('website'));
+        }
+        return view('website.create');
     }
 
     /**
