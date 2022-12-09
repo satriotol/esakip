@@ -94,6 +94,13 @@
                 message: 'Successfully',
             });
         </script>
+    @elseif(session()->has('error'))
+        <script>
+            iziToast.error({
+                title: 'Error',
+                message: 'Terjadi Kesalahan',
+            });
+        </script>
     @endif
     <script>
         $(function() {
