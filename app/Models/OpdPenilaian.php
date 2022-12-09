@@ -167,7 +167,11 @@ class OpdPenilaian extends Model
     }
     public function totalAkhir()
     {
-        return $this->totalNilaiAkhir() + $this->inovasi_prestasi_daerah;
+        $total = $this->totalNilaiAkhir() + $this->inovasi_prestasi_daerah;
+        if ($total > 100) {
+            $total = 100;
+        }
+        return $total;
     }
     public function totalAkhirPredikat()
     {

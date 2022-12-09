@@ -62,6 +62,7 @@
                             </tbody>
                         </table>
                     </div>
+                    <div id="test"></div>
                 </div>
             </div>
         </div>
@@ -193,10 +194,119 @@
 @push('plugin-scripts')
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 @endpush
 
 @push('custom-scripts')
     <script src="{{ asset('assets/js/select2.js') }}"></script>
+    <script>
+        Highcharts.chart('test', {
+
+            chart: {
+                type: 'gauge',
+                plotBackgroundColor: null,
+                plotBackgroundImage: null,
+                plotBorderWidth: 0,
+                plotShadow: false,
+                height: '40%'
+            },
+
+            title: {
+                text: 'Predikat OPD'
+            },
+
+            pane: {
+                startAngle: -90,
+                endAngle: 89.9,
+                background: null,
+                center: ['50%', '75%'],
+                size: '110%'
+            },
+
+            // the value axis
+            yAxis: {
+                min: 0,
+                max: 100,
+                tickPixelInterval: 72,
+                tickPosition: 'inside',
+                tickColor: Highcharts.defaultOptions.chart.backgroundColor || '#FFFFFF',
+                tickLength: 20,
+                tickWidth: 2,
+                minorTickInterval: null,
+                labels: {
+                    distance: 20,
+                    style: {
+                        fontSize: '14px'
+                    }
+                },
+                plotBands: [{
+                        from: 0,
+                        to: 60,
+                        color: '#FF0D0D', // green
+                        thickness: 20
+                    },
+                    {
+                        from: 60,
+                        to: 70,
+                        color: '#FF4E11', // green
+                        thickness: 20
+                    }, {
+                        from: 70,
+                        to: 80,
+                        color: '#FF8E15', // yellow
+                        thickness: 20
+                    }, {
+                        from: 80,
+                        to: 90,
+                        color: '#ACB334', // red
+                        thickness: 20
+                    }, {
+                        from: 90,
+                        to: 100,
+                        color: '#69B34C', // red
+                        thickness: 20
+                    }
+                ]
+            },
+
+            series: [{
+                name: 'Predikat OPD',
+                data: [{{ $opdPenilaian->totalAkhir() }}],
+                tooltip: {
+                    valueSuffix: '{{ $opdPenilaian->totalAkhirPredikat() }}'
+                },
+                dataLabels: {
+                    format: '{y} {{ $opdPenilaian->totalAkhirPredikat() }}',
+                    borderWidth: 0,
+                    color: (
+                        Highcharts.defaultOptions.title &&
+                        Highcharts.defaultOptions.title.style &&
+                        Highcharts.defaultOptions.title.style.color
+                    ) || '#333333',
+                    style: {
+                        fontSize: '16px'
+                    }
+                },
+                dial: {
+                    radius: '80%',
+                    backgroundColor: 'gray',
+                    baseWidth: 12,
+                    baseLength: '0%',
+                    rearLength: '0%'
+                },
+                pivot: {
+                    backgroundColor: 'gray',
+                    radius: 6
+                }
+
+            }]
+
+        });
+    </script>
     <script>
         $(".tarik-data").click(function() {
             Swal.fire({

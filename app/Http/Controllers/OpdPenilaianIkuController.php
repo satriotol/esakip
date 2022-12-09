@@ -58,6 +58,8 @@ class OpdPenilaianIkuController extends Controller
                     $capaian = round((float)$i['realisasi'] / (float)$opdPerjanjianKinerjaIndikator->target * 100, 2);
                     if ($capaian > 100) {
                         $capaian = 100;
+                    } elseif ($capaian < 0) {
+                        $capaian = 0;
                     }
                     OpdPenilaianIku::updateOrCreate(
                         [
@@ -74,6 +76,8 @@ class OpdPenilaianIkuController extends Controller
                     $capaian = round((1 - (((float)$i['realisasi'] - (float)$opdPerjanjianKinerjaIndikator->target)) / (float)$opdPerjanjianKinerjaIndikator->target) * 100, 2);
                     if ($capaian > 100) {
                         $capaian = 100;
+                    } elseif ($capaian < 0) {
+                        $capaian = 0;
                     }
                     OpdPenilaianIku::updateOrCreate(
                         [
