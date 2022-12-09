@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Error;
 use App\Models\OpdCategoryVariable;
 use App\Models\OpdPenilaian;
 use App\Models\OpdPenilaianIku;
 use App\Models\OpdPenilaianKinerja;
 use App\Models\OpdPerjanjianKinerjaIndikator;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -109,9 +111,8 @@ class OpdPenilaianIkuController extends Controller
 
             ]);
             DB::commit();
-        } catch (\Throwable $th) {
-            return $th;
-            DB::rollback();
+        } catch (Exception $exception) {
+            Error::createError($exception);
         }
 
 

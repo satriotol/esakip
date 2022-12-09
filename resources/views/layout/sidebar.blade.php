@@ -302,6 +302,14 @@
                     </a>
                 </li>
             @endcan
+            @can('error-list')
+                <li class="nav-item {{ active_class(['error.*']) }}">
+                    <a href="{{ route('error.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="unlock"></i>
+                        <span class="link-title">Error</span>
+                    </a>
+                </li>
+            @endcan
         </ul>
     </div>
 </nav>

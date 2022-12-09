@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Error;
 use App\Models\InovasiPrestasiDaerah;
 use App\Models\Opd;
 use App\Models\OpdCategory;
@@ -10,6 +11,7 @@ use App\Models\OpdPenilaianIku;
 use App\Models\OpdPenilaianKinerja;
 use App\Models\OpdPenilaianReport;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -105,9 +107,8 @@ class OpdPenilaianController extends Controller
                 ]);
             }
             DB::commit();
-        } catch (\Throwable $th) {
-            return $th;
-            DB::rollback();
+        } catch (Exception $exception) {
+            Error::createError($exception);
         }
 
         session()->flash('success');

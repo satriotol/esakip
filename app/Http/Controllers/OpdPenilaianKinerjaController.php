@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataUnit;
+use App\Models\Error;
 use App\Models\Opd;
 use App\Models\OpdCategory;
 use App\Models\OpdCategoryVariable;
 use App\Models\OpdPenilaian;
 use App\Models\OpdPenilaianKinerja;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -72,8 +74,8 @@ class OpdPenilaianKinerjaController extends Controller
                             'status' => OpdPenilaian::STATUS1
                         ]);
                         DB::commit();
-                    } catch (\Throwable $th) {
-                        DB::rollback();
+                    } catch (Exception $exception) {
+                        Error::createError($exception);
                     }
 
                     session()->flash('success');
@@ -104,8 +106,8 @@ class OpdPenilaianKinerjaController extends Controller
                                     'status' => OpdPenilaian::STATUS1
                                 ]);
                                 DB::commit();
-                            } catch (\Throwable $th) {
-                                DB::rollback();
+                            } catch (Exception $exception) {
+                                Error::createError($exception);
                             }
 
                             session()->flash('success');
@@ -114,9 +116,8 @@ class OpdPenilaianKinerjaController extends Controller
                     }
                 }
             }
-        } catch (\Throwable $th) {
-            session()->flash('error', 'Webservice Bermasalah');
-            return back();
+        } catch (Exception $exception) {
+            Error::createError($exception);
         }
 
         return back();
@@ -163,8 +164,8 @@ class OpdPenilaianKinerjaController extends Controller
                 'status' => OpdPenilaian::STATUS1
             ]);
             DB::commit();
-        } catch (\Throwable $th) {
-            DB::rollback();
+        } catch (Exception $exception) {
+            Error::createError($exception);
         }
 
         session()->flash('success');

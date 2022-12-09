@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CascadingKinerjaOpdController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\EvaluasiKinerjaController;
 use App\Http\Controllers\EvaluasiKinerjaYearController;
 use App\Http\Controllers\IkuKotaController;
@@ -45,6 +46,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('website', WebsiteController::class);
+    Route::resource('error', ErrorController::class);
     Route::resource('user', UserController::class);
     Route::resource('userOpd', UserOpdController::class);
     Route::resource('role', RoleController::class);
