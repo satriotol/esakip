@@ -1,8 +1,7 @@
 @extends('layout.master2')
 
 @section('content')
-    <div class="page-content d-flex align-items-center justify-content-center">
-
+    <div class="page-content d-flex align-items-center justify-content-center" id="app">
         <div class="row w-100 mx-0 auth-page">
             <div class="col-md-8 col-xl-6 mx-auto">
                 <div class="card">
@@ -18,29 +17,29 @@
                                 <a href="#" class="noble-ui-logo d-block mb-2">E-SAKIP PEMKOT SEMARANG</a>
                                 <h5 class="text-muted fw-normal mb-4">Selamat Datang Kembali</h5>
                                 @include('partials.errors')
-                                <form method="post" class="forms-sample" action="{{ route('login.store') }}">
-                                    @csrf
+                                <form method="post" class="forms-sample" @submit.prevent="login">
                                     <div class="mb-3">
                                         <label for="userEmail" class="form-label">Email address</label>
-                                        <input type="email" class="form-control" name="email" id="userEmail"
-                                            placeholder="Email" value="{{ @old('email') }}">
+                                        <input type="email" class="form-control" name="email" v-model="form.email"
+                                            id="userEmail" placeholder="Email">
                                     </div>
                                     <div class="mb-3">
                                         <label for="userPassword" class="form-label">Password</label>
-                                        <input type="password" class="form-control" name="password" id="userPassword"
-                                            autocomplete="current-password" placeholder="Password">
+                                        <input type="password" class="form-control" name="password" v-model="form.password"
+                                            id="userPassword" autocomplete="current-password" placeholder="Password">
                                     </div>
                                     <div class="mb-3">
                                         <div class="captcha">
-                                            <span>{!! captcha_img() !!}</span>
-                                            <button type="button" class="btn btn-danger" class="reload" id="reload">
+                                            <span v-html="captchaImage"></span>
+                                            <button type="button" @click="reloadCaptcha()" class="btn btn-danger"
+                                                class="reload">
                                                 &#x21bb;
                                             </button>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <input id="captcha" type="text" class="form-control"
-                                            placeholder="Enter Captcha" name="captcha">
+                                            placeholder="Enter Captcha" name="captcha" v-model="form.captcha">
                                     </div>
                                     <div class="form-check mb-3">
                                         <input type="checkbox" class="form-check-input" id="authCheck">
@@ -50,7 +49,6 @@
                                     </div>
                                     <div>
                                         <input type="submit" class="btn btn-primary me-2 mb-2 mb-md-0" name=""
-                                            onclick="this.disabled=true;this.value='Loading...';this.form.submit();"
                                             id="" value="Login">
                                     </div>
                                 </form>
@@ -62,3 +60,75 @@
         </div>
     </div>
 @endsection
+@push('custom-scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.6.7/dist/sweetalert2.all.min.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"
+        integrity="sha512-0qU9M9jfqPw6FKkPafM3gy2CBAvUWnYVOfNPDYKVuRTel1PrciTj+a9P3loJB+j0QmN2Y0JYQmkBBS8W+mbezg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const {
+            createApp
+        } = Vue
+
+        createApp({
+            data() {
+                return {
+                    message: 'Hello Vue!',
+                    form: {
+                        email: "",
+                        password: "",
+                        captcha: "",
+                    },
+                    captchaImage: '',
+                }
+            },
+            methods: {
+                login() {
+                    Swal.fire({
+                        title: 'Mencoba Masuk',
+                        icon: 'info',
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading()
+                        },
+                        allowOutsideClick: false
+                    });
+                    // console.log(this.form);
+                    axios.post('/login', this.form)
+                        .then((res) => {
+                            console.log(res);
+                            Swal.fire({
+                                title: 'Sukses',
+                                icon: 'success',
+                                confirmButtonText: 'Lanjut',
+                            }).then((result) => {
+                                /* Read more about isConfirmed, isDenied below */
+                                if (result.isConfirmed) {
+                                    window.location.href = res.request.responseURL
+                                }
+                            })
+                        }).catch((err) => {
+                            Swal.fire({
+                                title: 'Error',
+                                icon: 'error',
+                                text: err.response.data.message,
+                                confirmButtonText: 'Ok',
+                            });
+                            this.reloadCaptcha();
+                        });
+                },
+                reloadCaptcha() {
+                    axios.get('/reload-captcha')
+                        .then((res) => {
+                            this.captchaImage = res.data.captcha;
+                            console.log(this.captchaImage);
+                        });
+                }
+            },
+            mounted() {
+                this.reloadCaptcha();
+            },
+        }).mount('#app')
+    </script>
+@endpush
