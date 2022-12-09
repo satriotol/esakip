@@ -21,7 +21,7 @@ class ErrorController extends Controller
     }
     public function index()
     {
-        $errors = Error::paginate();
+        $errors = Error::orderBy('id', 'desc')->paginate();
         return view('error.index', compact('errors'));
     }
 
