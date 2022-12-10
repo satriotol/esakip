@@ -126,7 +126,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $opdPerjanjianKinerjas->links() }}
+                        {{ $opdPerjanjianKinerjas->appends($_GET)->links() }}
                     </div>
                 </div>
             </div>
