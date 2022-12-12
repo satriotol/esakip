@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\InovasiPrestasiOpd;
+use App\Models\InovasiPrestasiTingkat;
 use App\Models\Opd;
 use Illuminate\Http\Request;
 
@@ -34,7 +35,8 @@ class InovasiPrestasiOpdController extends Controller
     public function create()
     {
         $opds = Opd::getOpd();
-        return view('inovasiPrestasiOpd.create', compact('opds'));
+        $inovasiPrestasiTingkats = InovasiPrestasiTingkat::all();
+        return view('inovasiPrestasiOpd.create', compact('opds', 'inovasiPrestasiTingkats'));
     }
 
     /**
@@ -50,6 +52,7 @@ class InovasiPrestasiOpdController extends Controller
             'opd_id' => 'required',
             'date' => 'required|date',
             'year' => 'required',
+            'inovasi_prestasi_tingkat_id' => 'required',
             'instansi_pemberi' => 'nullable',
             'description' => 'nullable',
             'file' => 'nullable'
@@ -80,7 +83,8 @@ class InovasiPrestasiOpdController extends Controller
     public function edit(InovasiPrestasiOpd $inovasiPrestasiOpd)
     {
         $opds = Opd::getOpd();
-        return view('inovasiPrestasiOpd.create', compact('inovasiPrestasiOpd', 'opds'));
+        $inovasiPrestasiTingkats = InovasiPrestasiTingkat::all();
+        return view('inovasiPrestasiOpd.create', compact('inovasiPrestasiOpd', 'opds', 'inovasiPrestasiTingkats'));
     }
 
     /**
@@ -97,6 +101,7 @@ class InovasiPrestasiOpdController extends Controller
             'opd_id' => 'required',
             'date' => 'required|date',
             'year' => 'required',
+            'inovasi_prestasi_tingkat_id' => 'required',
             'instansi_pemberi' => 'nullable',
             'description' => 'nullable',
             'file' => 'nullable'

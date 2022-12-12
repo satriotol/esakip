@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('opd_id');
             $table->date('date');
             $table->year('year');
+            $table->unsignedBigInteger('inovasi_prestasi_tingkat_id');
             $table->string('name');
             $table->longText('instansi_pemberi')->nullable();
             $table->longText('description')->nullable();
