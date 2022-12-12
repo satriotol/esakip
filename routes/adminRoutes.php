@@ -8,6 +8,7 @@ use App\Http\Controllers\EvaluasiKinerjaYearController;
 use App\Http\Controllers\IkuKotaController;
 use App\Http\Controllers\IkuOpdController;
 use App\Http\Controllers\InovasiPrestasiDaerahController;
+use App\Http\Controllers\InovasiPrestasiOpdController;
 use App\Http\Controllers\KotaPerjanjianKinerjaController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\LkjipKotaController;
@@ -36,6 +37,7 @@ use App\Http\Controllers\RenjaOpdController;
 use App\Http\Controllers\RenstraOpdController;
 use App\Http\Controllers\RktOpdController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserOpdController;
 use App\Http\Controllers\WebsiteController;
@@ -109,8 +111,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('kotaPerjanjianKinerja/store_file', [KotaPerjanjianKinerjaController::class, 'store_file'])->name('kotaPerjanjianKinerja.store_file');
     // end of kota
     // ===========================
+    Route::post('upload/store', [UploadController::class, 'store'])->name('upload.store');
     // opd
     Route::resource('ikuOpd', IkuOpdController::class);
+    Route::resource('inovasiPrestasiOpd', InovasiPrestasiOpdController::class);
     Route::post('getIkuOpd', [IkuOpdController::class, 'getIkuOpd'])->name('ikuOpd.getIkuOpd');
     Route::post('ikuOpd/store_file', [IkuOpdController::class, 'store_file'])->name('ikuOpd.store_file');
     Route::resource('opdPenilaian', OpdPenilaianController::class);

@@ -29,7 +29,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="data_unit_id" class="form-label">Data Unit</label>
-                        <select class="js-example-basic-single form-select" data-width="100%" name="data_unit_id" required>
+                        <select class="js-example-basic-single form-select" disabled data-width="100%" name="data_unit_id"
+                            required>
                             <option value="">Select Data Unit</option>
                             @foreach ($dataUnits as $dataUnit)
                                 <option value="{{ $dataUnit->id_skpd }}"

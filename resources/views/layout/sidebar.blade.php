@@ -237,11 +237,18 @@
                         <span class="link-title">Master OPD</span>
                     </a>
                 </li>
-
                 <li class="nav-item {{ active_class(['userOpd.*']) }}">
                     <a href="{{ route('userOpd.index') }}" class="nav-link">
                         <i class="link-icon" data-feather="user"></i>
                         <span class="link-title">User OPD</span>
+                    </a>
+                </li>
+            @endcan
+            @can('inovasiPrestasiOpd-list')
+                <li class="nav-item {{ active_class(['inovasiPrestasiOpd.*']) }}">
+                    <a href="{{ route('inovasiPrestasiOpd.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="user"></i>
+                        <span class="link-title">Inovasi Prestasi</span>
                     </a>
                 </li>
             @endcan
