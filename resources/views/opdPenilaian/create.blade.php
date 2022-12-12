@@ -46,8 +46,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="name" class="form-label">Inovasi Prestasi OPD</label>
-                        <select class="js-example-basic-single form-select" data-width="100%" name="inovasi_prestasi_opd_id"
-                            required>
+                        <select class="js-example-basic-single form-select" data-width="100%"
+                            name="inovasi_prestasi_opd_id">
                             <option value="">Pilih Inovasi Prestasi OPD</option>
                             @foreach ($inovasiPrestasiOpds as $inovasiPrestasiOpd)
                                 <option value="{{ $inovasiPrestasiOpd->id }}"
