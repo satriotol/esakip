@@ -3,6 +3,13 @@
 @push('plugin-styles')
     <link href="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.css') }}" rel="stylesheet" />
 @endpush
+@push('style')
+    <style>
+        html {
+            zoom: 100%;
+        }
+    </style>
+@endpush
 
 @section('content')
     <nav class="page-breadcrumb">
@@ -28,6 +35,7 @@
                             <thead>
                                 <tr>
                                     <th>OPD</th>
+                                    <th>Status</th>
                                     <th>Nama</th>
                                     <th>Tanggal</th>
                                     <th>Action</th>
@@ -37,23 +45,114 @@
                                 @foreach ($inovasiPrestasiOpds as $inovasiPrestasiOpd)
                                     <tr>
                                         <td>{{ $inovasiPrestasiOpd->opd->nama_opd }}</td>
+                                        <td>
+                                            <div class="badge bg-{{ $inovasiPrestasiOpd->getStatus()['color'] }}">
+                                                {{ $inovasiPrestasiOpd->getStatus()['name'] }}
+                                            </div>
+                                        </td>
                                         <td>{{ $inovasiPrestasiOpd->name }}</td>
                                         <td>{{ $inovasiPrestasiOpd->date }}</td>
                                         <td>
-                                            <a class="btn btn-warning"
-                                                href="{{ route('inovasiPrestasiOpd.edit', $inovasiPrestasiOpd->id) }}">
-                                                Edit
-                                            </a>
-                                            <form
-                                                action="{{ route('inovasiPrestasiOpd.destroy', $inovasiPrestasiOpd->id) }}"
-                                                method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"
-                                                    onclick="return confirm('Are you sure?')">
-                                                    Delete
-                                                </button>
-                                            </form>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#staticBackdrop{{ $inovasiPrestasiOpd->id }}">
+                                                Detail
+                                            </button>
+                                            <div class="modal fade" id="staticBackdrop{{ $inovasiPrestasiOpd->id }}"
+                                                data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                                                aria-labelledby="staticBackdrop{{ $inovasiPrestasiOpd->id }}Label"
+                                                aria-hidden="true">
+                                                <div class="modal-dialog modal-xl">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title"
+                                                                id="staticBackdrop{{ $inovasiPrestasiOpd->id }}Label">
+                                                                {{ $inovasiPrestasiOpd->name }}
+                                                            </h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table">
+                                                                <tr>
+                                                                    <td>Nama</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $inovasiPrestasiOpd->name }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>OPD</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $inovasiPrestasiOpd->opd->nama_opd }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Tingkat</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Tanggal</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $inovasiPrestasiOpd->date }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Instansi Pemberi</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $inovasiPrestasiOpd->instansi_pemberi }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Deskripsi</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $inovasiPrestasiOpd->description }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>File</td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <a href="{{ asset('uploads/' . $inovasiPrestasiOpd->file) }}"
+                                                                            target="_blank">Buka File</a>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Status</td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        {{ $inovasiPrestasiOpd->getStatus()['name'] }}
+                                                                        <br>
+                                                                        <a href="{{ route('inovasiPrestasiOpd.updateStatus', [$inovasiPrestasiOpd->id, 1]) }}"
+                                                                            class="badge bg-success" onclick="return confirm('Are you sure?')">Setujui</a>
+                                                                        <a href="{{ route('inovasiPrestasiOpd.updateStatus', [$inovasiPrestasiOpd->id, 2]) }}"
+                                                                            class="badge bg-danger" onclick="return confirm('Are you sure?')">Tolak</a>
+                                                                    </td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @if ($inovasiPrestasiOpd->getStatus()['enabled'])
+                                                <a class="btn btn-warning"
+                                                    href="{{ route('inovasiPrestasiOpd.edit', $inovasiPrestasiOpd->id) }}">
+                                                    Edit
+                                                </a>
+                                                <!-- Button trigger modal -->
+
+                                                <!-- Modal -->
+
+                                                <form
+                                                    action="{{ route('inovasiPrestasiOpd.destroy', $inovasiPrestasiOpd->id) }}"
+                                                    method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger"
+                                                        onclick="return confirm('Are you sure?')">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
