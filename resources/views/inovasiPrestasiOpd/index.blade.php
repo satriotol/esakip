@@ -117,11 +117,15 @@
                                                                     <td>:</td>
                                                                     <td>
                                                                         {{ $inovasiPrestasiOpd->getStatus()['name'] }}
-                                                                        <br>
-                                                                        <a href="{{ route('inovasiPrestasiOpd.updateStatus', [$inovasiPrestasiOpd->id, 1]) }}"
-                                                                            class="badge bg-success" onclick="return confirm('Are you sure?')">Setujui</a>
-                                                                        <a href="{{ route('inovasiPrestasiOpd.updateStatus', [$inovasiPrestasiOpd->id, 2]) }}"
-                                                                            class="badge bg-danger" onclick="return confirm('Are you sure?')">Tolak</a>
+                                                                        @unlessrole('OPD')
+                                                                            <br>
+                                                                            <a href="{{ route('inovasiPrestasiOpd.updateStatus', [$inovasiPrestasiOpd->id, 1]) }}"
+                                                                                class="badge bg-success"
+                                                                                onclick="return confirm('Are you sure?')">Setujui</a>
+                                                                            <a href="{{ route('inovasiPrestasiOpd.updateStatus', [$inovasiPrestasiOpd->id, 2]) }}"
+                                                                                class="badge bg-danger"
+                                                                                onclick="return confirm('Are you sure?')">Tolak</a>
+                                                                        @endunlessrole
                                                                     </td>
                                                                 </tr>
                                                             </table>
@@ -138,21 +142,17 @@
                                                     href="{{ route('inovasiPrestasiOpd.edit', $inovasiPrestasiOpd->id) }}">
                                                     Edit
                                                 </a>
-                                                <!-- Button trigger modal -->
-
-                                                <!-- Modal -->
-
-                                                <form
-                                                    action="{{ route('inovasiPrestasiOpd.destroy', $inovasiPrestasiOpd->id) }}"
-                                                    method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger"
-                                                        onclick="return confirm('Are you sure?')">
-                                                        Delete
-                                                    </button>
-                                                </form>
                                             @endif
+                                            <form
+                                                action="{{ route('inovasiPrestasiOpd.destroy', $inovasiPrestasiOpd->id) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('Are you sure?')">
+                                                    Delete
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach

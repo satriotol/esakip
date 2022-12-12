@@ -20,6 +20,15 @@ class InovasiPrestasiOpd extends Model
     {
         return $this->belongsTo(InovasiPrestasiTingkat::class, 'inovasi_prestasi_tingkat_id', 'id');
     }
+    public static function getAll()
+    {
+        if (Auth::user()->opd_id) {
+            $data = InovasiPrestasiOpd::where('opd_id', Auth::user()->opd_id)->paginate();
+        } else {
+            $data = InovasiPrestasiOpd::where('is_verified', 1)->paginate();
+        }
+        return $data;
+    }
     public static function getByOpdStatus()
     {
         if (Auth::user()->opd_id) {

@@ -23,7 +23,7 @@ class InovasiPrestasiOpdController extends Controller
     }
     public function index()
     {
-        $inovasiPrestasiOpds = InovasiPrestasiOpd::all();
+        $inovasiPrestasiOpds = InovasiPrestasiOpd::getAll();
         return view('inovasiPrestasiOpd.index', compact('inovasiPrestasiOpds'));
     }
 
