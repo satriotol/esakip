@@ -45,6 +45,21 @@
                         </select>
                     </div>
                     <div class="mb-3">
+                        <label for="name" class="form-label">Inovasi Prestasi OPD</label>
+                        <select class="js-example-basic-single form-select" data-width="100%" name="inovasi_prestasi_opd_id"
+                            required>
+                            <option value="">Pilih Inovasi Prestasi OPD</option>
+                            @foreach ($inovasiPrestasiOpds as $inovasiPrestasiOpd)
+                                <option value="{{ $inovasiPrestasiOpd->id }}"
+                                    @isset($opdPenilaian) 
+                                    @if ($inovasiPrestasiOpd->id === $opdPenilaian->inovasi_prestasi_opd_id) selected  @endif
+                                @endisset>
+                                    {{ $inovasiPrestasiOpd->opd->nama_opd }} | {{ $inovasiPrestasiOpd->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label for="name" class="form-label">Perjanjian Kinerja</label>
                         <select class="js-example-basic-single form-select" data-width="100%"
                             name="opd_perjanjian_kinerja_id" required>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class InovasiPrestasiOpd extends Model
 {
@@ -18,6 +19,15 @@ class InovasiPrestasiOpd extends Model
     public function inovasi_prestasi_tingkat()
     {
         return $this->belongsTo(InovasiPrestasiTingkat::class, 'inovasi_prestasi_tingkat_id', 'id');
+    }
+    public static function getByOpdStatus()
+    {
+        if (Auth::user()->opd_id) {
+            $data = InovasiPrestasiOpd::where('opd_id', Auth::user()->opd_id)->where('is_verified', 1)->get();
+        } else {
+            $data = InovasiPrestasiOpd::where('is_verified', 1)->get();
+        }
+        return $data;
     }
     public function getStatus()
     {

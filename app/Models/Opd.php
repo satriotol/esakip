@@ -31,4 +31,8 @@ class Opd extends Model
             return Opd::all();
         }
     }
+    public function inovasi_prestasi_opds()
+    {
+        return $this->hasMany(InovasiPrestasiOpd::class, 'inovasi_prestasi_opd_id', 'id');
+    }
 }

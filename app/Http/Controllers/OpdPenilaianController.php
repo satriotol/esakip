@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Error;
-use App\Models\InovasiPrestasiDaerah;
+use App\Models\InovasiPrestasiOpd;
 use App\Models\Opd;
 use App\Models\OpdCategory;
 use App\Models\OpdPenilaian;
@@ -50,7 +50,8 @@ class OpdPenilaianController extends Controller
         $opds = Opd::getOpd();
         $opdCategories = OpdCategory::all();
         $opdPerjanjianKinerjas = OpdPerjanjianKinerja::getPerjanjianKinerjas();
-        return view('opdPenilaian.create', compact('opds', 'opdCategories', 'opdPerjanjianKinerjas'));
+        $inovasiPrestasiOpds = InovasiPrestasiOpd::getByOpdStatus();
+        return view('opdPenilaian.create', compact('opds', 'opdCategories', 'opdPerjanjianKinerjas', 'inovasiPrestasiOpds'));
     }
 
     /**
@@ -67,10 +68,11 @@ class OpdPenilaianController extends Controller
             'year' => 'required',
             'inovasi_prestasi_daerah' => 'nullable',
             'opd_perjanjian_kinerja_id' => 'nullable',
+            'inovasi_prestasi_opd_id' => 'nullable',
         ]);
         $data['status'] = OpdPenilaian::STATUS1;
         if (OpdPenilaian::ifTahunan($request->opd_category_id)) {
-            $data['inovasi_prestasi_daerah'] = Opd::find($request->opd_id)->inovasi_prestasi_daerah;
+            $data['inovasi_prestasi_daerah'] = InovasiPrestasiOpd::where('id', $request->inovasi_prestasi_opd_id)->first()->inovasi_prestasi_tingkat->value;
             OpdPenilaian::create($data);
         } else {
             $triwulans = ['TRIWULAN 1', 'TRIWULAN 2', 'TRIWULAN 3', 'TRIWULAN 4'];
@@ -81,7 +83,7 @@ class OpdPenilaianController extends Controller
                     'opd_category_id' => $data['opd_category_id'],
                     'year' => $data['year'],
                     'status' => $data['status'],
-                    'opd_perjanjian_kinerja_id' => $data['opd_perjanjian_kinerja_id']
+                    'opd_perjanjian_kinerja_id' => $data['opd_perjanjian_kinerja_id'],
                 ]);
             }
         }

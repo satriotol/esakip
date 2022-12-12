@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 class OpdPenilaian extends Model
 {
     use HasFactory;
-    protected $fillable = ['opd_id', 'opd_category_id', 'year', 'name', 'inovasi_prestasi_daerah', 'status', 'note', 'opd_perjanjian_kinerja_id'];
+    protected $fillable = ['opd_id', 'opd_category_id', 'inovasi_prestasi_opd_id', 'year', 'name', 'inovasi_prestasi_daerah', 'status', 'note', 'opd_perjanjian_kinerja_id'];
 
 
     const STATUS1 = 'BELUM';
@@ -40,6 +40,10 @@ class OpdPenilaian extends Model
     public function opd()
     {
         return $this->belongsTo(Opd::class, 'opd_id', 'id');
+    }
+    public function inovasi_prestasi_opd()
+    {
+        return $this->belongsTo(InovasiPrestasiOpd::class, 'inovasi_prestasi_opd_id', 'id');
     }
     public function opd_category()
     {
