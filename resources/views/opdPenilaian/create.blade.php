@@ -55,7 +55,7 @@
                                     @if ($inovasiPrestasiOpd->id === $opdPenilaian->inovasi_prestasi_opd_id) selected  @endif
                                 @endisset>
                                     {{ $inovasiPrestasiOpd->opd->nama_opd }} | {{ $inovasiPrestasiOpd->year }}
-                                    {{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }} | {{ $inovasi }}
+                                    {{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }} |
                                     {{ $inovasiPrestasiOpd->name }}
                                 </option>
                             @endforeach
