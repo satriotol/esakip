@@ -174,6 +174,8 @@ class OpdPenilaianKinerjaController extends Controller
 
     public function storeSipd(Request $request)
     {
+        $data = Http::get(route('getPenyerapanAnggaranBelanja'))->json();
+        dd($data);
         $request->validate([
             'tahap' => 'required'
         ]);

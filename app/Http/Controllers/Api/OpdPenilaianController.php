@@ -32,6 +32,16 @@ class OpdPenilaianController extends Controller
         if (!$year) {
             $year = date('Y');
         }
+        $type = $request->type;
+        if ($type == null) {
+        }
+        if ($type === 'Induk') {
+            $type = 'anggaran';
+        } elseif ($type === 'Perubahan') {
+            $type = 'anggaran_perubahan';
+        } else {
+            return $this->failedResponse([], 'Pilih Induk atau Perubahan');
+        }
         $query = DB::connection('mysql2')->select("SELECT 
         table_3.kode_skpd,
         table_3.nama_skpd,
@@ -41,7 +51,7 @@ class OpdPenilaianController extends Controller
         FROM (
             SELECT 
             id_skpd, 
-            SUM(anggaran) AS target
+            SUM($type) AS target
             FROM 
             apbd_anggaran 
             WHERE 
