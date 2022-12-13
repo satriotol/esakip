@@ -45,19 +45,19 @@ class OpdPerjanjianKinerjaProgramAnggaranController extends Controller
      */
     public function store(OpdPerjanjianKinerja $opdPerjanjianKinerja)
     {
-        $data = Http::accept('application/json')->get(route('getProgramAnggaran', [
+        $query = Http::accept('application/json')->get(route('getProgramAnggaran', [
             'year' => $opdPerjanjianKinerja->year,
             'id_skpd' => $opdPerjanjianKinerja->opd->data_unit_id,
         ]));
-        foreach ($data['programAnggarans'] as $d) {
+        foreach ($query['programAnggarans'] as $q) {
             if ($opdPerjanjianKinerja->type == 'INDUK') {
-                $data['anggaran'] = (int)str_replace(',', '', $d['anggaran_induk']);
+                $data['anggaran'] = (int)str_replace(',', '', $q['anggaran_induk']);
             } else {
-                $data['anggaran'] = (int)str_replace(',', '', $d['anggaran_perubahan']);
+                $data['anggaran'] = (int)str_replace(',', '', $q['anggaran_perubahan']);
             }
             OpdPerjanjianKinerjaProgramAnggaran::updateOrCreate([
                 'opd_perjanjian_kinerja_id' => $opdPerjanjianKinerja->id,
-                'program' => $d['program'],
+                'program' => $q['program'],
                 'keterangan' => 'APBD',
             ], [
                 'anggaran' => $data['anggaran'],
