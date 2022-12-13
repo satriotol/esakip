@@ -174,7 +174,6 @@ class OpdPenilaianKinerjaController extends Controller
 
     public function storeSipd($opd_penilaian_id, $opd_category_variable_id, $type, $year, $id_skpd)
     {
-        dd($type, $year, $id_skpd);
         $data = Http::accept('application/json')->get(route('getPenyerapanAnggaranBelanja', [
             'type' => $type,
             'id_skpd' => $id_skpd,
