@@ -50,7 +50,7 @@ class OpdPerjanjianKinerjaProgramAnggaranController extends Controller
             'id_skpd' => $opdPerjanjianKinerja->opd->data_unit_id,
         ]));
         foreach ($data['programAnggarans'] as $d) {
-            return $d;
+            return $d->anggaran_induk;
             $data['opd_perjanjian_kinerja_id'] = $opdPerjanjianKinerja->id;
             $data['anggaran'] = (int)str_replace(',', '', $d->total_anggaran);
             $data['keterangan'] = 'APBD';
