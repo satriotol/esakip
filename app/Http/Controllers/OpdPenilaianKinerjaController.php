@@ -179,8 +179,8 @@ class OpdPenilaianKinerjaController extends Controller
             'id_skpd' => $id_skpd,
             'year' => $year
         ]));
-        dd($data['penyerapanAnggaranBelanjas']);
-        $opdCategoryVariable = OpdCategoryVariable::where('id', $request->opd_category_variable_id)->first();
+        dd($data['penyerapanAnggaranBelanjas']['target'] / $data['penyerapanAnggaranBelanjas']['realisasi']);
+        $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
         $dataPersen = str_replace(',', '', $data['data']['persenRealisasi']);
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
         $capaian = round($dataPersen, 2);
