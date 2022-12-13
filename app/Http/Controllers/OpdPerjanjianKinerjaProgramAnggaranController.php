@@ -7,6 +7,7 @@ use App\Models\OpdPerjanjianKinerjaProgramAnggaran;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 
 class OpdPerjanjianKinerjaProgramAnggaranController extends Controller
 {
@@ -42,22 +43,17 @@ class OpdPerjanjianKinerjaProgramAnggaranController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateOpdPerjanjianKinerjaProgramAnggaranRequest $request, OpdPerjanjianKinerja $opdPerjanjianKinerja)
+    public function store(OpdPerjanjianKinerja $opdPerjanjianKinerja)
     {
-        $query = DB::connection('mysql2')->select("select e.kode as kode_program, e.uraian as nama_program , sum(a.anggaran) as total_anggaran
-        from a_realisasi_keuangan a 
-        left join tampung_exel_subkegiatan b on b.id=a.id_subkegiatan 
-        left join tampung_exel_kegiatan d on d.id=b.id_kegiatan
-        left join tampung_exel_program e on e.id=d.id_program
-        left join data_unit c on c.id_skpd=a.id_sub_skpd and status='br' 
-        where a.tahun=" . $opdPerjanjianKinerja->year . " and a.id_skpd=" . $opdPerjanjianKinerja->opd->data_unit->id_skpd . "
-        group by e.kode");
-        foreach ($query as $q) {
-            $data = $request->all();
+        $data = Http::accept('application/json')->get(route('getProgramAnggaran', [
+            'year' => $opdPerjanjianKinerja->year,
+            'id_skpd' => $opdPerjanjianKinerja->opd->data_unit_id,
+        ]));
+        foreach ($data as $d) {
             $data['opd_perjanjian_kinerja_id'] = $opdPerjanjianKinerja->id;
-            $data['anggaran'] = (int)str_replace(',', '', $q->total_anggaran);
+            $data['anggaran'] = (int)str_replace(',', '', $d->total_anggaran);
             $data['keterangan'] = 'APBD';
-            $data['program'] = $q->nama_program;
+            $data['program'] = $d->nama_program;
             OpdPerjanjianKinerjaProgramAnggaran::updateOrCreate([
                 'opd_perjanjian_kinerja_id' => $data['opd_perjanjian_kinerja_id'],
                 'program' => $data['program'],

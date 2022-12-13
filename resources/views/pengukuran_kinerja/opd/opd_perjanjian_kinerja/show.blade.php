@@ -157,7 +157,7 @@
                         allowOutsideClick: false
                     });
                     // console.log(this.form);
-                    axios.post('{{ route('opdPerjanjianKinerjaProgramAnggaran.store', $opdPerjanjianKinerja) }}')
+                    axios.get('{{ route('opdPerjanjianKinerjaProgramAnggaran.store', $opdPerjanjianKinerja) }}')
                         .then((res) => {
                             console.log(res);
                             Swal.fire({

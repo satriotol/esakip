@@ -59,6 +59,7 @@ Route::get('pengukurankinerjaopd/perjanjian_kinerja', [PengukuranKinerjaOpdContr
 
 
 Route::get('perjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'index']);
+Route::get('perjanjianKinerja/getProgramAnggaran', [OpdPerjanjianKinerjaController::class, 'getProgramAnggaran'])->name('getProgramAnggaran');
 Route::get('rencanaAksi', [RencanaAksiController::class, 'index']);
 
 Route::get('opdPenilaian', [OpdPenilaianController::class, 'index']);

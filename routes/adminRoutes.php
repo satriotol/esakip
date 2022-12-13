@@ -154,7 +154,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
     Route::group(['prefix' => 'opdPerjanjianKinerjaProgramAnggaran'], function () {
         Route::get('create/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaProgramAnggaranController::class, 'create'])->name('opdPerjanjianKinerjaProgramAnggaran.create');
-        Route::post('store/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaProgramAnggaranController::class, 'store'])->name('opdPerjanjianKinerjaProgramAnggaran.store');
+        Route::get('store/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaProgramAnggaranController::class, 'store'])->name('opdPerjanjianKinerjaProgramAnggaran.store');
         Route::get('edit/{opdPerjanjianKinerja}/{opd_program_anggaran}', [OpdPerjanjianKinerjaProgramAnggaranController::class, 'edit'])->name('opdPerjanjianKinerjaProgramAnggaran.edit');
         Route::put('update/{opdPerjanjianKinerja}/{opd_program_anggaran}', [OpdPerjanjianKinerjaProgramAnggaranController::class, 'update'])->name('opdPerjanjianKinerjaProgramAnggaran.update');
         Route::delete('destroy/{opd_program_anggaran}', [OpdPerjanjianKinerjaProgramAnggaranController::class, 'destroy'])->name('opdPerjanjianKinerjaProgramAnggaran.destroy');
