@@ -51,17 +51,14 @@ class OpdPerjanjianKinerjaProgramAnggaranController extends Controller
         ]));
         foreach ($data['programAnggarans'] as $d) {
             if ($opdPerjanjianKinerja->type == 'INDUK') {
-                $data['anggaran'] = $d['anggaran_induk'];
-            }else{
-                $data['anggaran'] = $d['anggaran_perubahan'];
+                $data['anggaran'] = (int)str_replace(',', '', $d['anggaran_induk']);
+            } else {
+                $data['anggaran'] = (int)str_replace(',', '', $d['anggaran_perubahan']);
             }
-            $data['opd_perjanjian_kinerja_id'] = $opdPerjanjianKinerja->id;
-            $data['keterangan'] = 'APBD';
-            $data['program'] = $d->program;
             OpdPerjanjianKinerjaProgramAnggaran::updateOrCreate([
-                'opd_perjanjian_kinerja_id' => $data['opd_perjanjian_kinerja_id'],
-                'program' => $data['program'],
-                'keterangan' => $data['keterangan'],
+                'opd_perjanjian_kinerja_id' => $opdPerjanjianKinerja->id,
+                'program' => $d['program'],
+                'keterangan' => 'APBD',
             ], [
                 'anggaran' => $data['anggaran'],
             ]);
