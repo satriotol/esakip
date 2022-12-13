@@ -172,47 +172,38 @@ class OpdPenilaianKinerjaController extends Controller
         return back();
     }
 
-    public function storeSipd(Request $request)
+    public function storeSipd($opd_penilaian_id, $opd_category_variable_id, $type, $year, $id_skpd)
     {
+        dd($type, $year, $id_skpd);
         $data = Http::accept('application/json')->get(route('getPenyerapanAnggaranBelanja', [
-            'type' => 'Induk',
+            'type' => $type,
+            'id_skpd' => $id_skpd,
+            'year' => $year
         ]));
-        return 'test';
-        // $request->validate([
-        //     'tahap' => 'required'
-        // ]);
-        // $opd = Opd::find($request->opd_id);
-        // $data = Http::withHeaders(['x-api-key' => 'FD59804809A3DFD300C1E49F6E6FD23D'])
-        //     ->get(
-        //         'http://ekontrak.semarangkota.go.id/ekontrak/api/ekontrak/monitoring_kegiatan',
-        //         [
-        //             'idskpd' => $opd->data_unit_id,
-        //             'tahap' => $request->tahap
-        //         ]
-        //     )->json();
-        // $opdCategoryVariable = OpdCategoryVariable::where('id', $request->opd_category_variable_id)->first();
-        // $dataPersen = str_replace(',', '', $data['data']['persenRealisasi']);
-        // $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
-        // $capaian = round($dataPersen, 2);
-        // if ($capaian > 100) {
-        //     $capaian = 100;
-        // }
-        // $nilaiAkhir = round($capaian * $bobot, 2);
-        // OpdPenilaianKinerja::updateOrCreate(
-        //     [
-        //         'opd_penilaian_id' => $request->opd_penilaian_id,
-        //         'opd_category_variable_id' => $request->opd_category_variable_id,
-        //     ],
-        //     [
-        //         'target' => $data['data']['target'],
-        //         'realisasi' => $data['data']['realisasi'],
-        //         'capaian' => $capaian,
-        //         'nilai_akhir' => $nilaiAkhir,
-        //         'user_id' => Auth::user()->id
-        //     ]
-        // );
-        // session()->flash('success');
-        // return back();
+        dd($data['penyerapanAnggaranBelanjas']);
+        $opdCategoryVariable = OpdCategoryVariable::where('id', $request->opd_category_variable_id)->first();
+        $dataPersen = str_replace(',', '', $data['data']['persenRealisasi']);
+        $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+        $capaian = round($dataPersen, 2);
+        if ($capaian > 100) {
+            $capaian = 100;
+        }
+        $nilaiAkhir = round($capaian * $bobot, 2);
+        OpdPenilaianKinerja::updateOrCreate(
+            [
+                'opd_penilaian_id' => $opd_penilaian_id,
+                'opd_category_variable_id' => $opd_category_variable_id,
+            ],
+            [
+                'target' => $data['data']['target'],
+                'realisasi' => $data['data']['realisasi'],
+                'capaian' => $capaian,
+                'nilai_akhir' => $nilaiAkhir,
+                'user_id' => Auth::user()->id
+            ]
+        );
+        session()->flash('success');
+        return back();
     }
     /**
      * Display the specified resource.

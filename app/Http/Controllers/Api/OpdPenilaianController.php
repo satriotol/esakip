@@ -35,12 +35,12 @@ class OpdPenilaianController extends Controller
         $type = $request->type;
         if ($type == null) {
         }
-        if ($type === 'Induk') {
+        if ($type === 'INDUK') {
             $type = 'anggaran';
-        } elseif ($type === 'Perubahan') {
+        } elseif ($type === 'PERUBAHAN') {
             $type = 'anggaran_perubahan';
         } else {
-            return $this->failedResponse([], 'Pilih Induk atau Perubahan');
+            return $this->failedResponse([], 'Pilih INDUK atau PERUBAHAN');
         }
         $query = DB::connection('mysql2')->select("SELECT 
         table_3.kode_skpd,

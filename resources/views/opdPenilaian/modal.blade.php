@@ -69,30 +69,7 @@
                             <button class="btn btn-success">Simpan</button>
                         </div>
                     </form>
-                @elseif ($opd_category_variable->opd_variable->pic == 'SIPD')
-                    <form action="{{ route('opdPenilaianKinerja.storeSipd') }}" method="post">
-                        @csrf
-                        <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">
-                        <input type="hidden" value="{{ $opdPenilaian->opd->id }}" name="opd_id" id="">
-                        <input type="hidden" value="{{ $opd_category_variable->id }}" name="opd_category_variable_id"
-                            id="">
-                        <div class="mb-3">
-                            <label>Tahap</label>
-                            <select name="tahap" class="form-control" required id="">
-                                <option value="">Pilih Tahap</option>
-                                <option value="1">Murni</option>
-                                <option value="2">Pergeseran</option>
-                                <option value="3">Perubahan</option>
-                            </select>
-                        </div>
-                        <div class="text-end">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <input type="submit" class="btn btn-primary me-2 mb-2 mb-md-0 tarik-data" name=""
-                                onclick="this.disabled=true;this.value='Loading...';this.form.submit();" id=""
-                                value="Simpan">
-                        </div>
-                    </form>
-                @else
+                @elseif ($opd_category_variable->opd_variable->pic != 'SIPD')
                     <form action="{{ route('opdPenilaianKinerja.store') }}" method="post">
                         @csrf
                         <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">

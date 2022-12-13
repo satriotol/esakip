@@ -120,13 +120,13 @@
                                                 <a class="badge bg-primary tarik-data"
                                                     href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->opd->nama_opd, $opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
                                                     DATA</a>
+                                            @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && $checkStatus != 1)
+                                                <a href="{{ route('opdPenilaianKinerja.storeSipd', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->opd_perjanjian_kinerja->type, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
+                                                    class="badge bg-primary tarik-data">
+                                                    {{ $opd_category_variable->opd_variable->pic }}
+                                                </a>
                                             @else
                                                 @if ($opd_category_variable->opd_variable->pic == 'OPD' && Auth::user()->opd_id && $checkStatus != 1)
-                                                    <a type="button" class="badge bg-primary" data-bs-toggle="modal"
-                                                        data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
-                                                        {{ $opd_category_variable->opd_variable->pic }}
-                                                    </a>
-                                                @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && Auth::user()->opd_id && $checkStatus != 1)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                         {{ $opd_category_variable->opd_variable->pic }}
@@ -138,7 +138,9 @@
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                         {{ $opd_category_variable->opd_variable->pic }}
                                                     </a>
-                                                @elseif(Auth::user()->hasRole('SUPERADMIN') && $checkStatus != 1)
+                                                @elseif(Auth::user()->hasRole('SUPERADMIN') &&
+                                                    $opd_category_variable->opd_variable->pic != 'SIPD' &&
+                                                    $checkStatus != 1)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                         {{ $opd_category_variable->opd_variable->pic }}

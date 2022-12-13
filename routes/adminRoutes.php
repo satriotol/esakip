@@ -60,7 +60,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('master', MasterController::class);
     Route::resource('opdPenilaianIku', OpdPenilaianIkuController::class);
     Route::resource('opdPenilaianKinerja', OpdPenilaianKinerjaController::class);
-    Route::post('opdPenilaianKinerja/storeSipd', [OpdPenilaianKinerjaController::class, 'storeSipd'])->name('opdPenilaianKinerja.storeSipd');
+    Route::get('opdPenilaianKinerja/storeSipd/{opd_penilaian_id}/{opd_category_variable_id}/{type}/{year}/{id_skpd}', [OpdPenilaianKinerjaController::class, 'storeSipd'])->name('opdPenilaianKinerja.storeSipd');
     Route::get('opdPenilaianKinerja/store/{name}/{opd_penilaian_id}/{opd_category_variable_id}', [OpdPenilaianKinerjaController::class, 'getRealisasiTargetPendapatan'])->name('opdPenilaianKinerja.getRealisasiTargetPendapatan');
 
     // ===========================
