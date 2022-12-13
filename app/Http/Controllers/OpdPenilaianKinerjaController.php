@@ -179,9 +179,8 @@ class OpdPenilaianKinerjaController extends Controller
             'id_skpd' => $id_skpd,
             'year' => $year
         ]));
-        dd($data['penyerapanAnggaranBelanjas']['realisasi'] / $data['penyerapanAnggaranBelanjas']['target'] * 100);
         $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
-        $dataPersen = str_replace(',', '', $data['data']['persenRealisasi']);
+        $dataPersen = $data['penyerapanAnggaranBelanjas']['realisasi'] / $data['penyerapanAnggaranBelanjas']['target'] * 100;
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
         $capaian = round($dataPersen, 2);
         if ($capaian > 100) {
@@ -194,8 +193,8 @@ class OpdPenilaianKinerjaController extends Controller
                 'opd_category_variable_id' => $opd_category_variable_id,
             ],
             [
-                'target' => $data['data']['target'],
-                'realisasi' => $data['data']['realisasi'],
+                'target' => $data['penyerapanAnggaranBelanjas']['target'],
+                'realisasi' => $data['penyerapanAnggaranBelanjas']['realisasi'],
                 'capaian' => $capaian,
                 'nilai_akhir' => $nilaiAkhir,
                 'user_id' => Auth::user()->id
