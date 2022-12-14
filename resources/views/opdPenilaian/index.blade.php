@@ -23,55 +23,105 @@
                             Create
                         </a>
                     </div>
-                    <form action="">
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label>OPD</label>
-                                    <select name="opd_id" class="js-example-basic-single form-select" id="">
-                                        <option value="">Pilih OPD</option>
-                                        @foreach ($opds as $opd)
-                                            <option @selected(old('opd_id') == $opd->id) value="{{ $opd->id }}">
-                                                {{ $opd->nama_opd }}</option>
-                                        @endforeach
-                                    </select>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label>OPD</label>
+                                            <select name="opd_id" class="js-example-basic-single form-select"
+                                                id="">
+                                                <option value="">Pilih OPD</option>
+                                                @foreach ($opds as $opd)
+                                                    <option @selected(old('opd_id') == $opd->id) value="{{ $opd->id }}">
+                                                        {{ $opd->nama_opd }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label>Kategori OPD</label>
+                                            <select name="opd_category_id" class="js-example-basic-single form-select"
+                                                id="">
+                                                <option value="">Pilih Kategori OPD</option>
+                                                @foreach ($opdCategories as $opdCategory)
+                                                    <option @selected(old('opd_category_id') == $opdCategory->id) value="{{ $opdCategory->id }}">
+                                                        {{ $opdCategory->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Tahun</label>
+                                        <input type="number" class="form-control" name="year"
+                                            value="{{ old('year') }}" id="">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label>Status</label>
+                                            <select name="status" class="js-example-basic-single form-select"
+                                                id="">
+                                                <option value="">Pilih Status</option>
+                                                @foreach ($statuses as $status)
+                                                    <option @selected(old('status') == $status) value="{{ $status }}">
+                                                        {{ $status }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <button class="btn btn-sm btn-success">Cari</button>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label>Kategori OPD</label>
-                                    <select name="opd_category_id" class="js-example-basic-single form-select"
-                                        id="">
-                                        <option value="">Pilih Kategori OPD</option>
-                                        @foreach ($opdCategories as $opdCategory)
-                                            <option @selected(old('opd_category_id') == $opdCategory->id) value="{{ $opdCategory->id }}">
-                                                {{ $opdCategory->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label>Tahun</label>
-                                <input type="number" class="form-control" name="year" value="{{ old('year') }}"
-                                    id="">
-                            </div>
-                            <div class="col-md-3">
-                                <div class="mb-3">
-                                    <label>Status</label>
-                                    <select name="status" class="js-example-basic-single form-select" id="">
-                                        <option value="">Pilih Status</option>
-                                        @foreach ($statuses as $status)
-                                            <option @selected(old('status') == $status) value="{{ $status }}">
-                                                {{ $status }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                            </form>
                         </div>
-                        <div class="text-end">
-                            <button class="btn btn-sm btn-success">Cari</button>
+                        <div class="col-md-2">
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <div class="badge bg-danger">Sangat Kurang</div>
+                                    </td>
+                                    <td>
+                                        0-59
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="badge bg-warning">Kurang</div>
+                                    </td>
+                                    <td>
+                                        60-69
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="badge bg-info">Butuh Perbaikan</div>
+                                    </td>
+                                    <td>
+                                        70-79
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="badge bg-primary">Baik</div>
+                                    </td>
+                                    <td>
+                                        80-89
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="badge bg-success">Istimewa</div>
+                                    </td>
+                                    <td>
+                                        90-100
+                                    </td>
+                                </tr>
+                            </table>
                         </div>
-                    </form>
+                    </div>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
@@ -80,8 +130,7 @@
                                     <th>Perjanjian Kinerja</th>
                                     <th>Kategori</th>
                                     <th>OPD</th>
-                                    <th>Inovasi Prestasi Daerah</th>
-                                    <th>Total Akhir</th>
+                                    <th class="d-none">Inovasi Prestasi Daerah</th>
                                     <th>Predikat</th>
                                     <th>Status Verifikasi</th>
                                     <th>Action</th>
@@ -99,9 +148,13 @@
                                         </td>
                                         <td>{{ $opdPenilaian->opd_category->name }}</td>
                                         <td>{{ $opdPenilaian->opd->nama_opd }}</td>
-                                        <td>{{ $opdPenilaian->inovasi_prestasi_daerah ?? 'TRIWULAN' }}</td>
-                                        <td>{{ $opdPenilaian->totalAkhir() }}</td>
-                                        <td>{{ $opdPenilaian->totalAkhirPredikat() }}</td>
+                                        <td class="d-none">{{ $opdPenilaian->inovasi_prestasi_daerah ?? 'TRIWULAN' }}</td>
+                                        <td>
+                                            <span class="badge bg-{{ $opdPenilaian->totalAkhirPredikat()['color'] }}">
+                                                {{ $opdPenilaian->totalAkhir() }} <br>
+                                                {{ $opdPenilaian->totalAkhirPredikat()['name'] }}
+                                            </span>
+                                        </td>
                                         <td>
                                             <div class="badge bg-success">{{ $opdPenilaian->status }}</div>
                                         </td>

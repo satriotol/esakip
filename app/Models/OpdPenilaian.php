@@ -180,15 +180,30 @@ class OpdPenilaian extends Model
     public function totalAkhirPredikat()
     {
         if ($this->totalAkhir() >= 90) {
-            return 'ISTIMEWA';
+            return [
+                'name' => 'ISTIMEWA',
+                'color' => 'success'
+            ];
         } elseif ($this->totalAkhir() >= 80) {
-            return 'BAIK';
+            return [
+                'name' => 'BAIK',
+                'color' => 'primary'
+            ];
         } elseif ($this->totalAkhir() >= 70) {
-            return 'BUTUH PERBAIKAN';
+            return [
+                'name' => 'BUTUH PERBAIKAN',
+                'color' => 'info'
+            ];
         } elseif ($this->totalAkhir() >= 60) {
-            return 'KURANG';
+            return [
+                'name' => 'KURANG',
+                'color' => 'warning'
+            ];
         } else {
-            return 'SANGAT KURANG';
+            return [
+                'name' => 'SANGAT KURANG',
+                'color' => 'danger'
+            ];
         }
     }
 }

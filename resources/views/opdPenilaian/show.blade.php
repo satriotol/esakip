@@ -279,10 +279,10 @@
                 name: 'Predikat OPD',
                 data: [{{ $opdPenilaian->totalAkhir() }}],
                 tooltip: {
-                    valueSuffix: '{{ $opdPenilaian->totalAkhirPredikat() }}'
+                    valueSuffix: '{{ $opdPenilaian->totalAkhirPredikat()['name'] }}'
                 },
                 dataLabels: {
-                    format: '{y} {{ $opdPenilaian->totalAkhirPredikat() }}',
+                    format: '{y} {{ $opdPenilaian->totalAkhirPredikat()['name'] }}',
                     borderWidth: 0,
                     color: (
                         Highcharts.defaultOptions.title &&
