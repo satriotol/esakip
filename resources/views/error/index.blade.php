@@ -5,9 +5,9 @@
 @endpush
 @push('style')
     <style>
-        html {
+        /* html {
             zoom: 100%;
-        }
+        } */
 
         td {
             white-space: normal !important;
