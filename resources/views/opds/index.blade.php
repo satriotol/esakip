@@ -23,7 +23,6 @@
                                 <tr>
                                     <th>Nama</th>
                                     <th>Data Unit</th>
-                                    <th>Inovasi Prestasi Daerah</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -35,9 +34,6 @@
                                         </td>
                                         <td>
                                             {{ $opd->data_unit->nama_skpd ?? '' }}
-                                        </td>
-                                        <td>
-                                            {{ $opd->inovasi_prestasi_daerah ?? '' }}
                                         </td>
                                         <td>
                                             <a class="btn btn-warning" href="{{ route('opds.edit', $opd->id) }}">
