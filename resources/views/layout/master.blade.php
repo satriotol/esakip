@@ -7,8 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Responsive Laravel Admin Dashboard Template based on Bootstrap 5">
     <meta name="author" content="NobleUI">
-    <meta name="keywords"
-        content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, laravel, theme, front-end, ui kit, web">
+    <meta name="keywords" content="E-Sakip Kota Semarang">
 
     <title>ESAKIP - PEMKOT SEMARANG</title>
 
@@ -45,6 +44,11 @@
 
         html {
             zoom: 85%;
+        }
+
+        .modal-backdrop {
+            width: 100%;
+            height: 100%;
         }
     </style>
     @stack('style')

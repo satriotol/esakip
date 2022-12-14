@@ -72,7 +72,9 @@ class OpdPenilaianController extends Controller
         ]);
         $data['status'] = OpdPenilaian::STATUS1;
         if (OpdPenilaian::ifTahunan($request->opd_category_id)) {
-            $data['inovasi_prestasi_daerah'] = InovasiPrestasiOpd::where('id', $request->inovasi_prestasi_opd_id)->first()->inovasi_prestasi_tingkat->value;
+            if ($request->inovasi_prestasi_opd_id) {
+                $data['inovasi_prestasi_daerah'] = InovasiPrestasiOpd::where('id', $request->inovasi_prestasi_opd_id)->first()->inovasi_prestasi_tingkat->value;
+            }
             OpdPenilaian::create($data);
         } else {
             $triwulans = ['TRIWULAN 1', 'TRIWULAN 2', 'TRIWULAN 3', 'TRIWULAN 4'];
