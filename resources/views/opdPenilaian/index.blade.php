@@ -172,6 +172,8 @@
                                                     </button>
                                                 </form>
                                             @else
+                                                <a href="{{ route('opdPenilaian.exportPdf', $opdPenilaian->id) }}"
+                                                    target="_blank" class="btn btn-sm btn-warning">Cetak PDF</a>
                                                 <a href="{{ route('opdPenilaian.showReport', $opdPenilaian->id) }}"
                                                     class="btn btn-sm btn-primary ml-1">Detail Timbal Balik</a>
                                             @endif

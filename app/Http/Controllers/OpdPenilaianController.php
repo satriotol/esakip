@@ -11,6 +11,7 @@ use App\Models\OpdPenilaianIku;
 use App\Models\OpdPenilaianKinerja;
 use App\Models\OpdPenilaianReport;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -129,7 +130,12 @@ class OpdPenilaianController extends Controller
         session()->flash('success');
         return back();
     }
-
+    public function exportPdf($opdPenilaian)
+    {
+        $opdPenilaian = OpdPenilaian::find($opdPenilaian);
+        $pdf = Pdf::loadView('pdf.deskTimbalBalik', compact('opdPenilaian'))->setPaper('a4', 'landscape');
+        return $pdf->stream('pdf_file.pdf');
+    }
     /**
      * Display the specified resource.
      *
