@@ -53,10 +53,18 @@
 
     <table style="margin-top: 1rem" class="table w-100">
         <thead>
-            <th class="th">ASPEK</th>
-            <th class="th">CATATAN</th>
-            <th class="th">REKOMENDASI</th>
-            <th class="th">NILAI AKHIR</th>
+            <th class="th">
+                <h4>ASPEK</h4>
+            </th>
+            <th class="th">
+                <h4>CATATAN</h4>
+            </th>
+            <th class="th">
+                <h4>REKOMENDASI</h4>
+            </th>
+            <th class="th">
+                <h4>NILAI AKHIR</h4>
+            </th>
         </thead>
         <tbody>
             @foreach ($opdPenilaian->opd_penilaian_kinerjas as $opd_penilaian_kinerja)
@@ -79,6 +87,11 @@
             </tr>
         </tbody>
     </table>
+    <div class="text-right">
+        <small>
+            Batas Maksimal Nilai Akhir : 100%
+        </small>
+    </div>
 </body>
 
 </html>
