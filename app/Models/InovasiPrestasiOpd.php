@@ -25,7 +25,7 @@ class InovasiPrestasiOpd extends Model
         if (Auth::user()->opd_id) {
             $data = InovasiPrestasiOpd::where('opd_id', Auth::user()->opd_id)->paginate();
         } else {
-            $data = InovasiPrestasiOpd::where('is_verified', 1)->paginate();
+            $data = InovasiPrestasiOpd::paginate();
         }
         return $data;
     }
