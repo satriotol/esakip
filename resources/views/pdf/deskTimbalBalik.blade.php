@@ -21,8 +21,19 @@
             border: 1px solid;
         }
 
-        .table {
+        table tbody tr td,
+        table thead tr th {
             border-collapse: collapse;
+
+        }
+
+        table thead tr th {
+            background: #858585;
+            color: #fff;
+        }
+
+        * {
+            font-family: times;
         }
 
         .w-100 {
@@ -32,7 +43,28 @@
 </head>
 
 <body>
-    <h3 class="text-center">BERITA ACARA PELAKSANAAN DESK TIMBAL BALIK PEMERINTAH KOTA SEMARANG</h3>
+    <table width="100%">
+        <tbody>
+            <tr>
+                <td class="text-center">
+                    <img src="https://sigelar.diskominfo.semarangkota.go.id/uploads/drive/20200818141926-2020-08-18drive141924.jpg"
+                        alt="" width="74" height="105" class="text-center" />
+                </td>
+                <td class="text-center">
+                    <h3 style="font-size:21.333px;font-family: Arial;">
+                        <strong style="font-family: Arial;">PEMERINTAH KOTA SEMARANG</strong> <br>
+                        <span style="font-size:24px;font-family: Arial;">{{ $opdPenilaian->opd->nama_opd }}</span> <br>
+                        <span style="font-size:16px;font-weight:400;font-family: Arial;">
+                            Jl. Pemuda No. 148 Telp. (024) 3586680 Fax. (024) 3584064 Semarang - 50132
+                        </span>
+                    </h3>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <hr style="border-top: 1px double #8c8b8b;" />
+    <h3 class="text-center">BERITA ACARA PELAKSANAAN DESK TIMBAL BALIK <br> {{ $opdPenilaian->opd->nama_opd }}</h3>
     <table>
         <tr>
             <td>OPD</td>
@@ -71,8 +103,8 @@
                 <tr>
                     <td class="td">{{ $opd_penilaian_kinerja->opd_category_variable->opd_variable->name }}
                     </td>
-                    <td class="td">{{ $opd_penilaian_kinerja->opd_penilaian_report->catatan }}</td>
-                    <td class="td">{{ $opd_penilaian_kinerja->opd_penilaian_report->rekomendasi }}</td>
+                    <td class="td">{{ $opd_penilaian_kinerja->opd_penilaian_report->catatan ?? '-' }}</td>
+                    <td class="td">{{ $opd_penilaian_kinerja->opd_penilaian_report->rekomendasi ?? '-' }}</td>
                     <td class="td text-right">{{ $opd_penilaian_kinerja->nilai_akhir }} %</td>
                 </tr>
             @endforeach
