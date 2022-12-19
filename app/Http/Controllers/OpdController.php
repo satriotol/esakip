@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\DataUnit;
+use App\Models\MasterUnitKerja;
 use App\Models\Opd;
 use App\Models\OpdCategory;
 use Illuminate\Http\Request;
@@ -68,7 +69,8 @@ class OpdController extends Controller
     public function edit(Opd $opd)
     {
         $dataUnits = DataUnit::all();
-        return view('opds.create', compact('opd', 'dataUnits'));
+        $masterUnitKerjas = MasterUnitKerja::all();
+        return view('opds.create', compact('opd', 'dataUnits', 'masterUnitKerjas'));
     }
 
     /**
@@ -81,8 +83,9 @@ class OpdController extends Controller
     public function update(Request $request, Opd $opd)
     {
         $data = $request->validate([
-            'nama_opd' => 'required',
-            'data_unit_id' => 'required',
+            'nama_opd' => 'nullable',
+            'data_unit_id' => 'nullable',
+            'master_unit_kerja_id' => 'nullable',
             'inovasi_prestasi_daerah' => 'required|numeric'
         ]);
         $opd->update($data);

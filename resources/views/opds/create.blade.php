@@ -42,6 +42,20 @@
                         </select>
                     </div>
                     <div class="mb-3">
+                        <label for="master_unit_kerja_id" class="form-label">Master Unit Kerja</label>
+                        <select class="js-example-basic-single form-select" data-width="100%" name="master_unit_kerja_id"
+                            required>
+                            <option value="">Select Data Unit</option>
+                            @foreach ($masterUnitKerjas as $masterUnitKerja)
+                                <option value="{{ $masterUnitKerja->Id }}"
+                                    @isset($opd)
+                                    @selected($opd->master_unit_kerja_id == $masterUnitKerja->Id)
+                                @endisset>
+                                    {{ $masterUnitKerja->Nm_UnitKerja }} </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
                         <label for="inovasi_prestasi_daerah" class="form-label">Inovasi Prestasi Daerah</label>
                         <input id="inovasi_prestasi_daerah" class="form-control" name="inovasi_prestasi_daerah"
                             type="number" required
