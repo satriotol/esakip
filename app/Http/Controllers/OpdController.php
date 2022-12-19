@@ -69,7 +69,7 @@ class OpdController extends Controller
     public function edit(Opd $opd)
     {
         $dataUnits = DataUnit::all();
-        $masterUnitKerjas = MasterUnitKerja::all();
+        $masterUnitKerjas = MasterUnitKerja::where('nm_kepala', '!=', null)->get();
         return view('opds.create', compact('opd', 'dataUnits', 'masterUnitKerjas'));
     }
 
