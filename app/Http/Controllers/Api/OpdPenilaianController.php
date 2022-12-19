@@ -14,17 +14,33 @@ class OpdPenilaianController extends Controller
     {
         $year = $request->year;
         $name = $request->name;
+        $opd_id = $request->opd_id;
+        $data_unit_id = $request->data_unit_id;
+        $master_unit_kerja_id = $request->master_unit_kerja_id;
         if (!$year) {
             $year = date('Y');
         }
         if (!$name) {
             $name = null;
         }
-        $opdPenilaian = OpdPenilaian::where('opd_id', $request->opd_id)->where('year', $year)->where('name', $name)->first();
-        if ($opdPenilaian == null) {
+        $opdPenilaian = OpdPenilaian::where('year', $year)->where('name', $name);
+        if ($opd_id) {
+            $opdPenilaian->where('opd_id', $opd_id);
+        } else if ($data_unit_id) {
+            $opdPenilaian->whereHas('opd', function ($q) use ($data_unit_id) {
+                $q->where('data_unit_id', $data_unit_id);
+            });
+        } else if ($master_unit_kerja_id) {
+            $opdPenilaian->whereHas('opd', function ($q) use ($master_unit_kerja_id) {
+                $q->where('master_unit_kerja_id', $master_unit_kerja_id);
+            });
+        } else {
+            return $this->failedResponse([], 'Pastikan anda sudah mengisi antara (opd_id,data_unit_id,master_unit_kerja_id)');
+        }
+        if ($opdPenilaian->first() == null) {
             return $this->failedResponse([], 'Data Yang Anda Cari Tidak Ditemukan');
         }
-        return $this->successResponse(['opdPenilaians' => new OpdPenilaianResource($opdPenilaian)]);
+        return $this->successResponse(['opdPenilaians' => new OpdPenilaianResource($opdPenilaian->first())]);
     }
     public function getPenyerapanAnggaranBelanja(Request $request)
     {

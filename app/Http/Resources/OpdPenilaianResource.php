@@ -7,7 +7,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class OpdPenilaianResource extends JsonResource
 {
     /**
-     * Transform the resource into an array.
+ * Transform the resource into an array.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
@@ -17,6 +17,8 @@ class OpdPenilaianResource extends JsonResource
         return [
             'id' => $this->id,
             'opd_id' => $this->opd_id,
+            'data_unit_id' => $this->opd->data_unit_id,
+            'master_unit_kerja_id' => $this->opd->master_unit_kerja_id,
             'year' => $this->year,
             'name' => $this->name ?? 'TAHUNAN',
             'opd_name' => $this->opd->nama_opd,
