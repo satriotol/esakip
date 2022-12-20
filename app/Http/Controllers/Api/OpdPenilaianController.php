@@ -17,6 +17,7 @@ class OpdPenilaianController extends Controller
         $opd_id = $request->opd_id;
         $data_unit_id = $request->data_unit_id;
         $master_unit_kerja_id = $request->master_unit_kerja_id;
+        $kode_opd = $request->kode_opd;
         if (!$year) {
             $year = date('Y');
         }
@@ -34,8 +35,12 @@ class OpdPenilaianController extends Controller
             $opdPenilaian->whereHas('opd', function ($q) use ($master_unit_kerja_id) {
                 $q->where('master_unit_kerja_id', $master_unit_kerja_id);
             });
+        } else if ($kode_opd) {
+            $opdPenilaian->whereHas('opd', function ($q) use ($kode_opd) {
+                $q->where('kode_opd', $kode_opd);
+            });
         } else {
-            return $this->failedResponse([], 'Pastikan anda sudah mengisi antara (opd_id,data_unit_id,master_unit_kerja_id)');
+            return $this->failedResponse([], 'Pastikan anda sudah mengisi antara (opd_id,data_unit_id,master_unit_kerja_id,kode_opd)');
         }
         if ($opdPenilaian->first() == null) {
             return $this->failedResponse([], 'Data Yang Anda Cari Tidak Ditemukan');
