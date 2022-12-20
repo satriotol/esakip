@@ -16,7 +16,6 @@ class OpdPenilaianController extends Controller
         $name = $request->name;
         $opd_id = $request->opd_id;
         $data_unit_id = $request->data_unit_id;
-        $master_unit_kerja_id = $request->master_unit_kerja_id;
         $kode_opd = $request->kode_opd;
         if (!$year) {
             $year = date('Y');
@@ -30,10 +29,6 @@ class OpdPenilaianController extends Controller
         } else if ($data_unit_id) {
             $opdPenilaian->whereHas('opd', function ($q) use ($data_unit_id) {
                 $q->where('data_unit_id', $data_unit_id);
-            });
-        } else if ($master_unit_kerja_id) {
-            $opdPenilaian->whereHas('opd', function ($q) use ($master_unit_kerja_id) {
-                $q->where('master_unit_kerja_id', $master_unit_kerja_id);
             });
         } else if ($kode_opd) {
             $opdPenilaian->whereHas('opd', function ($q) use ($kode_opd) {
