@@ -168,7 +168,7 @@ class OpdPenilaianController extends Controller
             $target = $data->periode_5_rpjmd;
         }
         $totalTahunP3DN = $data->triwulan1 + $data->triwulan2 + $data->triwulan3 + $data->triwulan4;
-        $capaian = round($totalTahunP3DN) / round($target,2) * 100;
+        $capaian = round($totalTahunP3DN) / round($target, 2) * 100;
         if ($capaian > 100) {
             $capaian = 100;
         }
@@ -179,12 +179,12 @@ class OpdPenilaianController extends Controller
             "tahun_capaian" => $data->tahun_capaian,
             "indikator" => $data->indikator,
             "satuan" => $data->satuan,
-            "target" => round($target,2),
+            "target" => round($target, 2),
             "triwulan1" => $data->triwulan1,
             "triwulan2" => $data->triwulan2,
             "triwulan3" => $data->triwulan3,
             "triwulan4" => $data->triwulan4,
-            "totalTahunP3DN" => $totalTahunP3DN,
+            "totalTahunP3DN" => round($totalTahunP3DN, 2),
             'capaian' => $capaian,
         ];
         return $this->successResponse(['p3dn' => $data]);
