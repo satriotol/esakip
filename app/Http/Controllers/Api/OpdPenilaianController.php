@@ -167,6 +167,11 @@ class OpdPenilaianController extends Controller
         } elseif ($totalYear = 4) {
             $target = $data->periode_5_rpjmd;
         }
+        $totalTahunP3DN = $data->triwulan1 + $data->triwulan2 + $data->triwulan3 + $data->triwulan4;
+        $capaian = round($totalTahunP3DN) / round($target,2) * 100;
+        if ($capaian > 100) {
+            $capaian = 100;
+        }
         $data = [
             'id_skpd' => $data->id_skpd,
             'nama_skpd' => $data->nama_skpd,
@@ -174,12 +179,13 @@ class OpdPenilaianController extends Controller
             "tahun_capaian" => $data->tahun_capaian,
             "indikator" => $data->indikator,
             "satuan" => $data->satuan,
-            "target" => $target,
+            "target" => round($target,2),
             "triwulan1" => $data->triwulan1,
             "triwulan2" => $data->triwulan2,
             "triwulan3" => $data->triwulan3,
             "triwulan4" => $data->triwulan4,
-            "totalTahunP3DN" => $data->triwulan1 + $data->triwulan2 + $data->triwulan3 + $data->triwulan4,
+            "totalTahunP3DN" => $totalTahunP3DN,
+            'capaian' => $capaian,
         ];
         return $this->successResponse(['p3dn' => $data]);
     }

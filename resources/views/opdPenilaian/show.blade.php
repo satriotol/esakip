@@ -5,8 +5,8 @@
 @push('style')
     <style>
         /* html {
-            zoom: 100%;
-        } */
+                        zoom: 100%;
+                    } */
     </style>
 @endpush
 @section('content')
@@ -122,6 +122,11 @@
                                                     DATA</a>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storeSipd', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->opd_perjanjian_kinerja->type, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
+                                                    class="badge bg-primary tarik-data">
+                                                    {{ $opd_category_variable->opd_variable->pic }}
+                                                </a>
+                                            @elseif ($opd_category_variable->opd_variable->pic == 'P3DN' && $checkStatus != 1)
+                                                <a href="{{ route('opdPenilaianKinerja.storep3dn', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
                                                     class="badge bg-primary tarik-data">
                                                     {{ $opd_category_variable->opd_variable->pic }}
                                                 </a>

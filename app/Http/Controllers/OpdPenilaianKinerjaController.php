@@ -203,6 +203,31 @@ class OpdPenilaianKinerjaController extends Controller
         session()->flash('success');
         return back();
     }
+    public function storep3dn($opd_penilaian_id, $opd_category_variable_id, $year, $id_skpd)
+    {
+        $data = Http::accept('application/json')->get(route('getp3dn', [
+            'id_skpd' => $id_skpd,
+            'year' => $year,
+        ]));
+        $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
+        $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+        $nilaiAkhir = round($data['capaian'] * $bobot, 2);
+        OpdPenilaianKinerja::updateOrCreate(
+            [
+                'opd_penilaian_id' => $opd_penilaian_id,
+                'opd_category_variable_id' => $opd_category_variable_id,
+            ],
+            [
+                'target' => $data['target'],
+                'realisasi' => $data['totalTahunP3DN'],
+                'capaian' => $data['capaian'],
+                'nilai_akhir' => $nilaiAkhir,
+                'user_id' => Auth::user()->id
+            ]
+        );
+        session()->flash('success');
+        return back();
+    }
     /**
      * Display the specified resource.
      *
