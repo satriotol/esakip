@@ -9,5 +9,5 @@ class Master extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['reformasi_birokrasi', 'sakip', 'tahun_awal'];
+    protected $fillable = ['reformasi_birokrasi', 'sakip', 'tahun_awal', 'tahun_awal_p3dn'];
 }

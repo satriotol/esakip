@@ -82,7 +82,8 @@ class MasterController extends Controller
         $data = $request->validate([
             'reformasi_birokrasi' => 'required',
             'sakip' => 'required',
-            'tahun_awal' => 'required'
+            'tahun_awal' => 'required',
+            'tahun_awal_p3dn' => 'required'
         ]);
         $master->update($data);
         session()->flash('success');

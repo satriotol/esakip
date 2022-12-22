@@ -64,6 +64,7 @@ Route::get('rencanaAksi', [RencanaAksiController::class, 'index']);
 
 Route::get('opdPenilaian', [OpdPenilaianController::class, 'index']);
 Route::get('opdPenilaian/getPenyerapanAnggaranBelanja', [OpdPenilaianController::class, 'getPenyerapanAnggaranBelanja'])->name('getPenyerapanAnggaranBelanja');
+Route::get('opdPenilaian/getp3dn', [OpdPenilaianController::class, 'getp3dn'])->name('getp3dn');
 
 Route::get('getRealisasiAnggaranService', function (Request $request) {
     $data = Http::get('http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad')['data']['pad'][1]['rincian'];

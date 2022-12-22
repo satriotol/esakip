@@ -40,6 +40,12 @@
                             placeholder="Tahun Awal" required
                             value="{{ isset($master) ? $master->tahun_awal : @old('tahun_awal') }}">
                     </div>
+                    <div class="mb-3">
+                        <label for="sakip" class="form-label">Tahun Awal P3DN</label>
+                        <input id="tahun_awal_p3dn" class="form-control" name="tahun_awal_p3dn" type="number"
+                            placeholder="Tahun Awal P3DN" required
+                            value="{{ isset($master) ? $master->tahun_awal_p3dn : @old('tahun_awal_p3dn') }}">
+                    </div>
                     <div class="text-end">
                         <input class="btn btn-primary" type="submit" value="Submit">
                     </div>
