@@ -209,6 +209,7 @@ class OpdPenilaianKinerjaController extends Controller
             'id_skpd' => $id_skpd,
             'year' => $year,
         ]));
+        return $data;
         $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
         $nilaiAkhir = round($data['capaian'] * $bobot, 2);
