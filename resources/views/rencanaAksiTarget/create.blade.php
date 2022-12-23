@@ -119,48 +119,62 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Tabel Rencana Aksi Target</h4>
-                        <table class="table table-responsive">
-                            <thead>
-                                <th>Sasaran</th>
-                                <th>Rencana Aksi</th>
-                                @if ($rencanaAksi->status == 'DISETUJUI')
-                                    <th>Realisasi</th>
-                                @endif
-                                <th>Target</th>
-                                <th>Aksi</th>
-                            </thead>
-                            <tbody>
-                                <tr v-for="(data, index) in datas">
-                                    <td>@{{ data.opd_perjanjian_kinerja_sasaran_name }}</td>
-                                    <td>
-                                        <textarea v-model='data.rencana_aksi_note' class="form-control" name="" id=""
-                                            :disabled="data.rencana_aksi.status_penilaian"></textarea>
-                                    </td>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <th>Sasaran</th>
+                                    <th>Rencana Aksi</th>
+                                    <th>Indikator</th>
                                     @if ($rencanaAksi->status == 'DISETUJUI')
-                                        <td>
-                                            <input type="text" v-model='data.realisasi' class="form-control"
-                                                name="" id=""
-                                                :disabled="data.rencana_aksi.status_penilaian">
-                                        </td>
+                                        <th>Realisasi</th>
                                     @endif
-                                    <td>
-                                        <input type="text" :readonly="data.rencana_aksi.status == 'DISETUJUI'"
-                                            v-model='data.target' class="form-control" name="" id="">
-                                    </td>
-                                    <td>
-                                        @if (Auth::user()->opd_id || Auth::user()->hasRole('SUPERADMIN'))
-                                            @if (!$rencanaAksi->status_penilaian)
-                                                <button class="badge bg-warning"
-                                                    @click='updateData(data.id, index)'>Update</button><br>
-                                                <button class="badge bg-danger"
-                                                    v-if="data.rencana_aksi.status != 'DISETUJUI'"
-                                                    @click='deleteData(data.id)'>Delete</button>
-                                            @endif
+                                    <th>Target</th>
+                                    <th>Satuan</th>
+                                    <th>Aksi</th>
+                                </thead>
+                                <tbody>
+                                    <tr v-for="(data, index) in datas">
+                                        <td>@{{ data.opd_perjanjian_kinerja_sasaran_name }}</td>
+                                        <td>
+                                            <textarea v-model='data.rencana_aksi_note' class="form-control" name="" id=""
+                                                :disabled="data.rencana_aksi.status_penilaian"></textarea>
+                                        </td>
+                                        <td>
+                                            <textarea v-model='data.indikator_kinerja_note' class="form-control" name="" id=""
+                                                :disabled="data.rencana_aksi.status_penilaian"></textarea>
+                                        </td>
+                                        @if ($rencanaAksi->status == 'DISETUJUI')
+                                            <td>
+                                                <input type="text" v-model='data.realisasi' class="form-control"
+                                                    name="" id=""
+                                                    :readonly="data.rencana_aksi.status_penilaian">
+                                            </td>
                                         @endif
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                        <td>
+                                            <input type="text" :readonly="data.rencana_aksi.status == 'DISETUJUI'"
+                                                v-model='data.target' class="form-control" name="" id="">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" v-model='data.satuan'
+                                                :disabled="data.rencana_aksi.status_penilaian" name=""
+                                                id="">
+                                        </td>
+                                        <td>
+                                            @if (Auth::user()->opd_id || Auth::user()->hasRole('SUPERADMIN'))
+                                                @if (!$rencanaAksi->status_penilaian)
+                                                    <button class="badge bg-warning"
+                                                        @click='updateData(data.id, index)'>Update</button><br>
+                                                    <button class="badge bg-danger"
+                                                        v-if="data.rencana_aksi.status != 'DISETUJUI'"
+                                                        @click='deleteData(data.id)'>Delete</button>
+                                                @endif
+                                            @endif
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
                         @if ($rencanaAksi->status == 'DISETUJUI' && Auth::user()->opd_id)
                             @if (!$rencanaAksi->status_penilaian)
                                 <div class="text-end mt-2">
@@ -200,6 +214,7 @@
                         target: "",
                         realisasi: "",
                         rencana_aksi_note: "",
+                        indikator_kinerja_note: "",
                     },
                     formStatus: {
                         status: "{{ $rencanaAksi->status }}",
@@ -230,6 +245,11 @@
                                 title: 'OK',
                                 message: 'Successfully',
                             });
+                            Swal.fire(
+                                'Sukses',
+                                'Inputan Anda Berhasil Tersimpan',
+                                'success'
+                            )
                             this.getData();
                         })
                         .catch(function(error) {
@@ -238,13 +258,12 @@
                                 title: 'Error',
                                 message: 'Terjadi Kesalahan',
                             });
+                            Swal.fire(
+                                'Error',
+                                'error'
+                            )
                         }).finally(() => {
                             this.loading = false;
-                            Swal.fire(
-                                'Sukses',
-                                'Inputan Anda Berhasil Tersimpan',
-                                'success'
-                            )
                         });
                 },
                 getData() {

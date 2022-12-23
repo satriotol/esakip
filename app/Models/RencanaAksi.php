@@ -23,6 +23,14 @@ class RencanaAksi extends Model
         self::PENILAIAN1, self::PENILAIAN2
     ];
 
+    const TRIWULAN1 = 'TRIWULAN 1';
+    const TRIWULAN2 = 'TRIWULAN 2';
+    const TRIWULAN3 = 'TRIWULAN 3';
+    const TRIWULAN4 = 'TRIWULAN 4';
+    const TRIWULANS = [
+        self::TRIWULAN1, self::TRIWULAN2, self::TRIWULAN3, self::TRIWULAN4,
+    ];
+
     const PREDIKAT1 = 'ISTIMEWA';
     const PREDIKAT2 = 'BAIK';
     const PREDIKAT3 = 'BUTUH PERBAIKAN';

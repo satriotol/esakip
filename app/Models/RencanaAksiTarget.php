@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RencanaAksiTarget extends Model
 {
     use HasFactory;
-    protected $fillable = ['opd_perjanjian_kinerja_sasaran_id', 'rencana_aksi_id', 'target', 'realisasi', 'status', 'note', 'rencana_aksi_note'];
+    protected $fillable = ['opd_perjanjian_kinerja_sasaran_id', 'rencana_aksi_id', 'target', 'realisasi', 'status', 'note', 'rencana_aksi_note', 'indikator_kinerja_note', 'satuan', 'type'];
 
     protected $appends = ['opd_perjanjian_kinerja_sasaran_name'];
 
@@ -23,6 +23,12 @@ class RencanaAksiTarget extends Model
     const REALISASIS = [
         self::REALISASI1, self::REALISASI2
     ];
+
+    const UMUM = 'UMUM';
+    const KHUSUS = 'KHUSUS';
+    const TYPES = [
+        self::UMUM, self::KHUSUS
+    ];
     public function rencana_aksi()
     {
         return $this->belongsTo(RencanaAksi::class, 'rencana_aksi_id', 'id');
@@ -31,7 +37,8 @@ class RencanaAksiTarget extends Model
     {
         return $this->belongsTo(OpdPerjanjianKinerjaSasaran::class, 'opd_perjanjian_kinerja_sasaran_id', 'id');
     }
-    public function getOpdPerjanjianKinerjaSasaranNameAttribute(){
+    public function getOpdPerjanjianKinerjaSasaranNameAttribute()
+    {
         return $this->opd_perjanjian_kinerja_sasaran->sasaran;
     }
 }

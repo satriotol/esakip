@@ -17,6 +17,12 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">{{ $name }}</h6>
+                    <div class="text-end mb-2">
+                        <a class="btn btn-primary" href="{{ route('rencanaAksi.create') }}">
+                            <i data-feather="plus"></i>
+                            Create
+                        </a>
+                    </div>
                     <div class="row">
                         <div class="col-md-8">
                             <form action="">

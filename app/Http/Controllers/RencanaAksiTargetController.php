@@ -39,6 +39,7 @@ class RencanaAksiTargetController extends Controller
         $realisasis = RencanaAksiTarget::REALISASIS;
         $statuses = RencanaAksi::STATUSES;
         $predikats = RencanaAksi::PREDIKATS;
+        $types = RencanaAksiTarget::TYPES;
         return view('rencanaAksiTarget.create', compact('rencanaAksi', 'realisasis', 'statuses', 'predikats'));
     }
 
@@ -70,7 +71,7 @@ class RencanaAksiTargetController extends Controller
                 'target' => $request->target,
                 'realisasi' => $request->realisasi,
                 'status' => RencanaAksiTarget::STATUS1,
-                'rencana_aksi_note' => $request->rencana_aksi_note
+                'rencana_aksi_note' => $request->rencana_aksi_note,
             ]
         );
         $rencanaAksi = RencanaAksi::where('id', $request->rencana_aksi_id)->first();
@@ -118,6 +119,8 @@ class RencanaAksiTargetController extends Controller
                 'realisasi' => $request->realisasi,
                 'target' => $request->target,
                 'rencana_aksi_note' => $request->rencana_aksi_note,
+                'indikator_kinerja_note' => $request->indikator_kinerja_note,
+                'satuan' => $request->satuan,
             ]
         );
     }

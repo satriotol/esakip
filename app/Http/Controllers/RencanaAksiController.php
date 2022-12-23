@@ -6,6 +6,7 @@ use App\Models\Opd;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use App\Models\RencanaAksi;
 use App\Models\RencanaAksiTarget;
+use App\Rules\RencanaAksiExist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,7 +72,9 @@ class RencanaAksiController extends Controller
      */
     public function create()
     {
-        //
+        $opdPerjanjianKinerjas = OpdPerjanjianKinerja::getPerjanjianKinerjas();
+        $triwulans = RencanaAksi::TRIWULANS;
+        return view('rencanaAksi.create', compact('triwulans', 'opdPerjanjianKinerjas'));
     }
 
     /**
@@ -82,7 +85,19 @@ class RencanaAksiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => 'required',
+            'opd_perjanjian_kinerja_id' => 'required',
+            'slug' => 'nullable',
+        ]);
+        $rencanaAksi = RencanaAksi::where('name', $request->name)->where('opd_perjanjian_kinerja_id', $request->opd_perjanjian_kinerja_id)->get();
+        if ($rencanaAksi->count() == null) {
+            RencanaAksi::create($data);
+            session()->flash('success');
+            return redirect()->route('rencanaAksi.index');
+        }
+        session()->flash('error');
+        return back();
     }
 
     /**

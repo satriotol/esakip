@@ -8,7 +8,7 @@
 @section('content')
     <nav class="page-breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('opdPerjanjianKinerja.index') }}">{{ $name }}</a>
+            <li class="breadcrumb-item"><a href="{{ route('rencanaAksi.index') }}">{{ $name }}</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Form {{ $name }}</li>
         </ol>
@@ -20,55 +20,39 @@
                 <h4 class="card-title">Form {{ $name }}</h4>
                 @include('partials.errors')
                 <form
-                    action="@isset($opdPerjanjianKinerja) {{ route('opdPerjanjianKinerja.update', $opdPerjanjianKinerja->id) }} @endisset @empty($opdPerjanjianKinerja) {{ route('opdPerjanjianKinerja.store') }} @endempty"
+                    action="@isset($rencanaAksi) {{ route('rencanaAksi.update', $rencanaAksi->id) }} @endisset @empty($rencanaAksi) {{ route('rencanaAksi.store') }} @endempty"
                     method="POST" enctype="multipart/form-data">
                     @csrf
-                    @isset($opdPerjanjianKinerja)
+                    @isset($rencanaAksi)
                         @method('PUT')
                     @endisset
                     <div class="mb-3">
-                        <label for="year" class="form-label">Year</label>
-                        <input id="year" class="form-control" name="year" type="number" placeholder="yyyy" required
-                            value="{{ isset($opdPerjanjianKinerja) ? $opdPerjanjianKinerja->year : @old('year') }}">
-                    </div>
-                    @if (Auth::user()->opd_id == null)
-                        <div class="mb-3">
-                            <label for="name" class="form-label">OPD</label>
-                            <select class="js-example-basic-single form-select" data-width="100%" name="opd_id" required>
-                                <option value="">Select OPD</option>
-                                @foreach ($opds as $opd)
-                                    <option value="{{ $opd->id }}"
-                                        @isset($opdPerjanjianKinerja) 
-                                    @if ($opd->id === $opdPerjanjianKinerja->opd_id) selected  @endif
+                        <label for="name" class="form-label">Perjanjian Kinerja</label>
+                        <select class="js-example-basic-single form-select" data-width="100%"
+                            name="opd_perjanjian_kinerja_id" required>
+                            <option value="">Pilih Perjanjian Kinerja</option>
+                            @foreach ($opdPerjanjianKinerjas as $opdPerjanjianKinerja)
+                                <option value="{{ $opdPerjanjianKinerja->id }}"
+                                    @isset($opdPenilaian) 
+                                    @if ($opdPerjanjianKinerja->id === $opdPenilaian->opd_perjanjian_kinerja_id) selected  @endif
                                 @endisset>
-                                        {{ $opd->nama_opd }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-                    @endif
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Type</label>
-                        <select class="js-example-basic-single form-select" data-width="100%" required name="type">
-                            <option value="">Select Type</option>
-                            @foreach ($types as $type)
-                                <option value="{{ $type }}"
-                                    @isset($opdPerjanjianKinerja) @if ($type === $opdPerjanjianKinerja->type) selected @endif
-                            @endisset>
-                                    {{ $type }}
+                                    {{ $opdPerjanjianKinerja->opd->nama_opd }} | {{ $opdPerjanjianKinerja->year }} |
+                                    {{ $opdPerjanjianKinerja->type }}
                                 </option>
                             @endforeach
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="file" class="form-label">File</label>
-                        <input type="file" id="file" name="file" @empty($opdPerjanjianKinerja) @endempty />
-                        @isset($opdPerjanjianKinerja)
-                            <object data="{{ asset('uploads/' . $opdPerjanjianKinerja->file) }}" class="w-100 mt-5"
-                                style="height: 550px" type="application/pdf">
-                                <div>No online PDF viewer installed</div>
-                            </object>
-                        @endisset
+                        <label for="name" class="form-label">Triwulan</label>
+                        <select class="js-example-basic-single form-select" data-width="100%"
+                            name="name" required>
+                            <option value="">Pilih Triwulan</option>
+                            @foreach ($triwulans as $triwulan)
+                                <option value="{{ $triwulan }}">
+                                    {{ $triwulan }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="text-end">
                         <input class="btn btn-primary" type="submit" value="Submit">
@@ -80,22 +64,9 @@
 @endsection
 
 @push('plugin-scripts')
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
-    <script>
-        const inputElement = document.querySelector('input[id="file"]');
-        const pond = FilePond.create(inputElement);
-        FilePond.setOptions({
-            server: {
-                url: '{{ route('opdPerjanjianKinerja.store_file') }}',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                }
-            }
-        });
-    </script>
     <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endpush
