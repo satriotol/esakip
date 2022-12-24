@@ -39,12 +39,38 @@
                                     </select>
                                 </div>
                                 <div class="mb-3">
-                                    <label class="form-label">Target</label>
-                                    <textarea name="" class="form-control" v-model="form.target" required></textarea>
-                                </div>
-                                <div class="mb-3">
                                     <label class="form-label">Rencana Aksi</label>
                                     <textarea name="" class="form-control" v-model="form.rencana_aksi_note" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Indikator</label>
+                                    <textarea name="" class="form-control" v-model="form.indikator_kinerja_note" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Tipe</label>
+                                    <select name="" class="form-control" v-model="form.type" required>
+                                        <option value="">Pilih tipe</option>
+                                        @foreach ($types as $type)
+                                            <option value="{{ $type }}">
+                                                {{ $type }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Target</label>
+                                            <input type="number" v-model="form.target" required class="form-control"
+                                                name="" id="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label">Satuan</label>
+                                            <input type="text" v-model="form.satuan" required class="form-control"
+                                                name="" id="">
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="text-end">
                                     <button class="btn btn-primary" disabled v-if="loading">Loading</button>
@@ -125,23 +151,36 @@
                                     <th>Sasaran</th>
                                     <th>Rencana Aksi</th>
                                     <th>Indikator</th>
+                                    <th>Target</th>
                                     @if ($rencanaAksi->status == 'DISETUJUI')
                                         <th>Realisasi</th>
                                     @endif
-                                    <th>Target</th>
                                     <th>Satuan</th>
                                     <th>Aksi</th>
                                 </thead>
                                 <tbody>
                                     <tr v-for="(data, index) in datas">
-                                        <td>@{{ data.opd_perjanjian_kinerja_sasaran_name }}</td>
-                                        <td>
-                                            <textarea v-model='data.rencana_aksi_note' class="form-control" name="" id=""
-                                                :disabled="data.rencana_aksi.status_penilaian"></textarea>
+                                        <td>@{{ data.opd_perjanjian_kinerja_sasaran_name }}
+                                            <select name="" class="form-control" v-model="data.type" required>
+                                                <option value="">Pilih tipe</option>
+                                                @foreach ($types as $type)
+                                                    <option value="{{ $type }}">
+                                                        {{ $type }}</option>
+                                                @endforeach
+                                            </select>
                                         </td>
                                         <td>
-                                            <textarea v-model='data.indikator_kinerja_note' class="form-control" name="" id=""
-                                                :disabled="data.rencana_aksi.status_penilaian"></textarea>
+                                            <textarea v-model='data.rencana_aksi_note' class="form-control" name="" id=""
+                                                :readonly="data.rencana_aksi.status == 'DISETUJUI'"></textarea>
+                                        </td>
+                                        <td>
+                                            <textarea v-model='data.indikator_kinerja_note' :readonly="data.rencana_aksi.status == 'DISETUJUI'"
+                                                class="form-control" name="" id=""></textarea>
+                                        </td>
+                                        <td>
+                                            <input type="number" :readonly="data.rencana_aksi.status == 'DISETUJUI'"
+                                                v-model='data.target' class="form-control" name=""
+                                                id="">
                                         </td>
                                         @if ($rencanaAksi->status == 'DISETUJUI')
                                             <td>
@@ -151,12 +190,8 @@
                                             </td>
                                         @endif
                                         <td>
-                                            <input type="text" :readonly="data.rencana_aksi.status == 'DISETUJUI'"
-                                                v-model='data.target' class="form-control" name="" id="">
-                                        </td>
-                                        <td>
                                             <input type="text" class="form-control" v-model='data.satuan'
-                                                :disabled="data.rencana_aksi.status_penilaian" name=""
+                                                :readonly="data.rencana_aksi.status == 'DISETUJUI'" name=""
                                                 id="">
                                         </td>
                                         <td>
@@ -212,7 +247,9 @@
                         opd_perjanjian_kinerja_sasaran_id: "",
                         rencana_aksi_id: {{ $rencanaAksi->id }},
                         target: "",
+                        satuan: "",
                         realisasi: "",
+                        type: "",
                         rencana_aksi_note: "",
                         indikator_kinerja_note: "",
                     },
@@ -235,16 +272,15 @@
                             Swal.showLoading()
                         },
                     })
-                    axios.post('/administrator/rencanaAksiTarget', this.form)
+                    axios.post('{{ route('rencanaAksiTarget.store') }}', this.form)
                         .then((response) => {
                             this.form.opd_perjanjian_kinerja_sasaran_id = "";
                             this.form.target = "";
                             this.form.realisasi = "";
                             this.form.rencana_aksi_note = "";
-                            iziToast.success({
-                                title: 'OK',
-                                message: 'Successfully',
-                            });
+                            this.form.satuan = "";
+                            this.form.indikator_kinerja_note = "";
+                            this.form.type = "";
                             Swal.fire(
                                 'Sukses',
                                 'Inputan Anda Berhasil Tersimpan',
@@ -254,20 +290,16 @@
                         })
                         .catch(function(error) {
                             console.log(error);
-                            iziToast.error({
-                                title: 'Error',
-                                message: 'Terjadi Kesalahan',
-                            });
-                            Swal.fire(
-                                'Error',
-                                'error'
-                            )
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: error.response.data.message,
+                            })
                         }).finally(() => {
                             this.loading = false;
                         });
                 },
                 getData() {
-
                     axios.get('/administrator/getRencanaAksiTarget/' + this.form.rencana_aksi_id)
                         .then((response) => {
                             this.loading = false;
@@ -275,7 +307,6 @@
                         })
                 },
                 deleteData(id) {
-
                     if (confirm("Apakah Anda Yakin Menghapus Data Ini ?")) {
                         Swal.fire({
                             title: 'Loading',
@@ -306,6 +337,7 @@
                     }
                 },
                 updateData(id, index) {
+                    this.loading = true;
                     Swal.fire({
                         title: 'Loading',
                         icon: 'info',
@@ -316,25 +348,23 @@
                     })
                     axios.put('/administrator/rencanaAksiTarget/' + id, this.datas[index])
                         .then((response) => {
-                            iziToast.success({
-                                title: 'OK',
-                                message: 'Successfully',
-                            });
+                            Swal.fire(
+                                'Sukses',
+                                'Inputan Anda Berhasil Tersimpan',
+                                'success'
+                            )
                             this.getData();
                         })
                         .catch(function(error) {
                             console.log(error);
-                            iziToast.error({
-                                title: 'Error',
-                                message: 'Terjadi Kesalahan',
-                            });
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: error.response.data.message,
+                            })
                         })
                         .finally(() => {
-                            Swal.fire(
-                                'Sukses',
-                                'Inputan Anda Berhasil Terupdate',
-                                'success'
-                            )
+                            this.loading = false;
                         });
                 }
             },

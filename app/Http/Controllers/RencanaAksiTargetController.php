@@ -40,7 +40,7 @@ class RencanaAksiTargetController extends Controller
         $statuses = RencanaAksi::STATUSES;
         $predikats = RencanaAksi::PREDIKATS;
         $types = RencanaAksiTarget::TYPES;
-        return view('rencanaAksiTarget.create', compact('rencanaAksi', 'realisasis', 'statuses', 'predikats'));
+        return view('rencanaAksiTarget.create', compact('rencanaAksi', 'realisasis', 'statuses', 'predikats', 'types'));
     }
 
     public function getRencanaAksiTarget($rencana_aksi_id)
@@ -61,19 +61,13 @@ class RencanaAksiTargetController extends Controller
             'opd_perjanjian_kinerja_sasaran_id' => 'required',
             'rencana_aksi_id' => 'required',
             'target' => 'required',
+            'satuan' => 'required',
             'rencana_aksi_note' => 'required',
+            'indikator_kinerja_note' => 'required',
+            'type' => 'required',
         ]);
-        RencanaAksiTarget::create(
-            [
-
-                'opd_perjanjian_kinerja_sasaran_id' => $request->opd_perjanjian_kinerja_sasaran_id,
-                'rencana_aksi_id' => $request->rencana_aksi_id,
-                'target' => $request->target,
-                'realisasi' => $request->realisasi,
-                'status' => RencanaAksiTarget::STATUS1,
-                'rencana_aksi_note' => $request->rencana_aksi_note,
-            ]
-        );
+        $data['status'] = RencanaAksiTarget::STATUS1;
+        RencanaAksiTarget::create($data);
         $rencanaAksi = RencanaAksi::where('id', $request->rencana_aksi_id)->first();
         $rencanaAksi->update([
             'status' => RencanaAksi::STATUS1
@@ -113,16 +107,14 @@ class RencanaAksiTargetController extends Controller
      */
     public function update(Request $request, RencanaAksiTarget $rencanaAksiTarget)
     {
-        $rencanaAksiTarget->update(
-            [
-                'opd_perjanjian_kinerja_sasaran_id' => $request->opd_perjanjian_kinerja_sasaran_id,
-                'realisasi' => $request->realisasi,
-                'target' => $request->target,
-                'rencana_aksi_note' => $request->rencana_aksi_note,
-                'indikator_kinerja_note' => $request->indikator_kinerja_note,
-                'satuan' => $request->satuan,
-            ]
-        );
+        $data = $request->validate([
+            'target' => 'required',
+            'rencana_aksi_note' => 'required',
+            'indikator_kinerja_note' => 'required',
+            'satuan' => 'required',
+            'type' => 'required',
+        ]);
+        $rencanaAksiTarget->update($data);
     }
 
     /**
