@@ -107,13 +107,19 @@ class RencanaAksiTargetController extends Controller
      */
     public function update(Request $request, RencanaAksiTarget $rencanaAksiTarget)
     {
-        $data = $request->validate([
-            'target' => 'required',
-            'rencana_aksi_note' => 'required',
-            'indikator_kinerja_note' => 'required',
-            'satuan' => 'required',
-            'type' => 'required',
-        ]);
+        if ($rencanaAksiTarget->rencana_aksi->status == RencanaAksi::STATUS2) {
+            $data = $request->validate([
+                'realisasi' => 'required',
+            ]);
+        } else {
+            $data = $request->validate([
+                'target' => 'required',
+                'rencana_aksi_note' => 'required',
+                'indikator_kinerja_note' => 'required',
+                'satuan' => 'required',
+                'type' => 'required',
+            ]);
+        }
         $rencanaAksiTarget->update($data);
     }
 
