@@ -46,10 +46,11 @@ class UserOpdController extends Controller
     public function store(Request $request)
     {
         $data = $this->validate($request, [
-            'name' => 'required',
             'email' => 'required|unique:users,email',
             'opd_id' => 'required',
         ]);
+        $opd = Opd::find($request->opd_id);
+        $data['name'] = $opd->nama_opd;
         $data['password'] = Hash::make('esakipsemarang987');
         $user = User::create($data);
         $role = Role::where('name', 'OPD')->first()->id;
@@ -91,10 +92,11 @@ class UserOpdController extends Controller
     public function update(Request $request, User $userOpd)
     {
         $data = $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|unique:users,email,' . $userOpd->email,
+            'email' => 'required|unique:users,email,' . $userOpd->id,
             'opd_id' => 'required',
         ]);
+        $opd = Opd::find($request->opd_id);
+        $data['name'] = $opd->nama_opd;
         $userOpd->update($data);
         session()->flash('success');
         return redirect(route('userOpd.index'));

@@ -22,11 +22,11 @@
                     @isset($userOpd)
                         @method('PUT')
                     @endisset
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input id="name" class="form-control" name="name" type="text" required
                             value="{{ isset($userOpd) ? $userOpd->name : @old('name') }}">
-                    </div>
+                    </div> --}}
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
                         <input id="email" class="form-control" name="email" type="email" required
