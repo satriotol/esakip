@@ -40,13 +40,14 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
         $query = DB::connection('mysql2')->select("select a.*, b.uraian as sasaran from indikator_sasaran_ranakhir_renstra a left join sasaran_ranakhir_renstra b on b.id=a.id_sasaran left join data_unit c on c.id_skpd=b.id_skpd where c.id_unit=" . $opdPerjanjianKinerja->opd->data_unit->id_skpd . ";");
         foreach ($query as $q) {
             $tahun = Master::first()->tahun_awal + $totalTahun;
-            $opdPerjanjianKinerjaSasaran = OpdPerjanjianKinerjaSasaran::where('sasaran_lama_id', $q->id_sasaran)->whereHas('opd_perjanjian_kinerja', function ($q) use ($tahun) {
-                $q->where('year', $tahun);
+            $opdPerjanjianKinerjaSasaran = OpdPerjanjianKinerjaSasaran::where('sasaran_lama_id', $q->id_sasaran)->whereHas('opd_perjanjian_kinerja', function ($q) use ($tahun, $opdPerjanjianKinerja) {
+                $q->where('year', $tahun)->where('type', $opdPerjanjianKinerja->type);
             })->first();
             if ($totalTahun == 0) {
                 OpdPerjanjianKinerjaIndikator::updateOrCreate([
                     'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
                     'sasaran_lama_id' => $q->id_sasaran,
+                    'type' => $opdPerjanjianKinerja->type,
                 ], [
                     'indikator' => $q->uraian,
                     'target' => $q->awal,
@@ -57,6 +58,7 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
                 OpdPerjanjianKinerjaIndikator::updateOrCreate([
                     'sasaran_lama_id' => $q->id_sasaran,
                     'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
+                    'type' => $opdPerjanjianKinerja->type,
                 ], [
                     'indikator' => $q->uraian,
                     'target' => $q->target1,
@@ -67,6 +69,7 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
                 OpdPerjanjianKinerjaIndikator::updateOrCreate([
                     'sasaran_lama_id' => $q->id_sasaran,
                     'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
+                    'type' => $opdPerjanjianKinerja->type,
                 ], [
                     'indikator' => $q->uraian,
                     'target' => $q->target2,
@@ -77,6 +80,7 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
                 OpdPerjanjianKinerjaIndikator::updateOrCreate([
                     'sasaran_lama_id' => $q->id_sasaran,
                     'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
+                    'type' => $opdPerjanjianKinerja->type,
                 ], [
                     'indikator' => $q->uraian,
                     'target' => $q->target3,
@@ -87,6 +91,7 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
                 OpdPerjanjianKinerjaIndikator::updateOrCreate([
                     'sasaran_lama_id' => $q->id_sasaran,
                     'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
+                    'type' => $opdPerjanjianKinerja->type,
                 ], [
                     'indikator' => $q->uraian,
                     'target' => $q->target4,
@@ -96,10 +101,11 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
             } elseif ($totalTahun == 5) {
                 OpdPerjanjianKinerjaIndikator::updateOrCreate([
                     'sasaran_lama_id' => $q->id_sasaran,
+                    'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
+                    'type' => $opdPerjanjianKinerja->type,
+                ], [
                     'indikator' => $q->uraian,
                     'target' => $q->target5,
-                ], [
-                    'opd_perjanjian_kinerja_sasaran_id' => $opdPerjanjianKinerjaSasaran->id,
                     'satuan' => $q->satuan,
 
                 ]);
