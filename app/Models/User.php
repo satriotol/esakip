@@ -3,11 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Models\Role;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -48,6 +51,35 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Opd::class, 'opd_id', 'id');
     }
+    public function scopeNotRole(Builder $query, $roles, $guard = null): Builder
+    {
+        if ($roles instanceof Collection) {
+            $roles = $roles->all();
+        }
+
+        if (!is_array($roles)) {
+            $roles = [$roles];
+        }
+
+        $roles = array_map(function ($role) use ($guard) {
+            if ($role instanceof Role) {
+                return $role;
+            }
+
+            $method = is_numeric($role) ? 'findById' : 'findByName';
+            $guard = $guard ?: $this->getDefaultGuardName();
+
+            return $this->getRoleClass()->{$method}($role, $guard);
+        }, $roles);
+
+        return $query->whereHas('roles', function ($query) use ($roles) {
+            $query->where(function ($query) use ($roles) {
+                foreach ($roles as $role) {
+                    $query->where(config('permission.table_names.roles') . '.id', '!=', $role->id);
+                }
+            });
+        });
+    }
     public static function getOpdUsers()
     {
         if (Auth::user()->opd_id) {
@@ -62,8 +94,24 @@ class User extends Authenticatable
         if (Auth::user()->email == 'satriotol69@gmail.com') {
             $users = User::whereNull('opd_id')->get();
         } else {
-            $users = User::where('email', '!=', 'satriotol69@gmail.com')->whereNull('opd_id')->get();
+            $users = User::notRole(['SUPERADMIN'])->whereNull('opd_id')->get();
         }
         return $users;
+    }
+
+    public static function getUserRole()
+    {
+        $user = Auth::user();
+        return $user->getRoleNames()->first() ?? '-';
+    }
+
+    public static function getRoles()
+    {
+        $user = Auth::user();
+        if ($user->getUserRole($user) != 'SUPERADMIN') {
+            return Role::where('name', '!=', 'SUPERADMIN')->get();
+        } else {
+            return Role::all();
+        }
     }
 }
