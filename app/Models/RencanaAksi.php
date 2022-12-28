@@ -47,4 +47,17 @@ class RencanaAksi extends Model
     {
         return $this->hasMany(RencanaAksiTarget::class, 'rencana_aksi_id', 'id');
     }
+    public static function getTotalCapaian($rencana_aksi_id)
+    {
+        $data = RencanaAksiTarget::where('rencana_aksi_id', $rencana_aksi_id)->get();
+        $totalRecord = $data->count();
+        $totalCapaian = $data->sum('capaian');
+        $data = $totalCapaian / $totalRecord;
+        if ($data > 100) {
+            $data = 100;
+        } elseif ($data < 0) {
+            $data = 0;
+        }
+        return round($data, 2);
+    }
 }

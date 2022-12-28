@@ -10,7 +10,7 @@ class RencanaAksiTarget extends Model
     use HasFactory;
     protected $fillable = ['opd_perjanjian_kinerja_sasaran_id', 'rencana_aksi_id', 'target', 'realisasi', 'status', 'note', 'rencana_aksi_note', 'indikator_kinerja_note', 'satuan', 'type'];
 
-    protected $appends = ['opd_perjanjian_kinerja_sasaran_name'];
+    protected $appends = ['opd_perjanjian_kinerja_sasaran_name', 'capaian'];
 
     const STATUS1 = 'DIAJUKAN';
     const STATUS2 = 'DIATAS';
@@ -40,5 +40,19 @@ class RencanaAksiTarget extends Model
     public function getOpdPerjanjianKinerjaSasaranNameAttribute()
     {
         return $this->opd_perjanjian_kinerja_sasaran->sasaran;
+    }
+    public function getCapaianAttribute()
+    {
+        if ($this->type == self::UMUM) {
+            $data = $this->realisasi / $this->target * 100;
+        } else {
+            $data = (1 - (($this->realisasi - $this->target)) / $this->target) * 100;
+        }
+        if ($data > 100) {
+            $data = 100;
+        } elseif ($data < 0) {
+            $data = 0;
+        }
+        return round($data, 2);
     }
 }

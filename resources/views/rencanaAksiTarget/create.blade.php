@@ -156,6 +156,9 @@
                                         <th>Realisasi</th>
                                     @endif
                                     <th>Satuan</th>
+                                    @if ($rencanaAksi->status == 'DISETUJUI')
+                                        <th>Capaian</th>
+                                    @endif
                                     <th>Aksi</th>
                                 </thead>
                                 <tbody>
@@ -194,6 +197,11 @@
                                                 :readonly="data.rencana_aksi.status == 'DISETUJUI'" name=""
                                                 id="">
                                         </td>
+                                        @if ($rencanaAksi->status == 'DISETUJUI')
+                                            <td>
+                                                @{{ data.capaian }}
+                                            </td>
+                                        @endif
                                         <td>
                                             @if (Auth::user()->opd_id || Auth::user()->hasRole('SUPERADMIN'))
                                                 @if (!$rencanaAksi->status_penilaian)
@@ -207,6 +215,10 @@
                                         </td>
                                     </tr>
                                 </tbody>
+                                <tfoot>
+                                    <th colspan="6">Total Capaian</th>
+                                    <th>@{{ total_capaian }}</th>
+                                </tfoot>
                             </table>
                         </div>
 
@@ -255,7 +267,8 @@
                     },
                     formStatus: {
                         status: "{{ $rencanaAksi->status }}",
-                    }
+                    },
+                    total_capaian: 0,
                 }
             },
             mounted() {
@@ -303,7 +316,8 @@
                     axios.get('/administrator/getRencanaAksiTarget/' + this.form.rencana_aksi_id)
                         .then((response) => {
                             this.loading = false;
-                            this.datas = response.data;
+                            this.datas = response.data.data;
+                            this.total_capaian = response.data.total_capaian;
                         })
                 },
                 deleteData(id) {

@@ -46,7 +46,10 @@ class RencanaAksiTargetController extends Controller
     public function getRencanaAksiTarget($rencana_aksi_id)
     {
         $rencanaAksiTargets = RencanaAksiTarget::where('rencana_aksi_id', $rencana_aksi_id)->with('rencana_aksi')->get();
-        return $rencanaAksiTargets;
+        return [
+            'data' => $rencanaAksiTargets,
+            'total_capaian' => RencanaAksi::getTotalCapaian($rencana_aksi_id)
+        ];
     }
 
     /**
