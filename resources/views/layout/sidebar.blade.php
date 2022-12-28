@@ -327,7 +327,8 @@
                 <div class="collapse" id="perencanaan_kinerja">
                     <ul class="nav sub-menu">
                         <li class="nav-item">
-                            <a href="{{ asset('manual/E-SAKIP KOTA SEMARANG.pdf') }}" class="nav-link">Input
+                            <a href="{{ asset('manual/E-SAKIP KOTA SEMARANG.pdf') }}" target="_blank"
+                                class="nav-link">Input
                                 Perjanjian Kinerja</a>
                         </li>
                     </ul>
