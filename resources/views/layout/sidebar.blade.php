@@ -317,6 +317,22 @@
                     </a>
                 </li>
             @endcan
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja" role="button"
+                    aria-controls="perencanaan_kinerja">
+                    <i class="link-icon" data-feather="anchor"></i>
+                    <span class="link-title">Manual Book</span>
+                    <i class="link-arrow" data-feather="chevron-down"></i>
+                </a>
+                <div class="collapse" id="perencanaan_kinerja">
+                    <ul class="nav sub-menu">
+                        <li class="nav-item">
+                            <a href="{{ asset('manual/E-SAKIP KOTA SEMARANG.pdf') }}" class="nav-link">Input
+                                Perjanjian Kinerja</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
         </ul>
     </div>
 </nav>
