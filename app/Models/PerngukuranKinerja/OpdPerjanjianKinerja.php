@@ -17,9 +17,9 @@ use Illuminate\Support\Facades\Storage;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class OpdPerjanjianKinerja extends Model implements Auditable
+class OpdPerjanjianKinerja extends Model
 {
-    use HasFactory, Blameable, AuditableTrait;
+    use HasFactory, Blameable;
     // use AuditableTrait;
 
     protected $fillable = ['year', 'opd_id', 'file', 'type', 'status', 'note'];
