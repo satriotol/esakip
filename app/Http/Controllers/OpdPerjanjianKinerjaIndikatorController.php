@@ -34,6 +34,11 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function createView($opdPerjanjianKinerja)
+    {
+        $opd_perjanjian_kinerja_sasarans = OpdPerjanjianKinerjaSasaran::where('opd_perjanjian_kinerja_id', $opdPerjanjianKinerja)->get();
+        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.indikator.create', compact('opdPerjanjianKinerja', 'opd_perjanjian_kinerja_sasarans'));
+    }
     public function create(OpdPerjanjianKinerja $opdPerjanjianKinerja)
     {
         $totalTahun = OpdPerjanjianKinerja::getTotalTahun($opdPerjanjianKinerja);

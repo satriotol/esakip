@@ -149,6 +149,7 @@ Route::group(['middleware' => ['auth']], function () {
     });
     Route::group(['prefix' => 'opdPerjanjianKinerjaIndikator'], function () {
         Route::get('create/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaIndikatorController::class, 'create'])->name('opdPerjanjianKinerjaIndikator.create');
+        Route::get('createView/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaIndikatorController::class, 'createView'])->name('opdPerjanjianKinerjaIndikator.createView');
         Route::post('store/{opdPerjanjianKinerja}', [OpdPerjanjianKinerjaIndikatorController::class, 'store'])->name('opdPerjanjianKinerjaIndikator.store');
         Route::get('edit/{opdPerjanjianKinerja}/{opd_perjanjian_kinerja_indikator}', [OpdPerjanjianKinerjaIndikatorController::class, 'edit'])->name('opdPerjanjianKinerjaIndikator.edit');
         Route::put('update/{opdPerjanjianKinerja}/{opd_perjanjian_kinerja_indikator}', [OpdPerjanjianKinerjaIndikatorController::class, 'update'])->name('opdPerjanjianKinerjaIndikator.update');
