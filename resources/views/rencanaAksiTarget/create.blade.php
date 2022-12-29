@@ -145,6 +145,9 @@
                 <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">Tabel Rencana Aksi Target</h4>
+                        <a href="{{ route('opdPerjanjianKinerja.show', $rencanaAksi->opd_perjanjian_kinerja_id) }}"
+                            target="_blank">Perjanjian
+                            Kinerja</a>
                         <div class="table-responsive">
                             <table class="table">
                                 <thead>

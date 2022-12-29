@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuditController;
 use App\Http\Controllers\CascadingKinerjaOpdController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ErrorController;
@@ -129,6 +130,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);
     Route::resource('opdCategoryVariable', OpdCategoryVariableController::class);
     Route::resource('rencanaAksi', RencanaAksiController::class);
+    Route::resource('audit', AuditController::class);
     Route::post('rencanaAksi/updateStatus/{rencanaAksi}', [RencanaAksiController::class, 'updateStatus'])->name('rencanaAksi.updateStatus');
     Route::get('rencanaAksi/updateStatusSelesai/{rencanaAksi}', [RencanaAksiController::class, 'updateStatusSelesai'])->name('rencanaAksi.updateStatusSelesai');
     Route::post('rencanaAksi/updateStatusSelesai/store/{rencanaAksi}', [RencanaAksiController::class, 'updateStatusSelesai'])->name('rencanaAksi.updateStatusPenilaian');

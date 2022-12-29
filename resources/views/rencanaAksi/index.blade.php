@@ -66,7 +66,6 @@
                                     <th>Year</th>
                                     <th>OPD</th>
                                     <th>Type</th>
-                                    <th>File</th>
                                     <th>Rencana Aksi | Penilaian</th>
                                 </tr>
                             </thead>
@@ -75,14 +74,8 @@
                                     <tr>
                                         <td>{{ $opdPerjanjianKinerja->year }}</td>
                                         <td>{{ $opdPerjanjianKinerja->opd->nama_opd }}</td>
-                                        <td>{{ $opdPerjanjianKinerja->type }}</td>
-                                        <td>
-                                            @if ($opdPerjanjianKinerja->file)
-                                                <a class="badge bg-danger" target="_blank"
-                                                    href="{{ $opdPerjanjianKinerja->file_url }}"> Open File</a>
-                                            @else
-                                                -
-                                            @endif
+                                        <td><a href="{{ route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja->id) }}"
+                                                target="_blank">{{ $opdPerjanjianKinerja->type }}</a>
                                         </td>
                                         <td>
                                             @foreach ($opdPerjanjianKinerja->rencana_aksis as $rencana_aksi)

@@ -317,6 +317,22 @@
                     </a>
                 </li>
             @endcan
+            @can('audit-list')
+                <li class="nav-item {{ active_class(['audit.*']) }}">
+                    <a href="{{ route('audit.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="unlock"></i>
+                        <span class="link-title">Audit</span>
+                    </a>
+                </li>
+            @endcan
+            @can('log-list')
+                <li class="nav-item {{ active_class(['log.*']) }}">
+                    <a href="{{ route('log.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="unlock"></i>
+                        <span class="link-title">Log</span>
+                    </a>
+                </li>
+            @endcan
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#perencanaan_kinerja" role="button"
                     aria-controls="perencanaan_kinerja">
