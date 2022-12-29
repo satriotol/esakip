@@ -148,103 +148,141 @@
             methods: {
                 opdPerjanjianKinerjaProgramAnggaran() {
                     Swal.fire({
-                        title: 'Sedang Menarik Data',
-                        icon: 'info',
-                        timerProgressBar: true,
-                        didOpen: () => {
-                            Swal.showLoading()
-                        },
-                        allowOutsideClick: false
-                    });
-                    // console.log(this.form);
-                    axios.get('{{ route('opdPerjanjianKinerjaProgramAnggaran.store', $opdPerjanjianKinerja) }}')
-                        .then((res) => {
-                            console.log(res);
+                        title: 'Apakah Anda Yakin ?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
                             Swal.fire({
-                                title: 'Sukses',
-                                icon: 'success',
-                                confirmButtonText: 'Lanjut',
-                            }).then((result) => {
-                                /* Read more about isConfirmed, isDenied below */
-                                if (result.isConfirmed) {
-                                    location.reload();
-                                }
-                            })
-                        }).catch((err) => {
-                            Swal.fire({
-                                title: 'Error',
-                                icon: 'error',
-                                text: err.response.data.message,
-                                confirmButtonText: 'Ok',
-                            })
-                        });
+                                title: 'Sedang Menarik Data',
+                                icon: 'info',
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                },
+                                allowOutsideClick: false
+                            });
+                            axios.get(
+                                    '{{ route('opdPerjanjianKinerjaProgramAnggaran.store', $opdPerjanjianKinerja) }}'
+                                )
+                                .then((res) => {
+                                    console.log(res);
+                                    Swal.fire({
+                                        title: 'Sukses',
+                                        icon: 'success',
+                                        confirmButtonText: 'Lanjut',
+                                    }).then((result) => {
+                                        /* Read more about isConfirmed, isDenied below */
+                                        if (result.isConfirmed) {
+                                            location.reload();
+                                        }
+                                    })
+                                }).catch((err) => {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        icon: 'error',
+                                        text: err.response.data.message,
+                                        confirmButtonText: 'Ok',
+                                    })
+                                });
+                        }
+                    })
+
                 },
 
                 opdPerjanjianKinerjaSasaran() {
                     Swal.fire({
-                        title: 'Sedang Menarik Data',
-                        icon: 'info',
-                        timerProgressBar: true,
-                        didOpen: () => {
-                            Swal.showLoading()
-                        },
-                        allowOutsideClick: false
-                    });
-                    // console.log(this.form);
-                    axios.get('{{ route('opdPerjanjianKinerjaSasaran.create', [$opdPerjanjianKinerja]) }}')
-                        .then((res) => {
-                            console.log(res);
+                        title: 'Apakah Anda Yakin ?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
                             Swal.fire({
-                                title: 'Sukses',
-                                icon: 'success',
-                                confirmButtonText: 'Lanjut',
-                            }).then((result) => {
-                                /* Read more about isConfirmed, isDenied below */
-                                if (result.isConfirmed) {
-                                    location.reload();
-                                }
-                            })
-                        }).catch((err) => {
-                            Swal.fire({
-                                title: 'Error',
-                                icon: 'error',
-                                text: err.response.data.message,
-                                confirmButtonText: 'Ok',
-                            })
-                        });
+                                title: 'Sedang Menarik Data',
+                                icon: 'info',
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                },
+                                allowOutsideClick: false
+                            });
+                            // console.log(this.form);
+                            axios.get(
+                                    '{{ route('opdPerjanjianKinerjaSasaran.create', [$opdPerjanjianKinerja]) }}'
+                                )
+                                .then((res) => {
+                                    console.log(res);
+                                    Swal.fire({
+                                        title: 'Sukses',
+                                        icon: 'success',
+                                        confirmButtonText: 'Lanjut',
+                                    }).then((result) => {
+                                        /* Read more about isConfirmed, isDenied below */
+                                        if (result.isConfirmed) {
+                                            location.reload();
+                                        }
+                                    })
+                                }).catch((err) => {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        icon: 'error',
+                                        text: err.response.data.message,
+                                        confirmButtonText: 'Ok',
+                                    })
+                                });
+                        }
+                    })
+
                 },
                 opdPerjanjianKinerjaIndikator() {
                     Swal.fire({
-                        title: 'Sedang Menarik Data',
-                        icon: 'info',
-                        timerProgressBar: true,
-                        didOpen: () => {
-                            Swal.showLoading()
-                        },
-                        allowOutsideClick: false
-                    });
-                    // console.log(this.form);
-                    axios.get('{{ route('opdPerjanjianKinerjaIndikator.create', [$opdPerjanjianKinerja]) }}')
-                        .then((res) => {
-                            console.log(res);
+                        title: 'Apakah Anda Yakin ?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ya'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
                             Swal.fire({
-                                title: 'Sukses',
-                                icon: 'success',
-                                confirmButtonText: 'Lanjut',
-                            }).then((result) => {
-                                /* Read more about isConfirmed, isDenied below */
-                                if (result.isConfirmed) {
-                                    location.reload();
-                                }
-                            })
-                        }).catch((err) => {
-                            Swal.fire({
-                                title: 'Error',
-                                icon: 'error',
-                                text: err.response.data.message,
-                                confirmButtonText: 'Ok',
-                            })
-                        });
+                                title: 'Sedang Menarik Data',
+                                icon: 'info',
+                                timerProgressBar: true,
+                                didOpen: () => {
+                                    Swal.showLoading()
+                                },
+                                allowOutsideClick: false
+                            });
+                            axios.get(
+                                    '{{ route('opdPerjanjianKinerjaIndikator.create', [$opdPerjanjianKinerja]) }}'
+                                    )
+                                .then((res) => {
+                                    console.log(res);
+                                    Swal.fire({
+                                        title: 'Sukses',
+                                        icon: 'success',
+                                        confirmButtonText: 'Lanjut',
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            location.reload();
+                                        }
+                                    })
+                                }).catch((err) => {
+                                    Swal.fire({
+                                        title: 'Error',
+                                        icon: 'error',
+                                        text: err.response.data.message,
+                                        confirmButtonText: 'Ok',
+                                    })
+                                });
+                        }
+                    })
                 },
             }
         }, ).mount('#app')
