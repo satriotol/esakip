@@ -172,42 +172,6 @@ class OpdPerjanjianKinerjaController extends Controller
         ]);
 
         $opdPerjanjianKinerja->update($data);
-        if ($data['status'] == OpdPerjanjianKinerja::STATUS2) {
-            $triwulan = [
-                [
-                    'name' =>  'TRIWULAN 1',
-                    'slug' => 'triwulansatu',
-                ],
-                [
-                    'name' =>  'TRIWULAN 2',
-                    'slug' => 'triwulandua',
-                ],
-                [
-                    'name' =>  'TRIWULAN 3',
-                    'slug' => 'triwulantiga',
-                ],
-                [
-                    'name' =>  'TRIWULAN 4',
-                    'slug' => 'triwulanempat',
-                ],
-                [
-                    'name' => 'TAHUNAN',
-                    'slug' => 'tahunan',
-                ],
-            ];
-            foreach ($triwulan as $t) {
-                RencanaAksi::updateOrCreate(
-                    [
-                        'name' => $t['name'],
-                        'opd_perjanjian_kinerja_id' => $opdPerjanjianKinerja->id,
-                        'slug' => $t['slug'],
-                    ],
-                    [
-                        'status' => '',
-                    ],
-                );
-            }
-        }
         session()->flash('success');
         return back();
     }

@@ -39,7 +39,7 @@ class RencanaAksiTarget extends Model
     }
     public function getOpdPerjanjianKinerjaSasaranNameAttribute()
     {
-        return $this->opd_perjanjian_kinerja_sasaran->sasaran;
+        return $this->opd_perjanjian_kinerja_sasaran->sasaran ?? "";
     }
     public function getCapaianAttribute()
     {

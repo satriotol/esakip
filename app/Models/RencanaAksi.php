@@ -52,6 +52,10 @@ class RencanaAksi extends Model
         $data = RencanaAksiTarget::where('rencana_aksi_id', $rencana_aksi_id)->get();
         $totalRecord = $data->count();
         $totalCapaian = $data->sum('capaian');
+        if ($totalRecord == 0) {
+            $data = 0;
+            return round($data, 2);
+        }
         $data = $totalCapaian / $totalRecord;
         if ($data > 100) {
             $data = 100;

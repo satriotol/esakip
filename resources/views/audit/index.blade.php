@@ -6,8 +6,8 @@
 @push('style')
     <style>
         /* html {
-                                                                        zoom: 100%;
-                                                                    } */
+                                                                                zoom: 100%;
+                                                                            } */
     </style>
 @endpush
 
@@ -37,8 +37,6 @@
                                     <th>Tanggal</th>
                                     <th>User</th>
                                     <th>Event</th>
-                                    <th>Tanggal</th>
-                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -46,17 +44,18 @@
                                     <tr>
                                         <td>{{ $audit->created_at }}</td>
                                         <td>{{ $audit->user->name }} <br>{{ $audit->auditable_type }}
-                                            <br>{{ $audit->event }}
-                                        </td>
-                                        <td>
-                                            {{ $audit->old_values }}
-                                        </td>
-                                        <td>
-                                            <div id="json">
-
-                                                <pre>{{ $audit->new_values }}</pre>
+                                            <br>
+                                            <div class="badge bg-success">
+                                                {{ $audit->event }}
                                             </div>
                                         </td>
+                                        <td>
+                                            {{-- <pre>{{ $audit->old_values }}</pre> --}}
+                                            <textarea name="" id="" rows="5" readonly class="form-control">{{ $audit->old_values }}</textarea>
+                                            <textarea name="" id="" rows="5" readonly class="form-control mt-2">{{ $audit->new_values }}</textarea>
+                                            {{-- <pre>{{ $audit->new_values }}</pre> --}}
+                                        </td>
+
                                     </tr>
                                 @endforeach
                             </tbody>
