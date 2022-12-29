@@ -20,7 +20,7 @@ class RencanaAksi extends Model
     const PENILAIAN1 = 'PROSES';
     const PENILAIAN2 = 'SELESAI';
     const PENILAIANS = [
-        self::PENILAIAN1, self::PENILAIAN2
+        self::PENILAIAN2
     ];
 
     const TRIWULAN1 = 'TRIWULAN 1';
@@ -46,6 +46,24 @@ class RencanaAksi extends Model
     public function rencana_aksi_targets()
     {
         return $this->hasMany(RencanaAksiTarget::class, 'rencana_aksi_id', 'id');
+    }
+    public function getStatus()
+    {
+        if ($this->status == null) {
+            return 'STATUS PENGAJUAN : ' . $this->status = self::STATUS1;
+        }
+        return 'STATUS PENGAJUAN : ' . $this->status;
+    }
+    public function getStatusPenilaian()
+    {
+        $name = 'STATUS PENILAIAN : ';
+        if ($this->status == self::STATUS2) {
+            if ($this->status_penilaian == null) {
+                return $name . $this->status_penilaian = self::PENILAIAN1;
+            }
+            return $name . $this->status_penilaian;
+        }
+        return $name . 'MENUNGGU PENGAJUAN RENCANA AKSI';
     }
     public static function getTotalCapaian($rencana_aksi_id)
     {

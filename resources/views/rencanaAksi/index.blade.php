@@ -51,13 +51,6 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-md-4">
-                            <h6 class="card-title">Indikator</h6>
-                            <div class="badge bg-warning">Belum Terisi</div>
-                            <div class="badge bg-info">Diajukan</div>
-                            <div class="badge bg-success">Disetujui</div>
-                            <div class="badge bg-danger">Ditolak</div>
-                        </div>
                     </div>
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
@@ -65,43 +58,50 @@
                                 <tr>
                                     <th>Year</th>
                                     <th>OPD</th>
-                                    <th>Type</th>
-                                    <th>Rencana Aksi | Penilaian</th>
+                                    <th>Triwulan</th>
+                                    <th>Perjanjian kinerja</th>
+                                    <th>Status Pengajuan<br>
+                                        Status Penilaian
+                                    </th>
+                                    <th>Capaian</th>
+                                    <th>Rencana Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($opdPerjanjianKinerjas as $opdPerjanjianKinerja)
+                                @foreach ($rencanaAksis as $rencanaAksi)
                                     <tr>
-                                        <td>{{ $opdPerjanjianKinerja->year }}</td>
-                                        <td>{{ $opdPerjanjianKinerja->opd->nama_opd }}</td>
-                                        <td><a href="{{ route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja->id) }}"
-                                                target="_blank">{{ $opdPerjanjianKinerja->type }}</a>
+                                        <td>{{ $rencanaAksi->opd_perjanjian_kinerja->year }}</td>
+                                        <td>{{ $rencanaAksi->opd_perjanjian_kinerja->opd->nama_opd }}</td>
+                                        <td>{{ $rencanaAksi->name }}</td>
+                                        <td>
+                                            <a href="{{ route('opdPerjanjianKinerja.show', $rencanaAksi->opd_perjanjian_kinerja_id) }}"
+                                                target="_blank">
+                                                {{ $rencanaAksi->opd_perjanjian_kinerja->type }}
+                                            </a>
                                         </td>
                                         <td>
-                                            @foreach ($opdPerjanjianKinerja->rencana_aksis as $rencana_aksi)
-                                                @if ($rencana_aksi->status == $statuses[0])
-                                                    <a href="{{ route('rencanaAksiTarget.create', $rencana_aksi->id) }}"
-                                                        class="badge bg-info">{{ $rencana_aksi->name }}</a>
-                                                @elseif($rencana_aksi->status == $statuses[1])
-                                                    <a href="{{ route('rencanaAksiTarget.create', $rencana_aksi->id) }}"
-                                                        class="badge bg-success">{{ $rencana_aksi->name }}</a>
-                                                @elseif($rencana_aksi->status == $statuses[2])
-                                                    <a href="{{ route('rencanaAksiTarget.create', $rencana_aksi->id) }}"
-                                                        class="badge bg-danger">{{ $rencana_aksi->name }}</a>
-                                                @else
-                                                    <a href="{{ route('rencanaAksiTarget.create', $rencana_aksi->id) }}"
-                                                        class="badge bg-warning">{{ $rencana_aksi->name }}</a>
-                                                @endif
-                                                <div class="badge bg-primary">{{ $rencana_aksi->status_penilaian }}</div>
-                                                <div class="badge bg-info">{{ $rencana_aksi->nilai }}</div>
-                                                <br>
-                                            @endforeach
+                                            <div class="badge bg-success">{{ $rencanaAksi->getStatus() }}</div><br>
+                                            <div class="badge bg-success">{{ $rencanaAksi->getStatusPenilaian() }}</div>
+                                        </td>
+                                        <td>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</td>
+                                        <td>
+                                            <a class="badge bg-primary"
+                                                href="{{ route('rencanaAksi.show', $rencanaAksi->id) }}">Detail</a>
+                                            <form action="{{ route('rencanaAksi.destroy', $rencanaAksi->id) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="badge bg-danger"
+                                                    onclick="return confirm('Are you sure?')">
+                                                    Delete
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $opdPerjanjianKinerjas->links() }}
+                        {{ $rencanaAksis->links() }}
                     </div>
                 </div>
             </div>

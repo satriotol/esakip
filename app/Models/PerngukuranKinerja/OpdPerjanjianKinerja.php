@@ -82,7 +82,7 @@ class OpdPerjanjianKinerja extends Model implements Auditable
     public static function getPerjanjianKinerjas()
     {
         if (Auth::user()->opd_id) {
-            return OpdPerjanjianKinerja::where('opd_id', Auth::user()->opd_id)->get();
+            return OpdPerjanjianKinerja::where('opd_id', Auth::user()->opd_id)->where('status', self::STATUS2)->get();
         } else {
             return OpdPerjanjianKinerja::all();
         }

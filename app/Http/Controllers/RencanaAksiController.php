@@ -29,19 +29,18 @@ class RencanaAksiController extends Controller
     }
     public function index(Request $request)
     {
-
-        $opdPerjanjianKinerjas = OpdPerjanjianKinerja::getRencanaAksi($request)->paginate();
+        $rencanaAksis = RencanaAksi::paginate();
         $statuses = RencanaAksi::STATUSES;
         $opds = Opd::getOpd();
         $request->flash();
-        return view('rencanaAksi.index', compact('opdPerjanjianKinerjas', 'statuses', 'opds'));
+        return view('rencanaAksi.index', compact('rencanaAksis', 'statuses', 'opds'));
     }
 
-    public function updateStatus($rencanaAksi, Request $request)
+    public function updateStatus(RencanaAksi $rencanaAksi, Request $request)
     {
-        $rencanaAksi = RencanaAksi::where('id', $rencanaAksi)->first();
         $data = $request->validate([
             'status' => 'required',
+            'status_penilaian' => 'nullable',
             'note' => 'nullable',
         ]);
         $rencanaAksi->update($data);
@@ -106,12 +105,12 @@ class RencanaAksiController extends Controller
      * @param  \App\Models\RencanaAksi  $rencanaAksi
      * @return \Illuminate\Http\Response
      */
-    public function show($opdPerjanjianKinerja)
+    public function show(RencanaAksi $rencanaAksi)
     {
-        $opdPerjanjianKinerja = OpdPerjanjianKinerja::find($opdPerjanjianKinerja);
-        $statuses = RencanaAksiTarget::STATUSES;
-        $realisasis = RencanaAksiTarget::REALISASIS;
-        return view('rencanaAksi.show', compact('opdPerjanjianKinerja', 'statuses', 'realisasis'));
+        $types = RencanaAksiTarget::TYPES;
+        $statuses = RencanaAksi::STATUSES;
+        $penilaians = RencanaAksi::PENILAIANS;
+        return view('rencanaAksi.show', compact('rencanaAksi', 'types', 'statuses', 'penilaians'));
     }
 
 
@@ -146,6 +145,8 @@ class RencanaAksiController extends Controller
      */
     public function destroy(RencanaAksi $rencanaAksi)
     {
-        //
+        $rencanaAksi->delete();
+        session()->flash('success');
+        return back();
     }
 }
