@@ -59,8 +59,8 @@
                     </div>
                     <div class="mb-3">
                         <label for="file" class="form-label">File</label>
-                        <input type="file" id="file" required name="file"
-                            @empty($opdPerjanjianKinerja) @endempty />
+                        <input type="file" id="file" name="file"
+                            @empty($opdPerjanjianKinerja) required @endempty />
                         @isset($opdPerjanjianKinerja)
                             <object data="{{ asset('uploads/' . $opdPerjanjianKinerja->file) }}" class="w-100 mt-5"
                                 style="height: 550px" type="application/pdf">
