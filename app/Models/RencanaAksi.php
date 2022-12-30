@@ -82,4 +82,33 @@ class RencanaAksi extends Model
         }
         return round($data, 2);
     }
+    public function getTotalCapaianPredikat($rencana_aksi_id)
+    {
+        if ($this->getTotalCapaian($rencana_aksi_id) >= 90) {
+            return [
+                'name' => 'ISTIMEWA',
+                'color' => 'success'
+            ];
+        } elseif ($this->getTotalCapaian($rencana_aksi_id) >= 80) {
+            return [
+                'name' => 'BAIK',
+                'color' => 'primary'
+            ];
+        } elseif ($this->getTotalCapaian($rencana_aksi_id) >= 70) {
+            return [
+                'name' => 'BUTUH PERBAIKAN',
+                'color' => 'info'
+            ];
+        } elseif ($this->getTotalCapaian($rencana_aksi_id) >= 60) {
+            return [
+                'name' => 'KURANG',
+                'color' => 'warning'
+            ];
+        } else {
+            return [
+                'name' => 'SANGAT KURANG',
+                'color' => 'danger'
+            ];
+        }
+    }
 }
