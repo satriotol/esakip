@@ -35,6 +35,10 @@ class OpdPerjanjianKinerjaSasaranController extends Controller
      */
     public function create(OpdPerjanjianKinerja $opdPerjanjianKinerja)
     {
+        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.sasaran.create', compact('opdPerjanjianKinerja'));
+    }
+    public function createData(OpdPerjanjianKinerja $opdPerjanjianKinerja)
+    {
         $query = DB::connection('mysql2')->select("SELECT * FROM sasaran_ranakhir_renstra WHERE id_skpd=" . $opdPerjanjianKinerja->opd->data_unit->id_skpd . ";");
         foreach ($query as $q) {
             OpdPerjanjianKinerjaSasaran::updateOrCreate(

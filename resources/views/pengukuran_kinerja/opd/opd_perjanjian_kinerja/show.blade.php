@@ -17,6 +17,8 @@
         </a>
     </nav>
 
+    <marquee scrolldelay="1">Apabila Sasaran Dan Indikator Tidak Sesuai Dengan Tarikan Data, Bisa Melakukan Inputan Manual
+    </marquee>
     <div class="row">
         <div class="col-xl-12 main-content ps-xl-4 pe-xl-5">
             <ul class="nav nav-tabs" id="myTab app" role="tablist">
@@ -261,7 +263,7 @@
                             });
                             axios.get(
                                     '{{ route('opdPerjanjianKinerjaIndikator.create', [$opdPerjanjianKinerja]) }}'
-                                    )
+                                )
                                 .then((res) => {
                                     console.log(res);
                                     Swal.fire({

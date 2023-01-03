@@ -1,6 +1,6 @@
 <div class="text-end">
-    <a href="{{ route('opdPerjanjianKinerjaIndikator.createView', [$opdPerjanjianKinerja]) }}"
-        class="btn btn-sm btn-info">Tambah Indikator Manual</a>
+    <a href="{{ route('opdPerjanjianKinerjaIndikator.createView', [$opdPerjanjianKinerja]) }}" class="btn btn-sm btn-info"
+        style="margin-right: 1rem">Tambah Indikator Manual</a>
     <button type="submit" class="btn btn-sm btn-success ml-2" @click="opdPerjanjianKinerjaIndikator">Tarik
         Indikator</button>
 </div>
