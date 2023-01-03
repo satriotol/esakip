@@ -20,7 +20,10 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
      */
     public function __construct()
     {
-        // Fetch the Site Settings object
+        $this->middleware('permission:opdPerjanjianKinerjaIndikator-list|opdPerjanjianKinerjaIndikator-create|opdPerjanjianKinerjaIndikator-edit|opdPerjanjianKinerjaIndikator-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:opdPerjanjianKinerjaIndikator-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opdPerjanjianKinerjaIndikator-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opdPerjanjianKinerjaIndikator-delete', ['only' => ['destroy']]);
         $name = "Perjanjian Kinerja OPD Indikator";
         view()->share('name', $name);
     }
