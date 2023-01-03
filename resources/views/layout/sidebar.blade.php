@@ -221,6 +221,8 @@
                         <span class="link-title">Perjanjian Kinerja</span>
                     </a>
                 </li>
+            @endcan
+            @can('rencanaAksi-list')
                 <li
                     class="nav-item {{ active_class(['rencanaAksi.*', 'rencanaAksiSasaran.*', 'rencanaAksiIndikator.*', 'rencanaAksiTarget.*']) }}">
                     <a href="{{ route('rencanaAksi.index') }}" class="nav-link">
