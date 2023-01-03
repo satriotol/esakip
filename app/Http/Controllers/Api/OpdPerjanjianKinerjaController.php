@@ -12,8 +12,10 @@ class OpdPerjanjianKinerjaController extends Controller
 {
     public function index(Request $request)
     {
-        $id = $request->input('id');
-        $nama_opd = $request->input('nama_opd');
+        $id = $request->id;
+        $nama_opd = $request->nama_opd;
+        $type = $request->type;
+        $year = $request->year;
         $limit = $request->input('limit');
 
         if ($id) {
@@ -31,10 +33,16 @@ class OpdPerjanjianKinerjaController extends Controller
                 $q->where('nama_opd', 'like', '%' . $nama_opd . '%');
             });
         }
-        if ($perjanjian_kinerja == null) {
-            return $this->failedResponse([], 'Oops, ada yang salah, Pastikan Nama OPD Yang Anda Masukkan Benar');
+        if ($type) {
+            $perjanjian_kinerja->where('type', $type);
         }
-        return $this->successResponse(['perjanjian_kinerja' => OpdPerjanjianKinerjaResource::collection($perjanjian_kinerja->paginate($limit))]);
+        if ($year) {
+            $perjanjian_kinerja->where('year', $year);
+        }
+        if ($perjanjian_kinerja->first() == null) {
+            return $this->failedResponse([], 'Oops, ada yang salah, Pastikan Nama OPD, Tipe, & Tahun Yang Anda Masukkan Benar');
+        }
+        return $this->successResponse(['perjanjian_kinerja' => new OpdPerjanjianKinerjaResource($perjanjian_kinerja->first())]);
     }
     public function getProgramAnggaran(Request $request)
     {
