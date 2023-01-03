@@ -19,6 +19,10 @@ class OpdPerjanjianKinerjaSasaranController extends Controller
      */
     public function __construct()
     {
+        $this->middleware('permission:opdPerjanjianKinerjaSasaran-list|opdPerjanjianKinerjaSasaran-create|opdPerjanjianKinerjaSasaran-edit|opdPerjanjianKinerjaSasaran-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:opdPerjanjianKinerjaSasaran-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:opdPerjanjianKinerjaSasaran-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:opdPerjanjianKinerjaSasaran-delete', ['only' => ['destroy']]);
         // Fetch the Site Settings object
         $name = "Sasaran Perjanjian Kinerja OPD";
         view()->share('name', $name);
