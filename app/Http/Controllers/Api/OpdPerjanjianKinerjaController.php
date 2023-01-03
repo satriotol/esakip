@@ -41,7 +41,7 @@ class OpdPerjanjianKinerjaController extends Controller
             $perjanjian_kinerja->where('year', $year);
         }
         if ($perjanjian_kinerja->first() == null) {
-            return $this->failedResponse([], 'Oops, ada yang salah, Pastikan Nama OPD, Tipe, & Tahun Yang Anda Masukkan Benar');
+            return $this->failedResponse([], 'Oops, ada yang salah, Pastikan Kode OPD, Tipe, & Tahun Yang Anda Masukkan Benar');
         }
         return $this->successResponse(['perjanjian_kinerja' => new OpdPerjanjianKinerjaResource($perjanjian_kinerja->first())]);
     }
