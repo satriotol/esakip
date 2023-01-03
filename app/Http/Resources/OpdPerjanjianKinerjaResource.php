@@ -17,7 +17,7 @@ class OpdPerjanjianKinerjaResource extends JsonResource
         return [
             'id' => $this->id,
             'year' => $this->year,
-            'opd_id' => $this->opd_id,
+            'kode_opd' => $this->opd->kode_opd,
             'opd_name' => $this->opd->nama_opd,
             'type' => $this->type,
             'file_url' => $this->file_url,
