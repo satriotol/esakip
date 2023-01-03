@@ -20,10 +20,10 @@ class RencanaAksiController extends Controller
     public function __construct()
     {
         // Fetch the Site Settings object
-        $this->middleware('permission:opdPerjanjianKinerja-list|opdPerjanjianKinerja-create|opdPerjanjianKinerja-edit|opdPerjanjianKinerja-delete', ['only' => ['index', 'show']]);
-        $this->middleware('permission:opdPerjanjianKinerja-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:opdPerjanjianKinerja-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:opdPerjanjianKinerja-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:rencanaAksi-list|rencanaAksi-create|rencanaAksi-edit|rencanaAksi-delete', ['only' => ['index', 'show']]);
+        $this->middleware('permission:rencanaAksi-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:rencanaAksi-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:rencanaAksi-delete', ['only' => ['destroy']]);
         $name = "Rencana Aksi";
         view()->share('name', $name);
     }
