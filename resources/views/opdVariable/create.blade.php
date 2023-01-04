@@ -70,6 +70,13 @@
                             <option value="1" @selected(isset($opdVariable) ? 1 == $opdVariable->is_iku : @old('is_iku'))>Ya</option>
                         </select>
                     </div>
+                    <div class="mb-3">
+                        <label for="">IKU TRIWULAN</label>
+                        <select name="is_iku_triwulan" class="form-control" id="">
+                            <option value="">Pilih Tipe</option>
+                            <option value="1" @selected(isset($opdVariable) ? 1 == $opdVariable->is_iku_triwulan : @old('is_iku_triwulan'))>Ya</option>
+                        </select>
+                    </div>
                     <div class="text-end">
                         <a href="{{ url()->previous() }}" class="btn btn-warning">Kembali</a>
                         <input class="btn btn-primary" type="submit" value="Submit">

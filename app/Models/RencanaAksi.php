@@ -5,10 +5,13 @@ namespace App\Models;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class RencanaAksi extends Model
+class RencanaAksi extends Model implements Auditable
 {
     use HasFactory;
+    use AuditableTrait;
 
     protected $fillable = ['name', 'opd_perjanjian_kinerja_id', 'slug', 'status', 'note', 'status_penilaian', 'nilai'];
     const STATUS1 = 'DIAJUKAN';
