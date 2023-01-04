@@ -107,9 +107,9 @@
                                         <td>
                                             <a href="{{ route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja->id) }}"
                                                 class="badge bg-primary ml-1">Detail</a>
-                                            <a href="{{ route('opdPerjanjianKinerja.edit', $opdPerjanjianKinerja->id) }}"
-                                                class="badge bg-warning ml-1">Edit</a>
                                             @if ($opdPerjanjianKinerja->status != 'DITERIMA')
+                                                <a href="{{ route('opdPerjanjianKinerja.edit', $opdPerjanjianKinerja->id) }}"
+                                                    class="badge bg-warning ml-1">Edit</a>
                                                 <form
                                                     action="{{ route('opdPerjanjianKinerja.destroy', $opdPerjanjianKinerja->id) }}"
                                                     method="POST" class="d-inline">
