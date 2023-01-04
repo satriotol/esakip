@@ -31,6 +31,16 @@
                             value="{{ isset($opdPenilaian) ? $opdPenilaian->year : @old('year') }}">
                     </div>
                     <div class="mb-3">
+                        <label for="name" class="form-label">Triwulan</label>
+                        <select name="name" id="" class="form-control">
+                            <option value="">Pilih Triwulan</option>
+                            @foreach ($triwulans as $triwulan)
+                                <option value="{{ $triwulan }}">{{ $triwulan }}</option>
+                            @endforeach
+                        </select>
+                        <small class="text-danger">Kosongkan jika penilaian tahunan</small>
+                    </div>
+                    <div class="mb-3">
                         <label for="name" class="form-label">OPD</label>
                         <select class="js-example-basic-single form-select" data-width="100%" name="opd_id" required>
                             <option value="">Pilih OPD</option>

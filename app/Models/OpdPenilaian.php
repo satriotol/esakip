@@ -37,6 +37,13 @@ class OpdPenilaian extends Model
         self::STATUS3,
     ];
 
+    const TRIWULANS = [
+        'TRIWULAN 1',
+        'TRIWULAN 2',
+        'TRIWULAN 3',
+        'TRIWULAN 4',
+    ];
+
     public function opd()
     {
         return $this->belongsTo(Opd::class, 'opd_id', 'id');

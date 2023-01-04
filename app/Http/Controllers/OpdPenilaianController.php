@@ -52,7 +52,8 @@ class OpdPenilaianController extends Controller
         $opdCategories = OpdCategory::all();
         $opdPerjanjianKinerjas = OpdPerjanjianKinerja::getPerjanjianKinerjas();
         $inovasiPrestasiOpds = InovasiPrestasiOpd::getByOpdStatus();
-        return view('opdPenilaian.create', compact('opds', 'opdCategories', 'opdPerjanjianKinerjas', 'inovasiPrestasiOpds'));
+        $triwulans = OpdPenilaian::TRIWULANS;
+        return view('opdPenilaian.create', compact('opds', 'opdCategories', 'opdPerjanjianKinerjas', 'inovasiPrestasiOpds', 'triwulans'));
     }
 
     /**
@@ -65,6 +66,7 @@ class OpdPenilaianController extends Controller
     {
         $data = $request->validate([
             'opd_id' => 'required',
+            'name' => 'nullable',
             'opd_category_id' => 'required',
             'year' => 'required',
             'inovasi_prestasi_daerah' => 'nullable',
@@ -72,24 +74,10 @@ class OpdPenilaianController extends Controller
             'inovasi_prestasi_opd_id' => 'nullable',
         ]);
         $data['status'] = OpdPenilaian::STATUS1;
-        if (OpdPenilaian::ifTahunan($request->opd_category_id)) {
-            if ($request->inovasi_prestasi_opd_id) {
-                $data['inovasi_prestasi_daerah'] = InovasiPrestasiOpd::where('id', $request->inovasi_prestasi_opd_id)->first()->inovasi_prestasi_tingkat->value;
-            }
-            OpdPenilaian::create($data);
-        } else {
-            $triwulans = ['TRIWULAN 1', 'TRIWULAN 2', 'TRIWULAN 3', 'TRIWULAN 4'];
-            foreach ($triwulans as $triwulan) {
-                OpdPenilaian::create([
-                    'name' => $triwulan,
-                    'opd_id' => $data['opd_id'],
-                    'opd_category_id' => $data['opd_category_id'],
-                    'year' => $data['year'],
-                    'status' => $data['status'],
-                    'opd_perjanjian_kinerja_id' => $data['opd_perjanjian_kinerja_id'],
-                ]);
-            }
+        if ($request->inovasi_prestasi_opd_id) {
+            $data['inovasi_prestasi_daerah'] = InovasiPrestasiOpd::where('id', $request->inovasi_prestasi_opd_id)->first()->inovasi_prestasi_tingkat->value;
         }
+        OpdPenilaian::create($data);
         session()->flash('success');
         return redirect(route('opdPenilaian.index'));
     }
