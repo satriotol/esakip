@@ -9,8 +9,11 @@
     </div>
 </div>
 <div class="text-end">
-    <button type="submit" class="btn btn-sm btn-success ml-1" @click="opdPerjanjianKinerjaProgramAnggaran">Tarik Program
-        Anggaran</button>
+    @if ($opdPerjanjianKinerja->status != 'DITERIMA')
+        <button type="submit" class="btn btn-sm btn-success ml-1" @click="opdPerjanjianKinerjaProgramAnggaran">Tarik
+            Program
+            Anggaran</button>
+    @endif
 </div>
 <div class="table-responsive mt-2">
     <table id="dataTableExample" class="table dataTableExample">

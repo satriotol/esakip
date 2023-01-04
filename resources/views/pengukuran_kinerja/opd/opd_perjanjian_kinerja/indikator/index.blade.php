@@ -1,8 +1,10 @@
 <div class="text-end">
-    <a href="{{ route('opdPerjanjianKinerjaIndikator.createView', [$opdPerjanjianKinerja]) }}" class="btn btn-sm btn-info"
-        style="margin-right: 1rem">Tambah Indikator Manual</a>
-    <button type="submit" class="btn btn-sm btn-success ml-2" @click="opdPerjanjianKinerjaIndikator">Tarik
-        Indikator</button>
+    @if ($opdPerjanjianKinerja->status != 'DITERIMA')
+        <a href="{{ route('opdPerjanjianKinerjaIndikator.createView', [$opdPerjanjianKinerja]) }}"
+            class="btn btn-sm btn-info" style="margin-right: 1rem">Tambah Indikator Manual</a>
+        <button type="submit" class="btn btn-sm btn-success ml-2" @click="opdPerjanjianKinerjaIndikator">Tarik
+            Indikator</button>
+    @endif
 </div>
 <div class="table-responsive mt-2">
     <table id="dataTableExample" class="table dataTableExample">
@@ -22,16 +24,18 @@
                     <td>{{ $opd_perjanjian_kinerja_indikator->target }} {{ $opd_perjanjian_kinerja_indikator->satuan }}
                     </td>
                     <td>
-                        <form
-                            action="{{ route('opdPerjanjianKinerjaIndikator.destroy', $opd_perjanjian_kinerja_indikator->id) }}"
-                            method="POST" class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="badge rounded-pill bg-danger" style="border: 0"
-                                onclick="return confirm('Are you sure?')">
-                                Delete
-                            </button>
-                        </form>
+                        @if ($opdPerjanjianKinerja->status != 'DITERIMA')
+                            <form
+                                action="{{ route('opdPerjanjianKinerjaIndikator.destroy', $opd_perjanjian_kinerja_indikator->id) }}"
+                                method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="badge rounded-pill bg-danger" style="border: 0"
+                                    onclick="return confirm('Are you sure?')">
+                                    Delete
+                                </button>
+                            </form>
+                        @endif
                     </td>
                 </tr>
             @endforeach
