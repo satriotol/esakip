@@ -107,10 +107,10 @@
                         <input type="hidden" value="100" name="target" id="">
                         <div class="mb-3">
                             <label>Rencana Aksi</label>
-                            <select name="realisasi" id="" required class="form-control">
+                            <select name="rencana_aksi_id" id="" required class="form-control">
                                 <option value="">Pilih Rencana Aksi</option>
                                 @foreach ($opdPenilaian->opd_perjanjian_kinerja->rencana_aksis as $rencana_aksi)
-                                    <option value="{{ $rencana_aksi->getTotalCapaian($rencana_aksi->id) }}">
+                                    <option value="{{ $rencana_aksi->id }}">
                                         {{ $rencana_aksi->name }} | Total Capaian
                                         : {{ $rencana_aksi->getTotalCapaian($rencana_aksi->id) }}</option>
                                 @endforeach

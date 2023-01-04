@@ -9,7 +9,7 @@ class OpdPenilaianKinerja extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['opd_penilaian_id', 'opd_category_variable_id', 'target', 'realisasi', 'capaian', 'nilai_akhir', 'status', 'user_id'];
+    protected $fillable = ['opd_penilaian_id', 'opd_category_variable_id', 'target', 'realisasi', 'capaian', 'nilai_akhir', 'status', 'user_id', 'rencana_aksi_id'];
 
 
     public function opd_penilaian()

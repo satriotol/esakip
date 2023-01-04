@@ -9,6 +9,7 @@ use App\Models\OpdCategory;
 use App\Models\OpdCategoryVariable;
 use App\Models\OpdPenilaian;
 use App\Models\OpdPenilaianKinerja;
+use App\Models\RencanaAksi;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,7 +39,8 @@ class OpdPenilaianKinerjaController extends Controller
     }
     public function getRealisasiTargetPendapatan(Request $request, $name, $opd_penilaian_id, $opd_category_variable_id)
     {
-        $request->name = $name;
+        $name = $request->name;
+        // $request->name = $name;
         $data2 = null;
         $data = null;
         $url = 'http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad';
@@ -131,13 +133,19 @@ class OpdPenilaianKinerjaController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $data = $request->validate([
             'target' => 'required|numeric',
-            'realisasi' => 'required|numeric',
+            'realisasi' => 'nullable|numeric',
+            'rencana_aksi_id' => 'nullable',
         ]);
+        if ($data['rencana_aksi_id']) {
+            $data['realisasi'] = RencanaAksi::getTotalCapaian($data['rencana_aksi_id']);
+        } else {
+            $data['realisasi'] = $request->realisasi;
+        }
         $opdCategoryVariable = OpdCategoryVariable::where('id', $request->opd_category_variable_id)->first();
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
-        $capaian = $request->realisasi / $request->target * 100;
+        $capaian = $data['realisasi'] / $request->target * 100;
         if ($capaian > 100) {
             $capaian = 100;
         }
@@ -153,8 +161,9 @@ class OpdPenilaianKinerjaController extends Controller
                     'opd_category_variable_id' => $request->opd_category_variable_id,
                 ],
                 [
-                    'target' => $request->target,
-                    'realisasi' => $request->realisasi,
+                    'rencana_aksi_id' => $data['rencana_aksi_id'],
+                    'target' => $data['target'],
+                    'realisasi' => $data['realisasi'],
                     'capaian' => round($capaian, 2),
                     'nilai_akhir' => round($capaian * $bobot, 2),
                     'user_id' => Auth::user()->id

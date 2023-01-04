@@ -5,8 +5,8 @@
 @push('style')
     <style>
         /* html {
-                                                            zoom: 100%;
-                                                        } */
+                                                                                            zoom: 100%;
+                                                                                        } */
     </style>
 @endpush
 @section('content')
@@ -162,7 +162,15 @@
                                                 @include('opdPenilaian.modal')
                                             @endif
                                             <br>
-                                            <small>{{ $opdPenilaian->getDate($opd_category_variable->id) }}</small>
+                                            <small>
+                                                {{ $opdPenilaian->getDate($opd_category_variable->id) }} <br>
+                                                @if ($opdPenilaian->getRencanaAksi($opd_category_variable->id)->rencana_aksi_id)
+                                                    <a target="_blank"
+                                                        href="{{ route('rencanaAksi.show', $opdPenilaian->getRencanaAksi($opd_category_variable->id)->rencana_aksi_id) }}">
+                                                        Detail Rencana Aksi
+                                                    </a>
+                                                @endif
+                                            </small>
                                         </td>
                                         <td>
                                             {{ $opd_category_variable->opd_variable->bobot }}%

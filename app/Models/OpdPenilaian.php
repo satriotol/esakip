@@ -165,6 +165,11 @@ class OpdPenilaian extends Model
         $d = $data->updated_at ?? $data->created_at ?? "";
         return $d;
     }
+    public function getRencanaAksi($opd_category_variable_id)
+    {
+        $data = $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last();
+        return $data;
+    }
     public function totalNilaiAkhir()
     {
         return $this->opd_penilaian_kinerjas->sum('nilai_akhir');
