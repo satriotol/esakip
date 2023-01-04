@@ -63,7 +63,7 @@
                                         <td>:</td>
                                         <td>{{ $opdPerjanjianKinerja->opd_name }}
                                             ({{ $opdPerjanjianKinerja->id }} |
-                                            {{ $opdPerjanjianKinerja->opd->data_unit->id_skpd }} )</td>
+                                            {{ $opdPerjanjianKinerja->opd->data_unit->id_skpd ?? '-' }} )</td>
                                     </tr>
                                     <tr>
                                         <td>Tipe</td>
