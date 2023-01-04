@@ -57,7 +57,6 @@ class OpdPerjanjianKinerja extends Model implements Auditable
     {
         return $this->hasMany(OpdPerjanjianKinerjaProgramAnggaran::class, 'opd_perjanjian_kinerja_id', 'id');
     }
-
     public function deleteFile()
     {
         Storage::disk('public_uploads')->delete($this->attributes['file']);

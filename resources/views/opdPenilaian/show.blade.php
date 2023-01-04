@@ -5,8 +5,8 @@
 @push('style')
     <style>
         /* html {
-                        zoom: 100%;
-                    } */
+                                                            zoom: 100%;
+                                                        } */
     </style>
 @endpush
 @section('content')
@@ -119,29 +119,37 @@
                                             @if ($opd_category_variable->opd_variable->pic == 'BAPENDA' && $checkStatus != 1)
                                                 <a class="badge bg-primary tarik-data"
                                                     href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->opd->nama_opd, $opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
-                                                    DATA</a>
+                                                    DATA BAPENDA</a>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storeSipd', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->opd_perjanjian_kinerja->type, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
                                                     class="badge bg-primary tarik-data">
-                                                    {{ $opd_category_variable->opd_variable->pic }}
+                                                    TARIK DATA DARI SIPD
                                                 </a>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'P3DN' && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storep3dn', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
                                                     class="badge bg-primary tarik-data">
-                                                    {{ $opd_category_variable->opd_variable->pic }}
+                                                    TARIK DATA P3DN
                                                 </a>
                                             @else
                                                 @if ($opd_category_variable->opd_variable->pic == 'OPD' && Auth::user()->opd_id && $checkStatus != 1)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
-                                                        {{ $opd_category_variable->opd_variable->pic }}
+                                                        INPUT OPD
                                                     </a>
                                                 @elseif($opd_category_variable->opd_variable->pic == 'INSPEKTORAT' &&
                                                     Auth::user()->hasRole('INSPEKTORAT') &&
                                                     $checkStatus != 1)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
-                                                        {{ $opd_category_variable->opd_variable->pic }}
+                                                        PENILAIAN INSPEKTORAT
+                                                    </a>
+                                                @elseif(Auth::user()->hasRole('SUPERADMIN') &&
+                                                    $opd_category_variable->opd_variable->pic != 'SIPD' &&
+                                                    $checkStatus != 1 &&
+                                                    $opd_category_variable->opd_variable->is_iku_triwulan)
+                                                    <a type="button" class="badge bg-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
+                                                        RENCANA AKSI TRIWULAN
                                                     </a>
                                                 @elseif(Auth::user()->hasRole('SUPERADMIN') &&
                                                     $opd_category_variable->opd_variable->pic != 'SIPD' &&

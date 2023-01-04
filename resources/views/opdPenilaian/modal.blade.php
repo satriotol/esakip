@@ -69,7 +69,8 @@
                             <button class="btn btn-success">Simpan</button>
                         </div>
                     </form>
-                @elseif ($opd_category_variable->opd_variable->pic != 'SIPD')
+                @elseif ($opd_category_variable->opd_variable->pic != 'SIPD' &&
+                    $opd_category_variable->opd_variable->is_iku_triwulan != 1)
                     <form action="{{ route('opdPenilaianKinerja.store') }}" method="post">
                         @csrf
                         <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">
@@ -92,6 +93,29 @@
                         <small>
                             Tidak Perlu Menggunakan % <br>
                         </small>
+                        <div class="text-end">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                @elseif ($opd_category_variable->opd_variable->is_iku_triwulan)
+                    <form action="{{ route('opdPenilaianKinerja.store') }}" method="post">
+                        @csrf
+                        <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">
+                        <input type="hidden" value="{{ $opd_category_variable->id }}" name="opd_category_variable_id"
+                            id="">
+                        <input type="hidden" value="100" name="target" id="">
+                        <div class="mb-3">
+                            <label>Rencana Aksi</label>
+                            <select name="realisasi" id="" required class="form-control">
+                                <option value="">Pilih Rencana Aksi</option>
+                                @foreach ($opdPenilaian->opd_perjanjian_kinerja->rencana_aksis as $rencana_aksi)
+                                    <option value="{{ $rencana_aksi->getTotalCapaian($rencana_aksi->id) }}">
+                                        {{ $rencana_aksi->name }} | Total Capaian
+                                        : {{ $rencana_aksi->getTotalCapaian($rencana_aksi->id) }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="text-end">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="submit" class="btn btn-primary">Simpan</button>
