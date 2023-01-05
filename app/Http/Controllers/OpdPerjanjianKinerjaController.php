@@ -131,7 +131,6 @@ class OpdPerjanjianKinerjaController extends Controller
         $data = $request->all();
         if ($request->file) {
             $data['file'] = $request->file;
-            $opdPerjanjianKinerja->deleteFile();
         };
         $opdPerjanjianKinerja->update($data);
         session()->flash('success');
