@@ -79,7 +79,7 @@
         <tr>
             <td>Inovasi Prestasi OPD</td>
             <td>:</td>
-            <td>{{ $opdPenilaian->inovasi_prestasi_opd->name }}</td>
+            <td>{{ $opdPenilaian->inovasi_prestasi_opd->name ?? '-' }}</td>
         </tr>
     </table>
 
