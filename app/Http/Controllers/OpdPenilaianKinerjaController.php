@@ -135,10 +135,10 @@ class OpdPenilaianKinerjaController extends Controller
     {
         $data = $request->validate([
             'target' => 'required|numeric',
-            'realisasi' => 'nullable|numeric',
+            'realisasi' => 'required|numeric',
             'rencana_aksi_id' => 'nullable',
         ]);
-        if ($data['rencana_aksi_id']) {
+        if ($request->rencana_aksi_id != null) {
             $data['realisasi'] = RencanaAksi::getTotalCapaian($data['rencana_aksi_id']);
         } else {
             $data['realisasi'] = $request->realisasi;
@@ -161,7 +161,7 @@ class OpdPenilaianKinerjaController extends Controller
                     'opd_category_variable_id' => $request->opd_category_variable_id,
                 ],
                 [
-                    'rencana_aksi_id' => $data['rencana_aksi_id'],
+                    'rencana_aksi_id' => $data['rencana_aksi_id'] ?? null,
                     'target' => $data['target'],
                     'realisasi' => $data['realisasi'],
                     'capaian' => round($capaian, 2),
