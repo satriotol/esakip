@@ -6,8 +6,8 @@
 @push('style')
     <style>
         /* html {
-                                                                                zoom: 100%;
-                                                                            } */
+                                                                                                    zoom: 100%;
+                                                                                                } */
     </style>
 @endpush
 
@@ -44,6 +44,12 @@
                                     <tr>
                                         <td>{{ $audit->created_at }}</td>
                                         <td>{{ $audit->user->name }} <br>{{ $audit->auditable_type }}
+                                            <br>
+                                            <div class="badge bg-danger">
+                                                {{ $audit->ip_address }}
+                                            </div>
+                                            <br>
+                                            <a href="{{ $audit->url }}" target="_blank">{{ $audit->url }}</a>
                                             <br>
                                             <div class="badge bg-success">
                                                 {{ $audit->event }}

@@ -31,21 +31,24 @@
                 @can('opdPerjanjianKinerjaSasaran-list')
                     <li class="nav-item">
                         <a class="nav-link" id="sasaran-tab" data-bs-toggle="tab" data-bs-target="#sasaran" role="tab"
-                            aria-controls="sasaran" aria-selected="false">Sasaran</a>
+                            aria-controls="sasaran" aria-selected="false">1. Sasaran</a>
                     </li>
                 @endcan
-                @can('opdPerjanjianKinerjaIndikator-list')
-                    <li class="nav-item">
-                        <a class="nav-link" id="indikator-tab"data-bs-toggle="tab" data-bs-target="#indikator" role="tab"
-                            aria-controls="indikator" aria-selected="false">Indikator</a>
-                    </li>
-                @endcan
-                @can('opdPerjanjianKinerjaProgramAnggaran-list')
-                    <li class="nav-item">
-                        <a class="nav-link" id="program_anggaran-tab" data-bs-toggle="tab" data-bs-target="#program_anggaran"
-                            role="tab" aria-controls="program_anggaran" aria-selected="false">Program Anggaran</a>
-                    </li>
-                @endcan
+                @if ($opdPerjanjianKinerja->opd_perjanjian_kinerja_sasarans->count() > 0)
+                    @can('opdPerjanjianKinerjaIndikator-list')
+                        <li class="nav-item">
+                            <a class="nav-link" id="indikator-tab"data-bs-toggle="tab" data-bs-target="#indikator"
+                                role="tab" aria-controls="indikator" aria-selected="false">2. Indikator</a>
+                        </li>
+                    @endcan
+                    @can('opdPerjanjianKinerjaProgramAnggaran-list')
+                        <li class="nav-item">
+                            <a class="nav-link" id="program_anggaran-tab" data-bs-toggle="tab"
+                                data-bs-target="#program_anggaran" role="tab" aria-controls="program_anggaran"
+                                aria-selected="false">3. Program Anggaran</a>
+                        </li>
+                    @endcan
+                @endif
             </ul>
             <div class="tab-content border border-top-0 p-3" id="myTabContent" style="background-color: white">
                 <div class="tab-pane fade show active" id="detail" role="tabpanel" aria-labelledby="detail-tab">
@@ -100,6 +103,8 @@
                                     <textarea name="note" class="form-control" id="" cols="30" rows="10"
                                         {{ Auth::user()->opd_id ? 'disabled' : '' }}>{{ $opdPerjanjianKinerja->note }}</textarea>
                                 </div>
+                                <small class="text-danger">Pastikan Sasaran, Indikator dan Program Anggaran Sudah
+                                    Terisi</small>
                                 @if (!Auth::user()->opd_id)
                                     <div class="text-end">
                                         <button class="btn btn-sm btn-success" type="submit">Update</button>
