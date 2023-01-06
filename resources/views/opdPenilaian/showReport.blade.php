@@ -5,8 +5,8 @@
 @push('style')
     <style>
         /* html {
-                                                    zoom: 100%;
-                                                } */
+                                                                zoom: 100%;
+                                                            } */
     </style>
 @endpush
 @section('content')
@@ -63,11 +63,6 @@
                                     <td>Nilai Akhir</td>
                                     <td>:</td>
                                     <td>{{ $opdPenilaian->totalNilaiAkhir() }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Inovasi Prestasi Daerah</td>
-                                    <td>:</td>
-                                    <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
                                 </tr>
                                 <div class="text-end">
                                     <small>Total Nilai Akhir</small>
@@ -156,11 +151,11 @@
                                                 {{ $opdPenilaian->nilai_akhir($opd_category_variable->id) }}
                                             </td>
                                             <td>
-                                                <textarea @disabled(Auth::user()->opd_id) placeholder="Masukan Catatan..." name="data[{{ $loop->index }}][catatan]"
+                                                <textarea @disabled(Auth::user()->opd_id || $opdPenilaian->status == 'SELESAI') placeholder="Masukan Catatan..." name="data[{{ $loop->index }}][catatan]"
                                                     class="form-control" id="" cols="30" rows="5">{{ $opdPenilaian->getOpdPenilaianReportValue($opd_category_variable->id)->catatan ?? '' }}</textarea>
                                             </td>
                                             <td>
-                                                <textarea @disabled(Auth::user()->opd_id) placeholder="Masukan Rekomendasi..."
+                                                <textarea @disabled(Auth::user()->opd_id || $opdPenilaian->status == 'SELESAI') placeholder="Masukan Rekomendasi..."
                                                     name="data[{{ $loop->index }}][rekomendasi]" class="form-control" id="" cols="30" rows="5">{{ $opdPenilaian->getOpdPenilaianReportValue($opd_category_variable->id)->rekomendasi ?? '' }}</textarea>
                                                 <input type="text" hidden
                                                     value="{{ $opd_category_variable->getOpdPenilaian($opdPenilaian->id)->id ?? '' }}"
