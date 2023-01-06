@@ -5,8 +5,8 @@
 @push('style')
     <style>
         /* html {
-            zoom: 100%;
-        } */
+                                                    zoom: 100%;
+                                                } */
     </style>
 @endpush
 @section('content')
@@ -59,19 +59,6 @@
                                     <td>:</td>
                                     <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Perhitungan Penilaian OPD</h4>
-                    <div class="mb-3">
-                        <table class="table">
-                            <tbody>
                                 <tr>
                                     <td>Nilai Akhir</td>
                                     <td>:</td>
@@ -82,13 +69,42 @@
                                     <td>:</td>
                                     <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
                                 </tr>
+                                <div class="text-end">
+                                    <small>Total Nilai Akhir</small>
+                                    <h4>{{ $opdPenilaian->totalAkhir() }}</h4>
+                                </div>
                             </tbody>
                         </table>
-                        <div class="text-end">
-                            <small>Total Nilai Akhir</small>
-                            <h4>{{ $opdPenilaian->totalAkhir() }}</h4>
-                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Perhitungan Penilaian OPD</h4>
+                    <form action="{{ route('opdPenilaian.updateStatus', $opdPenilaian->id) }}" method="post">
+                        @csrf
+                        <div class="mb-3">
+                            <label>Status</label>
+                            <select name="status" class="js-example-basic-single form-select" required
+                                @disabled(Auth::user()->opd_id)>
+                                <option value="">Pilih Status</option>
+                                @foreach ($statuses as $status)
+                                    <option @selected($status == $opdPenilaian->status) value="{{ $status }}">{{ $status }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label>Catatan</label>
+                            <textarea name="note" class="form-control" @disabled(Auth::user()->opd_id)>{{ $opdPenilaian->note }}</textarea>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-sm btn-success" @disabled(Auth::user()->opd_id)
+                                type="submit">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -140,12 +156,12 @@
                                                 {{ $opdPenilaian->nilai_akhir($opd_category_variable->id) }}
                                             </td>
                                             <td>
-                                                <textarea placeholder="Masukan Catatan..." name="data[{{ $loop->index }}][catatan]" class="form-control"
-                                                    id="" cols="30" rows="5">{{ $opdPenilaian->getOpdPenilaianReportValue($opd_category_variable->id)->catatan ?? '' }}</textarea>
+                                                <textarea @disabled(Auth::user()->opd_id) placeholder="Masukan Catatan..." name="data[{{ $loop->index }}][catatan]"
+                                                    class="form-control" id="" cols="30" rows="5">{{ $opdPenilaian->getOpdPenilaianReportValue($opd_category_variable->id)->catatan ?? '' }}</textarea>
                                             </td>
                                             <td>
-                                                <textarea placeholder="Masukan Rekomendasi..." name="data[{{ $loop->index }}][rekomendasi]" class="form-control"
-                                                    id="" cols="30" rows="5">{{ $opdPenilaian->getOpdPenilaianReportValue($opd_category_variable->id)->rekomendasi ?? '' }}</textarea>
+                                                <textarea @disabled(Auth::user()->opd_id) placeholder="Masukan Rekomendasi..."
+                                                    name="data[{{ $loop->index }}][rekomendasi]" class="form-control" id="" cols="30" rows="5">{{ $opdPenilaian->getOpdPenilaianReportValue($opd_category_variable->id)->rekomendasi ?? '' }}</textarea>
                                                 <input type="text" hidden
                                                     value="{{ $opd_category_variable->getOpdPenilaian($opdPenilaian->id)->id ?? '' }}"
                                                     name="data[{{ $loop->index }}][opd_penilaian_kinerja]" id="">
@@ -164,9 +180,11 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            <div class="text-end">
-                                <button class="btn btn-success" type="submit">Submit</button>
-                            </div>
+                            @if (Auth::user()->opd_id == null)
+                                <div class="text-end">
+                                    <button class="btn btn-success" type="submit">Submit</button>
+                                </div>
+                            @endif
                         </form>
 
                     </div>

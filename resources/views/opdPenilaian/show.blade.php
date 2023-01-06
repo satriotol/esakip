@@ -4,9 +4,6 @@
 @endpush
 @push('style')
     <style>
-        /* html {
-                                                                                                zoom: 100%;
-                                                                                            } */
     </style>
 @endpush
 @section('content')
