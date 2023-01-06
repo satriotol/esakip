@@ -70,13 +70,13 @@
                             <tbody>
                                 @foreach ($rencanaAksis as $rencanaAksi)
                                     <tr>
-                                        <td>{{ $rencanaAksi->opd_perjanjian_kinerja->year }}</td>
-                                        <td>{{ $rencanaAksi->opd_perjanjian_kinerja->opd->nama_opd }}</td>
+                                        <td>{{ $rencanaAksi->opd_perjanjian_kinerja->year ?? '-' }}</td>
+                                        <td>{{ $rencanaAksi->opd_perjanjian_kinerja->opd->nama_opd ?? '-' }}</td>
                                         <td>{{ $rencanaAksi->name }}</td>
                                         <td>
                                             <a href="{{ route('opdPerjanjianKinerja.show', $rencanaAksi->opd_perjanjian_kinerja_id) }}"
                                                 target="_blank">
-                                                {{ $rencanaAksi->opd_perjanjian_kinerja->type }}
+                                                {{ $rencanaAksi->opd_perjanjian_kinerja->type ?? '-' }}
                                             </a>
                                         </td>
                                         <td>

@@ -24,13 +24,13 @@
                     @endisset
                     <div class="mb-3">
                         <label for="reformasi_birokrasi" class="form-label">Reformasi Birokrasi</label>
-                        <input id="reformasi_birokrasi" class="form-control" name="reformasi_birokrasi" type="number"
-                            placeholder="Reformasi Birokrasi" required
+                        <input id="reformasi_birokrasi" class="form-control" step="any" name="reformasi_birokrasi"
+                            type="number" placeholder="Reformasi Birokrasi" required
                             value="{{ isset($master) ? $master->reformasi_birokrasi : @old('reformasi_birokrasi') }}">
                     </div>
                     <div class="mb-3">
                         <label for="sakip" class="form-label">SAKIP</label>
-                        <input id="sakip" class="form-control" name="sakip" type="number"
+                        <input id="sakip" class="form-control" name="sakip" step="any" type="number"
                             placeholder="Reformasi Birokrasi" required
                             value="{{ isset($master) ? $master->sakip : @old('sakip') }}">
                     </div>
