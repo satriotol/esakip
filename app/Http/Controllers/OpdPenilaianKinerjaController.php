@@ -46,83 +46,90 @@ class OpdPenilaianKinerjaController extends Controller
         $data2 = null;
         $data = null;
         $url = 'http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad';
-        try {
-            if ($name == 'BADAN PENDAPATAN DAERAH') {
-                $data2 = Http::get($url)['data']['pad'][0]['subtotal'];
-            } else {
-                $data = Http::get($url)['data']['pad'][1]['rincian'];
-            }
-            $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
-            $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
-            $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
-            if ($data2) {
-                if ($request->name) {
-                    if ((float)$data2['persenRealisasi'] > 100) {
-                        $data2['persenRealisasi'] = 100;
-                    }
-                    DB::beginTransaction();
-                    try {
-                        OpdPenilaianKinerja::updateOrCreate(
-                            [
-                                'opd_penilaian_id' => $opd_penilaian_id,
-                                'opd_category_variable_id' => $opd_category_variable_id,
-                            ],
-                            [
-                                'target' => $data2['target'],
-                                'realisasi' => $data2['realisasi'],
-                                'capaian' => $data2['persenRealisasi'],
-                                'nilai_akhir' => (float)$data2['persenRealisasi'] * $bobot
-                            ]
-                        );
-                        $opdPenilaian->update([
-                            'status' => OpdPenilaian::STATUS1
-                        ]);
-                        DB::commit();
-                    } catch (Exception $exception) {
-                        Error::createError($exception);
-                    }
-
-                    session()->flash('success');
-                    return back();
+        $testUrl = Http::get($url);
+        if ($testUrl['success'] == true) {
+            try {
+                if ($name == 'BADAN PENDAPATAN DAERAH') {
+                    $data2 = Http::get($url)['data']['pad'][0]['subtotal'];
+                } else {
+                    $data = Http::get($url)['data']['pad'][1]['rincian'];
                 }
-            } else {
-                if ($request->name) {
-                    foreach ($data as $d) {
-                        if ($request->name == strtoupper($d['pendapatan'])) {
-                            if ((float)$d['persenRealisasi'] > 100) {
-                                $d['persenRealisasi'] = 100;
-                            }
-                            DB::beginTransaction();
-                            try {
-                                OpdPenilaianKinerja::updateOrCreate(
-                                    [
-                                        'opd_penilaian_id' => $opd_penilaian_id,
-                                        'opd_category_variable_id' => $opd_category_variable_id,
-                                    ],
-                                    [
-                                        'target' => $d['target'],
-                                        'realisasi' => $d['realisasi'],
-                                        'capaian' => $d['persenRealisasi'],
-                                        'nilai_akhir' => (float)$d['persenRealisasi'] * $bobot
-                                    ]
-                                );
-                                $opdPenilaian->update([
-                                    'status' => OpdPenilaian::STATUS1
-                                ]);
-                                DB::commit();
-                            } catch (Exception $exception) {
-                                Error::createError($exception);
-                            }
+                $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
+                $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+                $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
+                if ($data2) {
+                    if ($request->name) {
+                        if ((float)$data2['persenRealisasi'] > 100) {
+                            $data2['persenRealisasi'] = 100;
+                        }
+                        DB::beginTransaction();
+                        try {
+                            OpdPenilaianKinerja::updateOrCreate(
+                                [
+                                    'opd_penilaian_id' => $opd_penilaian_id,
+                                    'opd_category_variable_id' => $opd_category_variable_id,
+                                ],
+                                [
+                                    'target' => $data2['target'],
+                                    'realisasi' => $data2['realisasi'],
+                                    'capaian' => $data2['persenRealisasi'],
+                                    'nilai_akhir' => (float)$data2['persenRealisasi'] * $bobot
+                                ]
+                            );
+                            $opdPenilaian->update([
+                                'status' => OpdPenilaian::STATUS1
+                            ]);
+                            DB::commit();
+                        } catch (Exception $exception) {
+                            Error::createError($exception);
+                        }
 
-                            session()->flash('success');
-                            return back();
+                        session()->flash('success');
+                        return back();
+                    }
+                } else {
+                    if ($request->name) {
+                        foreach ($data as $d) {
+                            if ($request->name == strtoupper($d['pendapatan'])) {
+                                if ((float)$d['persenRealisasi'] > 100) {
+                                    $d['persenRealisasi'] = 100;
+                                }
+                                DB::beginTransaction();
+                                try {
+                                    OpdPenilaianKinerja::updateOrCreate(
+                                        [
+                                            'opd_penilaian_id' => $opd_penilaian_id,
+                                            'opd_category_variable_id' => $opd_category_variable_id,
+                                        ],
+                                        [
+                                            'target' => $d['target'],
+                                            'realisasi' => $d['realisasi'],
+                                            'capaian' => $d['persenRealisasi'],
+                                            'nilai_akhir' => (float)$d['persenRealisasi'] * $bobot
+                                        ]
+                                    );
+                                    $opdPenilaian->update([
+                                        'status' => OpdPenilaian::STATUS1
+                                    ]);
+                                    DB::commit();
+                                } catch (Exception $exception) {
+                                    Error::createError($exception);
+                                }
+
+                                session()->flash('success');
+                                return back();
+                            }
                         }
                     }
                 }
+            } catch (Exception $exception) {
+                Error::createError($exception);
             }
-        } catch (Exception $exception) {
-            Error::createError($exception);
+        } else {
+            session()->flash('bug', 'Terjadi Kesalahan Pada Webservice BAPENDA');
+            return back();
         }
+
 
         return back();
     }

@@ -150,10 +150,7 @@
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                         PENILAIAN INSPEKTORAT
                                                     </a>
-                                                @elseif(Auth::user()->hasRole('SUPERADMIN') &&
-                                                    $opd_category_variable->opd_variable->pic != 'SIPD' &&
-                                                    $checkStatus != 1 &&
-                                                    $opd_category_variable->opd_variable->is_iku_triwulan)
+                                                @elseif(Auth::user()->hasRole('SUPERADMIN') && $opd_category_variable->opd_variable->is_iku_triwulan)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                         RENCANA AKSI TRIWULAN
