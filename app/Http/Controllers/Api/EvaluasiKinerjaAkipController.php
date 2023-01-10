@@ -13,10 +13,10 @@ class EvaluasiKinerjaAkipController extends Controller
 {
     public function index()
     {
-        $count = EvaluasiKinerjaYear::count();
-        $years = EvaluasiKinerjaYear::offset($count - 5)->take(5)->orderBy('year')->get();
+        $count = EvaluasiKinerjaYear::getEvaluasiKinerjaExcept()->count();
+        $years = EvaluasiKinerjaYear::getEvaluasiKinerjaExcept()->offset($count - 5)->take(5)->orderBy('year')->get();
         $EvaluasiKinerjaAkipYears = Opd::all();
-        
+
         return $this->successResponse(['EvaluasiKinerjaAkip' => EvaluasiResource::collection($EvaluasiKinerjaAkipYears), 'years' => $years]);
     }
 }
