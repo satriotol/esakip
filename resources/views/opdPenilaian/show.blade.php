@@ -180,10 +180,18 @@
                                             {{ $opd_category_variable->opd_variable->bobot }}%
                                         </td>
                                         <td>
-                                            {{ $opdPenilaian->target($opd_category_variable->id)[0] }}
+                                            @if ($opd_category_variable->opd_variable->is_iku || $opd_category_variable->opd_variable->is_iku_triwulan)
+                                                -
+                                            @else
+                                                {{ $opdPenilaian->target($opd_category_variable->id)[0] }}
+                                            @endif
                                         </td>
                                         <td>
-                                            {{ $opdPenilaian->realisasi($opd_category_variable->id) }}
+                                            @if ($opd_category_variable->opd_variable->is_iku || $opd_category_variable->opd_variable->is_iku_triwulan)
+                                                -
+                                            @else
+                                                {{ $opdPenilaian->realisasi($opd_category_variable->id) }}
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $opdPenilaian->capaian($opd_category_variable->id) }} %
