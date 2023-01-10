@@ -76,53 +76,93 @@
                                                 @{{ data.name }}
                                             </td>
                                             <td
-                                                :style="{ 'background-color': data.hasil[0].category_color, 'color': data.hasil[
-                                                        0].category_font, 'font-weight': 'bold' }">
+                                                :style="{
+                                                    'background-color': data.hasil[0].category_color,
+                                                    'color': data.hasil[
+                                                        0].category_font,
+                                                    'font-weight': 'bold'
+                                                }">
                                                 @{{ data.hasil[0].value }}
                                             </td>
                                             <td
-                                                :style="{ 'background-color': data.hasil[0].category_color, 'color': data.hasil[
-                                                        0].category_font, 'font-weight': 'bold' }">
+                                                :style="{
+                                                    'background-color': data.hasil[0].category_color,
+                                                    'color': data.hasil[
+                                                        0].category_font,
+                                                    'font-weight': 'bold'
+                                                }">
                                                 @{{ data.hasil[0].category_name }}
                                             </td>
                                             <td
-                                                :style="{ 'background-color': data.hasil[1].category_color, 'color': data.hasil[
-                                                        1].category_font, 'font-weight': 'bold' }">
+                                                :style="{
+                                                    'background-color': data.hasil[1].category_color,
+                                                    'color': data.hasil[
+                                                        1].category_font,
+                                                    'font-weight': 'bold'
+                                                }">
                                                 @{{ data.hasil[1].value }}
                                             </td>
                                             <td
-                                                :style="{ 'background-color': data.hasil[1].category_color, 'color': data.hasil[
-                                                        1].category_font, 'font-weight': 'bold' }">
+                                                :style="{
+                                                    'background-color': data.hasil[1].category_color,
+                                                    'color': data.hasil[
+                                                        1].category_font,
+                                                    'font-weight': 'bold'
+                                                }">
                                                 @{{ data.hasil[1].category_name }}
                                             </td>
                                             <td
-                                                :style="{ 'background-color': data.hasil[2].category_color, 'color': data.hasil[
-                                                        2].category_font, 'font-weight': 'bold' }">
+                                                :style="{
+                                                    'background-color': data.hasil[2].category_color,
+                                                    'color': data.hasil[
+                                                        2].category_font,
+                                                    'font-weight': 'bold'
+                                                }">
                                                 @{{ data.hasil[2].value }}
                                             </td>
                                             <td
-                                                :style="{ 'background-color': data.hasil[2].category_color, 'color': data.hasil[
-                                                        2].category_font, 'font-weight': 'bold' }">
+                                                :style="{
+                                                    'background-color': data.hasil[2].category_color,
+                                                    'color': data.hasil[
+                                                        2].category_font,
+                                                    'font-weight': 'bold'
+                                                }">
                                                 @{{ data.hasil[2].category_name }}
                                             </td>
                                             <td
-                                                :style="{ 'background-color': data.hasil[3].category_color, 'color': data.hasil[
-                                                        3].category_font, 'font-weight': 'bold' }">
+                                                :style="{
+                                                    'background-color': data.hasil[3].category_color,
+                                                    'color': data.hasil[
+                                                        3].category_font,
+                                                    'font-weight': 'bold'
+                                                }">
                                                 @{{ data.hasil[3].value }}
                                             </td>
                                             <td
-                                                :style="{ 'background-color': data.hasil[3].category_color, 'color': data.hasil[
-                                                        3].category_font, 'font-weight': 'bold' }">
+                                                :style="{
+                                                    'background-color': data.hasil[3].category_color,
+                                                    'color': data.hasil[
+                                                        3].category_font,
+                                                    'font-weight': 'bold'
+                                                }">
                                                 @{{ data.hasil[3].category_name }}
                                             </td>
                                             <td
-                                                :style="{ 'background-color': data.hasil[4].category_color, 'color': data.hasil[
-                                                        4].category_font, 'font-weight': 'bold' }">
+                                                :style="{
+                                                    'background-color': data.hasil[4].category_color,
+                                                    'color': data.hasil[
+                                                        4].category_font,
+                                                    'font-weight': 'bold'
+                                                }">
                                                 @{{ data.hasil[4].value }}
                                             </td>
                                             <td
-                                                :style="{ 'background-color': data.hasil[4].category_color, 'color': data.hasil[
-                                                        4].category_font, 'font-weight': 'bold' }">
+                                                :style="{
+                                                    'background-color': data.hasil[4].category_color,
+                                                    'color': data.hasil[
+                                                        4].category_font,
+                                                    'font-weight': 'bold'
+                                                }">
                                                 @{{ data.hasil[4].category_name }}
                                             </td>
                                         </tr>
@@ -155,9 +195,10 @@
                 this.getKotaEvaluasiKinerjaAkip();
             },
             methods: {
-                getKotaEvaluasiKinerjaAkip(pagUrl) {
+                getKotaEvaluasiKinerjaAkip() {
                     axios.get(this.urlEvaluasiKinerjaAkip)
                         .then(response => (
+                            console.log(response),
                             this.dataEvaluasiKinerjaAkip = response.data.EvaluasiKinerjaAkip,
                             this.dataYears = response.data.years
                         ))
