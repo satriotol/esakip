@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\DataUnit;
 use App\Models\Error;
+use App\Models\EvaluasiKinerja\EvaluasiKinerja;
+use App\Models\Master;
 use App\Models\Opd;
 use App\Models\OpdCategory;
 use App\Models\OpdCategoryVariable;
@@ -204,6 +206,37 @@ class OpdPenilaianKinerjaController extends Controller
             [
                 'target' => $data['penyerapanAnggaranBelanjas']['target'],
                 'realisasi' => $data['penyerapanAnggaranBelanjas']['realisasi'],
+                'capaian' => $capaian,
+                'nilai_akhir' => $nilaiAkhir,
+                'user_id' => Auth::user()->id
+            ]
+        );
+        session()->flash('success');
+        return back();
+    }
+    public function storeAkip(OpdPenilaian $opd_penilaian, $opd_category_variable_id, $year)
+    {
+
+        $data = EvaluasiKinerja::where('opd_id', $opd_penilaian->opd_id)->whereHas('evaluasi_kinerja_year', function ($q) use ($year) {
+            $q->where('year', $year);
+        })->first();
+        $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
+        $realisasi = $data->value;
+        $target = Master::first()->sakip;
+        $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+        $capaian = round($realisasi / $target * 100, 2);
+        if ($capaian > 100) {
+            $capaian = 100;
+        }
+        $nilaiAkhir = round($capaian * $bobot, 2);
+        OpdPenilaianKinerja::updateOrCreate(
+            [
+                'opd_penilaian_id' => $opd_penilaian->id,
+                'opd_category_variable_id' => $opd_category_variable_id,
+            ],
+            [
+                'target' => $target,
+                'realisasi' => $realisasi,
                 'capaian' => $capaian,
                 'nilai_akhir' => $nilaiAkhir,
                 'user_id' => Auth::user()->id

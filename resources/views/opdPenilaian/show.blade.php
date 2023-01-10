@@ -132,6 +132,11 @@
                                                     class="badge bg-primary tarik-data">
                                                     TARIK DATA REFORMASI BIROKRASI (LKE-RB)
                                                 </a>
+                                            @elseif($opd_category_variable->opd_variable->is_sakip && $checkStatus != 1)
+                                                <a href="{{ route('opdPenilaianKinerja.storeAkip', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year]) }}"
+                                                    class="badge bg-primary tarik-data">
+                                                    TARIK DATA E-SAKIP
+                                                </a>
                                             @else
                                                 @if ($opd_category_variable->opd_variable->pic == 'OPD' && Auth::user()->opd_id && $checkStatus != 1)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"
