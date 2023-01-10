@@ -31,6 +31,10 @@ class Opd extends Model
             return Opd::all();
         }
     }
+    public static function getOpdExcept()
+    {
+        return Opd::where('master_unit_kerja_id', '!=', 0)->get();
+    }
     public function inovasi_prestasi_opds()
     {
         return $this->hasMany(InovasiPrestasiOpd::class, 'inovasi_prestasi_opd_id', 'id');
