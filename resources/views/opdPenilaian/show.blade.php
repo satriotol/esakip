@@ -116,16 +116,21 @@
                                             @if ($opd_category_variable->opd_variable->pic == 'BAPENDA' && $checkStatus != 1)
                                                 <a class="badge bg-primary tarik-data"
                                                     href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->opd->nama_opd, $opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
-                                                    DATA BAPENDA</a>
+                                                    DATA BAPENDA (WEBSERVICE BAPENDA)</a>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storeSipd', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->opd_perjanjian_kinerja->type, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
                                                     class="badge bg-primary tarik-data">
-                                                    TARIK DATA DARI SIPD
+                                                    TARIK DATA DARI SIPD (QUERY BAPEDA)
                                                 </a>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'P3DN' && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storep3dn', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
                                                     class="badge bg-primary tarik-data">
-                                                    TARIK DATA P3DN
+                                                    TARIK DATA P3DN (QUERY BAPPEDA)
+                                                </a>
+                                            @elseif($opd_category_variable->opd_variable->is_reformasi_birokrasi && $checkStatus != 1)
+                                                <a href="{{ route('opdPenilaianKinerja.storeRb', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year]) }}"
+                                                    class="badge bg-primary tarik-data">
+                                                    TARIK DATA REFORMASI BIROKRASI (LKE-RB)
                                                 </a>
                                             @else
                                                 @if ($opd_category_variable->opd_variable->pic == 'OPD' && Auth::user()->opd_id && $checkStatus != 1)

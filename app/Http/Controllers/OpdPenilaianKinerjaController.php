@@ -212,6 +212,37 @@ class OpdPenilaianKinerjaController extends Controller
         session()->flash('success');
         return back();
     }
+    public function storeRb(OpdPenilaian $opd_penilaian, $opd_category_variable_id, $year)
+    {
+        $data = Http::accept('application/json')->withHeaders([
+            'X-Api-Key' => '!23f0rm451|-|anY453b4tas1Lu5!',
+            'X-Token' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImlkIjoiNTYifSwiaWF0IjoxNjczMzMzMDg5LCJleHAiOjE2NzM0MTk0ODl9.5_Z59wucyOjc3tJDnuqKMzuFMQM5V_aRt2QOFtg2Mc0'
+        ])->get('http://lke-rb.semarangkota.go.id/api/penilaian_opd/hasil?kd_skpd=' . $opd_penilaian->opd->kode_opd . '&tahun=' . $year . '');
+        $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
+        $realisasi = $data['data']['penilaian_opd']['nilai_validator'];
+        $target = $data['data']['penilaian_opd']['bobot'];
+        $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+        $capaian = round($realisasi / $target * 100, 2);
+        if ($capaian > 100) {
+            $capaian = 100;
+        }
+        $nilaiAkhir = round($capaian * $bobot, 2);
+        OpdPenilaianKinerja::updateOrCreate(
+            [
+                'opd_penilaian_id' => $opd_penilaian->id,
+                'opd_category_variable_id' => $opd_category_variable_id,
+            ],
+            [
+                'target' => $target,
+                'realisasi' => $realisasi,
+                'capaian' => $capaian,
+                'nilai_akhir' => $nilaiAkhir,
+                'user_id' => Auth::user()->id
+            ]
+        );
+        session()->flash('success');
+        return back();
+    }
     public function storep3dn($opd_penilaian_id, $opd_category_variable_id, $year, $id_skpd)
     {
         $data = Http::accept('application/json')->get(route('getp3dn', [

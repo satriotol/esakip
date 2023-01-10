@@ -142,12 +142,6 @@ class OpdPenilaian extends Model
                 'Rp ' . (number_format((float)$data))
             ];
             return $data;
-        } elseif ($opdCategoryVariable->opd_variable->is_reformasi_birokrasi) {
-            $data = [
-                $master->reformasi_birokrasi,
-                'disabled'
-            ];
-            return $data;
         } elseif ($opdCategoryVariable->opd_variable->is_sakip) {
             $data = [
                 $master->sakip,
