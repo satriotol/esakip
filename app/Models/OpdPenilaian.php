@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\EvaluasiKinerja\EvaluasiKinerja;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -59,6 +60,16 @@ class OpdPenilaian extends Model
     public function opd_perjanjian_kinerja()
     {
         return $this->belongsTo(OpdPerjanjianKinerja::class, 'opd_perjanjian_kinerja_id', 'id');
+    }
+    public function evaluasi_kinerjas()
+    {
+        return $this->hasMany(EvaluasiKinerja::class, 'opd_id', 'opd_id');
+    }
+    public static function getEvaluasiKinerja($year, $opd_id)
+    {
+        return EvaluasiKinerja::whereHas('evaluasi_kinerja_year', function ($q) use ($year) {
+            $q->where('year', $year);
+        })->where('opd_id', $opd_id)->first();
     }
     public static function getOpdPenilaian($request, $verifikasi)
     {

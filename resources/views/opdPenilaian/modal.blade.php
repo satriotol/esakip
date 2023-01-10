@@ -38,19 +38,33 @@
                                             <td>{{ $getOpdPerjanjianKinerjaIndikator->target }}
                                                 {{ $getOpdPerjanjianKinerjaIndikator->satuan }}</td>
                                             <td>
-                                                <select name="iku[{{ $loop->index }}][type]">
-                                                    <option value="">Pilih Tipe</option>
-                                                    @foreach ($ikuTypes as $ikuType)
-                                                        <option value="{{ $ikuType }}"
-                                                            @selected($opd_category_variable->getIkuType($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) == $ikuType)>{{ $ikuType }}
-                                                        </option>
-                                                    @endforeach
-                                                </select>
+                                                @if ($getOpdPerjanjianKinerjaIndikator->is_sakip)
+                                                    <input type="text" readonly name="iku[{{ $loop->index }}][type]"
+                                                        id="" value="UMUM">
+                                                @else
+                                                    <select name="iku[{{ $loop->index }}][type]">
+                                                        <option value="">Pilih Tipe</option>
+                                                        @foreach ($ikuTypes as $ikuType)
+                                                            <option value="{{ $ikuType }}"
+                                                                @selected($opd_category_variable->getIkuType($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) == $ikuType)>{{ $ikuType }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
                                             </td>
-                                            <td><input type="number"
-                                                    value="{{ $opd_category_variable->getIkuRealisasi($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}"
-                                                    step="any" required name="iku[{{ $loop->index }}][realisasi]"
-                                                    id="">
+                                            <td>
+                                                @if ($getOpdPerjanjianKinerjaIndikator->is_sakip)
+                                                    <input type="number" readonly
+                                                        value="{{ $opdPenilaian->getEvaluasiKinerja($opdPenilaian->year, $opdPenilaian->opd_id)->value }}"
+                                                        step="any" required
+                                                        name="iku[{{ $loop->index }}][realisasi]" id="">
+                                                @else
+                                                    <input type="number"
+                                                        value="{{ $opd_category_variable->getIkuRealisasi($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}"
+                                                        step="any" required
+                                                        name="iku[{{ $loop->index }}][realisasi]" id="">
+                                                @endif
+
                                             </td>
                                             <td>
                                                 {{ $opd_category_variable->getIkuCapaian($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}

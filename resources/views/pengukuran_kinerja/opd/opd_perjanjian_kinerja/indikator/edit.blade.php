@@ -58,6 +58,20 @@
                         <input id="satuan" class="form-control" name="satuan" type="text" placeholder="Sasaran"
                             value="{{ isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->satuan : '' }}">
                     </div>
+                    <div class="mb-3">
+                        <label for="sakip" class="form-label">Sakip</label>
+                        <select name="is_sakip" class="form-control" id="">
+                            <option @selected(isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->is_sakip : old('is_sakip')) value="">Tidak</option>
+                            <option @selected(isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->is_sakip : old('is_sakip')) value="1">Ya</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="sakip" class="form-label">IKU</label>
+                        <select name="is_iku" class="form-control" id="">
+                            <option @selected(isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->is_iku : old('is_iku')) value="">Tidak</option>
+                            <option @selected(isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->is_iku : old('is_iku')) value="1">Ya</option>
+                        </select>
+                    </div>
                     <div class="text-end">
                         <input class="btn btn-primary" type="submit" value="Submit">
                     </div>
