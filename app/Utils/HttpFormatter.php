@@ -8,12 +8,12 @@ trait HttpFormatter
 {
     public function getHttpFormatter($url, $headers)
     {
-        $data = Http::accept('application/json')->get($url)->withHeaders(
+        $data = Http::withHeaders(
             [
                 'Authorization' =>  'Bearer 1|yZp3IIKeuZdfrSejkjBxEicChwp0l6aVvVNlUGkr',
                 $headers
             ]
-        );
+        )->accept('application/json')->get($url);
         return $data;
     }
 }
