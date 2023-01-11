@@ -37,7 +37,7 @@ class EvaluasiKinerjaController extends Controller
      */
     public function create($evaluasiKinerjaYear)
     {
-        $opds = Opd::getOpd();
+        $opds = Opd::getOpdExcept();
         return view('evaluasi_kinerja.create', compact('evaluasiKinerjaYear', 'opds'));
     }
 
