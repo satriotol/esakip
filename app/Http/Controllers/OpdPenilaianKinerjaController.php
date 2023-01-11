@@ -225,7 +225,6 @@ class OpdPenilaianKinerjaController extends Controller
     }
     public function storeAkip(OpdPenilaian $opd_penilaian, $opd_category_variable_id, $year)
     {
-
         $data = EvaluasiKinerja::where('opd_id', $opd_penilaian->opd_id)->whereHas('evaluasi_kinerja_year', function ($q) use ($year) {
             $q->where('year', $year);
         })->first();
@@ -295,7 +294,9 @@ class OpdPenilaianKinerjaController extends Controller
     }
     public function storep3dn($opd_penilaian_id, $opd_category_variable_id, $year, $id_skpd)
     {
-        $data = Http::accept('application/json')->get(route('getp3dn', [
+        $data = Http::accept('application/json')->withHeaders([
+            'Authorization' =>  'Bearer 1|yZp3IIKeuZdfrSejkjBxEicChwp0l6aVvVNlUGkr',
+        ])->get(route('getp3dn', [
             'id_skpd' => $id_skpd,
             'year' => $year,
         ]));

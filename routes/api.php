@@ -36,8 +36,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('v2/rencanaAksi', [RencanaAksiController::class, 'index_v2']);
     Route::get('opdPenilaian/getPenyerapanAnggaranBelanja', [OpdPenilaianController::class, 'getPenyerapanAnggaranBelanja'])->name('getPenyerapanAnggaranBelanja');
+    Route::get('opdPenilaian/getp3dn', [OpdPenilaianController::class, 'getp3dn'])->name('getp3dn');
 });
-Route::get('opdPenilaian/getp3dn', [OpdPenilaianController::class, 'getp3dn'])->name('getp3dn');
 Route::get('opd', [OpdController::class, 'index']);
 Route::get('skpd', [SkpdController::class, 'getSkpd']);
 Route::get('getApbdAnggaran', [DataUnitController::class, 'getApbdAnggaran']);
