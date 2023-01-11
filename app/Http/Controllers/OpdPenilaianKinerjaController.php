@@ -292,12 +292,10 @@ class OpdPenilaianKinerjaController extends Controller
     }
     public function storep3dn($opd_penilaian_id, $opd_category_variable_id, $year, $id_skpd)
     {
-        $data = Http::accept('application/json')->withHeaders([
-            'Authorization' =>  'Bearer 1|yZp3IIKeuZdfrSejkjBxEicChwp0l6aVvVNlUGkr',
-        ])->get(route('getp3dn', [
+        $data = $this->getHttpFormatter(route('getp3dn', [
             'id_skpd' => $id_skpd,
             'year' => $year,
-        ]));
+        ]), '');
         $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
         $nilaiAkhir = round($data['p3dn']['capaian'] * $bobot, 2);
