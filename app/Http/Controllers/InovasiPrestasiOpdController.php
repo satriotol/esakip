@@ -21,10 +21,12 @@ class InovasiPrestasiOpdController extends Controller
         $this->middleware('permission:inovasiPrestasiOpd-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:inovasiPrestasiOpd-delete', ['only' => ['destroy']]);
     }
-    public function index()
+    public function index(Request $request)
     {
-        $inovasiPrestasiOpds = InovasiPrestasiOpd::getAll();
-        return view('inovasiPrestasiOpd.index', compact('inovasiPrestasiOpds'));
+        $opds = Opd::getOpd();
+        $inovasiPrestasiOpds = InovasiPrestasiOpd::getAll($request);
+        $request->flash();
+        return view('inovasiPrestasiOpd.index', compact('inovasiPrestasiOpds', 'opds'));
     }
 
     /**
@@ -59,6 +61,7 @@ class InovasiPrestasiOpdController extends Controller
         ]);
         $data['file'] = $request->file;
         InovasiPrestasiOpd::create($data);
+        $request->flash();
         session()->flash('success');
         return redirect(route('inovasiPrestasiOpd.index'));
     }
@@ -110,6 +113,7 @@ class InovasiPrestasiOpdController extends Controller
             $data['file'] = $request->file;
         }
         $inovasiPrestasiOpd->update($data);
+        $request->flash();
         session()->flash('success');
         return redirect(route('inovasiPrestasiOpd.index'));
     }

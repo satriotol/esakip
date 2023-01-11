@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class InovasiPrestasiOpd extends Model
@@ -20,12 +21,21 @@ class InovasiPrestasiOpd extends Model
     {
         return $this->belongsTo(InovasiPrestasiTingkat::class, 'inovasi_prestasi_tingkat_id', 'id');
     }
-    public static function getAll()
+    public static function getAll($request)
     {
+        $year = $request->year;
+        $opd_id = $request->opd_id;
+        $data = InovasiPrestasiOpd::query();
+        if ($year) {
+            $data = $data->where('year', $year);
+        }
+        if ($opd_id) {
+            $data = $data->where('opd_id', $opd_id);
+        }
         if (Auth::user()->opd_id) {
-            $data = InovasiPrestasiOpd::where('opd_id', Auth::user()->opd_id)->paginate();
+            $data = $data->where('opd_id', Auth::user()->opd_id)->paginate();
         } else {
-            $data = InovasiPrestasiOpd::paginate();
+            $data = $data->paginate();
         }
         return $data;
     }

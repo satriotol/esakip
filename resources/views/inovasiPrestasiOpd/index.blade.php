@@ -1,14 +1,9 @@
 @extends('layout.master')
 
 @push('plugin-styles')
-    <link href="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
 @endpush
 @push('style')
-    <style>
-        /* html {
-            zoom: 100%;
-        } */
-    </style>
 @endpush
 
 @section('content')
@@ -30,11 +25,36 @@
                             Create
                         </a>
                     </div>
+                    <form action="">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Tahun</label>
+                                <input type="number" class="form-control" name="year" value="{{ old('year') }}"
+                                    id="">
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label>OPD</label>
+                                    <select name="opd_id" class="js-example-basic-single form-select" id="">
+                                        <option value="">Pilih OPD</option>
+                                        @foreach ($opds as $opd)
+                                            <option @selected(old('opd_id') == $opd->id) value="{{ $opd->id }}">
+                                                {{ $opd->nama_opd }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-sm btn-success">Cari</button>
+                            </div>
+                        </div>
+                    </form>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th>OPD</th>
+                                    <th>Tingkat</th>
                                     <th>Status</th>
                                     <th>Nama</th>
                                     <th>Tanggal</th>
@@ -45,6 +65,7 @@
                                 @foreach ($inovasiPrestasiOpds as $inovasiPrestasiOpd)
                                     <tr>
                                         <td>{{ $inovasiPrestasiOpd->opd->nama_opd }}</td>
+                                        <td>{{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }}</td>
                                         <td>
                                             <div class="badge bg-{{ $inovasiPrestasiOpd->getStatus()['color'] }}">
                                                 {{ $inovasiPrestasiOpd->getStatus()['name'] }}
@@ -166,10 +187,9 @@
 @endsection
 
 @push('plugin-scripts')
-    <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
-    <script src="{{ asset('assets/js/data-table.js') }}"></script>
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endpush
