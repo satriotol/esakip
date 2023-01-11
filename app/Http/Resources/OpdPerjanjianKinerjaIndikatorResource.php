@@ -19,6 +19,8 @@ class OpdPerjanjianKinerjaIndikatorResource extends JsonResource
             'indikator' => $this->indikator,
             'target' => $this->target,
             'satuan' => $this->satuan,
+            'is_sakip' => $this->is_sakip,
+            'is_iku' => $this->is_iku,
             'created_at' => $this->created_at->diffForHumans(),
         ];
     }
