@@ -46,6 +46,12 @@ class EvaluasiKinerja extends Model
                 'color' => '#1fb8e5',
                 'font_color' => 'white'
             ];
+        } else {
+            $data = [
+                'name' => 'A',
+                'color' => '#1fb8e5',
+                'font_color' => 'white'
+            ];
         }
         return $data;
     }

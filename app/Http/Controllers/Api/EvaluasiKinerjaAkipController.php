@@ -16,7 +16,6 @@ class EvaluasiKinerjaAkipController extends Controller
         $count = EvaluasiKinerjaYear::getEvaluasiKinerjaExcept()->count();
         $years = EvaluasiKinerjaYear::getEvaluasiKinerjaExcept()->offset($count - 5)->take(5)->orderBy('year')->get();
         $EvaluasiKinerjaAkipYears = Opd::getOpdExcept();
-
         return $this->successResponse(['EvaluasiKinerjaAkip' => EvaluasiResource::collection($EvaluasiKinerjaAkipYears), 'years' => $years]);
     }
 }

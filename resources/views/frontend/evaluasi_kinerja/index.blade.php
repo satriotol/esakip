@@ -132,8 +132,7 @@
                                             <td
                                                 :style="{
                                                     'background-color': data.hasil[3].category_color,
-                                                    'color': data.hasil[
-                                                        3].category_font,
+                                                    'color': data.hasil[3].category_font,
                                                     'font-weight': 'bold'
                                                 }">
                                                 @{{ data.hasil[3].value }}
@@ -141,8 +140,7 @@
                                             <td
                                                 :style="{
                                                     'background-color': data.hasil[3].category_color,
-                                                    'color': data.hasil[
-                                                        3].category_font,
+                                                    'color': data.hasil[3].category_font,
                                                     'font-weight': 'bold'
                                                 }">
                                                 @{{ data.hasil[3].category_name }}
@@ -150,8 +148,7 @@
                                             <td
                                                 :style="{
                                                     'background-color': data.hasil[4].category_color,
-                                                    'color': data.hasil[
-                                                        4].category_font,
+                                                    'color': data.hasil[4].category_font,
                                                     'font-weight': 'bold'
                                                 }">
                                                 @{{ data.hasil[4].value }}
@@ -159,8 +156,7 @@
                                             <td
                                                 :style="{
                                                     'background-color': data.hasil[4].category_color,
-                                                    'color': data.hasil[
-                                                        4].category_font,
+                                                    'color': data.hasil[4].category_font,
                                                     'font-weight': 'bold'
                                                 }">
                                                 @{{ data.hasil[4].category_name }}
