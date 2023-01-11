@@ -25,7 +25,7 @@
                             Create
                         </a>
                     </div>
-                    <form action="">
+                    <form action="{{ route('inovasiPrestasiOpd.index') }}">
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Tahun</label>
@@ -45,7 +45,9 @@
                                 </div>
                             </div>
                             <div class="text-end">
-                                <button class="btn btn-sm btn-success">Cari</button>
+                                <button name="submit" value="exportExcel" class="btn btn-sm btn-success">Export
+                                    Excel</button>
+                                <button name="submit" class="btn btn-sm btn-success">Cari</button>
                             </div>
                         </div>
                     </form>

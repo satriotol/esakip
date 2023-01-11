@@ -23,8 +23,8 @@ class InovasiPrestasiOpd extends Model
     }
     public static function getAll($request)
     {
-        $year = $request->year;
-        $opd_id = $request->opd_id;
+        $year = $request->get('year');
+        $opd_id = $request->get('opd_id');
         $data = InovasiPrestasiOpd::query();
         if ($year) {
             $data = $data->where('year', $year);
@@ -33,9 +33,9 @@ class InovasiPrestasiOpd extends Model
             $data = $data->where('opd_id', $opd_id);
         }
         if (Auth::user()->opd_id) {
-            $data = $data->where('opd_id', Auth::user()->opd_id)->paginate();
+            $data = $data->where('opd_id', Auth::user()->opd_id);
         } else {
-            $data = $data->paginate();
+            $data = $data;
         }
         return $data;
     }

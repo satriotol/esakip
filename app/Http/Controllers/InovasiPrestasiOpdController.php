@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\InovasiPrestasiOpdExport;
 use App\Models\InovasiPrestasiOpd;
 use App\Models\InovasiPrestasiTingkat;
 use App\Models\Opd;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class InovasiPrestasiOpdController extends Controller
 {
@@ -24,8 +26,12 @@ class InovasiPrestasiOpdController extends Controller
     public function index(Request $request)
     {
         $opds = Opd::getOpd();
-        $inovasiPrestasiOpds = InovasiPrestasiOpd::getAll($request);
+        $inovasiPrestasiOpds = InovasiPrestasiOpd::getAll($request)->paginate();
         $request->flash();
+        if ($request->submit == 'exportExcel') {
+            $nama_file = 'hasil_tes_ppk_' . date('Y-m-d_H-i-s') . '.xlsx';
+            return Excel::download(new InovasiPrestasiOpdExport($request), 'users.xlsx');
+        }
         return view('inovasiPrestasiOpd.index', compact('inovasiPrestasiOpds', 'opds'));
     }
 
