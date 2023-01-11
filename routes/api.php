@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\DataUnitController;
 use App\Http\Controllers\Api\EvaluasiKinerjaAkipController;
 use App\Http\Controllers\Api\OpdController;
@@ -28,9 +29,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/login', [AuthController::class, 'login']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('v2/rencanaAksi', [RencanaAksiController::class, 'index_v2']);
+    Route::get('opdPenilaian/getPenyerapanAnggaranBelanja', [OpdPenilaianController::class, 'getPenyerapanAnggaranBelanja'])->name('getPenyerapanAnggaranBelanja');
+});
+Route::get('opdPenilaian/getp3dn', [OpdPenilaianController::class, 'getp3dn'])->name('getp3dn');
 Route::get('opd', [OpdController::class, 'index']);
 Route::get('skpd', [SkpdController::class, 'getSkpd']);
 Route::get('getApbdAnggaran', [DataUnitController::class, 'getApbdAnggaran']);
@@ -61,11 +68,9 @@ Route::get('pengukurankinerjaopd/perjanjian_kinerja', [PengukuranKinerjaOpdContr
 Route::get('perjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'index']);
 Route::get('perjanjianKinerja/getProgramAnggaran', [OpdPerjanjianKinerjaController::class, 'getProgramAnggaran'])->name('getProgramAnggaran');
 Route::get('rencanaAksi', [RencanaAksiController::class, 'index']);
-Route::get('v2/rencanaAksi', [RencanaAksiController::class, 'index_v2']);
 
 Route::get('opdPenilaian', [OpdPenilaianController::class, 'index']);
-Route::get('opdPenilaian/getPenyerapanAnggaranBelanja', [OpdPenilaianController::class, 'getPenyerapanAnggaranBelanja'])->name('getPenyerapanAnggaranBelanja');
-Route::get('opdPenilaian/getp3dn', [OpdPenilaianController::class, 'getp3dn'])->name('getp3dn');
+
 
 Route::get('getRealisasiAnggaranService', function (Request $request) {
     $data = Http::get('http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad')['data']['pad'][1]['rincian'];
