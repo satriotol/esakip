@@ -265,6 +265,10 @@ class OpdPenilaianKinerjaController extends Controller
             'X-Api-Key' => '!23f0rm451|-|anY453b4tas1Lu5!',
             'X-Token' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImlkIjoiNTYifSwiaWF0IjoxNjczMzMzMDg5LCJleHAiOjE2NzM0MTk0ODl9.5_Z59wucyOjc3tJDnuqKMzuFMQM5V_aRt2QOFtg2Mc0'
         ])->get('http://lke-rb.semarangkota.go.id/api/penilaian_opd/hasil?kd_skpd=' . $opd_penilaian->opd->kode_opd . '&tahun=' . $year . '');
+        if ($data->failed()) {
+            session()->flash('bug', $data['message']);
+            return back();
+        }
         $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
         $realisasi = $data['data']['penilaian_opd']['nilai_validator'];
         $target = $data['data']['penilaian_opd']['bobot'];
