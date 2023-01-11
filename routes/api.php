@@ -35,12 +35,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('v2/rencanaAksi', [RencanaAksiController::class, 'index_v2']);
+    Route::get('perjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'index']);
     Route::get('opdPenilaian', [OpdPenilaianController::class, 'index'])->name('getOpdPenilaian');
     Route::get('opdPenilaian/getPenyerapanAnggaranBelanja', [OpdPenilaianController::class, 'getPenyerapanAnggaranBelanja'])->name('getPenyerapanAnggaranBelanja');
     Route::get('opdPenilaian/getp3dn', [OpdPenilaianController::class, 'getp3dn'])->name('getp3dn');
 });
 Route::get('opd', [OpdController::class, 'index']);
 Route::get('skpd', [SkpdController::class, 'getSkpd']);
+
 Route::get('getApbdAnggaran', [DataUnitController::class, 'getApbdAnggaran']);
 Route::get('getApbdAnggaran/export', [DataUnitController::class, 'getApbdAnggaranExport'])->name('getApbdAnggaranExport');
 Route::get('getRealisasiAnggaran', [DataUnitController::class, 'getRealisasiAnggaran']);
@@ -66,6 +68,5 @@ Route::get('pengukurankinerjaopd/iku', [PengukuranKinerjaOpdController::class, '
 Route::get('pengukurankinerjaopd/perjanjian_kinerja', [PengukuranKinerjaOpdController::class, 'getPerjanjianKinerja']);
 
 
-Route::get('perjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'index']);
 Route::get('perjanjianKinerja/getProgramAnggaran', [OpdPerjanjianKinerjaController::class, 'getProgramAnggaran'])->name('getProgramAnggaran');
 Route::get('rencanaAksi', [RencanaAksiController::class, 'index']);

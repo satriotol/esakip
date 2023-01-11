@@ -192,13 +192,11 @@ class OpdPenilaianKinerjaController extends Controller
 
     public function storeSipd($opd_penilaian_id, $opd_category_variable_id, $type, $year, $id_skpd)
     {
-        $data = Http::withHeaders([
-            'Authorization' =>  'Bearer 1|yZp3IIKeuZdfrSejkjBxEicChwp0l6aVvVNlUGkr',
-        ])->get(route('getPenyerapanAnggaranBelanja', [
+        $data = $this->getHttpFormatter(route('getPenyerapanAnggaranBelanja', [
             'type' => $type,
             'id_skpd' => $id_skpd,
             'year' => $year
-        ]));
+        ]), '');
         $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
         $dataPersen = $data['penyerapanAnggaranBelanjas']['realisasi'] / $data['penyerapanAnggaranBelanjas']['target'] * 100;
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
