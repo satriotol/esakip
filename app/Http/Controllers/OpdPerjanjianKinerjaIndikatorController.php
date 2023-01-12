@@ -134,6 +134,13 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
     {
         $data = $request->all();
         foreach ($data['addMoreInputFields'] as $key => $value) {
+            if ($value['is_iku'] && $value['is_sakip']) {
+                session()->flash('bug', 'Pilih Salah Satu Antara IKU atau Sakip');
+                return back();
+            } elseif ($value['is_iku'] == null && $value['is_sakip'] == null) {
+                session()->flash('bug', 'Pilih Salah Satu Antara IKU atau Sakip');
+                return back();
+            }
             OpdPerjanjianKinerjaIndikator::create($value);
         }
         return redirect(route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja));
