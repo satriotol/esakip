@@ -129,6 +129,8 @@ class OpdPenilaian extends Model
             return 'Rp ' . (number_format((float)$data));
         } elseif ($opdCategoryVariable->opd_variable->pic == 'SIPD' && $data) {
             return 'Rp ' . (number_format((float)$data));
+        } elseif ($opdCategoryVariable->opd_variable->pic == 'P3DN' && $data) {
+            return 'Rp ' . (number_format((float)$data));
         } else {
             return $data;
         }
@@ -149,6 +151,11 @@ class OpdPenilaian extends Model
             ];
             return $data;
         } elseif ($opdCategoryVariable->opd_variable->pic == 'SIPD' && $data) {
+            $data = [
+                'Rp ' . (number_format((float)$data))
+            ];
+            return $data;
+        } elseif ($opdCategoryVariable->opd_variable->pic == 'P3DN' && $data) {
             $data = [
                 'Rp ' . (number_format((float)$data))
             ];
