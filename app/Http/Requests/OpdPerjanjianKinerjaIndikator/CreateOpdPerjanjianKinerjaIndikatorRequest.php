@@ -27,7 +27,9 @@ class CreateOpdPerjanjianKinerjaIndikatorRequest extends FormRequest
             'addMoreInputFields.*.opd_perjanjian_kinerja_sasaran_id' => 'required',
             'addMoreInputFields.*.indikator' => 'required',
             'addMoreInputFields.*.target' => 'required',
-            'addMoreInputFields.*.satuan' => 'nullable'
+            'addMoreInputFields.*.satuan' => 'nullable',
+            'addMoreInputFields.*.is_iku' => 'nullable',
+            'addMoreInputFields.*.is_sakip' => 'nullable',
         ];
     }
 }
