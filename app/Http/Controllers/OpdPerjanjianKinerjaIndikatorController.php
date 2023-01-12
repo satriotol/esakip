@@ -183,6 +183,8 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
             'indikator' => 'required',
             'target' => 'required',
             'satuan' => 'nullable',
+            'is_iku' => 'nullable',
+            'is_sakip' => 'nullable',
         ]);
         if ($request->is_iku && $request->is_sakip) {
             session()->flash('bug', 'Pilih Salah Satu Antara IKU atau Sakip');
