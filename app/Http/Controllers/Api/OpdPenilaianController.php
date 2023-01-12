@@ -149,7 +149,7 @@ ORDER BY
         }
         $data = collect($query);
         $data = $data->where('id_skpd', $id_skpd)->first();
-        return $data;
+        // return $data;
         $master = Master::first();
         $totalYear = $year - $master->tahun_awal_p3dn;
         if ($totalYear < 0) {
@@ -177,15 +177,15 @@ ORDER BY
         $data = [
             'id_skpd' => $data->id_skpd,
             'nama_skpd' => $data->nama_skpd,
-            "tahun_iku" => $data->tahun_iku,
-            "tahun_capaian" => $data->tahun_capaian,
+            // "tahun_iku" => $data->tahun_iku,
+            // "tahun_capaian" => $data->tahun_capaian,
             "indikator" => $data->indikator,
             "satuan" => $data->satuan,
             "target" => round($target, 2),
-            "triwulan1" => $data->triwulan1,
-            "triwulan2" => $data->triwulan2,
-            "triwulan3" => $data->triwulan3,
-            "triwulan4" => $data->triwulan4,
+            "triwulan1" => $data->triwulan1_anggaran,
+            "triwulan2" => $data->triwulan2_anggaran,
+            "triwulan3" => $data->triwulan3_anggaran,
+            "triwulan4" => $data->triwulan4_anggaran,
             "totalTahunP3DN" => round($totalTahunP3DN, 2),
             'capaian' => $capaian,
         ];
