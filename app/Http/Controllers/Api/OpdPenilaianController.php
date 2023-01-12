@@ -108,39 +108,40 @@ class OpdPenilaianController extends Controller
             $year = date('Y');
         }
         $query = DB::connection('mysql2')->select("SELECT
-            table_3.kode_skpd,
-            table_3.nama_skpd,
-            table_1.id_skpd,
-            table_2.tahun AS tahun_iku,
-            table_2.tahun AS tahun_capaian,
-            table_2.indikator,
-            table_2.satuan,
-                table_2.target1 AS periode_1_rpjmd,
-                table_2.target2 AS periode_2_rpjmd,
-                table_2.target3 AS periode_3_rpjmd,
-                table_2.target4 AS periode_4_rpjmd,
-                table_2.target5 AS periode_5_rpjmd,
-            table_1.triwulan1,
-            table_1.triwulan2,
-            table_1.triwulan3,
-            table_1.triwulan4,
-            table_1.updated_at
-        FROM
-            data_capaian table_1
-        LEFT JOIN
-            iku_pd table_2
-        ON table_1.id_skpd = table_2.id_skpd
-        LEFT JOIN
-            data_unit table_3
-        ON table_1.id_skpd = table_3.id_skpd
-        WHERE 
-            table_1.tahun=table_2.tahun
-            AND table_1.id_indikator=table_2.id
-            AND table_1.tahun=$year
-            AND table_2.tahun=$year
-            AND table_1.jenis='12'
-        ORDER BY
-            table_3.kode_skpd;
+	table_3.kode_skpd,
+	table_3.nama_skpd,
+	table_1.id_skpd,
+	table_2.indikator,
+	table_2.satuan,
+	-- Optional untuk target, dapat langsung difilter by variable
+	-- targetX, X diganti dengan variable yang didapatkan pada filter tahun di e-sakip
+	-- Contoh tahun pilihan 2022 => 1, 2023 => 2, 2024 => 3, dst. Maka,
+	-- targetX akan menjadi target1 apabila tahun yang dipilih 2022 (disesuaikan dg. kebutuhan)
+		table_2.target1_anggaran AS periode_1_rpjmd,
+		table_2.target2_anggaran AS periode_2_rpjmd,
+		table_2.target3_anggaran AS periode_3_rpjmd,
+		table_2.target4_anggaran AS periode_4_rpjmd,
+		table_2.target5_anggaran AS periode_5_rpjmd,
+	-- 
+	table_1.triwulan1_anggaran,
+	table_1.triwulan2_anggaran,
+	table_1.triwulan3_anggaran,
+	table_1.triwulan4_anggaran,
+	table_1.updated_at
+FROM
+	data_capaian table_1
+LEFT JOIN
+	iku_pd table_2
+ON table_1.id_skpd = table_2.id_skpd
+LEFT JOIN
+	data_unit table_3
+ON table_1.id_skpd = table_3.id_skpd
+WHERE 
+	table_1.id_indikator=table_2.id
+	AND table_1.tahun='2022'
+	AND table_1.jenis='12'
+ORDER BY
+	table_3.kode_skpd;
         ");
         $id_skpd = $request->id_skpd;
         if ($id_skpd == null) {
@@ -148,6 +149,7 @@ class OpdPenilaianController extends Controller
         }
         $data = collect($query);
         $data = $data->where('id_skpd', $id_skpd)->first();
+        return $data;
         $master = Master::first();
         $totalYear = $year - $master->tahun_awal_p3dn;
         if ($totalYear < 0) {
@@ -167,7 +169,7 @@ class OpdPenilaianController extends Controller
         } elseif ($totalYear = 4) {
             $target = $data->periode_5_rpjmd;
         }
-        $totalTahunP3DN = $data->triwulan1 + $data->triwulan2 + $data->triwulan3 + $data->triwulan4;
+        $totalTahunP3DN = $data->triwulan1_anggaran + $data->triwulan2_anggaran + $data->triwulan3_anggaran + $data->triwulan4_anggaran;
         $capaian = round($totalTahunP3DN) / round($target, 2) * 100;
         if ($capaian > 100) {
             $capaian = 100;
