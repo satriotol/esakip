@@ -2,8 +2,8 @@
     @if ($opdPerjanjianKinerja->status != 'DITERIMA')
         <a href="{{ route('opdPerjanjianKinerjaIndikator.createView', [$opdPerjanjianKinerja]) }}"
             class="btn btn-sm btn-info" style="margin-right: 1rem">Tambah Indikator Manual</a>
-        <button type="submit" class="btn btn-sm btn-success ml-2" @click="opdPerjanjianKinerjaIndikator">Tarik
-            Indikator</button>
+        {{-- <button type="submit" class="btn btn-sm btn-success ml-2" @click="opdPerjanjianKinerjaIndikator">Tarik
+            Indikator</button> --}}
     @endif
 </div>
 <div class="table-responsive mt-2">

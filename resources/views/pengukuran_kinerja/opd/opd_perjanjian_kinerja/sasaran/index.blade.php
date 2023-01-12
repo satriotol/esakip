@@ -2,8 +2,8 @@
     @if ($opdPerjanjianKinerja->status != 'DITERIMA')
         <a href="{{ route('opdPerjanjianKinerjaSasaran.create', $opdPerjanjianKinerja->id) }}" class="btn btn-sm btn-info"
             style="margin-right: 1rem">Tambah Sasaran Manual</a>
-        <button type="submit" class="btn btn-sm btn-success ml-1" @click="opdPerjanjianKinerjaSasaran">Tarik
-            Sasaran</button>
+        {{-- <button type="submit" class="btn btn-sm btn-success ml-1" @click="opdPerjanjianKinerjaSasaran">Tarik
+            Sasaran</button> --}}
     @endif
 </div>
 <div class="table-responsive mt-2">
