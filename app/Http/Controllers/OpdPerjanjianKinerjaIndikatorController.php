@@ -134,10 +134,7 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
     {
         $data = $request->all();
         foreach ($data['addMoreInputFields'] as $key => $value) {
-            if ($value['is_iku'] && $value['is_sakip']) {
-                session()->flash('bug', 'Pilih Salah Satu Antara IKU atau Sakip');
-                return back();
-            } elseif ($value['is_iku'] == null && $value['is_sakip'] == null) {
+            if ($value['is_iku'] == null && $value['is_sakip'] == null) {
                 session()->flash('bug', 'Pilih Salah Satu Antara IKU atau Sakip');
                 return back();
             }
@@ -186,10 +183,7 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
             'is_iku' => 'nullable',
             'is_sakip' => 'nullable',
         ]);
-        if ($request->is_iku && $request->is_sakip) {
-            session()->flash('bug', 'Pilih Salah Satu Antara IKU atau Sakip');
-            return back();
-        } elseif ($request->is_iku == null && $request->is_sakip == null) {
+        if ($request->is_iku == null && $request->is_sakip == null) {
             session()->flash('bug', 'Pilih Salah Satu Antara IKU atau Sakip');
             return back();
         }
