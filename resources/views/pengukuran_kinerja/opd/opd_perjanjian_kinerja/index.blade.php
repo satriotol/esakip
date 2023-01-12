@@ -17,6 +17,8 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">{{ $name }}</h6>
+                    <a href="https://drive.google.com/file/d/1qLn7kN0ISjBglcpSTXwBw211eBpEPUee/view?usp=share_link"
+                        target="_blank">Tutorial Upload Perjanjian Kinerja</a>
                     <form action="">
                         <div class="row">
                             <div class="col-md-4">
