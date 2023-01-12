@@ -263,7 +263,7 @@ class OpdPenilaianKinerjaController extends Controller
     {
         $data = Http::accept('application/json')->withHeaders([
             'X-Api-Key' => '!23f0rm451|-|anY453b4tas1Lu5!',
-            'X-Token' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImlkIjoiNTYifSwiaWF0IjoxNjczMzMzMDg5LCJleHAiOjE2NzM0MTk0ODl9.5_Z59wucyOjc3tJDnuqKMzuFMQM5V_aRt2QOFtg2Mc0'
+            'X-Token' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImlkIjoiNTYifSwiaWF0IjoxNjczNDg2NTk4LCJleHAiOjE3MDQ1OTA1OTh9.Zf0Nt2e-3Sv9gml3ZX-V658fPFoIzSKhpd86OAa6MHc'
         ])->get('http://lke-rb.semarangkota.go.id/api/penilaian_opd/hasil?kd_skpd=' . $opd_penilaian->opd->kode_opd . '&tahun=' . $year . '');
         if ($data->failed()) {
             session()->flash('bug', $data['message']);
