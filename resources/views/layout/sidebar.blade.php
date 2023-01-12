@@ -335,7 +335,7 @@
                     </a>
                 </li>
             @endcan
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#manualBook" role="button"
                     aria-controls="manualBook">
                     <i class="link-icon" data-feather="anchor"></i>
@@ -351,7 +351,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </nav>
