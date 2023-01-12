@@ -187,7 +187,7 @@ ORDER BY
             "triwulan3" => $data->triwulan3_anggaran,
             "triwulan4" => $data->triwulan4_anggaran,
             "totalTahunP3DN" => round($totalTahunP3DN, 2),
-            'capaian' => $capaian,
+            'capaian' => round($capaian, 2),
         ];
         return $this->successResponse(['p3dn' => $data]);
     }
