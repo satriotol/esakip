@@ -10,6 +10,7 @@ use App\Models\OpdPerjanjianKinerjaSasaran;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class OpdPerjanjianKinerjaIndikatorController extends Controller
 {
@@ -170,7 +171,19 @@ class OpdPerjanjianKinerjaIndikatorController extends Controller
      */
     public function update(UpdateOpdPerjanjianKinerjaIndikatorRequest $request, $opdPerjanjianKinerja, OpdPerjanjianKinerjaIndikator $opdPerjanjianKinerjaIndikator)
     {
-        $data = $request->all();
+        $data = $request->validate([
+            'opd_perjanjian_kinerja_sasaran_id' => 'required',
+            'indikator' => 'required',
+            'target' => 'required',
+            'satuan' => 'nullable',
+        ]);
+        if ($request->is_iku && $request->is_sakip) {
+            session()->flash('bug', 'Pilih Salah Satu Antara IKU atau Sakip');
+            return back();
+        } elseif ($request->is_iku == null && $request->is_sakip == null) {
+            session()->flash('bug', 'Pilih Salah Satu Antara IKU atau Sakip');
+            return back();
+        }
         $opdPerjanjianKinerjaIndikator->update($data);
         session()->flash('success');
         return redirect(route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja));

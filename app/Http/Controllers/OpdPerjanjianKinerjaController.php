@@ -10,6 +10,7 @@ use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use App\Models\RencanaAksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
 class OpdPerjanjianKinerjaController extends Controller
@@ -126,9 +127,15 @@ class OpdPerjanjianKinerjaController extends Controller
      * @param  \App\Models\PerngukuranKinerja\OpdPerjanjianKinerja  $opdPerjanjianKinerja
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateOpdPerjanjianKinerjaRequest $request, OpdPerjanjianKinerja $opdPerjanjianKinerja)
+    public function update(Request $request, OpdPerjanjianKinerja $opdPerjanjianKinerja)
     {
-        $data = $request->all();
+        $data = $request->validate([
+            'opd_id' => 'nullable',
+            'file' => 'nullable|max:500000',
+            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+            'type' => 'required',
+
+        ]);
         if ($request->file) {
             $data['file'] = $request->file;
         };
