@@ -94,8 +94,8 @@
                 var target_table = '<td><input type="text" required class="form-control" name="addMoreInputFields['+i+'][target]"></td>';
                 var indikator_table = '<td><input type="text" required class="form-control" name="addMoreInputFields['+i+'][indikator]"></td>';
                 var satuan_table = '<td><input type="text" class="form-control" name="addMoreInputFields['+i+'][satuan]"></td>'
-                var is_iku = '<td><select name="addMoreInputFields['+i+'][is_iku]" class="form-control"required><option value="">Tidak</option><option value="1">Ya</option></select></td>'
-                var is_sakip = '<td><select name="addMoreInputFields['+i+'][is_sakip]" class="form-control"required><option value="">Tidak</option><option value="1">Ya</option></select></td>'
+                var is_iku = '<td><select name="addMoreInputFields['+i+'][is_iku]" class="form-control"><option value="">Tidak</option><option value="1">Ya</option></select></td>'
+                var is_sakip = '<td><select name="addMoreInputFields['+i+'][is_sakip]" class="form-control"><option value="">Tidak</option><option value="1">Ya</option></select></td>'
                 let html = '<tr>'+ sasaran_table + indikator_table + target_table + satuan_table + is_iku + is_sakip +'<td><button type="button" class="btn btn-outline-danger remove-input-field">Hapus</button></td><tr>';    
             $("#dynamicAddRemove").append(html);
         });
