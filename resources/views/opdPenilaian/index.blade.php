@@ -17,6 +17,13 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">Penilaian OPD</h6>
+                    <ul>
+                        <li> <a href="https://drive.google.com/file/d/1fNgTlFOlLyR8FSPpIIS9lELzZy3TxtBj/view?usp=share_link"
+                                target="_blank">Manual Book OPD TIDAK DENGAN TARGET PENDAPATAN</a></li>
+                        <li> <a href="https://drive.google.com/file/d/1uIiL50gU6DbD8K_8vhcofIvCru9DWljs/view?usp=share_link"
+                                target="_blank">Manual Book OPD DENGAN TARGET PENDAPATAN</a></li>
+                    </ul>
+
                     <div class="text-end mb-2">
                         <a class="btn btn-primary" href="{{ route('opdPenilaian.create') }}">
                             <i data-feather="plus"></i>
