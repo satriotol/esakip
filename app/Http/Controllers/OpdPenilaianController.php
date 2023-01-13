@@ -144,7 +144,7 @@ class OpdPenilaianController extends Controller
     }
     public function showReport(OpdPenilaian $opdPenilaian)
     {
-        $getOpdPerjanjianKinerjaIndikators = OpdPenilaian::getOpdPerjanjianKinerjaIndikator($opdPenilaian);
+        $getOpdPerjanjianKinerjaIndikators = OpdPenilaian::getOpdPerjanjianKinerjaIndikator($opdPenilaian, 1);
         $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
         $statuses = OpdPenilaian::STATUSESVERIF;
         $ikuTypes = OpdPenilaianIku::TYPES;
