@@ -104,11 +104,17 @@ class OpdPenilaian extends Model
         }
         return false;
     }
-    public static function getOpdPerjanjianKinerjaIndikator($opdPenilaian)
+    public static function getOpdPerjanjianKinerjaIndikator($opdPenilaian, $is_iku = '')
     {
-        $datas = OpdPerjanjianKinerjaIndikator::whereHas('opd_perjanjian_kinerja_sasaran', function ($q) use ($opdPenilaian) {
-            $q->where('opd_perjanjian_kinerja_id', $opdPenilaian->opd_perjanjian_kinerja_id);
-        })->get();
+        if ($is_iku == 1) {
+            $datas = OpdPerjanjianKinerjaIndikator::where('is_iku', 1)->whereHas('opd_perjanjian_kinerja_sasaran', function ($q) use ($opdPenilaian) {
+                $q->where('opd_perjanjian_kinerja_id', $opdPenilaian->opd_perjanjian_kinerja_id);
+            })->get();
+        } else {
+            $datas = OpdPerjanjianKinerjaIndikator::whereHas('opd_perjanjian_kinerja_sasaran', function ($q) use ($opdPenilaian) {
+                $q->where('opd_perjanjian_kinerja_id', $opdPenilaian->opd_perjanjian_kinerja_id);
+            })->get();
+        }
         return $datas;
     }
     public static function ifTahunan($opd_category_id)
