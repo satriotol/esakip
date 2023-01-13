@@ -28,7 +28,7 @@
                                 <tbody>
                                     @foreach ($getOpdPerjanjianKinerjaIndikators as $getOpdPerjanjianKinerjaIndikator)
                                         <tr>
-                                            <td>
+                                            <td class="text-wrap">
                                                 {{ $getOpdPerjanjianKinerjaIndikator->opd_perjanjian_kinerja_sasaran->sasaran }}
                                                 <br>
                                                 <small>
