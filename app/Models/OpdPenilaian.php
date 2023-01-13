@@ -135,8 +135,10 @@ class OpdPenilaian extends Model
             return 'Rp ' . (number_format((float)$data));
         } elseif ($opdCategoryVariable->opd_variable->pic == 'SIPD' && $data) {
             return 'Rp ' . (number_format((float)$data));
-        } elseif ($opdCategoryVariable->opd_variable->pic == 'P3DN' && $data) {
+        } elseif ($opdCategoryVariable->opd_variable->is_p3dn && $data) {
             return 'Rp ' . (number_format((float)$data));
+        } elseif ($opdCategoryVariable->opd_variable->is_iku && $data) {
+            return  $this->capaian($opd_category_variable_id) . ' %';
         } else {
             return $data;
         }
@@ -161,7 +163,7 @@ class OpdPenilaian extends Model
                 'Rp ' . (number_format((float)$data))
             ];
             return $data;
-        } elseif ($opdCategoryVariable->opd_variable->pic == 'P3DN' && $data) {
+        } elseif ($opdCategoryVariable->opd_variable->is_p3dn && $data) {
             $data = [
                 'Rp ' . (number_format((float)$data))
             ];

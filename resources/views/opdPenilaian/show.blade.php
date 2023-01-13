@@ -181,14 +181,14 @@
                                         </td>
                                         <td>
                                             @if ($opd_category_variable->opd_variable->is_iku || $opd_category_variable->opd_variable->is_iku_triwulan)
-                                                -
+                                                100 %
                                             @else
                                                 {{ $opdPenilaian->target($opd_category_variable->id)[0] }}
                                             @endif
                                         </td>
                                         <td>
                                             @if ($opd_category_variable->opd_variable->is_iku || $opd_category_variable->opd_variable->is_iku_triwulan)
-                                                -
+                                                {{ $opdPenilaian->realisasi($opd_category_variable->id) }}
                                             @else
                                                 {{ $opdPenilaian->realisasi($opd_category_variable->id) }}
                                             @endif

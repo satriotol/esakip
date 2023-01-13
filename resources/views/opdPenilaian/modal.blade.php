@@ -68,6 +68,7 @@
                                             </td>
                                             <td>
                                                 {{ $opd_category_variable->getIkuCapaian($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}
+                                                %
                                             </td>
                                             <input type="hidden"
                                                 name="iku[{{ $loop->index }}][opd_perjanjian_kinerja_indikator_id]"
