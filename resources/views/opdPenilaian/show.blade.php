@@ -138,7 +138,7 @@
                                                     TARIK DATA E-SAKIP
                                                 </a>
                                             @else
-                                                @if ($opd_category_variable->opd_variable->pic == 'OPD' && Auth::user()->opd_id && $checkStatus != 1)
+                                                @if ($opd_category_variable->opd_variable->pic == 'OPD' && $checkStatus != 1)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                         INPUT OPD
