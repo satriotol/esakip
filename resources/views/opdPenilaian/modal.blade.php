@@ -46,7 +46,8 @@
                                                     <input type="text" readonly name="iku[{{ $loop->index }}][type]"
                                                         id="" value="UMUM">
                                                 @else
-                                                    <select name="iku[{{ $loop->index }}][type]" class="form-control">
+                                                    <select name="iku[{{ $loop->index }}][type]" class="form-control"
+                                                        @readonly($opd_category_variable->getIkuIsVerified($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id))>
                                                         <option value="">Pilih Tipe Penilaian</option>
                                                         @foreach ($ikuTypes as $ikuType)
                                                             <option value="{{ $ikuType }}"
@@ -65,15 +66,16 @@
                                                 @else
                                                     <input type="number" class="form-control"
                                                         placeholder="Masukan Realisasi Organisasi Anda"
+                                                        @readonly($opd_category_variable->getIkuIsVerified($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id))
                                                         value="{{ $opd_category_variable->getIkuRealisasi($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}"
                                                         step="any" required
                                                         name="iku[{{ $loop->index }}][realisasi]" id="">
                                                 @endif
-                                                <br>
-                                                <input type="file" id="file"
-                                                    name="iku[{{ $loop->index }}][file]" />
+                                                @if ($opd_category_variable->getIkuIsVerified($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) != 1)
+                                                    <input type="file" id="file" class="form-control"
+                                                        name="iku[{{ $loop->index }}][file]" />
+                                                @endif
                                                 @if ($opd_category_variable->getIkuFile($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) != null)
-                                                    <br>
                                                     <a href="{{ asset('uploads/' . $opd_category_variable->getIkuFile($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id)) }}"
                                                         target="_blank">Buka
                                                         File</a>

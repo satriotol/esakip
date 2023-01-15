@@ -58,6 +58,7 @@ class OpdPenilaianIkuController extends Controller
                 'opd_category_variable_id' => $request->opd_category_variable_id,
             ]);
             foreach ($request->iku as $i) {
+                # code...
                 if (isset($i['file'])) {
                     $file = $i['file'];
                     $filename = date('Ymd_His') . '-' . $file->getClientOriginalName();
