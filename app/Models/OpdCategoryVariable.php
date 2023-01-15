@@ -73,4 +73,13 @@ class OpdCategoryVariable extends Model
         }
         return $opdPenilaianIku;
     }
+    public function getIkuFile($opdPenilaian, $getOpdPerjanjianKinerjaIndikator)
+    {
+        $opdPenilaianIku =  $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus ?? "";
+        if ($opdPenilaianIku) {
+            $data = $opdPenilaianIku->where('opd_perjanjian_kinerja_indikator_id', $getOpdPerjanjianKinerjaIndikator)->first()->file ?? "";
+            return $data;
+        }
+        return $opdPenilaianIku;
+    }
 }

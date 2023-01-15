@@ -56,7 +56,7 @@ class OpdPenilaianIkuController extends Controller
             foreach ($request->iku as $i) {
                 if ($i['file']) {
                     $file = $i['file'];
-                    $filename = date('Ymd_His') . '-' . $file;
+                    $filename = date('Ymd_His') . '-' . $file->getClientOriginalName();
                     $i['file'] = $file->storeAs('file', $filename, 'public_uploads');
                 };
                 $opdPerjanjianKinerjaIndikator = OpdPerjanjianKinerjaIndikator::find($i['opd_perjanjian_kinerja_indikator_id']);
