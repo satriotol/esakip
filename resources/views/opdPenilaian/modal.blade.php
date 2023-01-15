@@ -1,3 +1,5 @@
+@push('plugin-styles')
+@endpush
 <div class="modal fade bd-example-modal-lg" id="exampleModal{{ $opd_category_variable->id }}" tabindex="-1"
     aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="max-width: 80%!important;">
@@ -24,6 +26,8 @@
                                     <th>Tipe</th>
                                     <th>Realisasi</th>
                                     <th>Capaian</th>
+                                    <th>Status</th>
+                                    <th>Catatan Verifikator</th>
                                 </thead>
                                 <tbody>
                                     @foreach ($getOpdPerjanjianKinerjaIndikators as $getOpdPerjanjianKinerjaIndikator)
@@ -42,8 +46,8 @@
                                                     <input type="text" readonly name="iku[{{ $loop->index }}][type]"
                                                         id="" value="UMUM">
                                                 @else
-                                                    <select name="iku[{{ $loop->index }}][type]">
-                                                        <option value="">Pilih Tipe</option>
+                                                    <select name="iku[{{ $loop->index }}][type]" class="form-control">
+                                                        <option value="">Pilih Tipe Penilaian</option>
                                                         @foreach ($ikuTypes as $ikuType)
                                                             <option value="{{ $ikuType }}"
                                                                 @selected($opd_category_variable->getIkuType($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) == $ikuType)>{{ $ikuType }}
@@ -59,16 +63,31 @@
                                                         step="any" required
                                                         name="iku[{{ $loop->index }}][realisasi]" id="">
                                                 @else
-                                                    <input type="number"
+                                                    <input type="number" class="form-control"
+                                                        placeholder="Masukan Realisasi Organisasi Anda"
                                                         value="{{ $opd_category_variable->getIkuRealisasi($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}"
                                                         step="any" required
                                                         name="iku[{{ $loop->index }}][realisasi]" id="">
                                                 @endif
-
+                                            </td>
+                                            <td>
+                                                <input type="file" id="file"
+                                                    name="iku[{{ $loop->index }}][file]" />
                                             </td>
                                             <td>
                                                 {{ $opd_category_variable->getIkuCapaian($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}
                                                 %
+                                            </td>
+                                            <td>
+                                                <select name="iku[{{ $loop->index }}][is_verified]"
+                                                    class="form-control" @readonly(Auth::user()->opd_id)>
+                                                    <option value="">Pilih Status</option>
+                                                    <option value="1" @selected($opd_category_variable->getIkuIsVerified($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) == 1)>Terima</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <textarea @readonly(Auth::user()->opd_id) name="iku[{{ $loop->index }}][note]" id="" cols="20" rows="5"
+                                                    class="form-control">{{ $opd_category_variable->getIkuNote($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}</textarea>
                                             </td>
                                             <input type="hidden"
                                                 name="iku[{{ $loop->index }}][opd_perjanjian_kinerja_indikator_id]"
@@ -117,8 +136,8 @@
                     <form action="{{ route('opdPenilaianKinerja.store') }}" method="post">
                         @csrf
                         <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">
-                        <input type="hidden" value="{{ $opd_category_variable->id }}" name="opd_category_variable_id"
-                            id="">
+                        <input type="hidden" value="{{ $opd_category_variable->id }}"
+                            name="opd_category_variable_id" id="">
                         <input type="hidden" value="100" name="target" id="">
                         <div class="mb-3">
                             <label>Rencana Aksi</label>
@@ -141,3 +160,5 @@
         </div>
     </div>
 </div>
+@push('custom-scripts')
+@endpush

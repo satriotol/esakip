@@ -9,7 +9,7 @@ class OpdPenilaianIku extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['opd_penilaian_kinerja_id', 'opd_perjanjian_kinerja_indikator_id', 'type', 'capaian', 'realisasi'];
+    protected $fillable = ['opd_penilaian_kinerja_id', 'opd_perjanjian_kinerja_indikator_id', 'type', 'capaian', 'realisasi', 'file', 'note', 'is_verified'];
     const TYPE1 = 'UMUM';
     const TYPE2 = 'KHUSUS';
     const TYPES = [

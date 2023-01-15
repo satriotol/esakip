@@ -55,4 +55,22 @@ class OpdCategoryVariable extends Model
         }
         return $opdPenilaianIku;
     }
+    public function getIkuNote($opdPenilaian, $getOpdPerjanjianKinerjaIndikator)
+    {
+        $opdPenilaianIku =  $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus ?? "";
+        if ($opdPenilaianIku) {
+            $data = $opdPenilaianIku->where('opd_perjanjian_kinerja_indikator_id', $getOpdPerjanjianKinerjaIndikator)->first()->note ?? "";
+            return $data;
+        }
+        return $opdPenilaianIku;
+    }
+    public function getIkuIsVerified($opdPenilaian, $getOpdPerjanjianKinerjaIndikator)
+    {
+        $opdPenilaianIku =  $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus ?? "";
+        if ($opdPenilaianIku) {
+            $data = $opdPenilaianIku->where('opd_perjanjian_kinerja_indikator_id', $getOpdPerjanjianKinerjaIndikator)->first()->is_verified ?? "";
+            return $data;
+        }
+        return $opdPenilaianIku;
+    }
 }

@@ -54,6 +54,11 @@ class OpdPenilaianIkuController extends Controller
                 'opd_category_variable_id' => $request->opd_category_variable_id,
             ]);
             foreach ($request->iku as $i) {
+                if ($i['file']) {
+                    $file = $i['file'];
+                    $filename = date('Ymd_His') . '-' . $file;
+                    $i['file'] = $file->storeAs('file', $filename, 'public_uploads');
+                };
                 $opdPerjanjianKinerjaIndikator = OpdPerjanjianKinerjaIndikator::find($i['opd_perjanjian_kinerja_indikator_id']);
                 // OpdPenilaianIku::where('opd_penilaian_kinerja_id', $opdPenilaianKinerja->id)->where('opd_perjanjian_kinerja_indikator_id', $i['opd_perjanjian_kinerja_indikator_id'])->delete();
                 if ($i['type'] == OpdPenilaianIku::TYPE1) {
@@ -69,8 +74,11 @@ class OpdPenilaianIkuController extends Controller
                             'opd_perjanjian_kinerja_indikator_id' => $i['opd_perjanjian_kinerja_indikator_id'],
                         ],
                         [
+                            'note' => $i['note'],
                             'type' => $i['type'],
+                            'is_verified' => $i['is_verified'],
                             'realisasi' => $i['realisasi'],
+                            'file' => $i['file'],
                             'capaian' => $capaian,
                         ]
                     );
@@ -87,8 +95,11 @@ class OpdPenilaianIkuController extends Controller
                             'opd_perjanjian_kinerja_indikator_id' => $i['opd_perjanjian_kinerja_indikator_id'],
                         ],
                         [
+                            'note' => $i['note'],
                             'type' => $i['type'],
+                            'is_verified' => $i['is_verified'],
                             'realisasi' => $i['realisasi'],
+                            'file' => $i['file'],
                             'capaian' => $capaian,
                         ]
                     );
@@ -111,12 +122,12 @@ class OpdPenilaianIkuController extends Controller
 
             ]);
             DB::commit();
+            session()->flash('success');
+            return back();
         } catch (Exception $exception) {
             Error::createError($exception);
+            return $exception;
         }
-
-
-        return back();
     }
 
     /**
