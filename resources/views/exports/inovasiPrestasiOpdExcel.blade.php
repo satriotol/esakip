@@ -13,13 +13,13 @@
     <tbody>
         @foreach ($inovasiPrestasiOpds as $inovasiPrestasiOpd)
             <tr>
-                <td>{{ $inovasiPrestasiOpd->opd->nama_opd }}</td>
-                <td>{{ $inovasiPrestasiOpd->year }}</td>
-                <td>{{ $inovasiPrestasiOpd->date }}</td>
-                <td>{{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }}</td>
-                <td>{{ $inovasiPrestasiOpd->name }}</td>
-                <td>{{ $inovasiPrestasiOpd->description }}</td>
-                <td><a href="{{ asset('uploads/' . $inovasiPrestasiOpd->file) }}">Buka File</a></td>
+                <td width="100%">{{ $inovasiPrestasiOpd->opd->nama_opd }}</td>
+                <td width="100%">{{ $inovasiPrestasiOpd->year }}</td>
+                <td width="100%">{{ $inovasiPrestasiOpd->date }}</td>
+                <td width="100%">{{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }}</td>
+                <td width="100%">{{ $inovasiPrestasiOpd->name }}</td>
+                <td width="100%">{{ $inovasiPrestasiOpd->description }}</td>
+                <td width="100%"><a href="{{ asset('uploads/' . $inovasiPrestasiOpd->file) }}">Buka File</a></td>
             </tr>
         @endforeach
     </tbody>

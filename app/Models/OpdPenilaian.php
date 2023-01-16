@@ -95,7 +95,7 @@ class OpdPenilaian extends Model
         if ($status) {
             $getOpdPenilaian->where('status', $status);
         }
-        return $getOpdPenilaian->orderBy('year', 'desc')->paginate();
+        return $getOpdPenilaian->orderBy('year', 'desc');
     }
     public function checkStatusReport()
     {

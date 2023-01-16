@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OpdPenilaianExport;
 use App\Models\Error;
 use App\Models\InovasiPrestasiOpd;
 use App\Models\Opd;
@@ -16,6 +17,7 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OpdPenilaianController extends Controller
 {
@@ -34,9 +36,13 @@ class OpdPenilaianController extends Controller
     public function index(Request $request)
     {
         $opds = Opd::getOpd();
-        $opdPenilaians = OpdPenilaian::getOpdPenilaian($request, '');
+        $opdPenilaians = OpdPenilaian::getOpdPenilaian($request, '')->paginate();
         $opdCategories = OpdCategory::all();
         $statuses = OpdPenilaian::STATUSALL;
+        if ($request->submit == 'exportExcel') {
+            $nama_file = 'PENILAIAN OPD ' . date('Y-m-d_H-i-s') . '.xlsx';
+            return Excel::download(new OpdPenilaianExport($request), $nama_file);
+        }
         $request->flash();
         return view('opdPenilaian.index', compact('opdPenilaians', 'opds', 'opdCategories', 'statuses'));
     }

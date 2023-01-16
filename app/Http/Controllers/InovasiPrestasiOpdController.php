@@ -29,7 +29,7 @@ class InovasiPrestasiOpdController extends Controller
         $inovasiPrestasiOpds = InovasiPrestasiOpd::getAll($request)->paginate();
         $request->flash();
         if ($request->submit == 'exportExcel') {
-            $nama_file = 'hasil_tes_ppk_' . date('Y-m-d_H-i-s') . '.xlsx';
+            $nama_file = 'inovasi_prestasi' . date('Y-m-d_H-i-s') . '.xlsx';
             return Excel::download(new InovasiPrestasiOpdExport($request), 'Inovasi Prestasi Opd.xlsx');
         }
         return view('inovasiPrestasiOpd.index', compact('inovasiPrestasiOpds', 'opds'));

@@ -2,13 +2,13 @@
 
 namespace App\Exports;
 
-use App\Models\InovasiPrestasiOpd;
+use App\Models\OpdPenilaian;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 
-class InovasiPrestasiOpdExport implements ShouldAutoSize, FromView
+class OpdPenilaianExport implements ShouldAutoSize, FromView
 {
     protected $request;
     public function __construct(Request $request)
@@ -17,7 +17,7 @@ class InovasiPrestasiOpdExport implements ShouldAutoSize, FromView
     }
     public function view(): View
     {
-        $inovasiPrestasiOpds = InovasiPrestasiOpd::getAll($this->request)->get();
-        return view('exports.inovasiPrestasiOpdExcel', compact('inovasiPrestasiOpds'));
+        $opdPenilaians = OpdPenilaian::getOpdPenilaian($this->request, '')->get();
+        return view('exports.opdPenilaianExcel', compact('opdPenilaians'));
     }
 }

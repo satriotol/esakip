@@ -79,7 +79,8 @@
                                         </div>
                                     </div>
                                     <div class="text-end">
-                                        <button class="btn btn-sm btn-success">Cari</button>
+                                        <button name="submit" value="exportExcel" class="btn btn-sm btn-success">Export Excel</button>
+                                        <button name="submit" class="btn btn-sm btn-success">Cari</button>
                                     </div>
                                 </div>
                             </form>
