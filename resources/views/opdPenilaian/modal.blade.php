@@ -87,11 +87,24 @@
                                             %
                                         </td>
                                         <td>
-                                            <select name="iku[{{ $loop->index }}][is_verified]"
-                                                class="form-control" @readonly(Auth::user()->opd_id)>
-                                                <option value="">Pilih Status</option>
-                                                <option value="1" @selected($opd_category_variable->getIkuIsVerified($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) == 1)>Terima</option>
-                                            </select>
+                                            @if (Auth::user()->opd_id)
+                                                <select disabled class="form-control">
+                                                    <option value="">Pilih Status</option>
+                                                    <option value="1" @selected($opd_category_variable->getIkuIsVerified($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) == 1)>Terima
+                                                    </option>
+                                                </select>
+                                                <input class="d-none" type="text"
+                                                    name="iku[{{ $loop->index }}][is_verified]"
+                                                    value="{{ $opd_category_variable->getIkuIsVerified($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}"
+                                                    name="" id="">
+                                            @else
+                                                <select name="iku[{{ $loop->index }}][is_verified]"
+                                                    class="form-control">
+                                                    <option value="">Pilih Status</option>
+                                                    <option value="1" @selected($opd_category_variable->getIkuIsVerified($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) == 1)>Terima
+                                                    </option>
+                                                </select>
+                                            @endif
                                         </td>
                                         <td>
                                             <textarea @readonly(Auth::user()->opd_id) name="iku[{{ $loop->index }}][note]" id="" cols="20" rows="5"
@@ -111,8 +124,7 @@
                         <button class="btn btn-success">Simpan</button>
                     </div>
                 </form>
-            @elseif ($opd_category_variable->opd_variable->pic != 'SIPD' &&
-                $opd_category_variable->opd_variable->is_iku_triwulan != 1)
+            @elseif ($opd_category_variable->opd_variable->pic != 'SIPD' && $opd_category_variable->opd_variable->is_iku_triwulan != 1)
                 <form action="{{ route('opdPenilaianKinerja.store') }}" method="post">
                     @csrf
                     <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">
