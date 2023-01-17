@@ -271,7 +271,9 @@ class OpdPenilaianKinerjaController extends Controller
         }
         $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
         $realisasi = $data['data']['penilaian_opd']['nilai_validator'];
-        $target = $data['data']['penilaian_opd']['bobot'];
+        $bobot = $data['data']['penilaian_opd']['bobot'];
+        $realisasi =  round($realisasi / $bobot * 100, 2);
+        $target = Master::first()->reformasi_birokrasi;
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
         $capaian = round($realisasi / $target * 100, 2);
         if ($capaian > 100) {
