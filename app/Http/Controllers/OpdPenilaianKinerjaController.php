@@ -50,9 +50,11 @@ class OpdPenilaianKinerjaController extends Controller
         $url = '103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePadByDate';
         $year = $opdPenilaian->year;
         if ($opdPenilaian->name == null) {
+            $tglawal = $year . '-01-01';
+            $tglakhir = $year . '-12-31';
             $testUrl = Http::get($url, [
-                'tglawal' => $year . '-01-01',
-                'tglakhir' => $year . '-12-31'
+                'tglawal' => $tglawal,
+                'tglakhir' => $tglakhir
             ]);
         }
         if ($testUrl['success'] == true) {
