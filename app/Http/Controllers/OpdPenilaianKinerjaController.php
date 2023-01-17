@@ -42,21 +42,26 @@ class OpdPenilaianKinerjaController extends Controller
     public function getRealisasiTargetPendapatan(Request $request, $name, $opd_penilaian_id, $opd_category_variable_id)
     {
         $name = $request->name;
-        // $request->name = $name;
         $data2 = null;
         $data = null;
-        $url = 'http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad';
-        $testUrl = Http::get($url);
+        $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
+        $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+        $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
+        $url = '103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePadByDate';
+        $year = $opdPenilaian->year;
+        if ($opdPenilaian->name == null) {
+            $testUrl = Http::get($url, [
+                'tglawal' => $year . '-01-01',
+                'tglakhir' => $year . '-12-31'
+            ]);
+        }
         if ($testUrl['success'] == true) {
             try {
                 if ($name == 'BADAN PENDAPATAN DAERAH') {
-                    $data2 = Http::get($url)['data']['pad'][0]['subtotal'];
+                    $data2 = $testUrl['data']['pad'][0]['subtotal'];
                 } else {
-                    $data = Http::get($url)['data']['pad'][1]['rincian'];
+                    $data = $testUrl['data']['pad'][1]['rincian'];
                 }
-                $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
-                $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
-                $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
                 if ($data2) {
                     if ($request->name) {
                         if ((float)$data2['persenRealisasi'] > 100) {
