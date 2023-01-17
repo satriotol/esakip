@@ -74,6 +74,8 @@
                                                 @if ($opd_category_variable->getIkuIsVerified($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) != 1)
                                                     <input type="file" id="file" class="form-control"
                                                         name="iku[{{ $loop->index }}][file]" />
+                                                    <small class="text-danger">Format .pdf dan ukuran maksimal
+                                                        10mb</small><br>
                                                 @endif
                                                 @if ($opd_category_variable->getIkuFile($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) != null)
                                                     <a href="{{ asset('uploads/' . $opd_category_variable->getIkuFile($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id)) }}"

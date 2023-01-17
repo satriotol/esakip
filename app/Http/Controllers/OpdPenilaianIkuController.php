@@ -49,7 +49,7 @@ class OpdPenilaianIkuController extends Controller
             'iku.*.is_verified' => 'nullable',
             'iku.*.note' => 'nullable',
             'iku.*.opd_perjanjian_kinerja_indikator_id' => 'nullable',
-            'iku.*.file' => 'nullable',
+            'iku.*.file' => 'nullable|mimes:pdf|max:10000',
         ]);
         DB::beginTransaction();
         try {
@@ -57,7 +57,7 @@ class OpdPenilaianIkuController extends Controller
                 'opd_penilaian_id' => $request->opd_penilaian_id,
                 'opd_category_variable_id' => $request->opd_category_variable_id,
             ]);
-            foreach ($request->iku as $i) {
+            foreach ($data['iku'] as $i) {
                 # code...
                 if (isset($i['file'])) {
                     $file = $i['file'];
