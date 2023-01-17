@@ -5,8 +5,8 @@
 @push('style')
     <style>
         /* html {
-                                                                zoom: 100%;
-                                                            } */
+                                                                    zoom: 100%;
+                                                                } */
     </style>
 @endpush
 @section('content')
@@ -43,10 +43,12 @@
                                     <td>Perjanjian Kinerja</td>
                                     <td>:</td>
                                     <td>
-                                        <a href="{{ route('opdPerjanjianKinerja.show', $opdPenilaian->opd_perjanjian_kinerja_id) }}"
-                                            target="_blank">
-                                            {{ $opdPenilaian->opd_perjanjian_kinerja->type }}
-                                        </a>
+                                        @isset($opdPenilaian->opd_perjanjian_kinerja_id)
+                                            <a href="{{ route('opdPerjanjianKinerja.show', $opdPenilaian->opd_perjanjian_kinerja_id) }}"
+                                                target="_blank">
+                                                {{ $opdPenilaian->opd_perjanjian_kinerja->type }}
+                                            </a>
+                                        @endisset
                                     </td>
                                 </tr>
                                 <tr>

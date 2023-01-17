@@ -40,10 +40,12 @@
                                     <td>Perjanjian Kinerja</td>
                                     <td>:</td>
                                     <td>
-                                        <a href="{{ route('opdPerjanjianKinerja.show', $opdPenilaian->opd_perjanjian_kinerja_id) }}"
-                                            target="_blank">
-                                            {{ $opdPenilaian->opd_perjanjian_kinerja->type }}
-                                        </a>
+                                        @isset($opdPenilaian->opd_perjanjian_kinerja_id)
+                                            <a href="{{ route('opdPerjanjianKinerja.show', $opdPenilaian->opd_perjanjian_kinerja_id) }}"
+                                                target="_blank">
+                                                {{ $opdPenilaian->opd_perjanjian_kinerja->type }}
+                                            </a>
+                                        @endisset
                                     </td>
                                 </tr>
                                 <tr>
@@ -169,9 +171,7 @@
                                                     RENCANA AKSI TRIWULAN
                                                 </a>
                                             @else
-                                                @if (Auth::user()->hasRole('SUPERADMIN') &&
-                                                    $opd_category_variable->opd_variable->pic != 'SIPD' &&
-                                                    $checkStatus != 1)
+                                                @if (Auth::user()->hasRole('SUPERADMIN') && $opd_category_variable->opd_variable->pic != 'SIPD' && $checkStatus != 1)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                         {{ $opd_category_variable->opd_variable->pic }}

@@ -74,7 +74,7 @@
                     <div class="mb-3">
                         <label for="name" class="form-label">Perjanjian Kinerja</label>
                         <select class="js-example-basic-single form-select" data-width="100%"
-                            name="opd_perjanjian_kinerja_id" required>
+                            name="opd_perjanjian_kinerja_id">
                             <option value="">Pilih Perjanjian Kinerja</option>
                             @foreach ($opdPerjanjianKinerjas as $opdPerjanjianKinerja)
                                 <option value="{{ $opdPerjanjianKinerja->id }}"

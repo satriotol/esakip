@@ -79,7 +79,8 @@
                                         </div>
                                     </div>
                                     <div class="text-end">
-                                        <button name="submit" value="exportExcel" class="btn btn-sm btn-success">Export Excel</button>
+                                        <button name="submit" value="exportExcel" class="btn btn-sm btn-success">Export
+                                            Excel</button>
                                         <button name="submit" class="btn btn-sm btn-success">Cari</button>
                                     </div>
                                 </div>
@@ -149,10 +150,12 @@
                                     <tr>
                                         <td>{{ $opdPenilaian->year }} {{ $opdPenilaian->name }}</td>
                                         <td>
-                                            <a href="{{ route('opdPerjanjianKinerja.show', $opdPenilaian->opd_perjanjian_kinerja_id) }}"
-                                                target="_blank">
-                                                {{ $opdPenilaian->opd_perjanjian_kinerja->type }}
-                                            </a>
+                                            @isset($opdPenilaian->opd_perjanjian_kinerja_id)
+                                                <a href="{{ route('opdPerjanjianKinerja.show', $opdPenilaian->opd_perjanjian_kinerja_id) }}"
+                                                    target="_blank">
+                                                    {{ $opdPenilaian->opd_perjanjian_kinerja->type }}
+                                                </a>
+                                            @endisset
                                         </td>
                                         <td>{{ $opdPenilaian->opd_category->name }}</td>
                                         <td>{{ $opdPenilaian->opd->nama_opd }}</td>
