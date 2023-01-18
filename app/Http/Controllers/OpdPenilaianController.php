@@ -12,6 +12,7 @@ use App\Models\OpdPenilaian;
 use App\Models\OpdPenilaianIku;
 use App\Models\OpdPenilaianKinerja;
 use App\Models\OpdPenilaianReport;
+use App\Models\OpdPenilaianStaff;
 use App\Models\OpdPenilaianStaffType;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -122,6 +123,31 @@ class OpdPenilaianController extends Controller
             'status' => 'required',
             'note' => 'nullable',
         ]);
+        if ($request->status == 'VERIFIKASI' || $request->status == 'SELESAI') {
+            if ($opdPenilaian->opd->is_staff_ahli && $opdPenilaian->opd_penilaian_staffs->count() > 0) {
+                OpdPenilaianKinerja::updateOrCreate([
+                    'opd_penilaian_id' => $opdPenilaian->id,
+                    'opd_category_variable_id' => 22,
+                ], [
+                    'target' => $opdPenilaian->capaianStaff()['batasKualitas'],
+                    'realisasi' => $opdPenilaian->capaianStaff()['totalKualitas'],
+                    'capaian' => $opdPenilaian->capaianStaff()['totalCapaianKualitas'],
+                    'nilai_akhir' => $opdPenilaian->capaianStaff()['totalNilaiAkhirKualitas'],
+                ]);
+                OpdPenilaianKinerja::updateOrCreate([
+                    'opd_penilaian_id' => $opdPenilaian->id,
+                    'opd_category_variable_id' => 21,
+                ], [
+                    'target' => $opdPenilaian->capaianStaff()['batasStatus'],
+                    'realisasi' => $opdPenilaian->capaianStaff()['totalStatus'],
+                    'capaian' => $opdPenilaian->capaianStaff()['totalCapaianKualitas'],
+                    'nilai_akhir' => $opdPenilaian->capaianStaff()['totalNilaiAkhirKualitas'],
+                ]);
+            } else {
+                session()->flash('bug', 'Pastikan Form Staf Ahli Sudah Terisi');
+                return back();
+            }
+        }
         $opdPenilaian->update($data);
         session()->flash('success');
         return back();
@@ -143,13 +169,14 @@ class OpdPenilaianController extends Controller
         $getOpdPerjanjianKinerjaIndikators = OpdPenilaian::getOpdPerjanjianKinerjaIndikator($opdPenilaian, 1);
         $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
         $statuses = OpdPenilaian::STATUSESVERIF;
+        $staffAhliStatuses = OpdPenilaianStaff::STATUSES;
         $ikuTypes = OpdPenilaianIku::TYPES;
         $months = Month::all();
         $opdPenilaianStaffTypes = OpdPenilaianStaffType::all();
         if ($opdPenilaian->checkStatusReport()) {
             return redirect(route('opdPenilaian.showReport', $opdPenilaian->id));
         } else {
-            return view('opdPenilaian.show', compact('opdPenilaian', 'months', 'opdPenilaianStaffTypes', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
+            return view('opdPenilaian.show', compact('staffAhliStatuses', 'opdPenilaian', 'months', 'opdPenilaianStaffTypes', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
         }
     }
     public function showReport(OpdPenilaian $opdPenilaian)

@@ -65,6 +65,10 @@ class OpdPenilaian extends Model
     {
         return $this->hasMany(OpdPenilaianStaff::class, 'opd_penilaian_id', 'id');
     }
+    public function opd_penilaian_kinerjas()
+    {
+        return $this->hasMany(OpdPenilaianKinerja::class, 'opd_penilaian_id', 'id');
+    }
     public function evaluasi_kinerjas()
     {
         return $this->hasMany(EvaluasiKinerja::class, 'opd_id', 'opd_id');
@@ -126,10 +130,6 @@ class OpdPenilaian extends Model
         $ifTahunan =  OpdCategory::where('id', $opd_category_id)->first()->type == 'TAHUNAN';
         return $ifTahunan;
     }
-    public function opd_penilaian_kinerjas()
-    {
-        return $this->hasMany(OpdPenilaianKinerja::class, 'opd_penilaian_id', 'id');
-    }
 
     public function realisasi($opd_category_variable_id)
     {
@@ -185,6 +185,28 @@ class OpdPenilaian extends Model
     public function capaian($opd_category_variable_id)
     {
         return $this->opd_penilaian_kinerjas->where('opd_category_variable_id', $opd_category_variable_id)->last()->capaian ?? '';
+    }
+    public function capaianStaff()
+    {
+        $totalStatus = $this->opd_penilaian_staffs->where('status', 1)->count();
+        $batasStatus = 24;
+        $totalKualitas = $this->opd_penilaian_staffs->sum('kualitas');
+        $batasKualitas = 2400;
+        $opdVariableKualitas = OpdVariable::where('id', 22)->first();
+        $opdVariableStatus = OpdVariable::where('id', 21)->first();
+        $totalCapaianKualitas = round($totalKualitas / $batasKualitas * 100, 2);
+        $totalCapaianStatus = round($totalStatus / $batasStatus * 100, 2);
+        $data = [
+            'totalStatus' => $totalStatus,
+            'batasStatus' => $batasStatus,
+            'batasKualitas' => $batasKualitas,
+            'totalKualitas' => $totalKualitas,
+            'totalCapaianKualitas' => $totalCapaianKualitas,
+            'totalCapaianStatus' => $totalCapaianStatus,
+            'totalNilaiAkhirKualitas' =>  round($opdVariableKualitas->bobot / 100 * $totalCapaianKualitas, 2),
+            'totalNilaiAkhirStatus' =>  round($opdVariableStatus->bobot / 100 * $totalCapaianStatus, 2),
+        ];
+        return $data;
     }
     public function nilai_akhir($opd_category_variable_id)
     {

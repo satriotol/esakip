@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-body">
             <div class="card-title">Form Staf Ahli</div>
-            <form action="{{ route('opd_penilaian_staff.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('opdPenilaianStaff.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="text" name="opd_penilaian_id" class="d-none" value="{{ $opdPenilaian->id }}"
                     id="">
@@ -56,6 +56,9 @@
                             <th>Bulan</th>
                             <th>Tipe</th>
                             <th>Judul</th>
+                            <th>Status</th>
+                            <th>Kualitas</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -64,6 +67,25 @@
                                 <td>{{ $opd_penilaian_staff->month->name }}</td>
                                 <td>{{ $opd_penilaian_staff->opd_penilaian_staff_type->name }}</td>
                                 <td>{{ $opd_penilaian_staff->judul }}</td>
+                                <td>{{ $opd_penilaian_staff->status }}
+                                </td>
+                                <td>{{ $opd_penilaian_staff->kualitas }}</td>
+                                <td>
+                                    @include('opdPenilaian.modalStaffAhil')
+                                    <form action="{{ route('opdPenilaianStaff.destroy', $opd_penilaian_staff->id) }}"
+                                        method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a type="button" class="badge bg-primary" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModalStaffAhli{{ $opd_penilaian_staff->id }}">
+                                            Update Status
+                                        </a>
+                                        <button type="submit" class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Are you sure?')">
+                                            Delete
+                                        </button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

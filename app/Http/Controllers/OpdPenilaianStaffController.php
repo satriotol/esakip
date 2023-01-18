@@ -77,9 +77,15 @@ class OpdPenilaianStaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, OpdPenilaianStaff $opdPenilaianStaff)
     {
-        //
+        $data = $request->validate([
+            'status' => 'required',
+            'kualitas' => 'required'
+        ]);
+        $opdPenilaianStaff->update($data);
+        session()->flash('success');
+        return back();
     }
 
     /**
@@ -88,8 +94,10 @@ class OpdPenilaianStaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(OpdPenilaianStaff $opdPenilaianStaff)
     {
-        //
+        $opdPenilaianStaff->delete();
+        session()->flash('success');
+        return back();
     }
 }

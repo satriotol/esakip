@@ -11,6 +11,11 @@ class OpdPenilaianStaff extends Model
 
     protected $fillable = ['opd_penilaian_id', 'opd_penilaian_staff_type_id', 'month_id', 'judul', 'description', 'file', 'status', 'kualitas'];
 
+    const STATUSES = [
+        'TERIMA',
+        'TOLAK',
+    ];
+
     public function opd_penilaian()
     {
         return $this->belongsTo(OpdPenilaian::class, 'opd_penilaian_id', 'id');
