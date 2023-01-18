@@ -188,7 +188,7 @@ class OpdPenilaian extends Model
     }
     public function capaianStaff()
     {
-        $totalStatus = $this->opd_penilaian_staffs->where('status', 1)->count();
+        $totalStatus = $this->opd_penilaian_staffs->where('status', 'TERIMA')->count();
         $batasStatus = 24;
         $totalKualitas = $this->opd_penilaian_staffs->sum('kualitas');
         $batasKualitas = 2400;

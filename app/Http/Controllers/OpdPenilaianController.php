@@ -123,31 +123,6 @@ class OpdPenilaianController extends Controller
             'status' => 'required',
             'note' => 'nullable',
         ]);
-        if ($request->status == 'VERIFIKASI' || $request->status == 'SELESAI') {
-            if ($opdPenilaian->opd->is_staff_ahli && $opdPenilaian->opd_penilaian_staffs->count() > 0) {
-                OpdPenilaianKinerja::updateOrCreate([
-                    'opd_penilaian_id' => $opdPenilaian->id,
-                    'opd_category_variable_id' => 22,
-                ], [
-                    'target' => $opdPenilaian->capaianStaff()['batasKualitas'],
-                    'realisasi' => $opdPenilaian->capaianStaff()['totalKualitas'],
-                    'capaian' => $opdPenilaian->capaianStaff()['totalCapaianKualitas'],
-                    'nilai_akhir' => $opdPenilaian->capaianStaff()['totalNilaiAkhirKualitas'],
-                ]);
-                OpdPenilaianKinerja::updateOrCreate([
-                    'opd_penilaian_id' => $opdPenilaian->id,
-                    'opd_category_variable_id' => 21,
-                ], [
-                    'target' => $opdPenilaian->capaianStaff()['batasStatus'],
-                    'realisasi' => $opdPenilaian->capaianStaff()['totalStatus'],
-                    'capaian' => $opdPenilaian->capaianStaff()['totalCapaianKualitas'],
-                    'nilai_akhir' => $opdPenilaian->capaianStaff()['totalNilaiAkhirKualitas'],
-                ]);
-            } else {
-                session()->flash('bug', 'Pastikan Form Staf Ahli Sudah Terisi');
-                return back();
-            }
-        }
         $opdPenilaian->update($data);
         session()->flash('success');
         return back();

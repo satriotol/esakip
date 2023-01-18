@@ -31,10 +31,11 @@
                         <tr>
                             <th>Status</th>
                             <th>:</th>
-                            <td><select name="status" id="" class="form-control">
+                            <td><select name="status" required id="" class="form-control">
                                     <option value="">Pilih Status</option>
                                     @foreach ($staffAhliStatuses as $staffAhliStatus)
-                                        <option value="{{ $staffAhliStatus }}">{{ $staffAhliStatus }}</option>
+                                        <option value="{{ $staffAhliStatus }}" @selected($staffAhliStatus == $opd_penilaian_staff->status)>
+                                            {{ $staffAhliStatus }}</option>
                                     @endforeach
                                 </select>
                             </td>
@@ -43,11 +44,14 @@
                             <th>Kualitas</th>
                             <th>:</th>
                             <td>
-                                <input type="number" step="any" class="form-control"
+                                <input max="100" required type="number" step="any" class="form-control"
                                     value="{{ $opd_penilaian_staff->kualitas }}" name="kualitas">
                             </td>
                         </tr>
                     </table>
+                    <div class="text-end">
+                        <button class="btn btn-success" type="submit">Simpan</button>
+                    </div>
                 </form>
             </div>
         </div>

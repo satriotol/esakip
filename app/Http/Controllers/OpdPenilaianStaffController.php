@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OpdPenilaianKinerja;
 use App\Models\OpdPenilaianStaff;
 use Illuminate\Http\Request;
 
@@ -77,13 +78,38 @@ class OpdPenilaianStaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function updateKinerja($opdPenilaianStaff)
+    {
+        OpdPenilaianKinerja::updateOrCreate([
+            'opd_penilaian_id' => $opdPenilaianStaff->opd_penilaian->id,
+            'opd_category_variable_id' => 65,
+        ], [
+            'target' => $opdPenilaianStaff->opd_penilaian->capaianStaff()['batasStatus'],
+            'realisasi' => $opdPenilaianStaff->opd_penilaian->capaianStaff()['totalStatus'],
+            'capaian' => $opdPenilaianStaff->opd_penilaian->capaianStaff()['totalCapaianStatus'],
+            'nilai_akhir' => $opdPenilaianStaff->opd_penilaian->capaianStaff()['totalNilaiAkhirStatus'],
+        ]);
+        OpdPenilaianKinerja::updateOrCreate([
+            'opd_penilaian_id' => $opdPenilaianStaff->opd_penilaian->id,
+            'opd_category_variable_id' => 66,
+        ], [
+            'target' => $opdPenilaianStaff->opd_penilaian->capaianStaff()['batasKualitas'],
+            'realisasi' => $opdPenilaianStaff->opd_penilaian->capaianStaff()['totalKualitas'],
+            'capaian' => $opdPenilaianStaff->opd_penilaian->capaianStaff()['totalCapaianKualitas'],
+            'nilai_akhir' => $opdPenilaianStaff->opd_penilaian->capaianStaff()['totalNilaiAkhirKualitas'],
+        ]);
+    }
     public function update(Request $request, OpdPenilaianStaff $opdPenilaianStaff)
     {
         $data = $request->validate([
             'status' => 'required',
             'kualitas' => 'required'
         ]);
+        if ($request->status != 'TERIMA') {
+            $data['kualitas'] = 0;
+        }
         $opdPenilaianStaff->update($data);
+        $this->updateKinerja($opdPenilaianStaff);
         session()->flash('success');
         return back();
     }
@@ -97,6 +123,7 @@ class OpdPenilaianStaffController extends Controller
     public function destroy(OpdPenilaianStaff $opdPenilaianStaff)
     {
         $opdPenilaianStaff->delete();
+        $this->updateKinerja($opdPenilaianStaff);
         session()->flash('success');
         return back();
     }
