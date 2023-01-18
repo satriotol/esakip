@@ -10,4 +10,9 @@ class OpdPenilaianStaffType extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function opd_penilaian_staffs()
+    {
+        return $this->hasMany(OpdPenilaianStaff::class, 'month_id', 'id');
+    }
 }
