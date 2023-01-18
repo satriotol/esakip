@@ -133,7 +133,7 @@
                                             @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storeSipd', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->opd_perjanjian_kinerja->type, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
                                                     class="badge bg-primary tarik-data">
-                                                    TARIK DATA DARI SIPD (QUERY BAPEDA)
+                                                    TARIK DATA DARI SIPD (QUERY BAPPEDA)
                                                 </a>
                                                 <br>
                                                 <small class="text-danger">
