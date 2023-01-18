@@ -3,11 +3,6 @@
     <link href="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.css') }}" rel="stylesheet" />
 @endpush
 @push('style')
-    <style>
-        /* html {
-                                                                                                            zoom: 100%;
-                                                                                                        } */
-    </style>
 @endpush
 @section('content')
     <nav class="page-breadcrumb">
@@ -79,7 +74,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Perhitungan Penilaian OPD</h4>
+                    <h4 class="card-title">Status Penilaian OPD</h4>
                     <form action="{{ route('opdPenilaian.updateStatus', $opdPenilaian->id) }}" method="post">
                         @csrf
                         <div class="mb-3">
@@ -177,11 +172,6 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            @if (Auth::user()->opd_id == null)
-                                <div class="text-end">
-                                    <button class="btn btn-success" type="submit">Submit</button>
-                                </div>
-                            @endif
                         </form>
 
                     </div>

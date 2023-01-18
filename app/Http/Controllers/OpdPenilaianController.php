@@ -82,6 +82,10 @@ class OpdPenilaianController extends Controller
             'opd_perjanjian_kinerja_id' => 'nullable',
             'inovasi_prestasi_opd_id' => 'nullable',
         ]);
+        if (Opd::where('id', $data['opd_id'])->first()->is_staff_ahli != 1 && $request->opd_perjanjian_kinerja_id == null) {
+            session()->flash('bug', 'Perjanjian Kinerja Wajib Diisi');
+            return back();
+        }
         $data['status'] = OpdPenilaian::STATUS1;
         if ($request->inovasi_prestasi_opd_id) {
             $data['inovasi_prestasi_daerah'] = InovasiPrestasiOpd::where('id', $request->inovasi_prestasi_opd_id)->first()->inovasi_prestasi_tingkat->value;

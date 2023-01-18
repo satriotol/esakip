@@ -59,7 +59,7 @@ class OpdPenilaianKinerjaController extends Controller
         }
         if ($testUrl['success'] == true) {
             try {
-                if ($name == 'BADAN PENDAPATAN DAERAH') {
+                if ($opdPenilaian->opd_id == 279) {
                     $data2 = $testUrl['data']['pad'][0]['subtotal'];
                 } else {
                     $data = $testUrl['data']['pad'][1]['rincian'];
@@ -97,7 +97,7 @@ class OpdPenilaianKinerjaController extends Controller
                 } else {
                     if ($request->name) {
                         foreach ($data as $d) {
-                            if ($request->name == strtoupper($d['pendapatan'])) {
+                            if ($opdPenilaian->opd_id == $d['opd_id']) {
                                 if ((float)$d['persenRealisasi'] > 100) {
                                     $d['persenRealisasi'] = 100;
                                 }
