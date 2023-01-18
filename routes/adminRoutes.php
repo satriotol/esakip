@@ -22,6 +22,7 @@ use App\Http\Controllers\OpdPenilaianController;
 use App\Http\Controllers\OpdPenilaianIkuController;
 use App\Http\Controllers\OpdPenilaianKinerjaController;
 use App\Http\Controllers\OpdPenilaianReportController;
+use App\Http\Controllers\OpdPenilaianStaffController;
 use App\Http\Controllers\OpdPerjanjianKinerjaController;
 use App\Http\Controllers\OpdPerjanjianKinerjaIndikatorController;
 use App\Http\Controllers\OpdPerjanjianKinerjaProgramAnggaranController;
@@ -42,6 +43,7 @@ use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserOpdController;
 use App\Http\Controllers\WebsiteController;
+use App\Models\OpdPenilaianStaff;
 use Illuminate\Support\Facades\Route;
 
 
@@ -186,6 +188,8 @@ Route::group(['middleware' => ['auth']], function () {
     // ===========================
     // capaian kinerja
     Route::resource('link', LinkController::class);
+    Route::resource('opd_penilaian_staff', OpdPenilaianStaffController::class);
+
     Route::post('link/store_file', [LinkController::class, 'store_file'])->name('link.store_file');
     // end of capaian kinerja
     // ===========================

@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Exports\OpdPenilaianExport;
 use App\Models\Error;
 use App\Models\InovasiPrestasiOpd;
+use App\Models\Month;
 use App\Models\Opd;
 use App\Models\OpdCategory;
 use App\Models\OpdPenilaian;
 use App\Models\OpdPenilaianIku;
 use App\Models\OpdPenilaianKinerja;
 use App\Models\OpdPenilaianReport;
+use App\Models\OpdPenilaianStaffType;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
@@ -142,10 +144,12 @@ class OpdPenilaianController extends Controller
         $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
         $statuses = OpdPenilaian::STATUSESVERIF;
         $ikuTypes = OpdPenilaianIku::TYPES;
+        $months = Month::all();
+        $opdPenilaianStaffTypes = OpdPenilaianStaffType::all();
         if ($opdPenilaian->checkStatusReport()) {
             return redirect(route('opdPenilaian.showReport', $opdPenilaian->id));
         } else {
-            return view('opdPenilaian.show', compact('opdPenilaian', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
+            return view('opdPenilaian.show', compact('opdPenilaian', 'months', 'opdPenilaianStaffTypes', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
         }
     }
     public function showReport(OpdPenilaian $opdPenilaian)

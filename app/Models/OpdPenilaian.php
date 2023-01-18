@@ -61,6 +61,10 @@ class OpdPenilaian extends Model
     {
         return $this->belongsTo(OpdPerjanjianKinerja::class, 'opd_perjanjian_kinerja_id', 'id');
     }
+    public function opd_penilaian_staffs()
+    {
+        return $this->hasMany(OpdPenilaianStaff::class, 'opd_penilaian_id', 'id');
+    }
     public function evaluasi_kinerjas()
     {
         return $this->hasMany(EvaluasiKinerja::class, 'opd_id', 'opd_id');

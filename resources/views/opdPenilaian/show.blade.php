@@ -1,6 +1,7 @@
 @extends('layout.master')
 @push('plugin-styles')
     <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 @endpush
 @push('style')
     <style>
@@ -94,150 +95,154 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 mt-2">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="card-title">Penilaian Kinerja OPD</h6>
-                    <div class="table-responsive">
-                        <table id="dataTableExample" class="table">
-                            <thead>
-                                <tr>
-                                    <th>Variabel</th>
-                                    <th>Bobot</th>
-                                    <th>Target</th>
-                                    <th>Realisasi</th>
-                                    <th>Capaian</th>
-                                    <th>Nilai Akhir</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($opdPenilaian->opd_category->opd_category_variables as $opd_category_variable)
+        @if ($opdPenilaian->opd->is_staff_ahli)
+            @include('opdPenilaian.staffAhli')
+        @else
+            <div class="col-md-12 mt-2">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">Penilaian Kinerja OPD</h6>
+                        <div class="table-responsive">
+                            <table id="dataTableExample" class="table">
+                                <thead>
                                     <tr>
-                                        <td>
-                                            {{ $opd_category_variable->opd_variable->name }} |
-                                            @if ($opd_category_variable->opd_variable->pic == 'BAPENDA' && $checkStatus != 1)
-                                                <a class="badge bg-primary tarik-data"
-                                                    href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->opd->nama_opd, $opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
-                                                    DATA BAPENDA (WEBSERVICE BAPENDA)</a>
-                                                <br>
-                                                <small class="text-danger">
-                                                    Penarikan Data Dari Web Service BAPENDA <a
-                                                        href="http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad"
-                                                        target="_blank">Disini</a>
-                                                </small>
-                                            @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && $checkStatus != 1)
-                                                <a href="{{ route('opdPenilaianKinerja.storeSipd', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->opd_perjanjian_kinerja->type, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
-                                                    class="badge bg-primary tarik-data">
-                                                    TARIK DATA DARI SIPD (QUERY BAPEDA)
-                                                </a>
-                                                <br>
-                                                <small class="text-danger">
-                                                    Jika Terjadi Selisih Bisa Melakukan Konfirmasi Ke Admin BAPPEDA KOTA
-                                                    SEMARANG
-                                                </small>
-                                            @elseif ($opd_category_variable->opd_variable->pic == 'P3DN' && $checkStatus != 1)
-                                                <a href="{{ route('opdPenilaianKinerja.storep3dn', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
-                                                    class="badge bg-primary tarik-data">
-                                                    TARIK DATA P3DN (QUERY BAPPEDA)
-                                                </a>
-                                                <br>
-                                                <small class="text-danger">
-                                                    Pastikan Sudah Melakukan Validasi Dan Update Realisasi di <a
-                                                        href="https://siera.bpkp.go.id/" target="_blank">Siera BPKP</a>
-                                                </small>
-                                            @elseif($opd_category_variable->opd_variable->is_reformasi_birokrasi && $checkStatus != 1)
-                                                <a href="{{ route('opdPenilaianKinerja.storeRb', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year]) }}"
-                                                    class="badge bg-primary tarik-data">
-                                                    TARIK DATA REFORMASI BIROKRASI (LKE-RB)
-                                                </a>
-                                                <br>
-                                                <small class="text-danger">
-                                                    Mengambil Data Dari <a href="http://lke-rb.semarangkota.go.id/"
-                                                        target="_blank">LKE RB KOTA SEMARANG</a>
-                                                </small>
-                                            @elseif($opd_category_variable->opd_variable->is_sakip && $checkStatus != 1)
-                                                <a href="{{ route('opdPenilaianKinerja.storeAkip', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year]) }}"
-                                                    class="badge bg-primary tarik-data">
-                                                    TARIK DATA E-SAKIP
-                                                </a>
-                                            @elseif($opd_category_variable->opd_variable->is_iku && $checkStatus != 1)
-                                                <a type="button" class="badge bg-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
-                                                    INPUT RENCANA AKSI
-                                                </a>
-                                            @elseif($opd_category_variable->opd_variable->is_iku_triwulan && $checkStatus != 1)
-                                                <a type="button" class="badge bg-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
-                                                    RENCANA AKSI TRIWULAN
-                                                </a>
-                                            @else
-                                                @if (Auth::user()->hasRole('SUPERADMIN') && $opd_category_variable->opd_variable->pic != 'SIPD' && $checkStatus != 1)
+                                        <th>Variabel</th>
+                                        <th>Bobot</th>
+                                        <th>Target</th>
+                                        <th>Realisasi</th>
+                                        <th>Capaian</th>
+                                        <th>Nilai Akhir</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($opdPenilaian->opd_category->opd_category_variables as $opd_category_variable)
+                                        <tr>
+                                            <td>
+                                                {{ $opd_category_variable->opd_variable->name }} |
+                                                @if ($opd_category_variable->opd_variable->pic == 'BAPENDA' && $checkStatus != 1)
+                                                    <a class="badge bg-primary tarik-data"
+                                                        href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->opd->nama_opd, $opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
+                                                        DATA BAPENDA (WEBSERVICE BAPENDA)</a>
+                                                    <br>
+                                                    <small class="text-danger">
+                                                        Penarikan Data Dari Web Service BAPENDA <a
+                                                            href="http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePad"
+                                                            target="_blank">Disini</a>
+                                                    </small>
+                                                @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && $checkStatus != 1)
+                                                    <a href="{{ route('opdPenilaianKinerja.storeSipd', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->opd_perjanjian_kinerja->type, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
+                                                        class="badge bg-primary tarik-data">
+                                                        TARIK DATA DARI SIPD (QUERY BAPEDA)
+                                                    </a>
+                                                    <br>
+                                                    <small class="text-danger">
+                                                        Jika Terjadi Selisih Bisa Melakukan Konfirmasi Ke Admin BAPPEDA KOTA
+                                                        SEMARANG
+                                                    </small>
+                                                @elseif ($opd_category_variable->opd_variable->pic == 'P3DN' && $checkStatus != 1)
+                                                    <a href="{{ route('opdPenilaianKinerja.storep3dn', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
+                                                        class="badge bg-primary tarik-data">
+                                                        TARIK DATA P3DN (QUERY BAPPEDA)
+                                                    </a>
+                                                    <br>
+                                                    <small class="text-danger">
+                                                        Pastikan Sudah Melakukan Validasi Dan Update Realisasi di <a
+                                                            href="https://siera.bpkp.go.id/" target="_blank">Siera BPKP</a>
+                                                    </small>
+                                                @elseif($opd_category_variable->opd_variable->is_reformasi_birokrasi && $checkStatus != 1)
+                                                    <a href="{{ route('opdPenilaianKinerja.storeRb', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year]) }}"
+                                                        class="badge bg-primary tarik-data">
+                                                        TARIK DATA REFORMASI BIROKRASI (LKE-RB)
+                                                    </a>
+                                                    <br>
+                                                    <small class="text-danger">
+                                                        Mengambil Data Dari <a href="http://lke-rb.semarangkota.go.id/"
+                                                            target="_blank">LKE RB KOTA SEMARANG</a>
+                                                    </small>
+                                                @elseif($opd_category_variable->opd_variable->is_sakip && $checkStatus != 1)
+                                                    <a href="{{ route('opdPenilaianKinerja.storeAkip', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year]) }}"
+                                                        class="badge bg-primary tarik-data">
+                                                        TARIK DATA E-SAKIP
+                                                    </a>
+                                                @elseif($opd_category_variable->opd_variable->is_iku && $checkStatus != 1)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
-                                                        {{ $opd_category_variable->opd_variable->pic }}
+                                                        INPUT RENCANA AKSI
                                                     </a>
-                                                @endif
-                                            @endif
-                                            @include('opdPenilaian.modal')
-                                            <br>
-                                            <small>
-                                                {{ $opdPenilaian->getDate($opd_category_variable->id) }} <br>
-                                                @if ($opdPenilaian->getRencanaAksi($opd_category_variable->id)?->rencana_aksi_id)
-                                                    <a target="_blank"
-                                                        href="{{ route('rencanaAksi.show', $opdPenilaian->getRencanaAksi($opd_category_variable->id)->rencana_aksi_id) }}">
-                                                        Detail Rencana Aksi
+                                                @elseif($opd_category_variable->opd_variable->is_iku_triwulan && $checkStatus != 1)
+                                                    <a type="button" class="badge bg-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
+                                                        RENCANA AKSI TRIWULAN
                                                     </a>
+                                                @else
+                                                    @if (Auth::user()->hasRole('SUPERADMIN') && $opd_category_variable->opd_variable->pic != 'SIPD' && $checkStatus != 1)
+                                                        <a type="button" class="badge bg-primary" data-bs-toggle="modal"
+                                                            data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
+                                                            {{ $opd_category_variable->opd_variable->pic }}
+                                                        </a>
+                                                    @endif
                                                 @endif
-                                            </small>
-                                        </td>
-                                        <td>
-                                            {{ $opd_category_variable->opd_variable->bobot }} %
-                                        </td>
-                                        <td>
-                                            @if ($opd_category_variable->opd_variable->is_iku || $opd_category_variable->opd_variable->is_iku_triwulan)
-                                                100 %
-                                            @else
-                                                {{ $opdPenilaian->target($opd_category_variable->id)[0] }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ($opd_category_variable->opd_variable->is_iku || $opd_category_variable->opd_variable->is_iku_triwulan)
-                                                {{ $opdPenilaian->realisasi($opd_category_variable->id) }}
-                                            @else
-                                                {{ $opdPenilaian->realisasi($opd_category_variable->id) }}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            {{ $opdPenilaian->capaian($opd_category_variable->id) }} %
-                                        </td>
-                                        <td>
-                                            {{ $opdPenilaian->nilai_akhir($opd_category_variable->id) }}
-                                        </td>
+                                                @include('opdPenilaian.modal')
+                                                <br>
+                                                <small>
+                                                    {{ $opdPenilaian->getDate($opd_category_variable->id) }} <br>
+                                                    @if ($opdPenilaian->getRencanaAksi($opd_category_variable->id)?->rencana_aksi_id)
+                                                        <a target="_blank"
+                                                            href="{{ route('rencanaAksi.show', $opdPenilaian->getRencanaAksi($opd_category_variable->id)->rencana_aksi_id) }}">
+                                                            Detail Rencana Aksi
+                                                        </a>
+                                                    @endif
+                                                </small>
+                                            </td>
+                                            <td>
+                                                {{ $opd_category_variable->opd_variable->bobot }} %
+                                            </td>
+                                            <td>
+                                                @if ($opd_category_variable->opd_variable->is_iku || $opd_category_variable->opd_variable->is_iku_triwulan)
+                                                    100 %
+                                                @else
+                                                    {{ $opdPenilaian->target($opd_category_variable->id)[0] }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($opd_category_variable->opd_variable->is_iku || $opd_category_variable->opd_variable->is_iku_triwulan)
+                                                    {{ $opdPenilaian->realisasi($opd_category_variable->id) }}
+                                                @else
+                                                    {{ $opdPenilaian->realisasi($opd_category_variable->id) }}
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ $opdPenilaian->capaian($opd_category_variable->id) }} %
+                                            </td>
+                                            <td>
+                                                {{ $opdPenilaian->nilai_akhir($opd_category_variable->id) }}
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    <tr>
+                                        <td class="text-center">Total</td>
+                                        <td>{{ $opdPenilaian->opd_category->total_bobot }}</td>
+                                        <td colspan="3" class="text-center">Total</td>
+                                        <td>{{ $opdPenilaian->totalNilaiAkhir() }}</td>
                                     </tr>
-                                @endforeach
-                                <tr>
-                                    <td class="text-center">Total</td>
-                                    <td>{{ $opdPenilaian->opd_category->total_bobot }}</td>
-                                    <td colspan="3" class="text-center">Total</td>
-                                    <td>{{ $opdPenilaian->totalNilaiAkhir() }}</td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        Inovasi dan Prestasi Daerah
-                                    </td>
-                                    <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
-                                </tr>
-                                <tr>
-                                    <th colspan="5" class="text-center">Total Akhir</th>
-                                    <th>{{ $opdPenilaian->totalAkhir() }}
-                                    </th>
-                                </tr>
-                            </tbody>
-                        </table>
+                                    <tr>
+                                        <td colspan="5">
+                                            Inovasi dan Prestasi Daerah
+                                        </td>
+                                        <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th colspan="5" class="text-center">Total Akhir</th>
+                                        <th>{{ $opdPenilaian->totalAkhir() }}
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
     </div>
 @endsection
 @push('plugin-scripts')
@@ -248,6 +253,7 @@
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 @endpush
 
 @push('custom-scripts')
@@ -369,5 +375,16 @@
             })
         });
     </script>
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+    <script>
+        const inputElement = document.querySelector('input[id="file"]');
+        const pond = FilePond.create(inputElement);
+        FilePond.setOptions({
+            server: {
+                url: '{{ route('opdPerjanjianKinerja.store_file') }}',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            }
+        });
+    </script>
 @endpush

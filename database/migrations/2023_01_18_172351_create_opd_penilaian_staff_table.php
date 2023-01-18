@@ -15,6 +15,14 @@ return new class extends Migration
     {
         Schema::create('opd_penilaian_staff', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('opd_penilaian_id');
+            $table->unsignedBigInteger('opd_penilaian_staff_type_id');
+            $table->unsignedBigInteger('month_id');
+            $table->string('judul')->nullable();
+            $table->longText('description')->nullable();
+            $table->string('file');
+            $table->string('status')->nullable();
+            $table->string('kualitas')->default(0);
             $table->timestamps();
         });
     }
