@@ -80,7 +80,7 @@
                                             data-bs-target="#exampleModalStaffAhli{{ $opd_penilaian_staff->id }}">
                                             Update Status
                                         </a>
-                                        <button type="submit" class="btn btn-sm btn-danger"
+                                        <button type="submit" class="badge bg-danger"
                                             onclick="return confirm('Are you sure?')">
                                             Delete
                                         </button>

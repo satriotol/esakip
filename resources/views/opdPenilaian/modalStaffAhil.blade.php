@@ -48,6 +48,14 @@
                                     value="{{ $opd_penilaian_staff->kualitas }}" name="kualitas">
                             </td>
                         </tr>
+                        <tr>
+                            <th>Data Dukung</th>
+                            <th>:</th>
+                            <td>
+                                <a href="{{ asset('uploads/' . $opd_penilaian_staff->file) }}" target="_blank"
+                                    class="btn btn-primary">Buka Data Dukung</a>
+                            </td>
+                        </tr>
                     </table>
                     <div class="text-end">
                         <button class="btn btn-success" type="submit">Simpan</button>
