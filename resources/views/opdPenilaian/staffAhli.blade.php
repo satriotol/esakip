@@ -34,7 +34,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="file" class="form-label">File</label>
-                    <input type="file" id="file" name="file"
+                    <input type="file" id="filePendukung" name="file"
                         @empty($opdPenilaian) required @endempty />
                 </div>
                 <div class="text-end">

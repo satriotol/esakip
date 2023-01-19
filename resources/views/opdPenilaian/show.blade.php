@@ -377,7 +377,7 @@
         });
     </script>
     <script>
-        const inputElement = document.querySelector('input[id="file"]');
+        const inputElement = document.querySelector('input[id="filePendukung"]');
         const pond = FilePond.create(inputElement);
         FilePond.registerPlugin(FilePondPluginFileValidateType);
         FilePond.setOptions({
