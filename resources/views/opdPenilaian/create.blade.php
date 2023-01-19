@@ -26,7 +26,7 @@
                         @method('PUT')
                     @endisset
                     <div class="mb-3">
-                        <label for="year" class="form-label">Year</label>
+                        <label for="year" class="form-label">Tahun</label>
                         <input id="year" class="form-control" name="year" type="number" placeholder="yyyy" required
                             value="{{ isset($opdPenilaian) ? $opdPenilaian->year : @old('year') }}">
                     </div>
@@ -55,23 +55,6 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="name" class="form-label">Inovasi Prestasi OPD</label>
-                        <select class="js-example-basic-single form-select" data-width="100%"
-                            name="inovasi_prestasi_opd_id">
-                            <option value="">Pilih Inovasi Prestasi OPD</option>
-                            @foreach ($inovasiPrestasiOpds as $inovasiPrestasiOpd)
-                                <option value="{{ $inovasiPrestasiOpd->id }}"
-                                    @isset($opdPenilaian) 
-                                    @if ($inovasiPrestasiOpd->id === $opdPenilaian->inovasi_prestasi_opd_id) selected  @endif
-                                @endisset>
-                                    {{ $inovasiPrestasiOpd->opd->nama_opd }} | {{ $inovasiPrestasiOpd->year }}
-                                    {{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }} |
-                                    {{ $inovasiPrestasiOpd->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="mb-3">
                         <label for="name" class="form-label">Perjanjian Kinerja</label>
                         <select class="js-example-basic-single form-select" data-width="100%"
                             name="opd_perjanjian_kinerja_id">
@@ -86,6 +69,7 @@
                                 </option>
                             @endforeach
                         </select>
+                        <small class="text-danger">Wajib Diisi Jika Memiliki Perjanjian Kinerja</small>
                     </div>
                     <div class="mb-3">
                         <label for="">Kategori Penilaian</label>
@@ -98,6 +82,23 @@
                                         @if ($opdCategory->id === $opdPenilaian->opd_category_id) selected  @endif
                                     @endisset>
                                     {{ $opdCategory->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Inovasi Prestasi OPD</label>
+                        <select class="js-example-basic-single form-select" data-width="100%"
+                            name="inovasi_prestasi_opd_id">
+                            <option value="">Pilih Inovasi Prestasi OPD</option>
+                            @foreach ($inovasiPrestasiOpds as $inovasiPrestasiOpd)
+                                <option value="{{ $inovasiPrestasiOpd->id }}"
+                                    @isset($opdPenilaian) 
+                                    @if ($inovasiPrestasiOpd->id === $opdPenilaian->inovasi_prestasi_opd_id) selected  @endif
+                                @endisset>
+                                    {{ $inovasiPrestasiOpd->opd->nama_opd }} | {{ $inovasiPrestasiOpd->year }}
+                                    {{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }} |
+                                    {{ $inovasiPrestasiOpd->name }}
                                 </option>
                             @endforeach
                         </select>
