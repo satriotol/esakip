@@ -205,6 +205,10 @@
                                                 <div class="badge bg-success">
                                                     Sudah
                                                 </div>
+                                            @else
+                                                <div class="badge bg-danger">
+                                                    Belum
+                                                </div>
                                             @endif
                                         </td>
                                         <td>
