@@ -27,8 +27,10 @@
         <tbody>
             @foreach ($opdPerjanjianKinerja->opd_perjanjian_kinerja_program_anggarans as $opd_perjanjian_kinerja_program_anggaran)
                 <tr>
-                    <td>{{ $opd_perjanjian_kinerja_program_anggaran->program }}</td>
-                    <td>Rp. {{ number_format($opd_perjanjian_kinerja_program_anggaran->anggaran) }}</td>
+                    <td class="text-wrap">{{ $opd_perjanjian_kinerja_program_anggaran->program }}</td>
+                    <td style="text-align: right">Rp.
+                        {{ number_format($opd_perjanjian_kinerja_program_anggaran->anggaran) }}
+                    </td>
                     <td>{{ $opd_perjanjian_kinerja_program_anggaran->keterangan }}</td>
                 </tr>
             @endforeach

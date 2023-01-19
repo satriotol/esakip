@@ -17,7 +17,7 @@
         <tbody>
             @foreach ($opdPerjanjianKinerja->opd_perjanjian_kinerja_sasarans as $opd_perjanjian_kinerja_sasaran)
                 <tr>
-                    <td>{{ $opd_perjanjian_kinerja_sasaran->sasaran }}</td>
+                    <td class="text-wrap">{{ $opd_perjanjian_kinerja_sasaran->sasaran }}</td>
                     <td>
                         @if ($opdPerjanjianKinerja->status != 'DITERIMA')
                             <a class="badge rounded-pill bg-warning text-dark"
