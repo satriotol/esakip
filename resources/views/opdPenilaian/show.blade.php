@@ -120,11 +120,6 @@
                                     <tr>
                                         <td>
                                             {{ $opd_category_variable->opd_variable->name }} |
-                                            @if ($opdPenilaian->capaian($opd_category_variable->id) != null)
-                                                <div class="badge bg-success">
-                                                    Sudah Terisi
-                                                </div>
-                                            @endif
                                             @if ($opd_category_variable->opd_variable->pic == 'BAPENDA' && $checkStatus != 1)
                                                 <a class="badge bg-primary tarik-data"
                                                     href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->opd->nama_opd, $opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
@@ -206,6 +201,12 @@
                                                     </a>
                                                 @endif
                                             </small>
+                                            @if ($opdPenilaian->capaian($opd_category_variable->id) != null)
+                                                <br>
+                                                <div class="badge bg-success">
+                                                    Sudah
+                                                </div>
+                                            @endif
                                         </td>
                                         <td>
                                             {{ $opd_category_variable->opd_variable->bobot }} %
