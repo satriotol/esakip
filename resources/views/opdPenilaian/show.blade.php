@@ -202,7 +202,6 @@
                                                 @endif
                                             </small>
                                             @if ($opdPenilaian->capaian($opd_category_variable->id) != null)
-                                                <br>
                                                 <div class="badge bg-success">
                                                     Sudah
                                                 </div>
