@@ -35,12 +35,12 @@
                                 <tr>
                                     <td>OPD</td>
                                     <td>:</td>
-                                    <td>{{ $opdPenilaian->opd->nama_opd }}</td>
+                                    <td class="text-wrap">{{ $opdPenilaian->opd->nama_opd }}</td>
                                 </tr>
                                 <tr>
                                     <td>Perjanjian Kinerja</td>
                                     <td>:</td>
-                                    <td>
+                                    <td class="text-wrap">
                                         @isset($opdPenilaian->opd_perjanjian_kinerja_id)
                                             <a href="{{ route('opdPerjanjianKinerja.show', $opdPenilaian->opd_perjanjian_kinerja_id) }}"
                                                 target="_blank">
@@ -52,7 +52,7 @@
                                 <tr>
                                     <td>Kategori</td>
                                     <td>:</td>
-                                    <td>{{ $opdPenilaian->opd_category->name }}</td>
+                                    <td class="text-wrap">{{ $opdPenilaian->opd_category->name }}</td>
                                 </tr>
                                 <tr>
                                     <td>Inovasi Prestasi Daerah</td>
