@@ -126,8 +126,8 @@
                                                     DATA BAPENDA (WEBSERVICE BAPENDA)</a>
                                                 <br>
                                                 <small class="text-danger">
-                                                    Jika data tidak sesuai, maka update dengan melakukan integrasi di sistem
-                                                    <a href="http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePadByDate?tglawal=2022-01-01&tglakhir=2022-12-31"
+                                                    Nominal merupakan data realisasi yang sudah dilaporkan ke BAPENDA <a
+                                                        href="http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePadByDate?tglawal=2022-01-01&tglakhir=2022-12-31"
                                                         target="_blank">Disini</a>
                                                 </small>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && $checkStatus != 1)
@@ -170,6 +170,12 @@
                                                     data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                     INPUT RENCANA AKSI
                                                 </a>
+                                                <br>
+                                                <small class="text-danger">
+                                                    Mengambil Data Dari Perjanjian Kinerja <a
+                                                        href="{{ route('opdPerjanjianKinerja.show', $opdPenilaian->opd_perjanjian_kinerja_id) }}"
+                                                        target="_blank">{{ $opdPenilaian->opd_perjanjian_kinerja->type }}</a>
+                                                </small>
                                             @elseif($opd_category_variable->opd_variable->is_iku_triwulan && $checkStatus != 1)
                                                 <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                     data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
