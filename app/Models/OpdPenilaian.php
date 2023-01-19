@@ -196,6 +196,12 @@ class OpdPenilaian extends Model
         $opdVariableStatus = OpdVariable::where('id', 21)->first();
         $totalCapaianKualitas = round($totalKualitas / $batasKualitas * 100, 2);
         $totalCapaianStatus = round($totalStatus / $batasStatus * 100, 2);
+        if ($totalCapaianKualitas > 100) {
+            $totalCapaianKualitas = 100;
+        }
+        if ($totalCapaianStatus > 100) {
+            $totalCapaianStatus = 100;
+        }
         $data = [
             'totalStatus' => $totalStatus,
             'batasStatus' => $batasStatus,

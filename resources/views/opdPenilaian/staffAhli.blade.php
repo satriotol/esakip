@@ -76,10 +76,12 @@
                                         method="POST" class="d-inline">
                                         @csrf
                                         @method('DELETE')
-                                        <a type="button" class="badge bg-primary" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModalStaffAhli{{ $opd_penilaian_staff->id }}">
-                                            Update Status
-                                        </a>
+                                        @if (!Auth::user()->opd_id)
+                                            <a type="button" class="badge bg-primary" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModalStaffAhli{{ $opd_penilaian_staff->id }}">
+                                                Update Status
+                                            </a>
+                                        @endif
                                         <button type="submit" class="badge bg-danger"
                                             onclick="return confirm('Are you sure?')">
                                             Delete
