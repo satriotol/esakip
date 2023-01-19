@@ -46,7 +46,7 @@
                                                     <input type="text" readonly name="iku[{{ $loop->index }}][type]"
                                                         id="" value="UMUM">
                                                 @else
-                                                    <select name="iku[{{ $loop->index }}][type]" class="form-control"
+                                                    <select name="iku[{{ $loop->index }}][type]" class="form-control" required
                                                         @readonly($opd_category_variable->getIkuIsVerified($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id))>
                                                         <option value="">Pilih Tipe Penilaian</option>
                                                         @foreach ($ikuTypes as $ikuType)
@@ -73,7 +73,7 @@
                                                 @endif
                                                 @if ($opd_category_variable->getIkuIsVerified($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) != 1)
                                                     <input type="file" id="file" class="form-control"
-                                                        name="iku[{{ $loop->index }}][file]" />
+                                                        accept="application/pdf" name="iku[{{ $loop->index }}][file]" />
                                                     <small class="text-danger">Format .pdf dan ukuran maksimal
                                                         10mb</small><br>
                                                 @endif

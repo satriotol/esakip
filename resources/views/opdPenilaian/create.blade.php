@@ -54,23 +54,24 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="name" class="form-label">Perjanjian Kinerja</label>
-                        <select class="js-example-basic-single form-select" data-width="100%"
-                            name="opd_perjanjian_kinerja_id">
-                            <option value="">Pilih Perjanjian Kinerja</option>
-                            @foreach ($opdPerjanjianKinerjas as $opdPerjanjianKinerja)
-                                <option value="{{ $opdPerjanjianKinerja->id }}"
-                                    @isset($opdPenilaian) 
+                    @if (Auth::user()->opd?->is_staff_ahli != 1)
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Perjanjian Kinerja</label>
+                            <select class="js-example-basic-single form-select" required data-width="100%"
+                                name="opd_perjanjian_kinerja_id">
+                                <option value="">Pilih Perjanjian Kinerja</option>
+                                @foreach ($opdPerjanjianKinerjas as $opdPerjanjianKinerja)
+                                    <option value="{{ $opdPerjanjianKinerja->id }}"
+                                        @isset($opdPenilaian) 
                                     @if ($opdPerjanjianKinerja->id === $opdPenilaian->opd_perjanjian_kinerja_id) selected  @endif
                                 @endisset>
-                                    {{ $opdPerjanjianKinerja->opd->nama_opd }} | {{ $opdPerjanjianKinerja->year }} |
-                                    {{ $opdPerjanjianKinerja->type }}
-                                </option>
-                            @endforeach
-                        </select>
-                        <small class="text-danger">Wajib Diisi Jika Memiliki Perjanjian Kinerja</small>
-                    </div>
+                                        {{ $opdPerjanjianKinerja->opd->nama_opd }} | {{ $opdPerjanjianKinerja->year }} |
+                                        {{ $opdPerjanjianKinerja->type }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
                     <div class="mb-3">
                         <label for="">Kategori Penilaian</label>
                         <select class="js-example-basic-single form-select" data-width="100%" name="opd_category_id"
