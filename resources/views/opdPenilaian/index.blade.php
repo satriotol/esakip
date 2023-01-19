@@ -18,10 +18,12 @@
                 <div class="card-body">
                     <h6 class="card-title">Penilaian OPD</h6>
                     <ul>
-                        <li> <a href="https://drive.google.com/file/d/1fNgTlFOlLyR8FSPpIIS9lELzZy3TxtBj/view?usp=share_link"
+                        <li> <a href="https://drive.google.com/drive/u/3/folders/1Mb6xWNUhrJHVTF1xM2Uh1nqUeCIEJgNG"
                                 target="_blank">Manual Book OPD TIDAK DENGAN TARGET PENDAPATAN</a></li>
-                        <li> <a href="https://drive.google.com/file/d/1uIiL50gU6DbD8K_8vhcofIvCru9DWljs/view?usp=share_link"
+                        <li> <a href="https://drive.google.com/drive/u/3/folders/1ZW2OUEF24VqUBGbFiMKiVgCogdKMGh33"
                                 target="_blank">Manual Book OPD DENGAN TARGET PENDAPATAN</a></li>
+                        <li> <a href="https://drive.google.com/drive/u/3/folders/1Hw8tmaHIbseavXSwZaT0KnR-WdtOS5FY"
+                                target="_blank">Manual Book STAFF AHLI</a></li>
                     </ul>
 
                     <div class="text-end mb-2">
