@@ -270,7 +270,8 @@
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
 @endpush
 
 @push('custom-scripts')
@@ -394,10 +395,14 @@
     </script>
     <script>
         const inputElement = document.querySelector('input[id="filePendukung"]');
-        const pond = FilePond.create(inputElement);
         FilePond.registerPlugin(FilePondPluginFileValidateType);
-        FilePond.setOptions({
+        FilePond.registerPlugin(FilePondPluginFileValidateSize);
+        const pond = FilePond.create(inputElement, {
             acceptedFileTypes: ['application/pdf'],
+            allowFileTypeValidation: true,
+            maxFileSize: '10MB'
+        });
+        FilePond.setOptions({
             server: {
                 url: '{{ route('opdPerjanjianKinerja.store_file') }}',
                 headers: {

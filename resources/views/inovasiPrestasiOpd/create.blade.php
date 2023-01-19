@@ -94,7 +94,9 @@
     </div>
 @endsection
 @push('plugin-scripts')
-    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type/dist/filepond-plugin-file-validate-type.js"></script>
+    <script src="https://unpkg.com/filepond/dist/filepond.js"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.js"></script>
     <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
@@ -103,7 +105,13 @@
     <script src="{{ asset('assets/js/select2.js') }}"></script>
     <script>
         const inputElement = document.querySelector('input[id="file"]');
-        const pond = FilePond.create(inputElement);
+        FilePond.registerPlugin(FilePondPluginFileValidateType);
+        FilePond.registerPlugin(FilePondPluginFileValidateSize);
+        const pond = FilePond.create(inputElement, {
+            acceptedFileTypes: ['application/pdf'],
+            allowFileTypeValidation: true,
+            maxFileSize: '10MB'
+        });
         FilePond.setOptions({
             server: {
                 url: '{{ route('upload.store') }}',
