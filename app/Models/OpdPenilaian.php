@@ -106,7 +106,7 @@ class OpdPenilaian extends Model implements Auditable
         if ($status) {
             $getOpdPenilaian->where('status', $status);
         }
-        return $getOpdPenilaian->orderBy('year', 'desc');
+        return $getOpdPenilaian->orderBy('opd_id')->orderBy('year', 'desc');
     }
     public function checkStatusReport()
     {
