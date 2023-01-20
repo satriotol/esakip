@@ -55,14 +55,23 @@ class OpdPenilaianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $opds = Opd::getOpd();
         $opdCategories = OpdCategory::all();
-        $opdPerjanjianKinerjas = OpdPerjanjianKinerja::getPerjanjianKinerjas();
+        $opdPerjanjianKinerjas = OpdPerjanjianKinerja::getPerjanjianKinerjas($request);
         $inovasiPrestasiOpds = InovasiPrestasiOpd::getByOpdStatus();
         $triwulans = OpdPenilaian::TRIWULANS;
         return view('opdPenilaian.create', compact('opds', 'opdCategories', 'opdPerjanjianKinerjas', 'inovasiPrestasiOpds', 'triwulans'));
+    }
+
+    public function getOpdPerjanjianKinerjas(Request $request)
+    {
+        $opd_id = $request->opd_id;
+        $opdPerjanjianKinerjas = OpdPerjanjianKinerja::query();
+        $opdPerjanjianKinerjas = $opdPerjanjianKinerjas->with('opd')->where('year', $request->year)->where('status', 'DITERIMA')->where('opd_id', $opd_id)->get();
+        $inovasiPrestasiOpds = InovasiPrestasiOpd::where('year', $request->year)->with('opd', 'inovasi_prestasi_tingkat')->where('opd_id', $request->opd_id)->where('is_verified', 1)->get();
+        return $this->successResponse(['opdPerjanjianKinerjas' => $opdPerjanjianKinerjas, 'inovasiPrestasiOpds' => $inovasiPrestasiOpds]);
     }
 
     /**

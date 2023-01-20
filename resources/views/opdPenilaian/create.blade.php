@@ -13,7 +13,7 @@
         </ol>
     </nav>
 
-    <div class="grid-margin stretch-card">
+    <div class="grid-margin stretch-card" id="app">
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Form Penilaian OPD</h4>
@@ -27,8 +27,8 @@
                     @endisset
                     <div class="mb-3">
                         <label for="year" class="form-label">Tahun</label>
-                        <input id="year" class="form-control" name="year" type="number" placeholder="yyyy" required
-                            value="{{ isset($opdPenilaian) ? $opdPenilaian->year : @old('year') }}">
+                        <input id="year" class="form-control" name="year" v-model="year" type="number"
+                            @change="getPerjanjianKinerjas" placeholder="yyyy" required>
                     </div>
                     {{-- <div class="mb-3">
                         <label for="name" class="form-label">Triwulan</label>
@@ -42,7 +42,8 @@
                     </div> --}}
                     <div class="mb-3">
                         <label for="name" class="form-label">OPD</label>
-                        <select class="js-example-basic-single form-select" data-width="100%" name="opd_id" required>
+                        <select class="form-select" v-model="opd_id" data-width="100%" @change="getPerjanjianKinerjas"
+                            name="opd_id" required>
                             <option value="">Pilih OPD</option>
                             @foreach ($opds as $opd)
                                 <option value="{{ $opd->id }}"
@@ -57,18 +58,12 @@
                     @if (Auth::user()->opd?->is_staff_ahli != 1)
                         <div class="mb-3">
                             <label for="name" class="form-label">Perjanjian Kinerja</label>
-                            <select class="js-example-basic-single form-select" required data-width="100%"
+                            <select class="form-select" v-model="opd_perjanjian_kinerja_id" required data-width="100%"
                                 name="opd_perjanjian_kinerja_id">
                                 <option value="">Pilih Perjanjian Kinerja</option>
-                                @foreach ($opdPerjanjianKinerjas as $opdPerjanjianKinerja)
-                                    <option value="{{ $opdPerjanjianKinerja->id }}"
-                                        @isset($opdPenilaian) 
-                                    @if ($opdPerjanjianKinerja->id === $opdPenilaian->opd_perjanjian_kinerja_id) selected  @endif
-                                @endisset>
-                                        {{ $opdPerjanjianKinerja->opd->nama_opd }} | {{ $opdPerjanjianKinerja->year }} |
-                                        {{ $opdPerjanjianKinerja->type }}
-                                    </option>
-                                @endforeach
+                                <option :value="opdPerjanjianKinerja.id"
+                                    v-for="opdPerjanjianKinerja in opdPerjanjianKinerjas">@{{ opdPerjanjianKinerja.year }} |
+                                    @{{ opdPerjanjianKinerja.opd.nama_opd }} | @{{ opdPerjanjianKinerja.type }}</option>
                             </select>
                         </div>
                     @endif
@@ -89,19 +84,14 @@
                     </div>
                     <div class="mb-3">
                         <label for="name" class="form-label">Inovasi Prestasi OPD</label>
-                        <select class="js-example-basic-single form-select" data-width="100%"
-                            name="inovasi_prestasi_opd_id">
+                        <select class="form-select" data-width="100%" name="inovasi_prestasi_opd_id"
+                            v-model="inovasi_prestasi_opd_id">
                             <option value="">Pilih Inovasi Prestasi OPD</option>
-                            @foreach ($inovasiPrestasiOpds as $inovasiPrestasiOpd)
-                                <option value="{{ $inovasiPrestasiOpd->id }}"
-                                    @isset($opdPenilaian) 
-                                    @if ($inovasiPrestasiOpd->id === $opdPenilaian->inovasi_prestasi_opd_id) selected  @endif
-                                @endisset>
-                                    {{ $inovasiPrestasiOpd->opd->nama_opd }} | {{ $inovasiPrestasiOpd->year }}
-                                    {{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }} |
-                                    {{ $inovasiPrestasiOpd->name }}
-                                </option>
-                            @endforeach
+                            <option :value="inovasiPrestasiOpd.id" v-for="inovasiPrestasiOpd in inovasiPrestasiOpds">
+                                @{{ inovasiPrestasiOpd.opd.nama_opd }} | @{{ inovasiPrestasiOpd.year }}
+                                @{{ inovasiPrestasiOpd.inovasi_prestasi_tingkat.name }} |
+                                @{{ inovasiPrestasiOpd.name }}
+                            </option>
                         </select>
                     </div>
                     <div class="text-end">
@@ -121,4 +111,44 @@
 
 @push('custom-scripts')
     <script src="{{ asset('assets/js/select2.js') }}"></script>
+    <script>
+        const {
+            createApp
+        } = Vue
+
+        createApp({
+            data() {
+                return {
+                    year: '',
+                    opd_id: '',
+                    opdPerjanjianKinerjas: '',
+                    inovasiPrestasiOpds: '',
+                    opd_perjanjian_kinerja_id: '',
+                    inovasi_prestasi_opd_id: '',
+                }
+            },
+            mounted() {
+                this.getPerjanjianKinerjas();
+            },
+            methods: {
+                getPerjanjianKinerjas() {
+                    this.opd_perjanjian_kinerja_id = '';
+                    this.inovasi_prestasi_opd_id = '';
+                    axios.get('{{ route('opdPenilaian.getOpdPerjanjianKinerjas') }}', {
+                            params: {
+                                year: this.year,
+                                opd_id: this.opd_id
+                            },
+                        })
+                        .then(response => (
+                            this.opdPerjanjianKinerjas = response.data.opdPerjanjianKinerjas,
+                            this.inovasiPrestasiOpds = response.data.inovasiPrestasiOpds
+                        ))
+                        .catch(function(error) {
+                            console.log(error)
+                        })
+                },
+            },
+        }).mount('#app')
+    </script>
 @endpush

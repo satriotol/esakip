@@ -69,9 +69,9 @@ class RencanaAksiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $opdPerjanjianKinerjas = OpdPerjanjianKinerja::getPerjanjianKinerjas();
+        $opdPerjanjianKinerjas = OpdPerjanjianKinerja::getPerjanjianKinerjas($request);
         $triwulans = RencanaAksi::TRIWULANS;
         return view('rencanaAksi.create', compact('triwulans', 'opdPerjanjianKinerjas'));
     }

@@ -78,12 +78,16 @@ class OpdPerjanjianKinerja extends Model implements Auditable
     {
         return $this->hasMany(RencanaAksi::class, 'opd_perjanjian_kinerja_id', 'id');
     }
-    public static function getPerjanjianKinerjas()
+    public static function getPerjanjianKinerjas($request)
     {
         if (Auth::user()->opd_id) {
             return OpdPerjanjianKinerja::where('opd_id', Auth::user()->opd_id)->where('status', self::STATUS2)->get();
         } else {
-            return OpdPerjanjianKinerja::where('status', self::STATUS2)->get();
+            $opdPerjanjianKinerja = OpdPerjanjianKinerja::where('status', self::STATUS2);
+            if ($request->opd_id) {
+                $opdPerjanjianKinerja->where('opd_id', $request->opd_id);
+            }
+            return $opdPerjanjianKinerja->get();
         }
     }
     public static function getRencanaAksi($request)
