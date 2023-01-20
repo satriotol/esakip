@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class OpdPenilaianKinerja extends Model
+class OpdPenilaianKinerja extends Model implements Auditable
 {
     use HasFactory;
+    use AuditableTrait;
 
     protected $fillable = ['opd_penilaian_id', 'opd_category_variable_id', 'target', 'realisasi', 'capaian', 'nilai_akhir', 'status', 'user_id', 'rencana_aksi_id'];
 
