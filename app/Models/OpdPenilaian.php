@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
+use App\Blameable;
 use App\Models\EvaluasiKinerja\EvaluasiKinerja;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class OpdPenilaian extends Model
+class OpdPenilaian extends Model implements Auditable
 {
-    use HasFactory;
+    use HasFactory, Blameable;
+    use AuditableTrait;
     protected $fillable = ['opd_id', 'opd_category_id', 'inovasi_prestasi_opd_id', 'year', 'name', 'inovasi_prestasi_daerah', 'status', 'note', 'opd_perjanjian_kinerja_id'];
 
 

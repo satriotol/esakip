@@ -120,12 +120,12 @@
                                                                 <tr>
                                                                     <td>Instansi Pemberi</td>
                                                                     <td>:</td>
-                                                                    <td>{{ $inovasiPrestasiOpd->instansi_pemberi }}</td>
+                                                                    <td class="text-wrap">{{ $inovasiPrestasiOpd->instansi_pemberi }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Deskripsi</td>
                                                                     <td>:</td>
-                                                                    <td>{{ $inovasiPrestasiOpd->description }}</td>
+                                                                    <td class="text-wrap">{{ $inovasiPrestasiOpd->description }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>File</td>
