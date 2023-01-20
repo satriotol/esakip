@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Blameable;
 use App\Models\EvaluasiKinerja\EvaluasiKinerja;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +12,7 @@ use OwenIt\Auditing\Auditable as AuditableTrait;
 
 class OpdPenilaian extends Model implements Auditable
 {
-    use HasFactory, Blameable;
+    use HasFactory;
     use AuditableTrait;
     protected $fillable = ['opd_id', 'opd_category_id', 'inovasi_prestasi_opd_id', 'year', 'name', 'inovasi_prestasi_daerah', 'status', 'note', 'opd_perjanjian_kinerja_id'];
 
@@ -146,7 +145,7 @@ class OpdPenilaian extends Model implements Auditable
         } elseif ($opdCategoryVariable->opd_variable->is_p3dn && $data) {
             return 'Rp ' . (number_format((float)$data));
         } elseif ($opdCategoryVariable->opd_variable->is_iku && $data) {
-            return  $this->capaian($opd_category_variable_id) . ' %';
+            return $this->capaian($opd_category_variable_id) . ' %';
         } else {
             return $data;
         }
