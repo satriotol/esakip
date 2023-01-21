@@ -125,14 +125,14 @@
                     inovasiPrestasiOpds: '',
                     opd_perjanjian_kinerja_id: '',
                     inovasi_prestasi_opd_id: '',
+                    loading: false,
                 }
             },
-            mounted() {
-                this.getPerjanjianKinerjas();
-            },
+            mounted() {},
             methods: {
                 getPerjanjianKinerjas() {
                     this.opd_perjanjian_kinerja_id = '';
+                    this.loading = true;
                     this.inovasi_prestasi_opd_id = '';
                     axios.get('{{ route('opdPenilaian.getOpdPerjanjianKinerjas') }}', {
                             params: {
@@ -147,6 +147,9 @@
                         .catch(function(error) {
                             console.log(error)
                         })
+                        .finally(() => {
+                            this.loading = false;
+                        });
                 },
             },
         }).mount('#app')
