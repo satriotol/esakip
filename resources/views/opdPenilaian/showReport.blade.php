@@ -130,7 +130,7 @@
                                                         data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                         Detail
                                                     </a>
-                                                    @include('opdPenilaian.modalReport')
+                                                    @include('opdPenilaian.modal')
                                                 @endif
                                                 <br>
                                                 <small>{{ $opdPenilaian->getDate($opd_category_variable->id) }}</small>

@@ -181,6 +181,12 @@ class OpdPenilaian extends Model implements Auditable
                 'disabled'
             ];
             return $data;
+        } elseif ($opdCategoryVariable->opd_variable->is_iku || $opdCategoryVariable->opd_variable->is_iku_triwulan) {
+            $data = [
+                '100%',
+                'disabled'
+            ];
+            return $data;
         } else {
             return [$data];
         }

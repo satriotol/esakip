@@ -115,7 +115,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <textarea @readonly(Auth::user()->opd_id) name="iku[{{ $loop->index }}][note]" id="" cols="20" rows="5"
+                                                <textarea @readonly(Auth::user()->opd_id || $opdPenilaian->status == 'SELESAI') name="iku[{{ $loop->index }}][note]" id="" cols="20" rows="5"
                                                     class="form-control">{{ $opd_category_variable->getIkuNote($opdPenilaian->id, $getOpdPerjanjianKinerjaIndikator->id) }}</textarea>
                                             </td>
                                             <input type="hidden"
@@ -129,44 +129,17 @@
                         <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">
                         <input type="hidden" value="{{ $opd_category_variable->id }}" name="opd_category_variable_id">
                         <div class="text-end">
-                            <button class="btn btn-success">Simpan</button>
-                        </div>
-                    </form>
-                @elseif ($opd_category_variable->opd_variable->pic != 'SIPD' && $opd_category_variable->opd_variable->is_iku_triwulan != 1)
-                    <form action="{{ route('opdPenilaianKinerja.store') }}" method="post">
-                        @csrf
-                        <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">
-                        <input type="hidden" value="{{ $opd_category_variable->id }}" name="opd_category_variable_id"
-                            id="">
-                        <div class="mb-3">
-                            <label>Target</label>
-                            <input type="number" step="any" class="form-control" name="target" required
-                                id=""
-                                @isset($opdPenilaian->target($opd_category_variable->id)[1])
-                            readonly
-                        @endisset
-                                value="{{ $opdPenilaian->target($opd_category_variable->id)[0] }}">
-                        </div>
-                        <div class="mb-3">
-                            <label>Realisasi</label>
-                            <input type="number" step="any" class="form-control" name="realisasi" required
-                                id="" value="{{ $opdPenilaian->realisasi($opd_category_variable->id) }}">
-                        </div>
-                        <small>
-                            Tidak Perlu Menggunakan % <br>
-                        </small>
-                        <div class="text-end">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            @if ($opdPenilaian->status == 'PENGEMBALIAN' || $opdPenilaian->status == 'BELUM')
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            @endif
                         </div>
                     </form>
                 @elseif ($opd_category_variable->opd_variable->is_iku_triwulan)
                     <form action="{{ route('opdPenilaianKinerja.store') }}" method="post">
                         @csrf
-                        <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id"
+                        <input type="hidden" value="{{ $opdPenilaian->id }}" name="opd_penilaian_id" id="">
+                        <input type="hidden" value="{{ $opd_category_variable->id }}" name="opd_category_variable_id"
                             id="">
-                        <input type="hidden" value="{{ $opd_category_variable->id }}"
-                            name="opd_category_variable_id" id="">
                         <input type="hidden" value="100" name="target" id="">
                         <div class="mb-3">
                             <label>Rencana Aksi</label>
@@ -181,7 +154,9 @@
                         </div>
                         <div class="text-end">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            @if ($opdPenilaian->status == 'SELESAI' || $opdPenilaian->status == 'VERIFIKASI')
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            @endif
                         </div>
                     </form>
                 @endif
