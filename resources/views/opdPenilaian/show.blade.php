@@ -182,7 +182,6 @@
                                                         Total Verifikasi : {{ $getIkuStatus['is_verified'] }} /
                                                         {{ $getIkuStatus['total'] }}
                                                     </small>
-                                                    <br>
                                                 @endif
                                             @elseif($opd_category_variable->opd_variable->is_iku_triwulan && $checkStatus != 1)
                                                 <a type="button" class="badge bg-primary" data-bs-toggle="modal"
@@ -199,8 +198,12 @@
                                             @endif
 
                                             @include('opdPenilaian.modal')
+
                                             <small>
-                                                {{ $opdPenilaian->getDate($opd_category_variable->id) }} <br>
+                                                @if ($opdPenilaian->getDate($opd_category_variable->id))
+                                                    <br>
+                                                    {{ $opdPenilaian->getDate($opd_category_variable->id) }}
+                                                @endif
                                                 @if ($opdPenilaian->getRencanaAksi($opd_category_variable->id)?->rencana_aksi_id)
                                                     <a target="_blank"
                                                         href="{{ route('rencanaAksi.show', $opdPenilaian->getRencanaAksi($opd_category_variable->id)->rencana_aksi_id) }}">
@@ -209,10 +212,12 @@
                                                 @endif
                                             </small>
                                             @if ($opdPenilaian->capaian($opd_category_variable->id) != null)
+                                                <br>
                                                 <div class="badge bg-success">
                                                     Sudah
                                                 </div>
                                             @else
+                                                <br>
                                                 <div class="badge bg-danger">
                                                     Belum
                                                 </div>
