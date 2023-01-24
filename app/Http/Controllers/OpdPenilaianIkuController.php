@@ -64,6 +64,7 @@ class OpdPenilaianIkuController extends Controller
                     $filename = date('Ymd_His') . '-' . $file->getClientOriginalName();
                     $i['file'] = $file->storeAs('file', $filename, 'public_uploads');
                 }
+
                 $opdPerjanjianKinerjaIndikator = OpdPerjanjianKinerjaIndikator::find($i['opd_perjanjian_kinerja_indikator_id']);
                 // OpdPenilaianIku::where('opd_penilaian_kinerja_id', $opdPenilaianKinerja->id)->where('opd_perjanjian_kinerja_indikator_id', $i['opd_perjanjian_kinerja_indikator_id'])->delete();
                 if ($i['type'] == OpdPenilaianIku::TYPE1) {
@@ -71,6 +72,9 @@ class OpdPenilaianIkuController extends Controller
                     if ($capaian > 100) {
                         $capaian = 100;
                     } elseif ($capaian < 0) {
+                        $capaian = 0;
+                    }
+                    if ($i['is_verified'] == null) {
                         $capaian = 0;
                     }
                     if (isset($i['file'])) {
@@ -108,6 +112,9 @@ class OpdPenilaianIkuController extends Controller
                     if ($capaian > 100) {
                         $capaian = 100;
                     } elseif ($capaian < 0) {
+                        $capaian = 0;
+                    }
+                    if ($i['is_verified'] == null) {
                         $capaian = 0;
                     }
                     if (isset($i['file'])) {
