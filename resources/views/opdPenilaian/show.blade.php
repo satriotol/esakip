@@ -198,7 +198,6 @@
                                             @endif
 
                                             @include('opdPenilaian.modal')
-                                            <br>
                                             <small>
                                                 {{ $opdPenilaian->getDate($opd_category_variable->id) }} <br>
                                                 @if ($opdPenilaian->getRencanaAksi($opd_category_variable->id)?->rencana_aksi_id)
