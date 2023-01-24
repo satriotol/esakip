@@ -182,6 +182,7 @@
                                                         Total Verifikasi : {{ $getIkuStatus['is_verified'] }} /
                                                         {{ $getIkuStatus['total'] }}
                                                     </small>
+                                                    <br>
                                                 @endif
                                             @elseif($opd_category_variable->opd_variable->is_iku_triwulan && $checkStatus != 1)
                                                 <a type="button" class="badge bg-primary" data-bs-toggle="modal"
