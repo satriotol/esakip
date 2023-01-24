@@ -11,6 +11,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="btn-close"></button>
             </div>
             <div class="modal-body">
+                <marquee scrolldelay="1" class="text-danger" behavior="alternate" onmouseover="this.stop()"
+                    onmouseout="this.start()" direction="right">Capaian IKU Akan Terisi Jika Sudah Diterima Oleh Tim
+                    Verifikator
+                </marquee>
                 @if ($opd_category_variable->opd_variable->is_iku)
                     <form action="{{ route('opdPenilaianIku.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
