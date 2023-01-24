@@ -8,6 +8,7 @@ use App\Models\InovasiPrestasiOpd;
 use App\Models\Month;
 use App\Models\Opd;
 use App\Models\OpdCategory;
+use App\Models\OpdCategoryVariable;
 use App\Models\OpdPenilaian;
 use App\Models\OpdPenilaianIku;
 use App\Models\OpdPenilaianKinerja;
@@ -155,6 +156,8 @@ class OpdPenilaianController extends Controller
     public function show(OpdPenilaian $opdPenilaian)
     {
         $getOpdPerjanjianKinerjaIndikators = OpdPenilaian::getOpdPerjanjianKinerjaIndikator($opdPenilaian, 1);
+        $getIkuStatus = OpdCategoryVariable::getIkuStatus($opdPenilaian);
+        // return $getIku;
         $checkStatus = OpdPenilaianKinerja::checkStatus($opdPenilaian);
         $statuses = OpdPenilaian::STATUSESVERIF;
         $staffAhliStatuses = OpdPenilaianStaff::STATUSES;
@@ -164,7 +167,7 @@ class OpdPenilaianController extends Controller
         if ($opdPenilaian->checkStatusReport()) {
             return redirect(route('opdPenilaian.showReport', $opdPenilaian->id));
         } else {
-            return view('opdPenilaian.show', compact('staffAhliStatuses', 'opdPenilaian', 'months', 'opdPenilaianStaffTypes', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
+            return view('opdPenilaian.show', compact('getIkuStatus', 'staffAhliStatuses', 'opdPenilaian', 'months', 'opdPenilaianStaffTypes', 'statuses', 'checkStatus', 'ikuTypes', 'getOpdPerjanjianKinerjaIndikators'));
         }
     }
     public function showReport(OpdPenilaian $opdPenilaian)

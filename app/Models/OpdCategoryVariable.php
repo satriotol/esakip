@@ -28,6 +28,18 @@ class OpdCategoryVariable extends Model
         $opdPenilaianKinerja = $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first() ?? '';
         return $opdPenilaianKinerja;
     }
+    public static function getIkuStatus($opdPenilaian)
+    {
+        $opdPenilaianIku =  OpdPenilaianKinerja::has('opd_penilaian_ikus')->where('opd_penilaian_id', $opdPenilaian->id)->first()->opd_penilaian_ikus ?? null;
+        if ($opdPenilaianIku) {
+            $data = [
+                'not_verified' => $opdPenilaianIku->where('is_verified', null)->count(),
+                'is_verified' => $opdPenilaianIku->where('is_verified', 1)->count(),
+                'total' => $opdPenilaianIku->count(),
+            ];
+            return $data;
+        }
+    }
     public function getIkuRealisasi($opdPenilaian, $getOpdPerjanjianKinerjaIndikator)
     {
         $opdPenilaianIku =  $this->opd_penilaian_kinerjas->where('opd_penilaian_id', $opdPenilaian)->first()->opd_penilaian_ikus ?? "";

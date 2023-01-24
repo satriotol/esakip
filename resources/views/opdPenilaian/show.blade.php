@@ -176,6 +176,13 @@
                                                         href="{{ route('opdPerjanjianKinerja.show', $opdPenilaian->opd_perjanjian_kinerja_id) }}"
                                                         target="_blank">{{ $opdPenilaian->opd_perjanjian_kinerja->type }}</a>
                                                 </small>
+                                                @if ($getIkuStatus)
+                                                    <br>
+                                                    <small class="badge bg-success">
+                                                        Total Verifikasi : {{ $getIkuStatus['is_verified'] }} /
+                                                        {{ $getIkuStatus['total'] }}
+                                                    </small>
+                                                @endif
                                             @elseif($opd_category_variable->opd_variable->is_iku_triwulan && $checkStatus != 1)
                                                 <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                     data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
