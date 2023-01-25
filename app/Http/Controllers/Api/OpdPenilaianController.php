@@ -21,10 +21,10 @@ class OpdPenilaianController extends Controller
         if (!$year) {
             $year = date('Y');
         }
-        if (!$name) {
-            $name = null;
-        }
-        $opdPenilaian = OpdPenilaian::where('year', $year)->where('name', $name);
+        // if (!$name) {
+        //     $name = null;
+        // }
+        $opdPenilaian = OpdPenilaian::where('year', $year);
         if ($opd_id) {
             $opdPenilaian->where('opd_id', $opd_id);
         } else if ($data_unit_id) {
@@ -37,9 +37,6 @@ class OpdPenilaianController extends Controller
             });
         } else {
             return $this->failedResponse([], 'Pastikan anda sudah mengisi antara (opd_id,data_unit_id,master_unit_kerja_id,kode_opd)');
-        }
-        if ($opdPenilaian->first() == null) {
-            return $this->failedResponse([], 'Data Yang Anda Cari Tidak Ditemukan');
         }
         return $this->successResponse(['opdPenilaians' => new OpdPenilaianResource($opdPenilaian->first())]);
     }

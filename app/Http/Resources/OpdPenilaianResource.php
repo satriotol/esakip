@@ -21,7 +21,6 @@ class OpdPenilaianResource extends JsonResource
             'data_unit_id' => $this->opd->data_unit_id,
             // 'master_unit_kerja_id' => $this->opd->master_unit_kerja_id,
             'year' => $this->year,
-            'name' => $this->name ?? 'TAHUNAN',
             'opd_name' => $this->opd->nama_opd,
             'opd_category' => $this->opd_category->name,
             'status' => $this->status,
