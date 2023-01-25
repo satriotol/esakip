@@ -24,7 +24,7 @@ class OpdPenilaianResource extends JsonResource
             'opd_name' => $this->opd->nama_opd,
             'opd_category' => $this->opd_category->name,
             'status' => $this->status,
-            'nilai_akhir' => $this->totalAkhir(),
+            'nilai_akhir' => round($this->totalAkhir(), 2),
             'nilai_akhir_predikat' => $this->totalAkhirPredikat(),
         ];
     }
