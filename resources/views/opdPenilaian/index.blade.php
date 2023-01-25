@@ -195,7 +195,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $opdPenilaians->links() }}
+                        {{ $opdPenilaians->appends($_GET)->links() }}
                     </div>
                 </div>
             </div>
