@@ -136,10 +136,11 @@ class InovasiPrestasiOpdController extends Controller
         session()->flash('success');
         return back();
     }
-    public function updateStatus(InovasiPrestasiOpd $inovasiPrestasiOpd, $status)
+    public function updateStatus(InovasiPrestasiOpd $inovasiPrestasiOpd, Request $request)
     {
         $inovasiPrestasiOpd->update([
-            'is_verified' => $status
+            'is_verified' => $request->is_verified,
+            'note' => $request->note,
         ]);
         session()->flash('success');
         return back();

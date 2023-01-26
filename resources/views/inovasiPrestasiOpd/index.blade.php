@@ -85,86 +85,7 @@
                                                 aria-labelledby="staticBackdrop{{ $inovasiPrestasiOpd->id }}Label"
                                                 aria-hidden="true">
                                                 <div class="modal-dialog modal-xl">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title"
-                                                                id="staticBackdrop{{ $inovasiPrestasiOpd->id }}Label">
-                                                                {{ $inovasiPrestasiOpd->name }}
-                                                            </h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <table class="table">
-                                                                <tr>
-                                                                    <td>Nama</td>
-                                                                    <td>:</td>
-                                                                    <td>{{ $inovasiPrestasiOpd->name }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>OPD</td>
-                                                                    <td>:</td>
-                                                                    <td>{{ $inovasiPrestasiOpd->opd->nama_opd }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Tingkat</td>
-                                                                    <td>:</td>
-                                                                    <td>{{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }}
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Tanggal Pemberian</td>
-                                                                    <td>:</td>
-                                                                    <td>{{ $inovasiPrestasiOpd->date }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Tahun</td>
-                                                                    <td>:</td>
-                                                                    <td>{{ $inovasiPrestasiOpd->year }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Instansi Pemberi</td>
-                                                                    <td>:</td>
-                                                                    <td class="text-wrap">
-                                                                        {{ $inovasiPrestasiOpd->instansi_pemberi }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Deskripsi</td>
-                                                                    <td>:</td>
-                                                                    <td class="text-wrap">
-                                                                        {{ $inovasiPrestasiOpd->description }}</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>File</td>
-                                                                    <td>:</td>
-                                                                    <td>
-                                                                        <a href="{{ asset('uploads/' . $inovasiPrestasiOpd->file) }}"
-                                                                            target="_blank">Buka File</a>
-                                                                    </td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td>Status</td>
-                                                                    <td>:</td>
-                                                                    <td>
-                                                                        {{ $inovasiPrestasiOpd->getStatus()['name'] }}
-                                                                        @unlessrole('OPD')
-                                                                            <br>
-                                                                            <a href="{{ route('inovasiPrestasiOpd.updateStatus', [$inovasiPrestasiOpd->id, 1]) }}"
-                                                                                class="badge bg-success"
-                                                                                onclick="return confirm('Are you sure?')">Setujui</a>
-                                                                            <a href="{{ route('inovasiPrestasiOpd.updateStatus', [$inovasiPrestasiOpd->id, 2]) }}"
-                                                                                class="badge bg-danger"
-                                                                                onclick="return confirm('Are you sure?')">Tolak</a>
-                                                                        @endunlessrole
-                                                                    </td>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close</button>
-                                                        </div>
-                                                    </div>
+                                                    @include('inovasiPrestasiOpd.modalInovasi')
                                                 </div>
                                             </div>
                                             @if ($inovasiPrestasiOpd->getStatus()['enabled'])
@@ -193,13 +114,12 @@
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection
 
-@push('plugin-scripts')
-    <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
-@endpush
+    @push('plugin-scripts')
+        <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    @endpush
 
-@push('custom-scripts')
-    <script src="{{ asset('assets/js/select2.js') }}"></script>
-@endpush
+    @push('custom-scripts')
+        <script src="{{ asset('assets/js/select2.js') }}"></script>
+    @endpush

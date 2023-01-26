@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('opds', OpdController::class);
     Route::resource('opdCategory', OpdCategoryController::class);
     Route::resource('inovasiPrestasiDaerah', InovasiPrestasiDaerahController::class);
-    Route::get('inovasiPrestasiOpd/updateStatus/{inovasiPrestasiOpd}/{status}', [InovasiPrestasiOpdController::class, 'updateStatus'])->name('inovasiPrestasiOpd.updateStatus');
+    Route::get('inovasiPrestasiOpd/updateStatus/{inovasiPrestasiOpd}', [InovasiPrestasiOpdController::class, 'updateStatus'])->name('inovasiPrestasiOpd.updateStatus');
     Route::resource('master', MasterController::class);
     Route::resource('opdPenilaianIku', OpdPenilaianIkuController::class);
     Route::resource('opdPenilaianKinerja', OpdPenilaianKinerjaController::class);
