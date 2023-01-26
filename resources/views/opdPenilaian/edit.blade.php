@@ -30,7 +30,11 @@
                         <select class="form-select" data-width="100%" name="inovasi_prestasi_opd_id">
                             <option value="">Pilih</option>
                             @foreach ($inovasiPrestasiOpds as $inovasiPrestasiOpd)
-                                <option value="{{ $inovasiPrestasiOpd->id }}">
+                                <option
+                                    @isset($opdPenilaian) 
+                                @selected ($inovasiPrestasiOpd->id == $opdPenilaian->inovasi_prestasi_opd_id) 
+                                @endisset
+                                    value="{{ $inovasiPrestasiOpd->id }}">
                                     {{ $inovasiPrestasiOpd->opd->nama_opd }} | {{ $inovasiPrestasiOpd->year }}
                                     {{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }} |
                                     {{ $inovasiPrestasiOpd->name }}
