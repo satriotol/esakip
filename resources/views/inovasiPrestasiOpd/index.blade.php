@@ -55,26 +55,26 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th>Tahun</th>
                                     <th>OPD</th>
-                                    <th>Tingkat</th>
                                     <th>Status</th>
                                     <th>Nama</th>
-                                    <th>Tanggal</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($inovasiPrestasiOpds as $inovasiPrestasiOpd)
                                     <tr>
-                                        <td>{{ $inovasiPrestasiOpd->opd->nama_opd }}</td>
-                                        <td>{{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }}</td>
+                                        <td>{{ $inovasiPrestasiOpd->year }}</td>
+                                        <td>{{ $inovasiPrestasiOpd->opd->nama_opd }} <br>
+                                            <small>{{ $inovasiPrestasiOpd->inovasi_prestasi_tingkat->name }}</small>
+                                        </td>
                                         <td>
                                             <div class="badge bg-{{ $inovasiPrestasiOpd->getStatus()['color'] }}">
                                                 {{ $inovasiPrestasiOpd->getStatus()['name'] }}
                                             </div>
                                         </td>
-                                        <td>{{ $inovasiPrestasiOpd->name }}</td>
-                                        <td>{{ $inovasiPrestasiOpd->date }}</td>
+                                        <td class="text-wrap">{{ $inovasiPrestasiOpd->name }}</td>
                                         <td>
                                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                                 data-bs-target="#staticBackdrop{{ $inovasiPrestasiOpd->id }}">
@@ -120,12 +120,14 @@
                                                                 <tr>
                                                                     <td>Instansi Pemberi</td>
                                                                     <td>:</td>
-                                                                    <td class="text-wrap">{{ $inovasiPrestasiOpd->instansi_pemberi }}</td>
+                                                                    <td class="text-wrap">
+                                                                        {{ $inovasiPrestasiOpd->instansi_pemberi }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Deskripsi</td>
                                                                     <td>:</td>
-                                                                    <td class="text-wrap">{{ $inovasiPrestasiOpd->description }}</td>
+                                                                    <td class="text-wrap">
+                                                                        {{ $inovasiPrestasiOpd->description }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>File</td>
@@ -181,6 +183,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $inovasiPrestasiOpds->appends($_GET)->links() }}
                     </div>
                 </div>
             </div>
