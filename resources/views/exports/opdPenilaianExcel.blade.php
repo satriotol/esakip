@@ -6,6 +6,7 @@
             <th>Kategori</th>
             <th>Total Nilai</th>
             <th>Predikat</th>
+            <th>Status</th>
         </tr>
     </thead>
     <tbody>
@@ -16,6 +17,7 @@
                 <td>{{ $opdPenilaian->opd_category->name }}</td>
                 <td>{{ $opdPenilaian->totalAkhir() }}</td>
                 <td>{{ $opdPenilaian->totalAkhirPredikat()['name'] }}</td>
+                <td>{{ $opdPenilaian->status }}</td>
             </tr>
         @endforeach
     </tbody>
