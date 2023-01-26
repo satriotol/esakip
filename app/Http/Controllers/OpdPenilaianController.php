@@ -190,9 +190,8 @@ class OpdPenilaianController extends Controller
      */
     public function edit(OpdPenilaian $opdPenilaian)
     {
-        $opds = Opd::getOpd();
-        $opdCategories = OpdCategory::all();
-        return view('opdPenilaian.create', compact('opdPenilaian', 'opds', 'opdCategories'));
+        $inovasiPrestasiOpds = InovasiPrestasiOpd::getByOpdStatus();
+        return view('opdPenilaian.edit', compact('opdPenilaian', 'inovasiPrestasiOpds'));
     }
 
     /**
@@ -204,7 +203,16 @@ class OpdPenilaianController extends Controller
      */
     public function update(Request $request, OpdPenilaian $opdPenilaian)
     {
-        //
+        $data = $request->validate([
+            'inovasi_prestasi_opd_id' => 'required',
+            'inovasi_prestasi_daerah' => 'nullable'
+        ]);
+        if ($request->inovasi_prestasi_opd_id) {
+            $data['inovasi_prestasi_daerah'] = InovasiPrestasiOpd::where('id', $request->inovasi_prestasi_opd_id)->first()->inovasi_prestasi_tingkat->value;
+        }
+        $opdPenilaian->update($data);
+        session()->flash('success');
+        return redirect(route('opdPenilaian.index'));
     }
 
     /**
