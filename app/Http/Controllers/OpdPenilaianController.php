@@ -111,21 +111,20 @@ class OpdPenilaianController extends Controller
             'data.*.rekomendasi' => 'nullable',
             'data.*.opd_penilaian_kinerja' => 'required',
         ]);
-        DB::beginTransaction();
-        try {
-            foreach ($request->data as $d) {
-                OpdPenilaianReport::updateOrCreate([
-                    'opd_penilaian_kinerja_id' => $d['opd_penilaian_kinerja'],
-                    'user_id' => Auth::user()->id,
-                ], [
-                    'catatan' => $d['catatan'],
-                    'rekomendasi' => $d['rekomendasi'],
-                ]);
-            }
-            DB::commit();
-        } catch (Exception $exception) {
-            Error::createError($exception);
+        // DB::beginTransaction();
+        // try {
+        foreach ($request->data as $d) {
+            OpdPenilaianReport::updateOrCreate([
+                'opd_penilaian_kinerja_id' => $d['opd_penilaian_kinerja'],
+            ], [
+                'catatan' => $d['catatan'],
+                'rekomendasi' => $d['rekomendasi'],
+            ]);
         }
+        // DB::commit();
+        // } catch (Exception $exception) {
+        //     Error::createError($exception);
+        // }
 
         session()->flash('success');
         return back();
