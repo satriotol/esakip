@@ -111,6 +111,7 @@
                                 <thead>
                                     <tr>
                                         <th>Aspek</th>
+                                        <th>Bobot</th>
                                         <th>Target</th>
                                         <th>Realisasi</th>
                                         <th>Nilai Akhir</th>
@@ -134,6 +135,9 @@
                                                 @endif
                                                 <br>
                                                 <small>{{ $opdPenilaian->getDate($opd_category_variable->id) }}</small>
+                                            </td>
+                                            <td>
+                                                {{ $opd_category_variable->opd_variable->bobot }} %
                                             </td>
                                             <td>
                                                 {{ $opdPenilaian->target($opd_category_variable->id)[0] }}
