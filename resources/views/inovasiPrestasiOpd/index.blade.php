@@ -113,9 +113,14 @@
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
-                                                                    <td>Tanggal</td>
+                                                                    <td>Tanggal Pemberian</td>
                                                                     <td>:</td>
                                                                     <td>{{ $inovasiPrestasiOpd->date }}</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>Tahun</td>
+                                                                    <td>:</td>
+                                                                    <td>{{ $inovasiPrestasiOpd->year }}</td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td>Instansi Pemberi</td>
