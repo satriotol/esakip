@@ -54,12 +54,21 @@
                                 <tr>
                                     <td>Inovasi Prestasi Daerah</td>
                                     <td>:</td>
-                                    <td>{{ $opdPenilaian->inovasi_prestasi_daerah }}</td>
+                                    <td>{{ $opdPenilaian->inovasi_prestasi_daerah }} @isset($opdPenilaian->inovasi_prestasi_opd)
+                                            / <a href="{{ asset('uploads/' . $opdPenilaian->inovasi_prestasi_opd->file) }}"
+                                                target="_blank">Buka File</a>
+                                        @endisset
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Nilai Akhir</td>
                                     <td>:</td>
                                     <td>{{ $opdPenilaian->totalNilaiAkhir() }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Total Nilai Akhir</th>
+                                    <th>:</th>
+                                    <th>{{ $opdPenilaian->totalAkhir() }}</th>
                                 </tr>
                                 <div class="text-end">
                                     <small>Total Nilai Akhir</small>
