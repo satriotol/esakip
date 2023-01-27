@@ -48,6 +48,11 @@ class InovasiPrestasiOpd extends Model
         }
         return $data;
     }
+    public static function getByPenilaianOpdStatus($opdPenilaian)
+    {
+        $data = InovasiPrestasiOpd::where('opd_id', $opdPenilaian->opd_id)->where('year', $opdPenilaian->year)->where('is_verified', 1)->get();
+        return $data;
+    }
     public function getStatus()
     {
         if ($this->is_verified == null) {

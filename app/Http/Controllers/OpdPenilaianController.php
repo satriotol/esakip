@@ -190,7 +190,7 @@ class OpdPenilaianController extends Controller
      */
     public function edit(OpdPenilaian $opdPenilaian)
     {
-        $inovasiPrestasiOpds = InovasiPrestasiOpd::getByOpdStatus();
+        $inovasiPrestasiOpds = InovasiPrestasiOpd::getByPenilaianOpdStatus($opdPenilaian);
         return view('opdPenilaian.edit', compact('opdPenilaian', 'inovasiPrestasiOpds'));
     }
 
