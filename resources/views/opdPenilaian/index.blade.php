@@ -175,8 +175,10 @@
                                             @if ($opdPenilaian->status == 'BELUM' || $opdPenilaian->status == 'PENGEMBALIAN')
                                                 <a href="{{ route('opdPenilaian.show', $opdPenilaian->id) }}"
                                                     class="btn btn-sm btn-primary ml-1">Detail</a>
-                                                <a href="{{ route('opdPenilaian.edit', $opdPenilaian->id) }}"
-                                                    class="btn btn-sm btn-primary ml-1">Inovasi Prestasi</a>
+                                                @if (!Auth::user()->opd_id)
+                                                    <a href="{{ route('opdPenilaian.edit', $opdPenilaian->id) }}"
+                                                        class="btn btn-sm btn-primary ml-1">Inovasi Prestasi</a>
+                                                @endif
                                                 <form action="{{ route('opdPenilaian.destroy', $opdPenilaian->id) }}"
                                                     method="POST" class="d-inline">
                                                     @csrf

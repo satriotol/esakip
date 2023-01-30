@@ -82,7 +82,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="name" class="form-label">Inovasi Prestasi OPD</label>
                         <select class="form-select" data-width="100%" name="inovasi_prestasi_opd_id"
                             v-model="inovasi_prestasi_opd_id">
@@ -93,7 +93,7 @@
                                 @{{ inovasiPrestasiOpd.name }}
                             </option>
                         </select>
-                    </div>
+                    </div> --}}
                     <div class="text-end">
                         <a href="{{ route('opdPenilaian.index') }}" class="btn btn-warning">Kembali</a>
                         <input class="btn btn-primary" type="submit" value="Submit">
