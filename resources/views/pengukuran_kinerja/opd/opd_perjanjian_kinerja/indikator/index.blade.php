@@ -22,10 +22,13 @@
                     <td>{{ $opd_perjanjian_kinerja_indikator->opd_perjanjian_kinerja_sasaran->sasaran }}</td>
                     <td>{{ $opd_perjanjian_kinerja_indikator->indikator }} <br>
                         @if ($opd_perjanjian_kinerja_indikator->is_sakip)
-                            <div class="badge bg-primary">Sakip</div>
+                            <div class="badge bg-primary">Akip</div>
                         @endif
                         @if ($opd_perjanjian_kinerja_indikator->is_iku)
                             <div class="badge bg-success">IKU</div>
+                        @endif
+                        @if ($opd_perjanjian_kinerja_indikator->is_rb)
+                            <div class="badge bg-danger">RB</div>
                         @endif
                     </td>
                     <td>{{ $opd_perjanjian_kinerja_indikator->target }} {{ $opd_perjanjian_kinerja_indikator->satuan }}
