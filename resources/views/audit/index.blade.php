@@ -2,13 +2,7 @@
 
 @push('plugin-styles')
     <link href="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.css') }}" rel="stylesheet" />
-@endpush
-@push('style')
-    <style>
-        /* html {
-                                                                                                    zoom: 100%;
-                                                                                                } */
-    </style>
+    <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet" />
 @endpush
 
 @section('content')
@@ -21,6 +15,7 @@
     </nav>
     <div class="row">
         <div class="col-md-12 grid-margin stretch-card">
+
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">Audit</h6>
@@ -30,6 +25,25 @@
                             Create
                         </a>
                     </div>
+                    <form action="">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>User</label>
+                                    <select name="user_id" class="js-example-basic-single form-select" id="">
+                                        <option value="">Pilih OPD</option>
+                                        @foreach ($users as $user)
+                                            <option {{ old('user_id') == $user->id ? 'selected' : '' }}
+                                                value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <button class="btn btn-sm btn-success">Cari</button>
+                        </div>
+                    </form>
                     <div class="table-responsive">
                         <table class="table">
                             <thead>
@@ -77,10 +91,12 @@
 @push('plugin-scripts')
     <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
     <script src="{{ asset('assets/js/data-table.js') }}"></script>
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
     <script>
         document.getElementById("json").textContent = JSON.stringify(data, null, 2);
     </script>

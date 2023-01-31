@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Audit;
+use App\Models\Opd;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -20,10 +22,16 @@ class AuditController extends Controller
         $this->middleware('permission:audit-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:audit-delete', ['only' => ['destroy']]);
     }
-    public function index()
+    public function index(Request $request)
     {
-        $audits = Audit::orderBy('id', 'desc')->paginate();
-        return view('audit.index', compact('audits'));
+        $user_id = $request->user_id;
+        $audits = Audit::query();
+        if ($user_id) {
+            $audits = $audits->where('user_id', $user_id);
+        }
+        $audits = $audits->orderBy('id', 'desc')->paginate();
+        $users = User::all();
+        return view('audit.index', compact('audits', 'users'));
     }
 
     /**
