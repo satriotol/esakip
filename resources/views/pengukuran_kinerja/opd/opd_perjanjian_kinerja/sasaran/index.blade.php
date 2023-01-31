@@ -11,7 +11,9 @@
         <thead>
             <tr>
                 <th>Sasaran</th>
-                <th>Aksi</th>
+                @if ($opdPerjanjianKinerja->status != 'DITERIMA')
+                    <th>Aksi</th>
+                @endif
             </tr>
         </thead>
         <tbody>

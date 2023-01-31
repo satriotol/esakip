@@ -13,14 +13,17 @@
                 <th>Sasaran</th>
                 <th>Indikator</th>
                 <th>Target</th>
-                <th>Aksi</th>
+                @if ($opdPerjanjianKinerja->status != 'DITERIMA')
+                    <th>Aksi</th>
+                @endif
             </tr>
         </thead>
         <tbody>
             @foreach ($opdPerjanjianKinerjaIndikators as $opd_perjanjian_kinerja_indikator)
                 <tr>
-                    <td>{{ $opd_perjanjian_kinerja_indikator->opd_perjanjian_kinerja_sasaran->sasaran }}</td>
-                    <td>{{ $opd_perjanjian_kinerja_indikator->indikator }} <br>
+                    <td class="text-wrap">
+                        {{ $opd_perjanjian_kinerja_indikator->opd_perjanjian_kinerja_sasaran->sasaran }}</td>
+                    <td class="text-wrap">{{ $opd_perjanjian_kinerja_indikator->indikator }} <br>
                         @if ($opd_perjanjian_kinerja_indikator->is_sakip)
                             <div class="badge bg-primary">Akip</div>
                         @endif
