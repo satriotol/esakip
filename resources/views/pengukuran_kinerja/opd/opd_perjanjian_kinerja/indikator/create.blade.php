@@ -98,7 +98,7 @@
                 ++i;
                 var sasaran = '@foreach($opd_perjanjian_kinerja_sasarans as $opd_perjanjian_kinerja_sasaran) <option value="{{$opd_perjanjian_kinerja_sasaran->id}}">{{$opd_perjanjian_kinerja_sasaran->sasaran}}</option> @endforeach';
                 var sasaran_table = '<td><select name="addMoreInputFields['+i+'][opd_perjanjian_kinerja_sasaran_id]" class="form-control" required><option value="">Pilih Sasaran</option>'+sasaran+'</select></td>';
-                var target_table = '<td><input type="text" required class="form-control" name="addMoreInputFields['+i+'][target]"></td>';
+                var target_table = '<td><input type="number" step="any" required class="form-control" name="addMoreInputFields['+i+'][target]"></td>';
                 var indikator_table = '<td><input type="text" required class="form-control" name="addMoreInputFields['+i+'][indikator]"></td>';
                 var satuan_table = '<td><input type="text" class="form-control" name="addMoreInputFields['+i+'][satuan]"></td>'
                 var is_iku = '<td><select name="addMoreInputFields['+i+'][is_iku]" class="form-control"><option value="">Tidak</option><option value="1">Ya</option></select></td>'
