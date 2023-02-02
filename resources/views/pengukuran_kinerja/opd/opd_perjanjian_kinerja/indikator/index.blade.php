@@ -33,6 +33,9 @@
                         @if ($opd_perjanjian_kinerja_indikator->is_rb)
                             <div class="badge bg-danger">RB</div>
                         @endif
+                        @if ($opd_perjanjian_kinerja_indikator->is_opd)
+                            <div class="badge bg-info">OPD</div>
+                        @endif
                     </td>
                     <td>{{ $opd_perjanjian_kinerja_indikator->target }} {{ $opd_perjanjian_kinerja_indikator->satuan }}
                     </td>
