@@ -10,6 +10,7 @@ use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use App\Models\RencanaAksi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -40,6 +41,7 @@ class OpdPerjanjianKinerjaController extends Controller
         $types = OpdPerjanjianKinerja::TYPE;
         $statuses = OpdPerjanjianKinerja::STATUSES;
         $opds = Opd::getOpd();
+
         if (Auth::user()->opd_id) {
             $datas = OpdPerjanjianKinerja::with('opd')->where('opd_id', Auth::user()->opd_id);
         } else {
@@ -47,6 +49,13 @@ class OpdPerjanjianKinerjaController extends Controller
         }
         if ($year) {
             $datas->where('year', $year);
+            $opdWithoutPerjanjianKinerjas = Opd::where('master_unit_kerja_id', '!=', 0)->whereDoesntHave('opd_perjanjian_kinerjas', function ($q) use ($year) {
+                $q->where('year', $year);
+            })->get();
+        } else {
+            $opdWithoutPerjanjianKinerjas = Opd::where('master_unit_kerja_id', '!=', 0)->whereDoesntHave('opd_perjanjian_kinerjas', function ($q) use ($year) {
+                $q->where('year', Date::now());
+            })->get();
         }
         if ($type) {
             $datas->where('type', $type);
@@ -59,7 +68,7 @@ class OpdPerjanjianKinerjaController extends Controller
         }
         $opdPerjanjianKinerjas = $datas->paginate();
         $request->flash();
-        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.index', compact('opdPerjanjianKinerjas', 'types', 'statuses', 'opds'));
+        return view('pengukuran_kinerja.opd.opd_perjanjian_kinerja.index', compact('opdPerjanjianKinerjas', 'types', 'statuses', 'opds', 'opdWithoutPerjanjianKinerjas'));
     }
 
     /**

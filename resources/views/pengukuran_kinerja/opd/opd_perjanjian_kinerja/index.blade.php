@@ -19,56 +19,70 @@
                     <h6 class="card-title">{{ $name }}</h6>
                     <a href="https://drive.google.com/file/d/1VtrtOE3mcwSbQI-TItly7d5P7-qYxqAk/view"
                         target="_blank">Tutorial Upload Perjanjian Kinerja</a>
-                    <form action="">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Tahun</label>
-                                    <input type="number" class="form-control" name="year" value="{{ old('year') }}"
-                                        id="">
+                    <div class="row">
+                        <div class="col-md-8">
+
+                            <form action="">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Tahun</label>
+                                            <input type="number" class="form-control" name="year"
+                                                value="{{ old('year') }}" id="">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Tipe</label>
+                                            <select name="type" class="form-control" id="">
+                                                <option value="">Pilih Tipe</option>
+                                                @foreach ($types as $type)
+                                                    <option {{ old('type') == $type ? 'selected' : '' }}
+                                                        value="{{ $type }}">{{ $type }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label>Status</label>
+                                            <select name="status" class="form-control" id="">
+                                                <option value="">Pilih Status</option>
+                                                @foreach ($statuses as $status)
+                                                    <option {{ old('status') == $status ? 'selected' : '' }}
+                                                        value="{{ $status }}">{{ $status }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>OPD</label>
+                                            <select name="opd_id" class="js-example-basic-single form-select"
+                                                id="">
+                                                <option value="">Pilih OPD</option>
+                                                @foreach ($opds as $opd)
+                                                    <option {{ old('opd_id') == $opd->id ? 'selected' : '' }}
+                                                        value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Tipe</label>
-                                    <select name="type" class="form-control" id="">
-                                        <option value="">Pilih Tipe</option>
-                                        @foreach ($types as $type)
-                                            <option {{ old('type') == $type ? 'selected' : '' }}
-                                                value="{{ $type }}">{{ $type }}</option>
-                                        @endforeach
-                                    </select>
+                                <div class="text-end">
+                                    <button class="btn btn-sm btn-success">Cari</button>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label>Status</label>
-                                    <select name="status" class="form-control" id="">
-                                        <option value="">Pilih Status</option>
-                                        @foreach ($statuses as $status)
-                                            <option {{ old('status') == $status ? 'selected' : '' }}
-                                                value="{{ $status }}">{{ $status }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>OPD</label>
-                                    <select name="opd_id" class="js-example-basic-single form-select" id="">
-                                        <option value="">Pilih OPD</option>
-                                        @foreach ($opds as $opd)
-                                            <option {{ old('opd_id') == $opd->id ? 'selected' : '' }}
-                                                value="{{ $opd->id }}">{{ $opd->nama_opd }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
+                            </form>
                         </div>
-                        <div class="text-end">
-                            <button class="btn btn-sm btn-success">Cari</button>
+                        <div class="col-md-4">
+                            <h6>Opd Yang Belum Upload Perjanjian Kinerja</h6>
+                            <ul style="height: 100px; overflow: auto">
+                                @foreach ($opdWithoutPerjanjianKinerjas as $opdWithoutPerjanjianKinerja)
+                                    <li>{{ $opdWithoutPerjanjianKinerja->nama_opd }}</li>
+                                @endforeach
+                            </ul>
                         </div>
-                    </form>
+                    </div>
                     <div class="text-end mt-2">
                         <a class="badge bg-primary" href="{{ route('opdPerjanjianKinerja.create') }}">
                             <i data-feather="plus"></i>

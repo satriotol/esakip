@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\EvaluasiKinerja\EvaluasiKinerja;
+use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -38,5 +39,9 @@ class Opd extends Model
     public function inovasi_prestasi_opds()
     {
         return $this->hasMany(InovasiPrestasiOpd::class, 'inovasi_prestasi_opd_id', 'id');
+    }
+    public function opd_perjanjian_kinerjas()
+    {
+        return $this->hasMany(OpdPerjanjianKinerja::class, 'opd_id', 'id');
     }
 }
