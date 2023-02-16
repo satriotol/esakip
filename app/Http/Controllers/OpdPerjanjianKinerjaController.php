@@ -41,7 +41,8 @@ class OpdPerjanjianKinerjaController extends Controller
         $types = OpdPerjanjianKinerja::TYPE;
         $statuses = OpdPerjanjianKinerja::STATUSES;
         $opds = Opd::getOpd();
-
+        $opdWithoutPerjanjianKinerjas = Opd::opdWithoutPerjanjianKinerjas($year);
+        
         if (Auth::user()->opd_id) {
             $datas = OpdPerjanjianKinerja::with('opd')->where('opd_id', Auth::user()->opd_id);
         } else {
@@ -49,13 +50,6 @@ class OpdPerjanjianKinerjaController extends Controller
         }
         if ($year) {
             $datas->where('year', $year);
-            $opdWithoutPerjanjianKinerjas = Opd::where('master_unit_kerja_id', '!=', 0)->whereDoesntHave('opd_perjanjian_kinerjas', function ($q) use ($year) {
-                $q->where('year', $year);
-            })->get();
-        } else {
-            $opdWithoutPerjanjianKinerjas = Opd::where('master_unit_kerja_id', '!=', 0)->whereDoesntHave('opd_perjanjian_kinerjas', function ($q) use ($year) {
-                $q->where('year', Date::now());
-            })->get();
         }
         if ($type) {
             $datas->where('type', $type);

@@ -7,6 +7,7 @@ use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 
 class Opd extends Model
 {
@@ -39,6 +40,19 @@ class Opd extends Model
     public function inovasi_prestasi_opds()
     {
         return $this->hasMany(InovasiPrestasiOpd::class, 'inovasi_prestasi_opd_id', 'id');
+    }
+    public static function opdWithoutPerjanjianKinerjas($year)
+    {
+        if ($year) {
+            $opdWithoutPerjanjianKinerjas = Opd::where('master_unit_kerja_id', '!=', 0)->whereDoesntHave('opd_perjanjian_kinerjas', function ($q) use ($year) {
+                $q->where('year', $year);
+            })->get();
+        } else {
+            $opdWithoutPerjanjianKinerjas = Opd::where('master_unit_kerja_id', '!=', 0)->whereDoesntHave('opd_perjanjian_kinerjas', function ($q) use ($year) {
+                $q->where('year', Date::now());
+            })->get();
+        }
+        return $opdWithoutPerjanjianKinerjas;
     }
     public function opd_perjanjian_kinerjas()
     {
