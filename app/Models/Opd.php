@@ -41,18 +41,26 @@ class Opd extends Model
     {
         return $this->hasMany(InovasiPrestasiOpd::class, 'inovasi_prestasi_opd_id', 'id');
     }
-    public static function opdWithoutPerjanjianKinerjas($year)
+    public static function opdWithoutPerjanjianKinerjas($request)
     {
-        if ($year) {
-            $opdWithoutPerjanjianKinerjas = Opd::where('master_unit_kerja_id', '!=', 0)->whereDoesntHave('opd_perjanjian_kinerjas', function ($q) use ($year) {
+        $opdWithoutPerjanjianKinerjas = Opd::where('master_unit_kerja_id', '!=', 0);
+        $year = $request->year;
+        $type = $request->type;
+        if ($type && $year) {
+            $opdWithoutPerjanjianKinerjas->whereDoesntHave('opd_perjanjian_kinerjas', function ($q) use ($type, $year) {
+                $q->where('type', $type)->where('year', $year);
+            });
+        } elseif ($year) {
+            $opdWithoutPerjanjianKinerjas->whereDoesntHave('opd_perjanjian_kinerjas', function ($q) use ($year) {
                 $q->where('year', $year);
-            })->get();
+            });
         } else {
-            $opdWithoutPerjanjianKinerjas = Opd::where('master_unit_kerja_id', '!=', 0)->whereDoesntHave('opd_perjanjian_kinerjas', function ($q) use ($year) {
+            $opdWithoutPerjanjianKinerjas->whereDoesntHave('opd_perjanjian_kinerjas', function ($q) use ($year) {
                 $q->where('year', Date::now());
-            })->get();
+            });
         }
-        return $opdWithoutPerjanjianKinerjas;
+
+        return $opdWithoutPerjanjianKinerjas->get();
     }
     public function opd_perjanjian_kinerjas()
     {

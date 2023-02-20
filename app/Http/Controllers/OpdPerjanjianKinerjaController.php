@@ -41,7 +41,7 @@ class OpdPerjanjianKinerjaController extends Controller
         $types = OpdPerjanjianKinerja::TYPE;
         $statuses = OpdPerjanjianKinerja::STATUSES;
         $opds = Opd::getOpd();
-        $opdWithoutPerjanjianKinerjas = Opd::opdWithoutPerjanjianKinerjas($year);
+        $opdWithoutPerjanjianKinerjas = Opd::opdWithoutPerjanjianKinerjas($request);
         
         if (Auth::user()->opd_id) {
             $datas = OpdPerjanjianKinerja::with('opd')->where('opd_id', Auth::user()->opd_id);
