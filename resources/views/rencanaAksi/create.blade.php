@@ -32,10 +32,7 @@
                             name="opd_perjanjian_kinerja_id" required>
                             <option value="">Pilih Perjanjian Kinerja</option>
                             @foreach ($opdPerjanjianKinerjas as $opdPerjanjianKinerja)
-                                <option value="{{ $opdPerjanjianKinerja->id }}"
-                                    @isset($opdPenilaian) 
-                                    @if ($opdPerjanjianKinerja->id === $opdPenilaian->opd_perjanjian_kinerja_id) selected  @endif
-                                @endisset>
+                                <option value="{{ $opdPerjanjianKinerja->id }}" @selected(@old('opd_perjanjian_kinerja_id'))>
                                     {{ $opdPerjanjianKinerja->opd->nama_opd }} | {{ $opdPerjanjianKinerja->year }} |
                                     {{ $opdPerjanjianKinerja->type }}
                                 </option>
@@ -44,11 +41,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="name" class="form-label">Triwulan</label>
-                        <select class="js-example-basic-single form-select" data-width="100%"
-                            name="name" required>
+                        <select class="js-example-basic-single form-select" data-width="100%" name="name" required>
                             <option value="">Pilih Triwulan</option>
                             @foreach ($triwulans as $triwulan)
-                                <option value="{{ $triwulan }}">
+                                <option @selected(@old('name')) value="{{ $triwulan }}">
                                     {{ $triwulan }}
                                 </option>
                             @endforeach

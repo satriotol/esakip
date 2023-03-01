@@ -91,11 +91,11 @@ class RencanaAksiController extends Controller
         ]);
         $rencanaAksi = RencanaAksi::where('name', $request->name)->where('opd_perjanjian_kinerja_id', $request->opd_perjanjian_kinerja_id)->get();
         if ($rencanaAksi->count() == null) {
-            RencanaAksi::create($data);
+            $newData = RencanaAksi::create($data);
             session()->flash('success');
-            return redirect()->route('rencanaAksi.index');
+            return redirect(route('rencanaAksi.show', $newData->id));
         }
-        session()->flash('error');
+        session()->flash('bug', 'Data Sudah Ada');
         return back();
     }
 
