@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use OwenIt\Auditing\Contracts\Auditable;
 use OwenIt\Auditing\Auditable as AuditableTrait;
 
@@ -84,6 +85,17 @@ class RencanaAksi extends Model implements Auditable
             $data = 0;
         }
         return round($data, 2);
+    }
+    public static function getByOpd()
+    {
+        $opd_id = Auth::user()->opd_id;
+        if (Auth::user()->opd_id) {
+            return static::whereHas('opd_perjanjian_kinerja', function ($q) use ($opd_id) {
+                $q->where('opd_id', $opd_id);
+            });
+        } else {
+            return static::query();
+        }
     }
     public function getTotalCapaianPredikat($rencana_aksi_id)
     {
