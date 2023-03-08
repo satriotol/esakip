@@ -127,6 +127,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('opdPenilaian', OpdPenilaianController::class);
     Route::get('opdPenilaian/data/getPerjanjianKinerjas', [OpdPenilaianController::class, 'getOpdPerjanjianKinerjas'])->name('opdPenilaian.getOpdPerjanjianKinerjas');
     Route::get('opdPenilaian/exportPdf/{opdPenialain}', [OpdPenilaianController::class, 'exportPdf'])->name('opdPenilaian.exportPdf');
+    Route::get('opdPenilaian/exportDetailPdf/{opdPenialain}', [OpdPenilaianController::class, 'exportDetailPdf'])->name('opdPenilaian.exportDetailPdf');
     Route::get('opdPenilaian/showReport/{opdPenilaian}', [OpdPenilaianController::class, 'showReport'])->name('opdPenilaian.showReport');
     Route::post('opdPenilaian/storeReport', [OpdPenilaianController::class, 'storeReport'])->name('opdPenilaian.storeReport');
     Route::resource('opdPenilaianReport', OpdPenilaianReportController::class);

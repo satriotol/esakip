@@ -144,7 +144,13 @@ class OpdPenilaianController extends Controller
     {
         $opdPenilaian = OpdPenilaian::find($opdPenilaian);
         $pdf = Pdf::loadView('pdf.deskTimbalBalik', compact('opdPenilaian'))->setPaper('a4', 'landscape');
-        return $pdf->stream('pdf_file.pdf');
+        return $pdf->stream('TIMBAL BALIK' . $opdPenilaian->opd->nama_opd . '.pdf');
+    }
+    public function exportDetailPdf($opdPenilaian)
+    {
+        $opdPenilaian = OpdPenilaian::find($opdPenilaian);
+        $pdf = Pdf::loadView('pdf.detailPenilaianOpdPdf', compact('opdPenilaian'))->setPaper('a4', 'landscape');
+        return $pdf->stream('PENILAIAN OPD ' . $opdPenilaian->opd->nama_opd . '.pdf');
     }
     /**
      * Display the specified resource.
