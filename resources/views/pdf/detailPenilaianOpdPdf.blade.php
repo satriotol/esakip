@@ -137,6 +137,9 @@
             Batas Maksimal Nilai Akhir : 100
         </small>
     </div>
+    <div id="footer">
+        Tanggal cetak: {{ date('Y-m-d H:i:s') }}
+    </div>
 </body>
 
 </html>
