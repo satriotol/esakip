@@ -9,7 +9,7 @@
     </thead>
     <tbody>
         <tr v-for="(data, index) in datas">
-            <td>@{{ data.opd_perjanjian_kinerja_sasaran_name }}
+            <td class="text-wrap">@{{ data.opd_perjanjian_kinerja_sasaran_name }}
             </td>
             <td>
                 <textarea v-model='data.rencana_aksi_note' class="form-control" name="" id=""></textarea>
