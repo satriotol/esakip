@@ -29,7 +29,7 @@
                     <div class="text-end mb-2">
                         <a class="btn btn-primary" href="{{ route('opdPenilaian.create') }}">
                             <i data-feather="plus"></i>
-                            Create
+                            Tambah
                         </a>
                     </div>
                     <div class="row">
