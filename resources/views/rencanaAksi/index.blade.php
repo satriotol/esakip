@@ -24,12 +24,12 @@
                         </a>
                     </div>
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-12">
                             <form action="">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="mb-3">
-                                            <label>OPD</label>
+                                            {!! Form::label('opd_id', 'OPD', ['class' => 'form-label']) !!}
                                             <select name="opd_id" class="js-example-basic-single form-select"
                                                 id="">
                                                 <option value="">Pilih OPD</option>
@@ -40,10 +40,26 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label>Tahun</label>
-                                        <input type="number" class="form-control" name="year"
-                                            value="{{ old('year') }}" id="">
+                                    <div class="col-md-4">
+                                        {!! Form::label('year', 'Tahun', ['class' => 'form-label']) !!}
+                                        {!! Form::number('year', @old('year'), ['class' => 'form-control', 'placeholder' => 'Cari Tahun']) !!}
+                                    </div>
+                                    <div class="col-md-4">
+                                        {!! Form::label('triwulan', 'Triwulan', ['class' => 'form-label']) !!}
+                                        {!! Form::select(
+                                            'triwulan',
+                                            [
+                                                'TRIWULAN 1' => 'TRIWULAN 1',
+                                                'TRIWULAN 2' => 'TRIWULAN 2',
+                                                'TRIWULAN 3' => 'TRIWULAN 3',
+                                                'TRIWULAN 4' => 'TRIWULAN 4',
+                                            ],
+                                            @old('triwulan'),
+                                            [
+                                                'class' => 'form-select js-example-basic-single form-select',
+                                                'placeholder' => 'Pilih Triwulan',
+                                            ],
+                                        ) !!}
                                     </div>
                                 </div>
                                 <div class="text-end">
@@ -101,7 +117,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $rencanaAksis->links() }}
+                        {{ $rencanaAksis->appends($_GET)->links() }}
                     </div>
                 </div>
             </div>

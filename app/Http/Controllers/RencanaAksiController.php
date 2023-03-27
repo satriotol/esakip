@@ -35,6 +35,13 @@ class RencanaAksiController extends Controller
                 $q->where('opd_id', $request->opd_id);
             });
         }
+        if ($request->triwulan) {
+            $rencanaAksis->where('name', $request->triwulan);
+        }
+        if ($request->year) {
+            $rencanaAksis->whereHas('opd_perjanjian_kinerja', function ($q) use ($request) {
+                $q->where('year', $request->year);
+            });        }
         $rencanaAksis =  $rencanaAksis->paginate();
         $statuses = RencanaAksi::STATUSES;
         $opds = Opd::getOpd();
