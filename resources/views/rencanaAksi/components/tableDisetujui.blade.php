@@ -4,7 +4,7 @@
         <th>Rencana Aksi</th>
         <th>Indikator</th>
         <th>Target</th>
-        <th>Realisasi</th>
+        <th>Realisasi <br> Data Dukung</th>
         <th>Capaian</th>
     </thead>
     <tbody>
@@ -27,14 +27,25 @@
                     <form action="{{ route('rencanaAksiTarget.update', $rencana_aksi_target->id) }}" method="post">
                         @csrf
                         @method('PUT')
-                        {!! Form::text('realisasi', $rencana_aksi_target->realisasi, [
+                        {!! Form::number('realisasi', $rencana_aksi_target->realisasi, [
                             'class' => 'form-control',
                             'placeholder' => 'Isi Realisasi',
                             'required',
+                            'step' => 'any',
                         ]) !!}
-                        @if (!$rencanaAksi->status_penilaian)
-                            <input class="btn btn-primary" type="submit" value="Update">
+                        {!! Form::file('file', [
+                            'class' => 'form-control',
+                            'placeholder' => 'Isi Realisasi',
+                        ]) !!}
+                        @if ($rencana_aksi_target->file)
+                            <a href="{{ asset('uploads/' . $rencana_aksi_target->file) }}" target="_blank"
+                                class="badge bg-success">Buka File</a>
                         @endif
+                        <div class="text-end">
+                            @if (!$rencanaAksi->status_penilaian)
+                                <input class="btn btn-primary" type="submit" value="Update">
+                            @endif
+                        </div>
                     </form>
                 </td>
                 <td>

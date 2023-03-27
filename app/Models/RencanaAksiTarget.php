@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RencanaAksiTarget extends Model
 {
     use HasFactory;
-    protected $fillable = ['opd_perjanjian_kinerja_sasaran_id', 'rencana_aksi_id', 'target', 'realisasi', 'status', 'note', 'rencana_aksi_note', 'indikator_kinerja_note', 'satuan', 'type'];
+    protected $fillable = ['opd_perjanjian_kinerja_sasaran_id', 'file', 'rencana_aksi_id', 'target', 'realisasi', 'status', 'note', 'rencana_aksi_note', 'indikator_kinerja_note', 'satuan', 'type'];
 
     protected $appends = ['opd_perjanjian_kinerja_sasaran_name', 'capaian'];
 

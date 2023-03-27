@@ -114,6 +114,16 @@ class RencanaAksiTargetController extends Controller
             $data = $request->validate([
                 'realisasi' => 'required',
             ]);
+            if ($rencanaAksiTarget->file == null && $request->file == null) {
+                session()->flash('bug', 'File Wajib Diisi');
+                return back();
+            }
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $name = $file->getClientOriginalName();
+                $file_name = date('mdYHis') . '-' . $name;
+                $data['file'] = $file->storeAs('file', $file_name, 'public_uploads');
+            };
         } else {
             $data = $request->validate([
                 'target' => 'required',
