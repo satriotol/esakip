@@ -30,7 +30,7 @@
                         <input id="year" class="form-control" name="year" v-model="year" type="number"
                             @change="getPerjanjianKinerjas" placeholder="yyyy" required>
                     </div>
-                    {{-- <div class="mb-3">
+                    <div class="mb-3">
                         <label for="name" class="form-label">Triwulan</label>
                         <select name="name" id="" class="form-control">
                             <option value="">Pilih Triwulan</option>
@@ -39,7 +39,7 @@
                             @endforeach
                         </select>
                         <small class="text-danger">Kosongkan jika penilaian tahunan</small>
-                    </div> --}}
+                    </div>
                     <div class="mb-3">
                         <label for="name" class="form-label">OPD</label>
                         <select class="form-select" v-model="opd_id" data-width="100%" @change="getPerjanjianKinerjas"
@@ -82,18 +82,6 @@
                             @endforeach
                         </select>
                     </div>
-                    {{-- <div class="mb-3">
-                        <label for="name" class="form-label">Inovasi Prestasi OPD</label>
-                        <select class="form-select" data-width="100%" name="inovasi_prestasi_opd_id"
-                            v-model="inovasi_prestasi_opd_id">
-                            <option value="">Pilih Inovasi Prestasi OPD</option>
-                            <option :value="inovasiPrestasiOpd.id" v-for="inovasiPrestasiOpd in inovasiPrestasiOpds">
-                                @{{ inovasiPrestasiOpd.opd.nama_opd }} | @{{ inovasiPrestasiOpd.year }}
-                                @{{ inovasiPrestasiOpd.inovasi_prestasi_tingkat.name }} |
-                                @{{ inovasiPrestasiOpd.name }}
-                            </option>
-                        </select>
-                    </div> --}}
                     <div class="text-end">
                         <a href="{{ route('opdPenilaian.index') }}" class="btn btn-warning">Kembali</a>
                         <input class="btn btn-primary" type="submit" value="Submit">
@@ -121,6 +109,7 @@
                 return {
                     year: '',
                     opd_id: '',
+                    type: '',
                     opdPerjanjianKinerjas: '',
                     inovasiPrestasiOpds: '',
                     opd_perjanjian_kinerja_id: '',

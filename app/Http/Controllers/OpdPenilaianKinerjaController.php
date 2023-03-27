@@ -151,7 +151,7 @@ class OpdPenilaianKinerjaController extends Controller
     {
         $data = $request->validate([
             'target' => 'required|numeric',
-            'realisasi' => 'required|numeric',
+            'realisasi' => 'nullable|numeric',
             'rencana_aksi_id' => 'nullable',
         ]);
         if ($request->rencana_aksi_id != null) {

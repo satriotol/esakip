@@ -29,7 +29,13 @@ class RencanaAksiController extends Controller
     }
     public function index(Request $request)
     {
-        $rencanaAksis = RencanaAksi::getByOpd()->paginate();
+        $rencanaAksis = RencanaAksi::getByOpd();
+        if ($request->opd_id) {
+            $rencanaAksis->whereHas('opd_perjanjian_kinerja', function ($q) use ($request) {
+                $q->where('opd_id', $request->opd_id);
+            });
+        }
+        $rencanaAksis =  $rencanaAksis->paginate();
         $statuses = RencanaAksi::STATUSES;
         $opds = Opd::getOpd();
         $request->flash();

@@ -154,7 +154,7 @@
                         </div>
                         <div class="text-end">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            @if ($opdPenilaian->status == 'SELESAI' || $opdPenilaian->status == 'VERIFIKASI')
+                            @if ($opdPenilaian->status != 'SELESAI' || $opdPenilaian->status != 'VERIFIKASI')
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             @endif
                         </div>
