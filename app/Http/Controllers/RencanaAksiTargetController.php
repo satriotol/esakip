@@ -124,6 +124,8 @@ class RencanaAksiTargetController extends Controller
             ]);
         }
         $rencanaAksiTarget->update($data);
+        session()->flash('success');
+        return back();
     }
 
     /**

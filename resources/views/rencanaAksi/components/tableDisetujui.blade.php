@@ -5,48 +5,45 @@
         <th>Indikator</th>
         <th>Target</th>
         <th>Realisasi</th>
-        <th>Satuan</th>
         <th>Capaian</th>
-        <th>Aksi</th>
     </thead>
     <tbody>
-        <tr v-for="(data, index) in datas">
-            <td class="text-wrap">@{{ data.opd_perjanjian_kinerja_sasaran_name }}
-            </td>
-            <td>
-                <textarea v-model='data.rencana_aksi_note' class="form-control" name="" id="" readonly></textarea>
-            </td>
-            <td>
-                <textarea v-model='data.indikator_kinerja_note' readonly class="form-control" name="" id=""></textarea>
-            </td>
-            <td>
-                <input type="number" readonly v-model='data.target' class="form-control" name="" id="">
-            </td>
-            <td>
-                <input type="text" v-model='data.realisasi' class="form-control" name="" id=""
-                    :readonly="data.rencana_aksi.status_penilaian">
-            </td>
-            <td>
-                <input type="text" class="form-control" v-model='data.satuan' readonly name="" id="">
-            </td>
-            <td>
-                @{{ data.capaian }}
-            </td>
-            <td>
-                @if (!$rencanaAksi->status_penilaian)
-                    <button class="badge bg-warning" @click='updateData(data.id, index)'>Update</button><br>
-                @endif
-            </td>
-        </tr>
+        @foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target)
+            <tr>
+
+                <td class="text-wrap">
+                    {{ $rencana_aksi_target->opd_perjanjian_kinerja_sasaran_name }}
+                </td>
+                <td class="text-wrap">
+                    {{ $rencana_aksi_target->rencana_aksi_note }}
+                </td>
+                <td class="text-wrap">
+                    {{ $rencana_aksi_target->indikator_kinerja_note }}
+                </td>
+                <td>
+                    {{ $rencana_aksi_target->target }} {{ $rencana_aksi_target->satuan }}
+                </td>
+                <td>
+                    <form action="{{ route('rencanaAksiTarget.update', $rencana_aksi_target->id) }}" method="post">
+                        @csrf
+                        @method('PUT')
+                        {!! Form::text('realisasi', $rencana_aksi_target->realisasi, [
+                            'class' => 'form-control',
+                            'placeholder' => 'Isi Realisasi',
+                            'required',
+                        ]) !!}
+                        @if (!$rencanaAksi->status_penilaian)
+                            <input class="btn btn-primary" type="submit" value="Update">
+                        @endif
+                    </form>
+                </td>
+                <td>
+                    {{ $rencana_aksi_target->capaian }}
+            </tr>
+        @endforeach
     </tbody>
     <tfoot>
         <th colspan="6">Total Capaian</th>
-        <th>@{{ total_capaian }}</th>
+        <th>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</th>
     </tfoot>
 </table>
-{{-- @if (!$rencanaAksi->status_penilaian)
-    <div class="text-end mt-2">
-        <a href="{{ route('rencanaAksi.updateStatusSelesai', $rencanaAksi->id) }}" class="btn btn-success"
-            onclick="return confirm('Apakah Anda Yakin?')">Selesai</a>
-    </div>
-@endif --}}

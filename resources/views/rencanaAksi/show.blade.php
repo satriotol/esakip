@@ -204,37 +204,6 @@
                             })
                     }
                 },
-                updateData(id, index) {
-                    this.loading = true;
-                    Swal.fire({
-                        title: 'Loading',
-                        icon: 'info',
-                        allowOutsideClick: false,
-                        didOpen: () => {
-                            Swal.showLoading()
-                        },
-                    })
-                    axios.put('/administrator/rencanaAksiTarget/' + id, this.datas[index])
-                        .then((response) => {
-                            Swal.fire(
-                                'Sukses',
-                                'Inputan Anda Berhasil Tersimpan',
-                                'success'
-                            )
-                            this.getData();
-                        })
-                        .catch(function(error) {
-                            console.log(error);
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Oops...',
-                                text: error.response.data.message,
-                            })
-                        })
-                        .finally(() => {
-                            this.loading = false;
-                        });
-                }
             },
         }).mount('#app')
     </script>
