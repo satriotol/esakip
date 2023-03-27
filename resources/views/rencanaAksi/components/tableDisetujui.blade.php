@@ -24,7 +24,8 @@
                     {{ $rencana_aksi_target->target }} {{ $rencana_aksi_target->satuan }}
                 </td>
                 <td>
-                    <form action="{{ route('rencanaAksiTarget.update', $rencana_aksi_target->id) }}" method="post">
+                    <form action="{{ route('rencanaAksiTarget.update', $rencana_aksi_target->id) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         {!! Form::number('realisasi', $rencana_aksi_target->realisasi, [
