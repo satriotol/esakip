@@ -113,6 +113,7 @@ class RencanaAksiTargetController extends Controller
         if ($rencanaAksiTarget->rencana_aksi->status == RencanaAksi::STATUS2) {
             $data = $request->validate([
                 'realisasi' => 'required',
+                'file' => 'required'
             ]);
             if ($rencanaAksiTarget->file == null && $request->file == null) {
                 session()->flash('bug', 'File Wajib Diisi');
