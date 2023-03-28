@@ -59,3 +59,13 @@
         <th>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</th>
     </tfoot>
 </table>
+@if ($rencanaAksi->status_penilaian != 'SELESAI')
+    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+        @csrf
+        {!! Form::text('status_penilaian', 'SELESAI', ['class' => 'd-none']) !!}
+        <div class="text-end">
+
+            {!! Form::submit('SELESAIKAN REALISASI', ['class' => 'btn btn-success']) !!}
+        </div>
+    </form>
+@endif

@@ -52,7 +52,7 @@ class RencanaAksiController extends Controller
     public function updateStatus(RencanaAksi $rencanaAksi, Request $request)
     {
         $data = $request->validate([
-            'status' => 'required',
+            'status' => 'nullable',
             'status_penilaian' => 'nullable',
             'note' => 'nullable',
         ]);
