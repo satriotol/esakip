@@ -4,6 +4,7 @@
         <th>Rencana Aksi</th>
         <th>Indikator</th>
         <th>Target</th>
+        <th>Tipe</th>
         <th>Realisasi <br> Data Dukung</th>
         <th>Capaian</th>
     </thead>
@@ -24,33 +25,46 @@
                     {{ $rencana_aksi_target->target }} {{ $rencana_aksi_target->satuan }}
                 </td>
                 <td>
-                    <form action="{{ route('rencanaAksiTarget.update', $rencana_aksi_target->id) }}" method="post"
-                        enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        {!! Form::number('realisasi', $rencana_aksi_target->realisasi, [
-                            'class' => 'form-control',
-                            'placeholder' => 'Isi Realisasi',
-                            'required',
-                            'step' => 'any',
-                        ]) !!}
-                        {!! Form::file('file', [
-                            'class' => 'form-control',
-                            'placeholder' => 'Isi Realisasi',
-                        ]) !!}
+                    {{ $rencana_aksi_target->type }}
+                </td>
+                <td>
+                    @if ($rencanaAksi->status_penilaian == null)
+                        <form action="{{ route('rencanaAksiTarget.update', $rencana_aksi_target->id) }}" method="post"
+                            enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            {!! Form::number('realisasi', $rencana_aksi_target->realisasi, [
+                                'class' => 'form-control',
+                                'placeholder' => 'Isi Realisasi',
+                                'required',
+                                'step' => 'any',
+                            ]) !!}
+                            {!! Form::file('file', [
+                                'class' => 'form-control',
+                                'placeholder' => 'Isi Realisasi',
+                            ]) !!}
+                            @if ($rencana_aksi_target->file)
+                                <a href="{{ asset('uploads/' . $rencana_aksi_target->file) }}" target="_blank"
+                                    class="badge bg-success">Buka File</a>
+                            @endif
+                            <div class="text-end">
+                                @if (!$rencanaAksi->status_penilaian)
+                                    <input class="btn btn-primary" type="submit" value="Update">
+                                @endif
+                            </div>
+                        </form>
+                    @else
+                        {{ $rencana_aksi_target->realisasi }}
                         @if ($rencana_aksi_target->file)
+                            <br>
                             <a href="{{ asset('uploads/' . $rencana_aksi_target->file) }}" target="_blank"
                                 class="badge bg-success">Buka File</a>
                         @endif
-                        <div class="text-end">
-                            @if (!$rencanaAksi->status_penilaian)
-                                <input class="btn btn-primary" type="submit" value="Update">
-                            @endif
-                        </div>
-                    </form>
+                    @endif
                 </td>
                 <td>
                     {{ $rencana_aksi_target->capaian }}
+                </td>
             </tr>
         @endforeach
     </tbody>
@@ -64,7 +78,6 @@
         @csrf
         {!! Form::text('status_penilaian', 'SELESAI', ['class' => 'd-none']) !!}
         <div class="text-end">
-
             {!! Form::submit('SELESAIKAN REALISASI', ['class' => 'btn btn-success']) !!}
         </div>
     </form>

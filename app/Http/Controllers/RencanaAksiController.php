@@ -41,7 +41,8 @@ class RencanaAksiController extends Controller
         if ($request->year) {
             $rencanaAksis->whereHas('opd_perjanjian_kinerja', function ($q) use ($request) {
                 $q->where('year', $request->year);
-            });        }
+            });
+        }
         $rencanaAksis =  $rencanaAksis->paginate();
         $statuses = RencanaAksi::STATUSES;
         $opds = Opd::getOpd();
@@ -56,6 +57,14 @@ class RencanaAksiController extends Controller
             'status_penilaian' => 'nullable',
             'note' => 'nullable',
         ]);
+        if (!$request->status_penilaian) {
+            foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target) {
+                if ($rencana_aksi_target->realisasi == null) {
+                    session()->flash('bug', 'Pastikan Semua Realisasi Sudah Diisi');
+                    return back();
+                }
+            }
+        }
         $rencanaAksi->update($data);
         session()->flash('success');
         return back();

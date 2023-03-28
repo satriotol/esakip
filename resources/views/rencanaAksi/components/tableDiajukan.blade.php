@@ -5,6 +5,7 @@
         <th>Indikator</th>
         <th>Target</th>
         <th>Satuan</th>
+        <th>Tipe</th>
         <th>Aksi</th>
     </thead>
     <tbody>
@@ -23,6 +24,9 @@
             </td>
             <td>
                 <input type="text" class="form-control" v-model='data.satuan' name="" id="">
+            </td>
+            <td>
+                @{{ data.type }}
             </td>
             <td>
                 @if (!$rencanaAksi->status_penilaian)
