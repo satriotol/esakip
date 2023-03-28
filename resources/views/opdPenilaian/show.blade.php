@@ -127,7 +127,7 @@
                                                 <br>
                                                 <small class="text-danger">
                                                     Nominal merupakan data realisasi yang sudah dilaporkan ke BAPENDA <a
-                                                        href="http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePadByDate?tglawal=2022-01-01&tglakhir=2022-12-31"
+                                                        href="http://103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePadByDate?tglawal={{ $opdPenilaian->year }}-01-01&tglakhir={{ $opdPenilaian->year }}-12-31"
                                                         target="_blank">Disini</a>
                                                 </small>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && $checkStatus != 1)

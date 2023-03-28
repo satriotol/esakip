@@ -49,14 +49,17 @@ class OpdPenilaianKinerjaController extends Controller
         $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
         $url = '103.101.52.67:13000/api/bapenda/realtime/getDataRealtimePadByDate';
         $year = $opdPenilaian->year;
-        if ($opdPenilaian->name == null) {
-            $tglawal = $year . '-01-01';
-            $tglakhir = $year . '-12-31';
-            $testUrl = Http::get($url, [
-                'tglawal' => $tglawal,
-                'tglakhir' => $tglakhir
-            ]);
-        }
+        // if ($opdPenilaian->name == null) {
+        $tglawal = $year . '-01-01';
+        $tglakhir = $year . '-12-31';
+        $testUrl = Http::get($url, [
+            'tglawal' => $tglawal,
+            'tglakhir' => $tglakhir
+        ]);
+        // } else {
+        // session()->flash('bug', 'Terjadi Kesalahan Pada Webservice BAPENDA');
+        // return back();
+        // }
         if ($testUrl['success'] == true) {
             try {
                 if ($opdPenilaian->opd_id == 279) {
