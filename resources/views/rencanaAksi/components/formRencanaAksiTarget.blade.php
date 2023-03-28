@@ -48,8 +48,7 @@
                 </div>
             </div>
             <div class="text-end">
-                <button class="btn btn-primary" @click="postData()" :disabled="loading" type="submit"
-                    v-else="loading">Submit</button>
+                <button class="btn btn-primary" :disabled="loading" type="submit">Submit</button>
             </div>
         </form>
     </div>

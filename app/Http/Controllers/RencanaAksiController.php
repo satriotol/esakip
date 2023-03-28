@@ -57,6 +57,12 @@ class RencanaAksiController extends Controller
             'status_penilaian' => 'nullable',
             'note' => 'nullable',
         ]);
+        if ($request->status == 'DISETUJUI') {
+            if ($rencanaAksi->rencana_aksi_targets->count() == 0) {
+                session()->flash('bug', 'Pastikan Sasaran Sudah Terisi');
+                return back();
+            }
+        }
         if (!$request->status_penilaian) {
             foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target) {
                 if ($rencana_aksi_target->realisasi == null) {

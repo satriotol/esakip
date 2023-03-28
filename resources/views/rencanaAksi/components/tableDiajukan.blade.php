@@ -42,7 +42,6 @@
     @csrf
     {!! Form::text('status', 'DISETUJUI', ['class' => 'd-none']) !!}
     <div class="text-end">
-
         {!! Form::submit('Lanjut Membuat Realisasi', ['class' => 'btn btn-success']) !!}
     </div>
 </form>
