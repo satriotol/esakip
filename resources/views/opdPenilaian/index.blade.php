@@ -159,7 +159,7 @@
                                                 </a>
                                             @endisset
                                         </td>
-                                        <td class="text-wrap">{{ $opdPenilaian->opd_category->name }}</td>
+                                        <td class="text-wrap">{{ $opdPenilaian->opd_category?->name }}</td>
                                         <td class="text-wrap">{{ $opdPenilaian->opd->nama_opd }}</td>
                                         <td class="d-none">{{ $opdPenilaian->inovasi_prestasi_daerah ?? 'TRIWULAN' }}</td>
                                         <td>

@@ -10,10 +10,17 @@ trait HttpFormatter
     {
         $data = Http::withHeaders(
             [
-                'Authorization' =>  'Bearer 1|yZp3IIKeuZdfrSejkjBxEicChwp0l6aVvVNlUGkr',
+                'Authorization' =>  'Bearer 1|bgIF18VQIg7RxEAZgr8StPBVYQOJAS6J3K2ccA7v',
                 $headers
             ]
         )->accept('application/json')->get($url);
+        return $data;
+    }
+    public function apiGetHttp($url, $parameter)
+    {
+        $data = Http::withHeaders([
+            'Authorization' =>  'Bearer 1|bgIF18VQIg7RxEAZgr8StPBVYQOJAS6J3K2ccA7v',
+        ])->get($url, $parameter);
         return $data;
     }
 }

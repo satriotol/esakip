@@ -202,13 +202,20 @@ class OpdPenilaianKinerjaController extends Controller
 
     public function storeSipd($opd_penilaian_id, $opd_category_variable_id, $type, $year, $id_skpd)
     {
-        $data = $this->getHttpFormatter(route('getPenyerapanAnggaranBelanja', [
+        $data = Http::withHeaders([
+            'Authorization' =>  'Bearer 1|bgIF18VQIg7RxEAZgr8StPBVYQOJAS6J3K2ccA7v',
+        ])->get('https://api.e-sakip.semarangkota.go.id/api/v1/penyerapanAnggaranBelanja', [
             'type' => $type,
             'id_skpd' => $id_skpd,
             'year' => $year
-        ]), '');
+        ]);
+        $data = $this->apiGetHttp('https://api.e-sakip.semarangkota.go.id/api/v1/penyerapanAnggaranBelanja', [
+            'type' => $type,
+            'id_skpd' => $id_skpd,
+            'year' => $year
+        ]);
         $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
-        $dataPersen = $data['penyerapanAnggaranBelanjas']['realisasi'] / $data['penyerapanAnggaranBelanjas']['target'] * 100;
+        $dataPersen = $data['data']['realisasi'] / $data['data']['target'] * 100;
         $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
         $capaian = round($dataPersen, 2);
         if ($capaian > 100) {
@@ -221,8 +228,8 @@ class OpdPenilaianKinerjaController extends Controller
                 'opd_category_variable_id' => $opd_category_variable_id,
             ],
             [
-                'target' => $data['penyerapanAnggaranBelanjas']['target'],
-                'realisasi' => $data['penyerapanAnggaranBelanjas']['realisasi'],
+                'target' => $data['data']['target'],
+                'realisasi' => $data['data']['realisasi'],
                 'capaian' => $capaian,
                 'nilai_akhir' => $nilaiAkhir,
                 'user_id' => Auth::user()->id
