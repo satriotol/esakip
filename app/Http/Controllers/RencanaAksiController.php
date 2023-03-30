@@ -63,14 +63,14 @@ class RencanaAksiController extends Controller
                 return back();
             }
         }
-        // if (!$request->status_penilaian) {
-        //     foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target) {
-        //         if ($rencana_aksi_target->realisasi == null) {
-        //             session()->flash('bug', 'Pastikan Semua Realisasi Sudah Diisi');
-        //             return back();
-        //         }
-        //     }
-        // }
+        if ($request->status_penilaian == 'SELESAI') {
+            foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target) {
+                if ($rencana_aksi_target->realisasi == null || $rencana_aksi_target->file == null) {
+                    session()->flash('bug', 'Lengkapi realisasi / data dukung pada indikator : ' . $rencana_aksi_target->indikator_kinerja_note);
+                    return back();
+                }
+            }
+        }
         $rencanaAksi->update($data);
         session()->flash('success');
         return back();
