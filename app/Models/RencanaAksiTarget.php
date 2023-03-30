@@ -43,6 +43,9 @@ class RencanaAksiTarget extends Model
     }
     public function getCapaianAttribute()
     {
+        if ($this->realisasi == null) {
+            return round(0, 2);
+        }
         if ($this->type == self::UMUM) {
             $data = $this->realisasi / $this->target * 100;
         } else {
