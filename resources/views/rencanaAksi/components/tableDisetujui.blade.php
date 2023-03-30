@@ -78,7 +78,10 @@
         @csrf
         {!! Form::text('status_penilaian', 'SELESAI', ['class' => 'd-none']) !!}
         <div class="text-end">
-            {!! Form::submit('SELESAIKAN REALISASI', ['class' => 'btn btn-success']) !!}
+            {!! Form::submit('SELESAIKAN REALISASI', [
+                'class' => 'btn btn-success',
+                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Menyelesaikan Realisasi?')",
+            ]) !!}
         </div>
     </form>
 @endif
