@@ -63,7 +63,7 @@ class RencanaAksiTargetController extends Controller
         $data = $this->validate($request, [
             'opd_perjanjian_kinerja_sasaran_id' => 'required',
             'rencana_aksi_id' => 'required',
-            'target' => 'required',
+            'target' => 'required|numeric|min:0|not_in:0',
             'satuan' => 'required',
             'rencana_aksi_note' => 'required',
             'indikator_kinerja_note' => 'required',
@@ -127,7 +127,7 @@ class RencanaAksiTargetController extends Controller
             };
         } else {
             $data = $request->validate([
-                'target' => 'required',
+                'target' => 'required|numeric|min:0|not_in:0',
                 'rencana_aksi_note' => 'required',
                 'indikator_kinerja_note' => 'required',
                 'satuan' => 'required',
