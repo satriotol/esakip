@@ -35,7 +35,7 @@
                 <div class="col-md-6">
                     <div class="mb-3">
                         <label class="form-label">Target</label>
-                        <input type="number" v-model="form.target" required class="form-control" name=""
+                        <input type="number" min="0" v-model="form.target" required class="form-control" name=""
                             step="any" id="">
                     </div>
                 </div>

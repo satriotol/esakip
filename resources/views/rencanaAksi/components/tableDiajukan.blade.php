@@ -19,7 +19,7 @@
                 <textarea v-model='data.indikator_kinerja_note' class="form-control" name="" id=""></textarea>
             </td>
             <td>
-                <input type="number" step="any" v-model='data.target' class="form-control" name=""
+                <input type="number" step="any" min="0" v-model='data.target' class="form-control" name=""
                     id="">
             </td>
             <td>
