@@ -184,10 +184,25 @@
                                                     </small>
                                                 @endif
                                             @elseif($opd_category_variable->opd_variable->is_iku_triwulan && $checkStatus != 1)
-                                                <a type="button" class="badge bg-primary" data-bs-toggle="modal"
-                                                    data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
-                                                    RENCANA AKSI TRIWULAN
-                                                </a>
+                                                @if ($opdPenilaian->getRencanaAksiTriwulan())
+                                                    <form action="{{ route('opdPenilaianKinerja.store') }}"
+                                                        class="d-inline" method="post">
+                                                        @csrf
+                                                        <input type="hidden" value="{{ $opdPenilaian->id }}"
+                                                            name="opd_penilaian_id" id="">
+                                                        <input type="hidden" value="{{ $opd_category_variable->id }}"
+                                                            name="opd_category_variable_id" id="">
+                                                        <input type="hidden" value="100" name="target" id="">
+                                                        <input type="hidden" name="rencana_aksi_id"
+                                                            value="{{ $opdPenilaian->getRencanaAksiTriwulan()->id }}"
+                                                            id="">
+                                                        <button type="submit" class="badge bg-primary">TARIK RENCANA AKSI
+                                                            {{ $opdPenilaian->name }}</button>
+                                                    </form>
+                                                @else
+                                                    <br>
+                                                    <small class="text-danger">Buat Rencana Aksi Terlebih Dahulu !</small>
+                                                @endif
                                             @else
                                                 {{-- @if (Auth::user()->hasRole('SUPERADMIN') && $opd_category_variable->opd_variable->pic != 'SIPD' && $checkStatus != 1)
                                                     <a type="button" class="badge bg-primary" data-bs-toggle="modal"

@@ -76,6 +76,13 @@ class OpdPenilaian extends Model implements Auditable
     {
         return $this->hasMany(EvaluasiKinerja::class, 'opd_id', 'opd_id');
     }
+    public function getRencanaAksiTriwulan()
+    {
+        $data = $this->opd_perjanjian_kinerja->rencana_aksis->where('name', $this->name)->where('status_penilaian', '!=', null)->first();
+        if ($data) {
+            return $data;
+        }
+    }
     public static function getEvaluasiKinerja($year, $opd_id)
     {
         return EvaluasiKinerja::whereHas('evaluasi_kinerja_year', function ($q) use ($year) {
