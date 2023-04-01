@@ -76,11 +76,32 @@
 @if ($rencanaAksi->status_penilaian != 'SELESAI')
     <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
         @csrf
+        {!! Form::text('status', null, ['class' => 'd-none']) !!}
+        <div class="text-end">
+            {!! Form::submit('KEMBALI KE PENGISIAN TARGET', [
+                'class' => 'btn btn-warning',
+                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Pengisian Target?')",
+            ]) !!}
+        </div>
+    </form>
+    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+        @csrf
         {!! Form::text('status_penilaian', 'SELESAI', ['class' => 'd-none']) !!}
         <div class="text-end">
             {!! Form::submit('SELESAIKAN REALISASI', [
                 'class' => 'btn btn-success',
                 'onclick' => "return confirm('Apakah Anda Yakin, Untuk Menyelesaikan Realisasi?')",
+            ]) !!}
+        </div>
+    </form>
+@else
+    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+        @csrf
+        {!! Form::text('status_penilaian', null, ['class' => 'd-none']) !!}
+        <div class="text-end">
+            {!! Form::submit('KEMBALI MENGISI REALISASI', [
+                'class' => 'btn btn-warning',
+                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Realisasi?')",
             ]) !!}
         </div>
     </form>
