@@ -122,7 +122,7 @@
                                             {{ $opd_category_variable->opd_variable->name }} |
                                             @if ($opd_category_variable->opd_variable->pic == 'BAPENDA' && $checkStatus != 1)
                                                 <a class="badge bg-primary tarik-data"
-                                                    href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->name, $opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
+                                                    href="{{ route('opdPenilaianKinerja.getRealisasiTargetPendapatan', [$opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
                                                     DATA BAPENDA (WEBSERVICE BAPENDA)</a>
                                                 <br>
                                                 <small class="text-danger">

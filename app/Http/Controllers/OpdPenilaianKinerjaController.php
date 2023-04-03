@@ -39,7 +39,7 @@ class OpdPenilaianKinerjaController extends Controller
     {
         //
     }
-    public function getRealisasiTargetPendapatan(Request $request, $name, $opd_penilaian_id, $opd_category_variable_id)
+    public function getRealisasiTargetPendapatan(Request $request, $opd_penilaian_id, $opd_category_variable_id)
     {
         $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
         $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
@@ -48,7 +48,7 @@ class OpdPenilaianKinerjaController extends Controller
         $tglawal = $year . '-01-01';
         $tglakhir = $year . '-12-31';
         $data = $this->apiGetHttp('https://api.e-sakip.semarangkota.go.id/api/v1/pajak', [
-            'name' => $name,
+            'name' => $opdPenilaian->name,
             'opd_id' => $opdPenilaian->opd_id,
             'tglawal' => $tglawal,
             'tglakhir' => $tglakhir

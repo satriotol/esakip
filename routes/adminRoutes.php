@@ -67,7 +67,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('opdPenilaianKinerja/storeRb/{opd_penilaian}/{opd_category_variable_id}/{year}', [OpdPenilaianKinerjaController::class, 'storeRb'])->name('opdPenilaianKinerja.storeRb');
     Route::get('opdPenilaianKinerja/storeSipd/{opd_penilaian_id}/{opd_category_variable_id}/{type}/{year}/{id_skpd}', [OpdPenilaianKinerjaController::class, 'storeSipd'])->name('opdPenilaianKinerja.storeSipd');
     Route::get('opdPenilaianKinerja/storep3dn/{opd_penilaian_id}/{opd_category_variable_id}/{year}/{id_skpd}', [OpdPenilaianKinerjaController::class, 'storep3dn'])->name('opdPenilaianKinerja.storep3dn');
-    Route::get('opdPenilaianKinerja/store/{name}/{opd_penilaian_id}/{opd_category_variable_id}', [OpdPenilaianKinerjaController::class, 'getRealisasiTargetPendapatan'])->name('opdPenilaianKinerja.getRealisasiTargetPendapatan');
+    Route::get('opdPenilaianKinerja/store/{opd_penilaian_id}/{opd_category_variable_id}', [OpdPenilaianKinerjaController::class, 'getRealisasiTargetPendapatan'])->name('opdPenilaianKinerja.getRealisasiTargetPendapatan');
 
     // ===========================
     //perencanaan kinerja
