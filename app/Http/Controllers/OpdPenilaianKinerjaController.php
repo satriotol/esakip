@@ -41,6 +41,42 @@ class OpdPenilaianKinerjaController extends Controller
     }
     public function getRealisasiTargetPendapatan(Request $request, $name, $opd_penilaian_id, $opd_category_variable_id)
     {
+        $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
+        $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
+        $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+        $year = $opdPenilaian->year;
+        $tglawal = $year . '-01-01';
+        $tglakhir = $year . '-12-31';
+        $data = $this->apiGetHttp('https://api.e-sakip.semarangkota.go.id/api/v1/pajak', [
+            'name' => $name,
+            'opd_id' => $opdPenilaian->opd_id,
+            'tglawal' => $tglawal,
+            'tglakhir' => $tglakhir
+        ]);
+        if ($data->status() == 400) {
+            session()->flash('bug', $data['meta']['message']);
+            return back();
+        }
+        OpdPenilaianKinerja::updateOrCreate(
+            [
+                'opd_penilaian_id' => $opd_penilaian_id,
+                'opd_category_variable_id' => $opd_category_variable_id,
+            ],
+            [
+                'target' => $data['data']['target'],
+                'realisasi' => $data['data']['realisasi'],
+                'capaian' => $data['data']['capaian'],
+                'nilai_akhir' => $data['data']['capaian'] * $bobot
+            ]
+        );
+        $opdPenilaian->update([
+            'status' => OpdPenilaian::STATUS1
+        ]);
+        session()->flash('success');
+        return back();
+    }
+    public function getRealisasiTargetPendapatan2(Request $request, $name, $opd_penilaian_id, $opd_category_variable_id)
+    {
         $name = $request->name;
         $data2 = null;
         $data = null;
@@ -69,6 +105,11 @@ class OpdPenilaianKinerjaController extends Controller
                 }
                 if ($data2) {
                     if ($request->name) {
+                        if ($opdPenilaian->name == 'TRIWULAN 1') {
+                            $target = $data2['target_triwulan_1'];
+                            $realisasi = $data2['realisasi_triwulan_1'];
+                            dd($target, $realisasi);
+                        }
                         if ((float)$data2['persenRealisasi'] > 100) {
                             $data2['persenRealisasi'] = 100;
                         }
