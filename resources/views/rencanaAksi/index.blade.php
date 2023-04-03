@@ -27,7 +27,7 @@
                         <div class="col-md-12">
                             <form action="">
                                 <div class="row">
-                                    <div class="col-md-4">
+                                    <div class="col-md-6">
                                         <div class="mb-3">
                                             {!! Form::label('opd_id', 'OPD', ['class' => 'form-label']) !!}
                                             <select name="opd_id" class="js-example-basic-single form-select"
@@ -40,26 +40,44 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        {!! Form::label('year', 'Tahun', ['class' => 'form-label']) !!}
-                                        {!! Form::number('year', @old('year'), ['class' => 'form-control', 'placeholder' => 'Cari Tahun']) !!}
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            {!! Form::label('year', 'Tahun', ['class' => 'form-label']) !!}
+                                            {!! Form::number('year', @old('year'), ['class' => 'form-control', 'placeholder' => 'Cari Tahun']) !!}
+                                        </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        {!! Form::label('triwulan', 'Triwulan', ['class' => 'form-label']) !!}
-                                        {!! Form::select(
-                                            'triwulan',
-                                            [
-                                                'TRIWULAN 1' => 'TRIWULAN 1',
-                                                'TRIWULAN 2' => 'TRIWULAN 2',
-                                                'TRIWULAN 3' => 'TRIWULAN 3',
-                                                'TRIWULAN 4' => 'TRIWULAN 4',
-                                            ],
-                                            @old('triwulan'),
-                                            [
-                                                'class' => 'form-select js-example-basic-single form-select',
-                                                'placeholder' => 'Pilih Triwulan',
-                                            ],
-                                        ) !!}
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+
+                                            {!! Form::label('triwulan', 'Triwulan', ['class' => 'form-label']) !!}
+                                            {!! Form::select(
+                                                'triwulan',
+                                                [
+                                                    'TRIWULAN 1' => 'TRIWULAN 1',
+                                                    'TRIWULAN 2' => 'TRIWULAN 2',
+                                                    'TRIWULAN 3' => 'TRIWULAN 3',
+                                                    'TRIWULAN 4' => 'TRIWULAN 4',
+                                                ],
+                                                @old('triwulan'),
+                                                [
+                                                    'class' => 'form-select js-example-basic-single form-select',
+                                                    'placeholder' => 'Pilih Triwulan',
+                                                ],
+                                            ) !!}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            {!! Form::label('status_penilaian', 'Status Penilaian', ['class' => 'form-label']) !!}
+                                            {!! Form::select(
+                                                'status_penilaian',
+                                                [
+                                                    'Selesai' => 'SELESAI',
+                                                ],
+                                                @old('status_penilaian'),
+                                                ['class' => 'form-select js-example-basic-single form-select', 'placeholder' => 'Pilih Status'],
+                                            ) !!}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="text-end">

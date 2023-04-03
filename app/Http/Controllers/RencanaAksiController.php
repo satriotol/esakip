@@ -43,6 +43,10 @@ class RencanaAksiController extends Controller
                 $q->where('year', $request->year);
             });
         }
+        if ($request->status_penilaian) {
+            $rencanaAksis->where('status_penilaian', $request->status_penilaian);
+
+        }
         $rencanaAksis =  $rencanaAksis->paginate();
         $statuses = RencanaAksi::STATUSES;
         $opds = Opd::getOpd();
