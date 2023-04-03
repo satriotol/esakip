@@ -62,6 +62,27 @@ class Opd extends Model
 
         return $opdWithoutPerjanjianKinerjas->get();
     }
+    public static function opdWithoutRencanaAksis($request)
+    {
+        $triwulan = $request->triwulan;
+        $status_penilaian = $request->status_penilaian;
+        $year = $request->year;
+        $opdWithoutRencanaAksis = Opd::where('master_unit_kerja_id', '!=', 0);
+        if ($status_penilaian && $triwulan && $year) {
+            $opdWithoutRencanaAksis->whereDoesntHave('opd_perjanjian_kinerjas.rencana_aksis', function ($q) use ($status_penilaian, $triwulan, $year) {
+                $q->where('status_penilaian', $status_penilaian)->where('name', $triwulan)->where('year', $year);
+            });
+        } elseif ($triwulan && $year) {
+            $opdWithoutRencanaAksis->whereDoesntHave('opd_perjanjian_kinerjas.rencana_aksis', function ($q) use ($status_penilaian, $triwulan, $year) {
+                $q->where('name', $triwulan)->where('year', $year);
+            });
+        } else {
+            $opdWithoutRencanaAksis->whereDoesntHave('opd_perjanjian_kinerjas.rencana_aksis', function ($q) use ($status_penilaian, $triwulan, $year) {
+                $q->where('year', Date::now());
+            });
+        }
+        return $opdWithoutRencanaAksis->get();
+    }
     public function opd_perjanjian_kinerjas()
     {
         return $this->hasMany(OpdPerjanjianKinerja::class, 'opd_id', 'id');

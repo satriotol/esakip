@@ -30,6 +30,7 @@ class RencanaAksiController extends Controller
     public function index(Request $request)
     {
         $rencanaAksis = RencanaAksi::getByOpd();
+        $opdWithoutRencanaAksis = Opd::opdWithoutRencanaAksis($request);
         if ($request->opd_id) {
             $rencanaAksis->whereHas('opd_perjanjian_kinerja', function ($q) use ($request) {
                 $q->where('opd_id', $request->opd_id);
@@ -45,13 +46,12 @@ class RencanaAksiController extends Controller
         }
         if ($request->status_penilaian) {
             $rencanaAksis->where('status_penilaian', $request->status_penilaian);
-
         }
         $rencanaAksis =  $rencanaAksis->paginate();
         $statuses = RencanaAksi::STATUSES;
         $opds = Opd::getOpd();
         $request->flash();
-        return view('rencanaAksi.index', compact('rencanaAksis', 'statuses', 'opds'));
+        return view('rencanaAksi.index', compact('rencanaAksis', 'statuses', 'opds', 'opdWithoutRencanaAksis'));
     }
 
     public function updateStatus(RencanaAksi $rencanaAksi, Request $request)

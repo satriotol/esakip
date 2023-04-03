@@ -24,7 +24,7 @@
                         </a>
                     </div>
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <form action="">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -84,6 +84,17 @@
                                     <button class="btn btn-sm btn-success">Cari</button>
                                 </div>
                             </form>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>Opd Yang Belum Mengisi Rencana Aksi</h6>
+                            <small class="text-danger">Jika Ingin Mencari Data Yang Belum, Wajib Mengisikan Tahun &
+                                Triwulan</small>
+                            <ul style="height: 100px; overflow: auto">
+                                @foreach ($opdWithoutRencanaAksis as $opdWithoutRencanaAksi)
+                                    <li>{{ $opdWithoutRencanaAksi->nama_opd }}</li>
+                                @endforeach
+                            </ul>
+                            <small>Jumlah : {{ $opdWithoutRencanaAksis->count() }}</small>
                         </div>
                     </div>
                     <div class="table-responsive">

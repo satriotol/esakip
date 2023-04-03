@@ -10,17 +10,17 @@
     </thead>
     <tbody>
         <tr v-for="(data, index) in datas">
-            <td class="text-wrap">@{{ data.opd_perjanjian_kinerja_sasaran_name }}
+            <td class="text-wrap" style="width: 25%">@{{ data.opd_perjanjian_kinerja_sasaran_name }}
             </td>
             <td>
-                <textarea v-model='data.rencana_aksi_note' class="form-control" name="" id=""></textarea>
+                <textarea v-model='data.rencana_aksi_note' class="form-control" style="width: 100%" name="" id=""></textarea>
             </td>
             <td>
                 <textarea v-model='data.indikator_kinerja_note' class="form-control" name="" id=""></textarea>
             </td>
             <td>
-                <input type="number" step="any" min="0" v-model='data.target' class="form-control" name=""
-                    id="">
+                <input type="number" step="any" min="0" v-model='data.target' class="form-control"
+                    name="" id="">
             </td>
             <td>
                 <input type="text" class="form-control" v-model='data.satuan' name="" id="">
