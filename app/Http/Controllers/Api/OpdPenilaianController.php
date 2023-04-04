@@ -41,9 +41,11 @@ class OpdPenilaianController extends Controller
         }
         if ($triwulan) {
             $opdPenilaian->where('name', $triwulan);
+        } else {
+            $opdPenilaian->where('name', null);
         }
         if ($opdPenilaian->count() == 0) {
-            return $this->failedResponse([], 'Penilaian OPD Belum Ditemukan');
+            return $this->failedResponse([], 'Belum melakukan pengisian Penilaian OPD');
         }
         return $this->successResponse(['opdPenilaians' => new OpdPenilaianResource($opdPenilaian->first())]);
     }
