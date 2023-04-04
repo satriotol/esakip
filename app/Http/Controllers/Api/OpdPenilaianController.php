@@ -18,6 +18,7 @@ class OpdPenilaianController extends Controller
         $opd_id = $request->opd_id;
         $data_unit_id = $request->data_unit_id;
         $kode_opd = $request->kode_opd;
+        $triwulan = $request->triwulan;
         if (!$year) {
             $year = date('Y');
         }
@@ -37,6 +38,12 @@ class OpdPenilaianController extends Controller
             });
         } else {
             return $this->failedResponse([], 'Pastikan anda sudah mengisi antara (opd_id,data_unit_id,master_unit_kerja_id,kode_opd)');
+        }
+        if ($triwulan) {
+            $opdPenilaian->where('name', $triwulan);
+        }
+        if ($opdPenilaian->count() == 0) {
+            return $this->failedResponse([], 'Penilaian OPD Belum Ditemukan');
         }
         return $this->successResponse(['opdPenilaians' => new OpdPenilaianResource($opdPenilaian->first())]);
     }
