@@ -132,10 +132,11 @@ class OpdPenilaianKinerjaController extends Controller
         return back();
     }
 
-    public function storeSipd($opd_penilaian_id, $opd_category_variable_id, $type, $year, $id_skpd)
+    public function storeSipd(Request $request, $opd_penilaian_id, $opd_category_variable_id, $year, $id_skpd)
     {
-        $data = $this->apiGetHttp('https://api.e-sakip.semarangkota.go.id/api/v1/penyerapanAnggaranBelanja', [
-            'type' => $type,
+        $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
+        $data = $this->apiGetHttp('https://api.e-sakip.semarangkota.go.id/api/v1/penyerapanAnggaranBelanja/v2', [
+            'name' => $opdPenilaian->name,
             'id_skpd' => $id_skpd,
             'year' => $year
         ]);
