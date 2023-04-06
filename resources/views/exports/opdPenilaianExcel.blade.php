@@ -12,7 +12,7 @@
     <tbody>
         @foreach ($opdPenilaians as $opdPenilaian)
             <tr>
-                <td>{{ $opdPenilaian->year }}</td>
+                <td>{{ $opdPenilaian->year }} {{ $opdPenilaian->name }}</td>
                 <td>{{ $opdPenilaian->opd->nama_opd }}</td>
                 <td>{{ $opdPenilaian->opd_category->name }}</td>
                 <td>{{ $opdPenilaian->totalAkhir() }}</td>
