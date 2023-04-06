@@ -62,12 +62,19 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <label>Tahun</label>
                                         <input type="number" class="form-control" name="year"
                                             value="{{ old('year') }}" id="">
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
+                                        {!! Form::label('triwulan', 'Triwulan') !!}
+                                        {!! Form::select('triwulan', $selectTriwulans, @old('triwulan'), [
+                                            'class' => 'js-example-basic-single form-select',
+                                            'placeholder' => 'Pilih Triwulan'
+                                        ]) !!}
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="mb-3">
                                             <label>Status</label>
                                             <select name="status" class="js-example-basic-single form-select"

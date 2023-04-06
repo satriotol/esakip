@@ -48,6 +48,13 @@ class OpdPenilaian extends Model implements Auditable
         'TRIWULAN 4',
     ];
 
+    const SELECT_TRIWULANS = [
+        'TRIWULAN 1' => 'TRIWULAN 1',
+        'TRIWULAN 2' => 'TRIWULAN 2',
+        'TRIWULAN 3' => 'TRIWULAN 3',
+        'TRIWULAN 4' => 'TRIWULAN 4',
+    ];
+
     public function opd()
     {
         return $this->belongsTo(Opd::class, 'opd_id', 'id');
@@ -95,6 +102,7 @@ class OpdPenilaian extends Model implements Auditable
         $opd_id = $request->opd_id;
         $year = $request->year;
         $opd_category_id = $request->opd_category_id;
+        $triwulan = $request->triwulan;
         $status = $request->status;
         if (Auth::user()->opd_id) {
             $getOpdPenilaian = OpdPenilaian::query()->where('opd_id', Auth::user()->opd_id);
@@ -112,6 +120,9 @@ class OpdPenilaian extends Model implements Auditable
         }
         if ($status) {
             $getOpdPenilaian->where('status', $status);
+        }
+        if ($triwulan) {
+            $getOpdPenilaian->where('name', $triwulan);
         }
         return $getOpdPenilaian->orderBy('opd_id')->orderBy('year', 'desc');
     }

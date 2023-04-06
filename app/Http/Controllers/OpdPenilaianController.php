@@ -41,6 +41,7 @@ class OpdPenilaianController extends Controller
     {
         $opds = Opd::getOpd();
         $opdPenilaians = OpdPenilaian::getOpdPenilaian($request, '')->paginate();
+        $selectTriwulans = OpdPenilaian::SELECT_TRIWULANS;
         $opdCategories = OpdCategory::all();
         $statuses = OpdPenilaian::STATUSALL;
         if ($request->submit == 'exportExcel') {
@@ -48,7 +49,7 @@ class OpdPenilaianController extends Controller
             return Excel::download(new OpdPenilaianExport($request), $nama_file);
         }
         $request->flash();
-        return view('opdPenilaian.index', compact('opdPenilaians', 'opds', 'opdCategories', 'statuses'));
+        return view('opdPenilaian.index', compact('opdPenilaians', 'selectTriwulans', 'opds', 'opdCategories', 'statuses'));
     }
 
     /**
