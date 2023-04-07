@@ -113,6 +113,7 @@ class OpdPenilaianController extends Controller
             'data.*.rekomendasi' => 'nullable',
             'data.*.opd_penilaian_kinerja' => 'required',
         ]);
+        $data['user_id'] = Auth::user()->id;
         // DB::beginTransaction();
         // try {
         foreach ($request->data as $d) {
@@ -121,6 +122,7 @@ class OpdPenilaianController extends Controller
             ], [
                 'catatan' => $d['catatan'],
                 'rekomendasi' => $d['rekomendasi'],
+                'user_id' => $data['user_id']
             ]);
         }
         // DB::commit();

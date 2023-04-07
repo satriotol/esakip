@@ -180,7 +180,7 @@
                                     </tr>
                                 </tfoot>
                             </table>
-                            @if (Auth::user()->opd_id == null)
+                            @if (Auth::user()->opd_id == null && $opdPenilaian->status != 'SELESAI')
                                 <div class="text-end">
                                     <button class="btn btn-success" type="submit">Submit</button>
                                 </div>
