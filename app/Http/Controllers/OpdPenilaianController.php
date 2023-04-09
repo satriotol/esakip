@@ -102,6 +102,11 @@ class OpdPenilaianController extends Controller
         if ($request->inovasi_prestasi_opd_id) {
             $data['inovasi_prestasi_daerah'] = InovasiPrestasiOpd::where('id', $request->inovasi_prestasi_opd_id)->first()->inovasi_prestasi_tingkat->value;
         }
+        $opdPenilaian = OpdPenilaian::where('opd_id', $data['opd_id'])->where('year', $data['year'])->where('name', $data['name'])->first();
+        if ($opdPenilaian != null) {
+            session()->flash('bug', 'Penilaian OPD Sudah Ada');
+            return back();
+        }
         OpdPenilaian::create($data);
         session()->flash('success');
         return redirect(route('opdPenilaian.index'));
