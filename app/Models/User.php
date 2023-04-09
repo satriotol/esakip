@@ -27,6 +27,9 @@ class User extends Authenticatable
         'email',
         'password',
         'opd_id',
+        'last_signin_at',
+        'last_ip_address',
+        'uuid'
     ];
 
     /**
@@ -47,6 +50,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->uuid = Str::uuid()->toString();
+        });
+    }
     public function opd()
     {
         return $this->belongsTo(Opd::class, 'opd_id', 'id');
