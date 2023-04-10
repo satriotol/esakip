@@ -26,6 +26,14 @@
                     </a>
                 </li>
             @endcan
+            @can('penilaianAkip')
+                <li class="nav-item">
+                    <a href="https://penilaian.e-sakip.semarangkota.go.id/" target="_blank" class="nav-link">
+                        <i class="link-icon" data-feather="globe"></i>
+                        <span class="link-title">Penilaian AKIP</span>
+                    </a>
+                </li>
+            @endcan
             @can('perencanaanKinerja')
                 <li class="nav-item nav-category">Perencanaan Kinerja</li>
             @endcan
