@@ -79,7 +79,6 @@
                             @if ($rencanaAksi->status != 'DISETUJUI')
                                 @include('rencanaAksi.components.tableDiajukan')
                             @elseif($rencanaAksi->status_penilaian == 'SELESAI' && Auth::user()->opd_id == null)
-                                @include('rencanaAksi.components.tableDisetujui')
                                 @include('rencanaAksi.components.tableVerifikator')
                             @else
                                 @include('rencanaAksi.components.tableDisetujui')

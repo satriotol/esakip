@@ -110,7 +110,7 @@ class RencanaAksiTargetController extends Controller
      */
     public function update(Request $request, RencanaAksiTarget $rencanaAksiTarget)
     {
-        if ($rencanaAksiTarget->rencana_aksi->status == RencanaAksi::STATUS2) {
+        if ($rencanaAksiTarget->rencana_aksi->status == RencanaAksi::STATUS2 && $rencanaAksiTarget->rencana_aksi->status_penilaian != 'SELESAI') {
             $data = $request->validate([
                 'realisasi' => 'required',
                 'file' => 'nullable'
@@ -125,6 +125,11 @@ class RencanaAksiTargetController extends Controller
                 $file_name = date('mdYHis') . '-' . $name;
                 $data['file'] = $file->storeAs('file', $file_name, 'public_uploads');
             };
+        } elseif ($rencanaAksiTarget->rencana_aksi->status_penilaian == 'SELESAI') {
+            $data = $request->validate([
+                'note_verifikator' => 'nullable',
+                'status_verifikator' => 'required'
+            ]);
         } else {
             $data = $request->validate([
                 'target' => 'required|numeric|min:0|not_in:0',

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RencanaAksiTarget extends Model
 {
     use HasFactory;
-    protected $fillable = ['opd_perjanjian_kinerja_sasaran_id', 'file', 'rencana_aksi_id', 'target', 'realisasi', 'status', 'note', 'rencana_aksi_note', 'indikator_kinerja_note', 'satuan', 'type'];
+    protected $fillable = ['opd_perjanjian_kinerja_sasaran_id', 'file', 'rencana_aksi_id', 'target', 'realisasi', 'status', 'note', 'rencana_aksi_note', 'indikator_kinerja_note', 'satuan', 'type', 'note_verifikator', 'status_verifikator'];
 
     protected $appends = ['opd_perjanjian_kinerja_sasaran_name', 'capaian'];
 
@@ -53,10 +53,7 @@ class RencanaAksiTarget extends Model
         }
         if ($data > 100) {
             $data = 100;
-        } elseif ($data < 0) {
-            $data = 0;
-        }
-        if ($this->rencana_aksi->status_verifikator == null) {
+        } elseif ($data < 0 || $this->status_verifikator != 'DITERIMA') {
             $data = 0;
         }
         return round($data, 2);

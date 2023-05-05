@@ -71,12 +71,48 @@
                     </table>
                 </td>
                 <td>
-                    {!! Form::textarea('note_verifikator', '', [
-                        'class' => 'form-control',
-                        'placeholder' => 'Masukkan Catatan Verifikator',
-                    ]) !!}
+                    <form action="{{ route('rencanaAksiTarget.update', $rencana_aksi_target->id) }}" method="post">
+                        @method('PUT')
+                        @csrf
+                        <div class="form-group">
+                            {!! Form::label('note_verifikator', 'Catatan Verifikator') !!}
+                            {!! Form::textarea('note_verifikator', $rencana_aksi_target->note_verifikator, [
+                                'class' => 'form-control',
+                                'placeholder' => 'Masukkan Catatan Verifikator',
+                            ]) !!}
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('status_verifikator', 'Status Verifikasi') !!}
+                            @php
+                                $statusVerifikators = [
+                                    'DITERIMA' => 'DITERIMA',
+                                    'DITOLAK' => 'DITOLAK',
+                                ];
+                            @endphp
+                            {!! Form::select('status_verifikator', $statusVerifikators, $rencana_aksi_target->status_verifikator, [
+                                'class' => 'form-select',
+                                'placeholder' => 'Pilih Status',
+                                'required',
+                            ]) !!}
+                        </div>
+                        <div class="text-end">
+                            {!! Form::submit('Simpan', ['class' => 'btn btn-success']) !!}
+                        </div>
+                    </form>
                 </td>
             </tr>
         @endforeach
     </tbody>
 </table>
+@if (Auth::user()->opd_id == null)
+    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+        @csrf
+        {!! Form::text('status_penilaian', null, ['class' => 'd-none']) !!}
+        <div class="text-end">
+            {!! Form::submit('KEMBALI MENGISI REALISASI', [
+                'class' => 'btn btn-warning',
+                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Realisasi?')",
+            ]) !!}
+        </div>
+    </form>
+@endif
