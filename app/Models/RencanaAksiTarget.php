@@ -51,9 +51,9 @@ class RencanaAksiTarget extends Model
         } else {
             $data = (1 - (($this->realisasi - $this->target)) / $this->target) * 100;
         }
-        if ($data > 100) {
+        if ($data > 100 && $this->status_verifikator == 'DITERIMA') {
             $data = 100;
-        } elseif ($data < 0 || $this->status_verifikator != 'DITERIMA') {
+        } elseif ($data < 0 || $this->status_verifikator != 'DITERIMA' ) {
             $data = 0;
         }
         return round($data, 2);

@@ -125,18 +125,31 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <div class="badge bg-success">{{ $rencanaAksi->getStatus() }}</div><br>
-                                            <div class="badge bg-success">{{ $rencanaAksi->getStatusPenilaian() }}</div>
+                                            <div @class([
+                                                'badge',
+                                                'bg-success' => $rencanaAksi->status == 'DISETUJUI',
+                                                'bg-warning' => $rencanaAksi->status == null,
+                                                'bg-danger' => $rencanaAksi->status == 'DITOLAK',
+                                            ])>
+                                                {{ $rencanaAksi->getStatus() }}
+                                            </div><br>
+                                            <div @class([
+                                                'badge',
+                                                'bg-success' => $rencanaAksi->status_penilaian == 'SELESAI',
+                                                'bg-warning' => $rencanaAksi->status_penilaian == null,
+                                            ])>
+                                                {{ $rencanaAksi->getStatusPenilaian() }}
+                                            </div><br>
                                         </td>
                                         <td>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</td>
                                         <td>
-                                            <a class="badge bg-primary"
+                                            <a class="btn btn-sm btn-primary"
                                                 href="{{ route('rencanaAksi.show', $rencanaAksi->id) }}">Detail</a>
                                             <form action="{{ route('rencanaAksi.destroy', $rencanaAksi->id) }}"
                                                 method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="badge bg-danger"
+                                                <button type="submit" class="btn btn-sm btn-danger"
                                                     onclick="return confirm('Are you sure?')">
                                                     Delete
                                                 </button>

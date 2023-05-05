@@ -59,6 +59,7 @@ class RencanaAksiController extends Controller
         $data = $request->validate([
             'status' => 'nullable',
             'status_penilaian' => 'nullable',
+            'status_verifikator' => 'nullable',
             'note' => 'nullable',
         ]);
         if ($request->status == 'DISETUJUI') {
@@ -71,6 +72,14 @@ class RencanaAksiController extends Controller
             foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target) {
                 if ($rencana_aksi_target->realisasi == null || $rencana_aksi_target->file == null) {
                     session()->flash('bug', 'Lengkapi realisasi / data dukung pada indikator : ' . $rencana_aksi_target->indikator_kinerja_note);
+                    return back();
+                }
+            }
+        }
+        if ($request->status_verifikator == 'SELESAI') {
+            foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target) {
+                if ($rencana_aksi_target->status_verifikator == null) {
+                    session()->flash('bug', 'Pastikan Anda Sudah Melakukan Verifikasi Pada : ' . $rencana_aksi_target->indikator_kinerja_note);
                     return back();
                 }
             }

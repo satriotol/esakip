@@ -20,6 +20,42 @@
         <div class="col-md-6">
             @if ($rencanaAksi->status != 'DISETUJUI')
                 @include('rencanaAksi.components.formRencanaAksiTarget')
+            @else
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Tahun</td>
+                                    <td>:</td>
+                                    <td>{{ $rencanaAksi->opd_perjanjian_kinerja->year }} {{ $rencanaAksi->name }}</td>
+                                </tr>
+                                <tr>
+                                    <td>OPD</td>
+                                    <td>:</td>
+                                    <td class="text-wrap">{{ $rencanaAksi->opd_perjanjian_kinerja->opd->nama_opd }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Perjanjian Kinerja</td>
+                                    <td>:</td>
+                                    <td class="text-wrap">
+                                        <a href="{{ route('opdPerjanjianKinerja.show', $rencanaAksi->opd_perjanjian_kinerja_id) }}"
+                                            target="_blank">
+                                            {{ $rencanaAksi->opd_perjanjian_kinerja->type }}
+                                        </a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Total Nilai</td>
+                                    <td>:</td>
+                                    <td>
+                                        <h3>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</h3>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             @endif
         </div>
         <div class="col-md-6">
@@ -52,9 +88,9 @@
                             </div>
                         @endif
                         <div class="mb-3">
-                            <label for="form-lable">Note</label>
+                            <label for="form-label">Note</label>
                             <textarea @disabled(Auth::user()->opd_id) name="note" class="form-control">{{ $rencanaAksi->note }}</textarea>
-                            <small>Tambahkan Catatan Jika Ditolak</small>
+                            <small class="text-danger">Tambahkan Catatan Jika Ditolak</small>
                         </div>
                         @if (!Auth::user()->opd_id)
                             <div class="text-end">
@@ -78,7 +114,7 @@
                                 {{ $rencanaAksi->opd_perjanjian_kinerja->year }}</a>
                             @if ($rencanaAksi->status != 'DISETUJUI')
                                 @include('rencanaAksi.components.tableDiajukan')
-                            @elseif($rencanaAksi->status_penilaian == 'SELESAI' && Auth::user()->opd_id == null)
+                            @elseif($rencanaAksi->status_penilaian == 'SELESAI')
                                 @include('rencanaAksi.components.tableVerifikator')
                             @else
                                 @include('rencanaAksi.components.tableDisetujui')

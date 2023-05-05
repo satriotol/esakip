@@ -125,6 +125,7 @@ class RencanaAksiTargetController extends Controller
                 $file_name = date('mdYHis') . '-' . $name;
                 $data['file'] = $file->storeAs('file', $file_name, 'public_uploads');
             };
+            $data['status_verifikator'] = null;
         } elseif ($rencanaAksiTarget->rencana_aksi->status_penilaian == 'SELESAI') {
             $data = $request->validate([
                 'note_verifikator' => 'nullable',
