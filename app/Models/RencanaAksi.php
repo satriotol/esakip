@@ -14,7 +14,7 @@ class RencanaAksi extends Model implements Auditable
     use HasFactory;
     use AuditableTrait;
 
-    protected $fillable = ['name', 'opd_perjanjian_kinerja_id', 'slug', 'status', 'note', 'status_penilaian', 'nilai'];
+    protected $fillable = ['name', 'opd_perjanjian_kinerja_id', 'slug', 'status', 'note', 'status_penilaian', 'nilai', 'status_verifikator'];
     const STATUS1 = 'DIAJUKAN';
     const STATUS2 = 'DISETUJUI';
     const STATUS3 = 'DITOLAK';

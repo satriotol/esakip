@@ -56,6 +56,9 @@ class RencanaAksiTarget extends Model
         } elseif ($data < 0) {
             $data = 0;
         }
+        if ($this->rencana_aksi->status_verifikator == null) {
+            $data = 0;
+        }
         return round($data, 2);
     }
 }

@@ -95,14 +95,16 @@
         </div>
     </form>
 @else
-    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-        @csrf
-        {!! Form::text('status_penilaian', null, ['class' => 'd-none']) !!}
-        <div class="text-end">
-            {!! Form::submit('KEMBALI MENGISI REALISASI', [
-                'class' => 'btn btn-warning',
-                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Realisasi?')",
-            ]) !!}
-        </div>
-    </form>
+    @if (Auth::user()->opd_id == null)
+        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+            @csrf
+            {!! Form::text('status_penilaian', null, ['class' => 'd-none']) !!}
+            <div class="text-end">
+                {!! Form::submit('KEMBALI MENGISI REALISASI', [
+                    'class' => 'btn btn-warning',
+                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Realisasi?')",
+                ]) !!}
+            </div>
+        </form>
+    @endif
 @endif
