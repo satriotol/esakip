@@ -60,7 +60,7 @@ class RencanaAksi extends Model implements Auditable
     }
     public function getStatusPenilaian()
     {
-        $name = 'STATUS PENILAIAN : ';
+        $name = 'STATUS PENGISIAN : ';
         if ($this->status == self::STATUS2) {
             if ($this->status_penilaian == null) {
                 return $name . $this->status_penilaian = self::PENILAIAN1;
@@ -68,6 +68,17 @@ class RencanaAksi extends Model implements Auditable
             return $name . $this->status_penilaian;
         }
         return $name . 'MENUNGGU PENGAJUAN RENCANA AKSI';
+    }
+    public function getStatusVerifikasi()
+    {
+        $name = 'STATUS VERIFIKASI : ';
+        if ($this->status_penilaian == null) {
+            return 'STATUS VERIFIKASI : MENUNGGU PENGISIAN';
+        }
+        if ($this->status_verifikator == null) {
+            return 'STATUS VERIFIKASI : PROSES PENILAIAN VERIFIKATOR';
+        }
+        return $name . $this->status_verifikator;
     }
     public static function getTotalCapaian($rencana_aksi_id)
     {

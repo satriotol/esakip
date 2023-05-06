@@ -128,7 +128,7 @@
                                             <div @class([
                                                 'badge',
                                                 'bg-success' => $rencanaAksi->status == 'DISETUJUI',
-                                                'bg-warning' => $rencanaAksi->status == null,
+                                                'bg-info' => $rencanaAksi->status == 'DIAJUKAN' || $rencanaAksi->status == null,
                                                 'bg-danger' => $rencanaAksi->status == 'DITOLAK',
                                             ])>
                                                 {{ $rencanaAksi->getStatus() }}
@@ -136,10 +136,17 @@
                                             <div @class([
                                                 'badge',
                                                 'bg-success' => $rencanaAksi->status_penilaian == 'SELESAI',
-                                                'bg-warning' => $rencanaAksi->status_penilaian == null,
+                                                'bg-info' => $rencanaAksi->status_penilaian == null,
                                             ])>
                                                 {{ $rencanaAksi->getStatusPenilaian() }}
                                             </div><br>
+                                            <div @class([
+                                                'badge',
+                                                'bg-success' => $rencanaAksi->status_verifikator == 'SELESAI',
+                                                'bg-info' => $rencanaAksi->status_verifikator == null,
+                                            ])>
+                                                {{ $rencanaAksi->getStatusVerifikasi() }}
+                                            </div>
                                         </td>
                                         <td>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</td>
                                         <td>
