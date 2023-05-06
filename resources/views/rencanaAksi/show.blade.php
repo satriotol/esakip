@@ -13,7 +13,7 @@
                 {{ $rencanaAksi->opd_perjanjian_kinerja->opd_name }} {{ $rencanaAksi->opd_perjanjian_kinerja->year }}</li>
         </ol>
         <a href="{{ route('rencanaAksi.index') }}" class="badge rounded-pill bg-primary">
-            <i data-feather="arrow-left"></i> Back
+            <i data-feather="arrow-left"></i> Kembali
         </a>
     </nav>
     <div class="row">
@@ -44,6 +44,11 @@
                                             {{ $rencanaAksi->opd_perjanjian_kinerja->type }}
                                         </a>
                                     </td>
+                                </tr>
+                                <tr>
+                                    <td>Status</td>
+                                    <td>:</td>
+                                    <td>{{ $rencanaAksi->getStatusNow() }}</td>
                                 </tr>
                                 <tr>
                                     <td>Total Nilai</td>

@@ -44,8 +44,20 @@ class RencanaAksiController extends Controller
                 $q->where('year', $request->year);
             });
         }
-        if ($request->status_penilaian) {
-            $rencanaAksis->where('status_penilaian', $request->status_penilaian);
+        if ($request->status) {
+            $status = $request->status;
+            if ($status == 'PROSES PENGISIAN RENCANA AKSI OPD') {
+                $rencanaAksis->where('status', 'DIAJUKAN')->orWhere('status', null);
+            }
+            if ($status == 'PROSES PENGISIAN REALISASI OPD') {
+                $rencanaAksis->where('status', 'DISETUJUI')->where('status_penilaian', null);
+            }
+            if ($status == 'PROSES VERIFIKASI') {
+                $rencanaAksis->where('status_penilaian', 'SELESAI')->where('status_verifikator', null);
+            }
+            if ($status == 'SELESAI') {
+                $rencanaAksis->where('status_verifikator', 'SELESAI');
+            }
         }
         $rencanaAksis =  $rencanaAksis->paginate();
         $statuses = RencanaAksi::STATUSES;

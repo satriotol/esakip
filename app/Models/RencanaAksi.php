@@ -51,6 +51,18 @@ class RencanaAksi extends Model implements Auditable
     {
         return $this->hasMany(RencanaAksiTarget::class, 'rencana_aksi_id', 'id');
     }
+    public function getStatusNow()
+    {
+        if ($this->status == null || $this->status == self::STATUS1) {
+            return 'PROSES PENGISIAN RENCANA AKSI OPD';
+        } elseif ($this->status_penilaian == null) {
+            return 'PROSES PENGISIAN REALISASI OPD';
+        } elseif ($this->status_verifikator == null) {
+            return 'PROSES VERIFIKASI';
+        } else {
+            return 'SELESAI';
+        }
+    }
     public function getStatus()
     {
         if ($this->status == null) {

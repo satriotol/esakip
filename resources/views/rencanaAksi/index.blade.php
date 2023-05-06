@@ -68,13 +68,16 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="mb-3">
-                                            {!! Form::label('status_penilaian', 'Status Penilaian', ['class' => 'form-label']) !!}
+                                            {!! Form::label('status', 'Status', ['class' => 'form-label']) !!}
                                             {!! Form::select(
-                                                'status_penilaian',
+                                                'status',
                                                 [
-                                                    'Selesai' => 'SELESAI',
+                                                    'PROSES PENGISIAN RENCANA AKSI OPD' => 'PROSES PENGISIAN RENCANA AKSI OPD',
+                                                    'PROSES PENGISIAN REALISASI OPD' => 'PROSES PENGISIAN REALISASI OPD',
+                                                    'PROSES VERIFIKASI' => 'PROSES VERIFIKASI',
+                                                    'SELESAI' => 'SELESAI',
                                                 ],
-                                                @old('status_penilaian'),
+                                                @old('status'),
                                                 ['class' => 'form-select js-example-basic-single form-select', 'placeholder' => 'Pilih Status'],
                                             ) !!}
                                         </div>
@@ -101,13 +104,11 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
-                                    <th>Year</th>
+                                    <th>Tahun</th>
                                     <th>OPD</th>
                                     <th>Triwulan</th>
                                     <th>Perjanjian kinerja</th>
-                                    <th>Status Pengajuan<br>
-                                        Status Penilaian
-                                    </th>
+                                    <th>Status</th>
                                     <th>Capaian</th>
                                     <th>Rencana Aksi</th>
                                 </tr>
@@ -125,28 +126,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <div @class([
-                                                'badge',
-                                                'bg-success' => $rencanaAksi->status == 'DISETUJUI',
-                                                'bg-info' => $rencanaAksi->status == 'DIAJUKAN' || $rencanaAksi->status == null,
-                                                'bg-danger' => $rencanaAksi->status == 'DITOLAK',
-                                            ])>
-                                                {{ $rencanaAksi->getStatus() }}
-                                            </div><br>
-                                            <div @class([
-                                                'badge',
-                                                'bg-success' => $rencanaAksi->status_penilaian == 'SELESAI',
-                                                'bg-info' => $rencanaAksi->status_penilaian == null,
-                                            ])>
-                                                {{ $rencanaAksi->getStatusPenilaian() }}
-                                            </div><br>
-                                            <div @class([
-                                                'badge',
-                                                'bg-success' => $rencanaAksi->status_verifikator == 'SELESAI',
-                                                'bg-info' => $rencanaAksi->status_verifikator == null,
-                                            ])>
-                                                {{ $rencanaAksi->getStatusVerifikasi() }}
-                                            </div>
+                                            {{ $rencanaAksi->getStatusNow() }}
                                         </td>
                                         <td>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</td>
                                         <td>
