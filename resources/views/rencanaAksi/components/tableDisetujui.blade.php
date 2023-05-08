@@ -6,6 +6,7 @@
         <th>Target</th>
         <th>Tipe</th>
         <th>Realisasi <br> Data Dukung</th>
+        <th>Catatan Verifikator & Status</th>
         <th>Capaian</th>
     </thead>
     <tbody>
@@ -62,15 +63,22 @@
                         @endif
                     @endif
                 </td>
-                <td>
-                    {{ $rencana_aksi_target->capaian }}
+                <td class="text-wrap">
+                    STATUS VERIFIKATOR : {{ $rencana_aksi_target->status_verifikator ?? '-' }} <br>
+                    CATATAN VERIFIKATOR : <br> {{ $rencana_aksi_target->note_verifikator }}
+                </td>
+                <td class="text-wrap">
+                    {{ $rencana_aksi_target->capaian }} <br>
+                    <small class="text-danger">Nilai Capaian Akan Muncul Jika Sudah Diverifikasi Oleh Tim SAKIP</small>
                 </td>
             </tr>
         @endforeach
     </tbody>
     <tfoot>
-        <th colspan="6">Total Capaian</th>
-        <th>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</th>
+        <th colspan="7">Total Capaian</th>
+        <th>
+            <h4>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</h4>
+        </th>
     </tfoot>
 </table>
 @if ($rencanaAksi->status_penilaian != 'SELESAI')
