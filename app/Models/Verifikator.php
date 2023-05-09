@@ -12,9 +12,14 @@ class Verifikator extends Model implements Auditable
     use HasFactory, AuditableTrait;
 
     protected $fillable = ['name', 'phone', 'opd_id', 'jabatan'];
+    protected $appends = ['name_jabatan'];
 
     public function opd()
     {
         return $this->belongsTo(Opd::class, 'opd_id');
+    }
+    public function getNameJabatanAttribute()
+    {
+        return $this->name . ' | ' . $this->jabatan;
     }
 }

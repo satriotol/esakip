@@ -6,6 +6,7 @@ use App\Models\Opd;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
 use App\Models\RencanaAksi;
 use App\Models\RencanaAksiTarget;
+use App\Models\Verifikator;
 use App\Rules\RencanaAksiExist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,7 @@ class RencanaAksiController extends Controller
     {
         $rencanaAksis = RencanaAksi::getByOpd();
         $opdWithoutRencanaAksis = Opd::opdWithoutRencanaAksis($request);
+        $verifikators = Verifikator::all();
         if ($request->opd_id) {
             $rencanaAksis->whereHas('opd_perjanjian_kinerja', function ($q) use ($request) {
                 $q->where('opd_id', $request->opd_id);
@@ -63,7 +65,7 @@ class RencanaAksiController extends Controller
         $statuses = RencanaAksi::STATUSES;
         $opds = Opd::getOpd();
         $request->flash();
-        return view('rencanaAksi.index', compact('rencanaAksis', 'statuses', 'opds', 'opdWithoutRencanaAksis'));
+        return view('rencanaAksi.index', compact('rencanaAksis', 'statuses', 'opds', 'opdWithoutRencanaAksis', 'verifikators'));
     }
 
     public function updateStatus(RencanaAksi $rencanaAksi, Request $request)
@@ -187,7 +189,12 @@ class RencanaAksiController extends Controller
      */
     public function update(Request $request, RencanaAksi $rencanaAksi)
     {
-        //
+        $data = $request->validate([
+            'verifikator_id' => 'required'
+        ]);
+        $rencanaAksi->update($data);
+        session()->flash('success');
+        return back();
     }
 
     /**

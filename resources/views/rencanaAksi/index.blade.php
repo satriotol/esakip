@@ -60,7 +60,7 @@
                                                 ],
                                                 @old('triwulan'),
                                                 [
-                                                    'class' => 'form-select js-example-basic-single form-select',
+                                                    'class' => 'form-select js-example-basic-single',
                                                     'placeholder' => 'Pilih Triwulan',
                                                 ],
                                             ) !!}
@@ -130,6 +130,67 @@
                                         </td>
                                         <td>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</td>
                                         <td>
+                                            <a class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal{{ $rencanaAksi->id }}">Verifikator</a>
+                                            <div class="modal fade bd-example-modal-lg"
+                                                id="exampleModal{{ $rencanaAksi->id }}" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg" style="max-width: 80%!important;">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">
+                                                                {{ $rencanaAksi->opd_perjanjian_kinerja->opd->nama_opd ?? '-' }}
+                                                            </h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="btn-close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            @if (Auth::user()->opd_id == null)
+                                                                <form
+                                                                    action="{{ route('rencanaAksi.update', $rencanaAksi->id) }}"
+                                                                    method="post">
+                                                                    @method('PUT')
+                                                                    @csrf
+                                                                    <div class="mb-3">
+                                                                        {!! Form::label('verifikator_id', 'Verifikator', ['class' => 'form-label']) !!}
+                                                                        {!! Form::select(
+                                                                            'verifikator_id',
+                                                                            $verifikators->pluck('name_jabatan', 'id'),
+                                                                            isset($rencanaAksi) ? $rencanaAksi->verifikator_id : @old('verifikator_id'),
+                                                                            ['class' => 'form-select', 'placeholder' => 'Pilih Verifikator', 'required'],
+                                                                        ) !!}
+                                                                    </div>
+                                                                    <div class="text-end">
+                                                                        {!! Form::submit('Simpan', ['class' => 'btn btn-success']) !!}
+                                                                    </div>
+                                                                </form>
+                                                            @endif
+                                                            @isset($rencanaAksi->verifikator)
+                                                                <h5>Detail Verifikator</h5>
+                                                                <table class="table">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td>Nama</td>
+                                                                            <td>:</td>
+                                                                            <td>{{ $rencanaAksi->verifikator->name }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Jabatan</td>
+                                                                            <td>:</td>
+                                                                            <td>{{ $rencanaAksi->verifikator->jabatan }}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td>Nomor HP</td>
+                                                                            <td>:</td>
+                                                                            <td>{{ $rencanaAksi->verifikator->phone }}</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            @endisset
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <a class="btn btn-sm btn-primary"
                                                 href="{{ route('rencanaAksi.show', $rencanaAksi->id) }}">Detail</a>
                                             <form action="{{ route('rencanaAksi.destroy', $rencanaAksi->id) }}"

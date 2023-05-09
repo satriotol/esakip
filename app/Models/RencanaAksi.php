@@ -14,7 +14,7 @@ class RencanaAksi extends Model implements Auditable
     use HasFactory;
     use AuditableTrait;
 
-    protected $fillable = ['name', 'opd_perjanjian_kinerja_id', 'slug', 'status', 'note', 'status_penilaian', 'nilai', 'status_verifikator'];
+    protected $fillable = ['name', 'opd_perjanjian_kinerja_id', 'slug', 'status', 'note', 'status_penilaian', 'nilai', 'status_verifikator', 'verifikator_id'];
     const STATUS1 = 'DIAJUKAN';
     const STATUS2 = 'DISETUJUI';
     const STATUS3 = 'DITOLAK';
@@ -46,6 +46,10 @@ class RencanaAksi extends Model implements Auditable
     public function opd_perjanjian_kinerja()
     {
         return $this->belongsTo(OpdPerjanjianKinerja::class, 'opd_perjanjian_kinerja_id', 'id');
+    }
+    public function verifikator()
+    {
+        return $this->belongsTo(Verifikator::class, 'verifikator_id', 'id');
     }
     public function rencana_aksi_targets()
     {
