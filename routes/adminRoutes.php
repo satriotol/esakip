@@ -42,6 +42,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserOpdController;
+use App\Http\Controllers\VerifikatorController;
 use App\Http\Controllers\WebsiteController;
 use App\Models\OpdPenilaianStaff;
 use Illuminate\Support\Facades\Route;
@@ -53,6 +54,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('website', WebsiteController::class);
     Route::resource('error', ErrorController::class);
     Route::resource('user', UserController::class);
+    Route::resource('verifikator', VerifikatorController::class);
     Route::resource('userOpd', UserOpdController::class);
     Route::resource('role', RoleController::class);
     Route::resource('permission', PermissionController::class);

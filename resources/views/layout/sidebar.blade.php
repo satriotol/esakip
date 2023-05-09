@@ -18,6 +18,14 @@
                     <span class="link-title">Dashboard</span>
                 </a>
             </li>
+            @can('verifikator-index')
+                <li class="nav-item {{ active_class(['verifikator.*']) }}">
+                    <a href="{{ route('verifikator.index') }}" class="nav-link">
+                        <i class="link-icon" data-feather="box"></i>
+                        <span class="link-title">Verifikator</span>
+                    </a>
+                </li>
+            @endcan
             @can('website-list')
                 <li class="nav-item {{ active_class(['website.*']) }}">
                     <a href="{{ route('website.index') }}" class="nav-link">
