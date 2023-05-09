@@ -130,7 +130,11 @@
                                         </td>
                                         <td>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-info" data-bs-toggle="modal"
+                                            <a @class([
+                                                'btn btn-sm',
+                                                'btn-info' => $rencanaAksi->verifikator,
+                                                'btn-warning' => $rencanaAksi->verifikator == null,
+                                            ]) data-bs-toggle="modal"
                                                 data-bs-target="#exampleModal{{ $rencanaAksi->id }}">Verifikator</a>
                                             <div class="modal fade bd-example-modal-lg"
                                                 id="exampleModal{{ $rencanaAksi->id }}" tabindex="-1"
