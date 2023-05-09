@@ -1,3 +1,38 @@
+@if (Auth::user()->opd_id == null)
+    @if ($rencanaAksi->status_verifikator != 'SELESAI')
+        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+            @csrf
+            {!! Form::text('status_penilaian', null, ['class' => 'd-none']) !!}
+            <div class="text-end">
+                {!! Form::submit('KEMBALI MENGISI REALISASI', [
+                    'class' => 'btn btn-warning',
+                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Realisasi?')",
+                ]) !!}
+            </div>
+        </form>
+        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+            @csrf
+            {!! Form::text('status_verifikator', 'SELESAI', ['class' => 'd-none']) !!}
+            <div class="text-end">
+                {!! Form::submit('SELESAI VERIFIKASI', [
+                    'class' => 'btn btn-success',
+                    'onclick' => "return confirm('Apakah Anda Yakin, Menyelesaikan Verifikasi?')",
+                ]) !!}
+            </div>
+        </form>
+    @else
+        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+            @csrf
+            {!! Form::text('status_verifikator', null, ['class' => 'd-none']) !!}
+            <div class="text-end">
+                {!! Form::submit('KEMBALI VERIFIKASI', [
+                    'class' => 'btn btn-warning',
+                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Verifikasi?')",
+                ]) !!}
+            </div>
+        </form>
+    @endif
+@endif
 <table class="table">
     <thead>
         <th>Detail</th>
@@ -29,7 +64,15 @@
                             <tr>
                                 <th>Tipe</th>
                                 <th>:</th>
-                                <td>{{ $rencana_aksi_target->type }}</td>
+                                <td>
+                                    <div @class([
+                                        'badge',
+                                        'bg-primary' => $rencana_aksi_target->type == 'UMUM',
+                                        'bg-warning' => $rencana_aksi_target->type == 'KHUSUS',
+                                    ])>
+                                        {{ $rencana_aksi_target->type }}
+                                    </div>
+                                </td>
                             </tr>
                             <tr>
                                 <th>Target</th>
@@ -75,7 +118,7 @@
                                 <div @class([
                                     'badge',
                                     'bg-success' => $rencana_aksi_target->status_verifikator == 'DITERIMA',
-                                    'bg-warning' => $rencana_aksi_target->status_verifikator == 'DITOLAK',
+                                    'bg-danger' => $rencana_aksi_target->status_verifikator == 'DITOLAK',
                                     'bg-info' => $rencana_aksi_target->status_verifikator == null,
                                 ])>
                                     {{ $rencana_aksi_target->status_verifikator ?? 'PROSES' }}
@@ -86,7 +129,8 @@
                 </td>
                 <td>
                     @if (Auth::user()->opd_id == null && $rencanaAksi->status_verifikator != 'SELESAI')
-                        <form action="{{ route('rencanaAksiTarget.update', $rencana_aksi_target->id) }}" method="post">
+                        <form action="{{ route('rencanaAksiTarget.update', $rencana_aksi_target->id) }}"
+                            method="post">
                             @method('PUT')
                             @csrf
                             <div class="form-group">

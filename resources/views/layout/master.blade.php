@@ -29,6 +29,7 @@
     <!-- end plugin css -->
 
     @stack('plugin-styles')
+    <link href="https://unpkg.com/filepond@^4/dist/filepond.css" rel="stylesheet" />
 
     <!-- common css -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet" />
@@ -36,6 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.css"
         integrity="sha512-DIW4FkYTOxjCqRt7oS9BFO+nVOwDL4bzukDyDtMO7crjUZhwpyrWBFroq+IqRe6VnJkTpRAS6nhDvf0w+wHmxg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 
     <style>
         .required {
@@ -125,6 +127,22 @@
             $('.mb-3:has(textarea[required]) > label')
                 .after('<span class="required"> *</span>')
         })
+    </script>
+    <script>
+        const inputElements = document.querySelectorAll('.upload-filepond');
+
+        inputElements.forEach(inputElement => {
+            FilePond.registerPlugin(FilePondPluginFileValidateSize);
+            FilePond.create(inputElement, {
+                server: {
+                    process: '{{ route('upload.store') }}',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    }
+                },
+                maxFileSize: '100MB'
+            });
+        });
     </script>
 </body>
 

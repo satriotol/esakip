@@ -36,9 +36,9 @@
 <small class="text-danger">Nilai Capaian Akan Muncul Jika Sudah Diverifikasi Oleh Tim Verifikator</small>
 <table class="table">
     <thead>
-        <th>Sasaran</th>
-        <th>Rencana Aksi</th>
-        <th>Indikator</th>
+        <th width="15%">Sasaran</th>
+        <th width="15%">Rencana Aksi</th>
+        <th width="15%">Indikator</th>
         <th>Target <br> Tipe</th>
         <th>Realisasi <br> Data Dukung</th>
         <th>Status & Catatan Verifikator</th>
@@ -80,14 +80,16 @@
                                 'step' => 'any',
                             ]) !!}
                             {!! Form::file('file', [
-                                'class' => 'form-control',
                                 'placeholder' => 'Isi Realisasi',
+                                'id' => 'file',
+                                'class' => 'upload-filepond',
+                                'required' => isset($rencana_aksi_target->file) ? false : true,
                             ]) !!}
-                            @if ($rencana_aksi_target->file)
-                                <a href="{{ asset('uploads/' . $rencana_aksi_target->file) }}" target="_blank"
-                                    class="badge bg-success">Buka File</a>
-                            @endif
                             <div class="text-end">
+                                @if ($rencana_aksi_target->file)
+                                    <a href="{{ asset('uploads/' . $rencana_aksi_target->file) }}" target="_blank"
+                                        class="btn btn-sm btn-info">Buka File</a>
+                                @endif
                                 @if (!$rencanaAksi->status_penilaian)
                                     <input class="btn btn-sm btn-success" type="submit" value="Update">
                                 @endif
@@ -103,7 +105,14 @@
                     @endif
                 </td>
                 <td class="text-wrap">
-                    STATUS : {{ $rencana_aksi_target->status_verifikator ?? '-' }} <br>
+                    STATUS : <div @class([
+                        'badge',
+                        'bg-success' => $rencana_aksi_target->status_verifikator == 'DITERIMA',
+                        'bg-danger' => $rencana_aksi_target->status_verifikator == 'DITOLAK',
+                        'bg-info' => $rencana_aksi_target->status_verifikator == null,
+                    ])>
+                        {{ $rencana_aksi_target->status_verifikator ?? 'PENGAJUAN' }}
+                    </div> <br>
                     <hr>
                     CATATAN : <br> {{ $rencana_aksi_target->note_verifikator }}
                 </td>
