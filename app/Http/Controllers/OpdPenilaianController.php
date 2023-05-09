@@ -107,9 +107,9 @@ class OpdPenilaianController extends Controller
             session()->flash('bug', 'Penilaian OPD Sudah Ada');
             return back();
         }
-        OpdPenilaian::create($data);
+        $opdPenilaian = OpdPenilaian::create($data);
         session()->flash('success');
-        return redirect(route('opdPenilaian.index'));
+        return redirect(route('opdPenilaian.show', $opdPenilaian->id));
     }
     public function storeReport(Request $request)
     {

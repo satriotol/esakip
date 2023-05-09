@@ -32,7 +32,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="name" class="form-label">Triwulan</label>
-                        <select name="name" id="" class="form-control" v-model="triwulan">
+                        <select name="name" id="" class="form-select" v-model="triwulan">
                             <option value="">Pilih Triwulan</option>
                             @foreach ($triwulans as $triwulan)
                                 <option value="{{ $triwulan }}">{{ $triwulan }}</option>
@@ -47,7 +47,7 @@
                             <option value="">Pilih OPD</option>
                             @foreach ($opds as $opd)
                                 <option value="{{ $opd->id }}"
-                                    @isset($opdPenilaian) 
+                                    @isset($opdPenilaian)
                                     @if ($opd->id === $opdPenilaian->opd_id) selected  @endif
                                 @endisset>
                                     {{ $opd->nama_opd }}
@@ -73,7 +73,7 @@
                             <option value="">Pilih Kategori Penilaian</option>
                             @foreach ($opdTriwulanCategories as $opdCategory)
                                 <option value="{{ $opdCategory->id }}"
-                                    @isset($opdPenilaian) 
+                                    @isset($opdPenilaian)
                                         @if ($opdCategory->id === $opdPenilaian->opd_category_id) selected  @endif
                                     @endisset>
                                     {{ $opdCategory->name }}
@@ -84,7 +84,7 @@
                             <option value="">Pilih Kategori Penilaian</option>
                             @foreach ($opdTahunanCategories as $opdCategory)
                                 <option value="{{ $opdCategory->id }}"
-                                    @isset($opdPenilaian) 
+                                    @isset($opdPenilaian)
                                     @if ($opdCategory->id === $opdPenilaian->opd_category_id) selected  @endif
                                 @endisset>
                                     {{ $opdCategory->name }}
