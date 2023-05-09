@@ -20,7 +20,7 @@
                         @if ($websites->count() == 0)
                             <a class="btn btn-primary" href="{{ route('website.create') }}">
                                 <i data-feather="plus"></i>
-                                Create
+                                Tambah
                             </a>
                         @endif
                     </div>

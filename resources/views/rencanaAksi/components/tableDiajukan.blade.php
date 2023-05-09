@@ -1,3 +1,13 @@
+<form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+    @csrf
+    {!! Form::text('status', 'DISETUJUI', ['class' => 'd-none']) !!}
+    <div class="text-end">
+        {!! Form::submit('Lanjut Membuat Realisasi', [
+            'class' => 'btn btn-success',
+            'onclick' => "return confirm('Apakah Anda Yakin, Untuk Melanjutkan Ke Realisasi?')",
+        ]) !!}
+    </div>
+</form>
 <table class="table">
     <thead>
         <th>Sasaran</th>

@@ -86,7 +86,7 @@
                     <div class="text-end mt-2">
                         <a class="badge bg-primary" href="{{ route('opdPerjanjianKinerja.create') }}">
                             <i data-feather="plus"></i>
-                            Create
+                            Tambah
                         </a>
                     </div>
                     <div class="table-responsive">

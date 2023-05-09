@@ -1,12 +1,47 @@
+@if ($rencanaAksi->status_penilaian != 'SELESAI')
+    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+        @csrf
+        {!! Form::text('status', null, ['class' => 'd-none']) !!}
+        <div class="text-end">
+            {!! Form::submit('KEMBALI KE PENGISIAN TARGET', [
+                'class' => 'btn btn-warning',
+                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Pengisian Target?')",
+            ]) !!}
+        </div>
+    </form>
+    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+        @csrf
+        {!! Form::text('status_penilaian', 'SELESAI', ['class' => 'd-none']) !!}
+        <div class="text-end">
+            {!! Form::submit('SELESAIKAN REALISASI', [
+                'class' => 'btn btn-success',
+                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Menyelesaikan Realisasi?')",
+            ]) !!}
+        </div>
+    </form>
+@else
+    @if (Auth::user()->opd_id == null)
+        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+            @csrf
+            {!! Form::text('status_penilaian', null, ['class' => 'd-none']) !!}
+            <div class="text-end">
+                {!! Form::submit('KEMBALI MENGISI REALISASI', [
+                    'class' => 'btn btn-warning',
+                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Realisasi?')",
+                ]) !!}
+            </div>
+        </form>
+    @endif
+@endif
+<small class="text-danger">Nilai Capaian Akan Muncul Jika Sudah Diverifikasi Oleh Tim Verifikator</small>
 <table class="table">
     <thead>
         <th>Sasaran</th>
         <th>Rencana Aksi</th>
         <th>Indikator</th>
-        <th>Target</th>
-        <th>Tipe</th>
+        <th>Target <br> Tipe</th>
         <th>Realisasi <br> Data Dukung</th>
-        <th>Catatan Verifikator & Status</th>
+        <th>Status & Catatan Verifikator</th>
         <th>Capaian</th>
     </thead>
     <tbody>
@@ -23,10 +58,14 @@
                     {{ $rencana_aksi_target->indikator_kinerja_note }}
                 </td>
                 <td>
-                    {{ $rencana_aksi_target->target }} {{ $rencana_aksi_target->satuan }}
-                </td>
-                <td>
-                    {{ $rencana_aksi_target->type }}
+                    {{ $rencana_aksi_target->target }} {{ $rencana_aksi_target->satuan }} <br>
+                    <div @class([
+                        'badge',
+                        'bg-primary' => $rencana_aksi_target->type == 'UMUM',
+                        'bg-warning' => $rencana_aksi_target->type == 'KHUSUS',
+                    ])>
+                        {{ $rencana_aksi_target->type }}
+                    </div>
                 </td>
                 <td>
                     @if ($rencanaAksi->status_penilaian == null)
@@ -50,7 +89,7 @@
                             @endif
                             <div class="text-end">
                                 @if (!$rencanaAksi->status_penilaian)
-                                    <input class="btn btn-primary" type="submit" value="Update">
+                                    <input class="btn btn-sm btn-success" type="submit" value="Update">
                                 @endif
                             </div>
                         </form>
@@ -64,18 +103,18 @@
                     @endif
                 </td>
                 <td class="text-wrap">
-                    STATUS VERIFIKATOR : {{ $rencana_aksi_target->status_verifikator ?? '-' }} <br>
-                    CATATAN VERIFIKATOR : <br> {{ $rencana_aksi_target->note_verifikator }}
+                    STATUS : {{ $rencana_aksi_target->status_verifikator ?? '-' }} <br>
+                    <hr>
+                    CATATAN : <br> {{ $rencana_aksi_target->note_verifikator }}
                 </td>
                 <td class="text-wrap">
                     {{ $rencana_aksi_target->capaian }} <br>
-                    <small class="text-danger">Nilai Capaian Akan Muncul Jika Sudah Diverifikasi Oleh Tim SAKIP</small>
                 </td>
             </tr>
         @endforeach
     </tbody>
     <tfoot>
-        <th colspan="7">Total Capaian</th>
+        <th colspan="6">Total Capaian</th>
         <th>
             <h4>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</h4>
         </th>

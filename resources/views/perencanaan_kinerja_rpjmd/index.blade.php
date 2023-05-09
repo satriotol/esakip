@@ -20,7 +20,7 @@
                     <div class="text-end mb-2">
                         <a class="btn btn-primary" href="{{ route('perencanaan_kinerja_rpjmd.create') }}">
                             <i data-feather="plus"></i>
-                            Create
+                            Tambah
                         </a>
                     </div>
                     <div class="table-responsive">

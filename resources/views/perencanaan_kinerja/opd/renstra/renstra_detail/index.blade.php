@@ -23,7 +23,7 @@
                     <div class="text-end mb-2">
                         <a class="btn btn-primary" href="{{ route('renstraOpd.create', $periodeRenstraOpd) }}">
                             <i data-feather="plus"></i>
-                            Create
+                            Tambah
                         </a>
                     </div>
                     <div class="table-responsive">

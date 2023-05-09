@@ -189,12 +189,14 @@ class RencanaAksiController extends Controller
      */
     public function update(Request $request, RencanaAksi $rencanaAksi)
     {
-        $data = $request->validate([
-            'verifikator_id' => 'required'
-        ]);
-        $rencanaAksi->update($data);
-        session()->flash('success');
-        return back();
+        if ($request->jenis == 'verifikator') {
+            $data = $request->validate([
+                'verifikator_id' => 'nullable'
+            ]);
+            $rencanaAksi->update($data);
+            session()->flash('success');
+            return back();
+        }
     }
 
     /**

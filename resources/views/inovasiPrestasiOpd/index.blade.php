@@ -22,7 +22,7 @@
                     <div class="text-end mb-2">
                         <a class="btn btn-primary" href="{{ route('inovasiPrestasiOpd.create') }}">
                             <i data-feather="plus"></i>
-                            Create
+                            Tambah
                         </a>
                     </div>
                     <form action="{{ route('inovasiPrestasiOpd.index') }}">

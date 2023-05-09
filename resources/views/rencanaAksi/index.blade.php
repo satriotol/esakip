@@ -20,7 +20,7 @@
                     <div class="text-end mb-2">
                         <a class="btn btn-primary" href="{{ route('rencanaAksi.create') }}">
                             <i data-feather="plus"></i>
-                            Create
+                            Tambah
                         </a>
                     </div>
                     <div class="row">
@@ -156,6 +156,7 @@
                                                                     @method('PUT')
                                                                     @csrf
                                                                     <div class="mb-3">
+                                                                        {!! Form::hidden('jenis', 'verifikator', []) !!}
                                                                         {!! Form::label('verifikator_id', 'Verifikator', ['class' => 'form-label']) !!}
                                                                         {!! Form::select(
                                                                             'verifikator_id',
@@ -191,6 +192,11 @@
                                                                     </tbody>
                                                                 </table>
                                                             @endisset
+                                                            @empty($rencanaAksi->verifikator)
+                                                                <div class="text-center">
+                                                                    <h5>Verifikator Belum Mengisi Data Diri</h5>
+                                                                </div>
+                                                            @endempty
                                                         </div>
                                                     </div>
                                                 </div>

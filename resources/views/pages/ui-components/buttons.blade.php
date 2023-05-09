@@ -64,7 +64,7 @@
 <button type="button" class="btn btn-inverse-dark">Dark</button></script></code></pre>
       <button type="button" class="btn btn-clipboard" data-clipboard-target="#inverseButton">copy</button>
     </figure>
-    
+
     <hr>
 
     <h4 id="tags">Button tags</h4>
@@ -84,9 +84,9 @@
 <input class="btn btn-primary" type="reset" value="Reset"></script></code></pre>
       <button type="button" class="btn btn-clipboard" data-clipboard-target="#tagsButton">copy</button>
     </figure>
-    
+
     <hr>
-    
+
     <h4 id="outline">Outline buttons</h4>
     <p class="mb-3">In need of a button, but not the hefty background colors they bring? Replace the default modifier classes with the <code>.btn-outline-*</code> ones to remove all background images and colors on any button.</p>
     <div class="example">
@@ -103,7 +103,7 @@
 <pre><code class="language-markup"><script type="script/prism-html-markup"><button type="button" class="btn btn-outline-primary">Primary</button></script></code></pre>
       <button type="button" class="btn btn-clipboard" data-clipboard-target="#outlineButton">copy</button>
     </figure>
-    
+
     <hr>
 
     <h4 id="sizes">Sizes</h4>
@@ -111,8 +111,8 @@
     <div class="example">
       <button type="button" class="btn btn-primary btn-lg me-1 mb-1 mb-md-0">Large button</button>
       <button type="button" class="btn btn-primary me-1 mb-1 mb-md-0">Default button</button>
-      <button type="button" class="btn btn-primary btn-sm me-1 mb-1 mb-md-0">Small button</button>        
-      <button type="button" class="btn btn-primary btn-xs mb-1 mb-md-0">Extra small</button>        
+      <button type="button" class="btn btn-primary btn-sm me-1 mb-1 mb-md-0">Small button</button>
+      <button type="button" class="btn btn-primary btn-xs mb-1 mb-md-0">Extra small</button>
     </div>
     <figure class="highlight" id="buttonSizes">
 <pre><code class="language-markup"><script type="script/prism-html-markup"><button type="button" class="btn btn-primary btn-lg">Large button</button>
@@ -121,7 +121,7 @@
 <button type="button" class="btn btn-primary btn-xs">Extra small</button></script></code></pre>
       <button type="button" class="btn btn-clipboard" data-clipboard-target="#buttonSizes">copy</button>
     </figure>
-    <p class="mb-3">Create block level buttons—those that span the full width of a parent.</p>
+    <p class="mb-3">Tambah block level buttons—those that span the full width of a parent.</p>
     <div class="example">
       <div class="d-grid gap-2">
         <button type="button" class="btn btn-primary">Block level button</button>
@@ -135,28 +135,28 @@
 </div></script></code></pre>
       <button type="button" class="btn btn-clipboard" data-clipboard-target="#defaultBreadcrumbs">copy</button>
     </figure>
-    
+
     <hr>
 
     <h4 id="active">Active state</h4>
     <p class="mb-3">Buttons will appear pressed (with a darker background, darker border, and inset shadow) when active. <strong>There’s no need to add a class to <code>&lt;button&gt;</code>s as they use a pseudo-class</strong>. However, you can still force the same active appearance with <code>.active</code> (and include the <code>aria-pressed="true"</code> attribute) should you need to replicate the state programmatically.</p>
     <div class="example">
       <a href="javascript:;" class="btn btn-primary active" role="button" aria-pressed="true">Primary link</a>
-      <a href="javascript:;" class="btn btn-secondary active" role="button" aria-pressed="true">Link</a>       
+      <a href="javascript:;" class="btn btn-secondary active" role="button" aria-pressed="true">Link</a>
     </div>
     <figure class="highlight" id="activeButton">
 <pre><code class="language-markup"><script type="script/prism-html-markup"><a href="#" class="btn btn-primary active" role="button" aria-pressed="true">Primary link</a>
 <a href="#" class="btn btn-secondary active" role="button" aria-pressed="true">Link</a></script></code></pre>
       <button type="button" class="btn btn-clipboard" data-clipboard-target="#activeButton">copy</button>
     </figure>
-    
+
     <hr>
 
     <h4 id="disabled">Disabled state</h4>
     <p class="mb-3">Make buttons look inactive by adding the <code>disabled</code> boolean attribute to any <code>&lt;button&gt;</code> element.</p>
     <div class="example">
       <button type="button" class="btn btn-primary" disabled>Primary button</button>
-      <button type="button" class="btn btn-secondary" disabled>Button</button>     
+      <button type="button" class="btn btn-secondary" disabled>Button</button>
     </div>
     <figure class="highlight" id="disabledButton">
 <pre><code class="language-markup"><script type="script/prism-html-markup"><button type="button" class="btn btn-primary" disabled>Primary button</button>
@@ -166,14 +166,14 @@
     <p class="mb-3">Disabled buttons using the <code>&lt;a&gt;</code> element behave a bit different. <code>&lt;a&gt;</code>s don’t support the <code>disabled</code> attribute, so you must add the <code>.disabled</code> class to make it visually appear disabled.</p>
     <div class="example">
       <a href="javascript:;" class="btn btn-primary disabled" tabindex="-1" role="button" aria-disabled="true">Primary link</a>
-      <a href="javascript:;" class="btn btn-secondary disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>   
+      <a href="javascript:;" class="btn btn-secondary disabled" tabindex="-1" role="button" aria-disabled="true">Link</a>
     </div>
     <figure class="highlight" id="defaultButton2">
 <pre><code class="language-markup"><script type="script/prism-html-markup"><a href="#" class="btn btn-primary disabled" tabindex="-1" role="button" aria-disabled="true">Primary link</a>
 <a href="#" class="btn btn-secondary disabled" tabindex="-1" role="button" aria-disabled="true">Link</a></script></code></pre>
       <button type="button" class="btn btn-clipboard" data-clipboard-target="#defaultButton2">copy</button>
     </figure>
-    
+
     <hr>
 
     <h4 id="with-icon">Icon buttons</h4>
@@ -195,7 +195,7 @@
 </button></script></code></pre>
       <button type="button" class="btn btn-clipboard" data-clipboard-target="#withIcon">copy</button>
     </figure>
-    
+
     <hr>
 
     <h4 id="with-icon-text">Button with text and icon</h4>
@@ -337,7 +337,7 @@
 </button></script></code></pre>
       <button type="button" class="btn btn-clipboard" data-clipboard-target="#socialIconText">copy</button>
     </figure>
-    
+
   </div>
   <div class="col-xl-2 content-nav-wrapper">
     <ul class="nav content-nav d-flex flex-column">
