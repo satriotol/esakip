@@ -203,15 +203,17 @@
                                             </div>
                                             <a class="btn btn-sm btn-primary"
                                                 href="{{ route('rencanaAksi.show', $rencanaAksi->id) }}">Detail</a>
-                                            <form action="{{ route('rencanaAksi.destroy', $rencanaAksi->id) }}"
-                                                method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-danger"
-                                                    onclick="return confirm('Are you sure?')">
-                                                    Delete
-                                                </button>
-                                            </form>
+                                            @if ($rencanaAksi->status_verifikator != 'SELESAI')
+                                                <form action="{{ route('rencanaAksi.destroy', $rencanaAksi->id) }}"
+                                                    method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Are you sure?')">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach

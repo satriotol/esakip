@@ -71,31 +71,15 @@
                         @csrf
                         @include('partials.errors')
                         <div class="mb-3">
-                            <label class="form-label">Status Pengajuan</label>
-                            <select name="status" required class="form-control" @disabled(Auth::user()->opd_id)>
-                                <option value="">Pilih Status</option>
-                                @foreach ($statuses as $status)
-                                    <option value="{{ $status }}" @selected($status == $rencanaAksi->status)>
-                                        {{ $status }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        @if ($rencanaAksi->status == 'DISETUJUI')
-                            <div class="mb-3">
-                                <label class="form-label">Status Penilaian</label>
-                                <select name="status_penilaian" class="form-control" @disabled(Auth::user()->opd_id)>
-                                    <option value="">Pilih Status Penilaian</option>
-                                    @foreach ($penilaians as $penilaian)
-                                        <option value="{{ $penilaian }}" @selected($penilaian == $rencanaAksi->status_penilaian)>
-                                            {{ $penilaian }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        @endif
-                        <div class="mb-3">
-                            <label for="form-label">Note</label>
-                            <textarea @disabled(Auth::user()->opd_id) name="note" class="form-control">{{ $rencanaAksi->note }}</textarea>
-                            <small class="text-danger">Tambahkan Catatan Jika Ditolak</small>
+                            {!! Form::label('note', 'Catatan', ['class' => 'form-label']) !!}
+                            @if (!Auth::user()->opd_id)
+                                {!! Form::textarea('note', $rencanaAksi->note, [
+                                    'class' => 'form-control',
+                                    'placeholder' => 'Masukkan Catatan',
+                                ]) !!}
+                            @else
+                                : {{ $rencanaAksi->note }}
+                            @endif
                         </div>
                         @if (!Auth::user()->opd_id)
                             <div class="text-end">
@@ -284,5 +268,4 @@
             },
         }).mount('#app')
     </script>
-
 @endpush
