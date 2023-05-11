@@ -110,35 +110,53 @@ class RencanaAksiTargetController extends Controller
      */
     public function update(Request $request, RencanaAksiTarget $rencanaAksiTarget)
     {
-        if ($rencanaAksiTarget->rencana_aksi->status == RencanaAksi::STATUS2 && $rencanaAksiTarget->rencana_aksi->status_penilaian != 'SELESAI') {
+        if ($rencanaAksiTarget->rencana_aksi->status == 'PROSES') {
             $data = $request->validate([
-                'realisasi' => 'required',
-                'file' => 'nullable'
-            ]);
-            if ($rencanaAksiTarget->file == null && $request->file == null) {
-                session()->flash('bug', 'File Wajib Diisi');
-                return back();
-            }
-            if ($request->hasFile('file')) {
-                $file = $request->file('file');
-                $name = $file->getClientOriginalName();
-                $file_name = date('mdYHis') . '-' . $name;
-                $data['file'] = $file->storeAs('file', $file_name, 'public_uploads');
-            };
-            $data['status_verifikator'] = null;
-        } elseif ($rencanaAksiTarget->rencana_aksi->status_penilaian == 'SELESAI') {
-            $data = $request->validate([
-                'note_verifikator' => 'nullable',
-                'status_verifikator' => 'required'
+                'note_verifikator' => [
+                    function ($attribute, $value, $fail) use ($request) {
+                        $status_rencana_aksi = $request->input('status_rencana_aksi');
+                        if ($status_rencana_aksi === 'DITOLAK' && empty($value)) {
+                            $fail('Catatan Verifikator Wajib Jika Status Ditolak');
+                        }
+                    }
+                ],
+                'status_rencana_aksi' => 'required'
             ]);
         } else {
-            $data = $request->validate([
-                'target' => 'required|numeric|min:0|not_in:0',
-                'rencana_aksi_note' => 'required',
-                'indikator_kinerja_note' => 'required',
-                'satuan' => 'required',
-                'type' => 'required',
-            ]);
+
+            if ($rencanaAksiTarget->rencana_aksi->status == RencanaAksi::STATUS2 && $rencanaAksiTarget->rencana_aksi->status_penilaian != 'SELESAI') {
+                $data = $request->validate([
+                    'realisasi' => 'required',
+                    'file' => 'nullable'
+                ]);
+                if ($rencanaAksiTarget->file == null && $request->file == null) {
+                    session()->flash('bug', 'File Wajib Diisi');
+                    return back();
+                }
+                if ($request->hasFile('file')) {
+                    $file = $request->file('file');
+                    $name = $file->getClientOriginalName();
+                    $file_name = date('mdYHis') . '-' . $name;
+                    $data['file'] = $file->storeAs('file', $file_name, 'public_uploads');
+                };
+                $data['status_verifikator'] = null;
+            } elseif ($rencanaAksiTarget->rencana_aksi->status_penilaian == 'SELESAI') {
+                $data = $request->validate([
+                    'note_verifikator' => 'nullable',
+                    'status_verifikator' => 'required'
+                ]);
+            } else {
+                $data = $request->validate([
+                    'target' => 'required|numeric|min:0|not_in:0',
+                    'rencana_aksi_note' => 'required',
+                    'indikator_kinerja_note' => 'required',
+                    'satuan' => 'required',
+                    'type' => 'required',
+                ]);
+                $rencanaAksiTarget->update(
+                    ['status_rencana_aksi' => null]
+                );
+            }
         }
         $rencanaAksiTarget->update($data);
         session()->flash('success');

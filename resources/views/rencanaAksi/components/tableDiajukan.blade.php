@@ -1,8 +1,8 @@
 <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
     @csrf
-    {!! Form::text('status', 'DISETUJUI', ['class' => 'd-none']) !!}
+    {!! Form::text('status', 'PROSES', ['class' => 'd-none']) !!}
     <div class="text-end">
-        {!! Form::submit('Lanjut Membuat Realisasi', [
+        {!! Form::submit('Ajukan Rencana Aksi Target', [
             'class' => 'btn btn-success',
             'onclick' => "return confirm('Apakah Anda Yakin, Untuk Melanjutkan Ke Realisasi?')",
         ]) !!}
@@ -16,6 +16,7 @@
         <th>Target</th>
         <th>Satuan</th>
         <th>Tipe</th>
+        <th>Verifikator</th>
         <th>Aksi</th>
     </thead>
     <tbody>
@@ -38,11 +39,23 @@
             <td>
                 @{{ data.type }}
             </td>
+            <td class="text-wrap">
+                <p>
+                    @{{ data.note_verifikator }}
+                </p>
+                <div
+                    :class="[
+                        'badge',
+                        { 'bg-success': data.status_rencana_aksi === 'DITERIMA' },
+                        { 'bg-danger': data.status_rencana_aksi === 'DITOLAK' }
+                    ]">
+                    @{{ data.status_rencana_aksi }}</div>
+            </td>
             <td>
                 @if (!$rencanaAksi->status_penilaian)
-                    <button class="badge bg-warning" @click='updateData(data.id, index)'>Update</button><br>
-                    <button class="badge bg-danger" v-if="data.rencana_aksi.status != 'DISETUJUI'"
-                        @click='deleteData(data.id)'>Delete</button>
+                    <button class="btn btn-sm btn-warning" @click='updateData(data.id, index)'>PERBARUI</button><br>
+                    <button class="btn btn-sm btn-danger" v-if="data.rencana_aksi.status != 'DISETUJUI'"
+                        @click='deleteData(data.id)'>HAPUS</button>
                 @endif
             </td>
         </tr>
@@ -50,9 +63,9 @@
 </table>
 <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
     @csrf
-    {!! Form::text('status', 'DISETUJUI', ['class' => 'd-none']) !!}
+    {!! Form::text('status', 'PROSES', ['class' => 'd-none']) !!}
     <div class="text-end">
-        {!! Form::submit('Lanjut Membuat Realisasi', [
+        {!! Form::submit('Ajukan Rencana Aksi Target', [
             'class' => 'btn btn-success',
             'onclick' => "return confirm('Apakah Anda Yakin, Untuk Melanjutkan Ke Realisasi?')",
         ]) !!}

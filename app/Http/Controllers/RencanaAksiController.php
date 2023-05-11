@@ -81,6 +81,16 @@ class RencanaAksiController extends Controller
                 session()->flash('bug', 'Pastikan Sasaran Sudah Terisi');
                 return back();
             }
+            foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target) {
+                if ($rencana_aksi_target->status_rencana_aksi != 'DITERIMA') {
+                    session()->flash('bug', 'Pastikan Semua Rencana Aksi Target Sudah Diterima');
+                    return back();
+                } else {
+                    $rencana_aksi_target->update([
+                        'note_verifikator' => null,
+                    ]);
+                }
+            }
         }
         if ($request->status_penilaian == 'SELESAI') {
             foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target) {
@@ -94,6 +104,10 @@ class RencanaAksiController extends Controller
             foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target) {
                 if ($rencana_aksi_target->status_verifikator == null) {
                     session()->flash('bug', 'Pastikan Anda Sudah Melakukan Verifikasi Pada : ' . $rencana_aksi_target->indikator_kinerja_note);
+                    return back();
+                }
+                if ($rencana_aksi_target->status_verifikator == 'DITOLAK') {
+                    session()->flash('bug', 'Pastikan Tidak Ada Rencana Aksi Target Ditolak : ' . $rencana_aksi_target->indikator_kinerja_note);
                     return back();
                 }
             }

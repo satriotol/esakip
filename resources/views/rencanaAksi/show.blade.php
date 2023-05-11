@@ -18,7 +18,7 @@
     </nav>
     <div class="row">
         <div class="col-md-6">
-            @if ($rencanaAksi->status != 'DISETUJUI')
+            @if ($rencanaAksi->status == 'DIAJUKAN' || $rencanaAksi->status != 'PROSES' || $rencanaAksi->status == null)
                 @include('rencanaAksi.components.formRencanaAksiTarget')
             @else
                 <div class="card">
@@ -101,7 +101,9 @@
                                 target="_blank">PERJANJIAN
                                 KINERJA {{ $rencanaAksi->opd_perjanjian_kinerja->type }}
                                 {{ $rencanaAksi->opd_perjanjian_kinerja->year }}</a>
-                            @if ($rencanaAksi->status != 'DISETUJUI')
+                            @if ($rencanaAksi->status == 'PROSES')
+                                @include('rencanaAksi.components.tableProsesDiajukan')
+                            @elseif($rencanaAksi->status != 'DISETUJUI')
                                 @include('rencanaAksi.components.tableDiajukan')
                             @elseif($rencanaAksi->status_penilaian == 'SELESAI')
                                 @include('rencanaAksi.components.tableVerifikator')

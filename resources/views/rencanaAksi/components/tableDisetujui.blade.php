@@ -1,16 +1,6 @@
 @if ($rencanaAksi->status_penilaian != 'SELESAI')
     <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
         @csrf
-        {!! Form::text('status', null, ['class' => 'd-none']) !!}
-        <div class="text-end">
-            {!! Form::submit('KEMBALI KE PENGISIAN TARGET', [
-                'class' => 'btn btn-warning',
-                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Pengisian Target?')",
-            ]) !!}
-        </div>
-    </form>
-    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-        @csrf
         {!! Form::text('status_penilaian', 'SELESAI', ['class' => 'd-none']) !!}
         <div class="text-end">
             {!! Form::submit('SELESAIKAN REALISASI', [
@@ -19,6 +9,18 @@
             ]) !!}
         </div>
     </form>
+    @if (Auth::user()->opd_id == null)
+        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+            @csrf
+            {!! Form::text('status', 'PROSES', ['class' => 'd-none']) !!}
+            <div class="text-end">
+                {!! Form::submit('KEMBALI KE PENGISIAN TARGET', [
+                    'class' => 'btn btn-warning',
+                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Pengisian Target?')",
+                ]) !!}
+            </div>
+        </form>
+    @endif
 @else
     @if (Auth::user()->opd_id == null)
         <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
@@ -33,7 +35,7 @@
         </form>
     @endif
 @endif
-<small class="text-danger">Nilai Capaian Akan Muncul Jika Sudah Diverifikasi Oleh Tim Verifikator</small>
+<h5 class="text-danger">Nilai Capaian Akan Muncul Jika Sudah Diverifikasi Oleh Tim Verifikator</h5>
 <table class="table">
     <thead>
         <th width="15%">Sasaran</th>
@@ -109,9 +111,8 @@
                         'badge',
                         'bg-success' => $rencana_aksi_target->status_verifikator == 'DITERIMA',
                         'bg-danger' => $rencana_aksi_target->status_verifikator == 'DITOLAK',
-                        'bg-info' => $rencana_aksi_target->status_verifikator == null,
                     ])>
-                        {{ $rencana_aksi_target->status_verifikator ?? 'PENGAJUAN' }}
+                        {{ $rencana_aksi_target->status_verifikator }}
                     </div> <br>
                     <hr>
                     CATATAN : <br> {{ $rencana_aksi_target->note_verifikator }}
@@ -132,16 +133,6 @@
 @if ($rencanaAksi->status_penilaian != 'SELESAI')
     <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
         @csrf
-        {!! Form::text('status', null, ['class' => 'd-none']) !!}
-        <div class="text-end">
-            {!! Form::submit('KEMBALI KE PENGISIAN TARGET', [
-                'class' => 'btn btn-warning',
-                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Pengisian Target?')",
-            ]) !!}
-        </div>
-    </form>
-    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-        @csrf
         {!! Form::text('status_penilaian', 'SELESAI', ['class' => 'd-none']) !!}
         <div class="text-end">
             {!! Form::submit('SELESAIKAN REALISASI', [
@@ -150,6 +141,18 @@
             ]) !!}
         </div>
     </form>
+    @if (Auth::user()->opd_id == null)
+        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+            @csrf
+            {!! Form::text('status', 'PROSES', ['class' => 'd-none']) !!}
+            <div class="text-end">
+                {!! Form::submit('KEMBALI KE PENGISIAN TARGET', [
+                    'class' => 'btn btn-warning',
+                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Pengisian Target?')",
+                ]) !!}
+            </div>
+        </form>
+    @endif
 @else
     @if (Auth::user()->opd_id == null)
         <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
