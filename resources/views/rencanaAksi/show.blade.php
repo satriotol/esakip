@@ -18,7 +18,7 @@
     </nav>
     <div class="row">
         <div class="col-md-6">
-            @if ($rencanaAksi->status == 'DIAJUKAN' || $rencanaAksi->status != 'PROSES' || $rencanaAksi->status == null)
+            @if ($rencanaAksi->status != 'DISETUJUI' && $rencanaAksi->status != 'PROSES')
                 @include('rencanaAksi.components.formRencanaAksiTarget')
             @else
                 <div class="card">
