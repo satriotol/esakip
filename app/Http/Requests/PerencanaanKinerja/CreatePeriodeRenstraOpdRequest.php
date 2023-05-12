@@ -24,8 +24,8 @@ class CreatePeriodeRenstraOpdRequest extends FormRequest
     public function rules()
     {
         return [
-            'start_year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
-            'end_year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+            'start_year' => 'required',
+            'end_year' => 'required',
 
         ];
     }
