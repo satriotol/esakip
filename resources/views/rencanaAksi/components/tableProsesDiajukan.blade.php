@@ -33,12 +33,12 @@
     </thead>
     <tbody>
         <tr v-for="(data, index) in datas">
-            <td class="text-wrap" style="width: 25%">@{{ data.opd_perjanjian_kinerja_sasaran_name }}
+            <td class="text-wrap">@{{ data.opd_perjanjian_kinerja_sasaran_name }}
             </td>
-            <td>
+            <td class="text-wrap">
                 @{{ data.rencana_aksi_note }}
             </td>
-            <td>
+            <td class="text-wrap">
                 @{{ data.indikator_kinerja_note }}
             </td>
             <td>
