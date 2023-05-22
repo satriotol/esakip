@@ -38,9 +38,9 @@
 <h5 class="text-danger">Nilai Capaian Akan Muncul Jika Sudah Diverifikasi Oleh Tim Verifikator</h5>
 <table class="table">
     <thead>
-        <th width="15%">Sasaran</th>
-        <th width="15%">Rencana Aksi</th>
-        <th width="15%">Indikator</th>
+        <th>Sasaran</th>
+        <th>Rencana Aksi</th>
+        <th>Indikator</th>
         <th>Target <br> Tipe</th>
         <th>Realisasi <br> Data Dukung</th>
         <th>Status & Catatan Verifikator</th>

@@ -27,7 +27,6 @@
         <th>Rencana Aksi</th>
         <th>Indikator</th>
         <th>Target</th>
-        <th>Tipe</th>
         <th>Catatan Verifikator</th>
         <th>Aksi</th>
     </thead>
@@ -42,9 +41,7 @@
                 @{{ data.indikator_kinerja_note }}
             </td>
             <td>
-                @{{ data.target }} @{{ data.satuan }}
-            </td>
-            <td>
+                @{{ data.target }} @{{ data.satuan }} <br>
                 @{{ data.type }}
             </td>
             <td>
