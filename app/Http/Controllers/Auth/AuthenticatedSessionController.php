@@ -90,7 +90,10 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
-        return redirect('/');
+        if (Auth::user('email', 'eksekutif@semarangkota.go.id')) {
+            return redirect('https://eksekutif.semarangkota.go.id/administrator/user/profile');
+        } else {
+            return redirect('/');
+        }
     }
 }
