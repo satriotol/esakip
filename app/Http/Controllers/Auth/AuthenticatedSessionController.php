@@ -85,13 +85,16 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+        if (Auth::user()->email == 'eksekutif@semarangkota.go.id') {
+            $back = 'https://eksekutif.semarangkota.go.id/administrator/user/profile';
+        }
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-        if (Auth::user('email', 'eksekutif@semarangkota.go.id')) {
-            return redirect('https://eksekutif.semarangkota.go.id/administrator/user/profile');
+        if (Auth::user()) {
+            return redirect($back);
         } else {
             return redirect('/');
         }
