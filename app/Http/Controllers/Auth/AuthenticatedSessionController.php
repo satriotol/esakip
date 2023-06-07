@@ -87,16 +87,14 @@ class AuthenticatedSessionController extends Controller
     {
         if (Auth::user()->email == 'eksekutif@semarangkota.go.id') {
             $back = 'https://eksekutif.semarangkota.go.id/administrator/user/profile';
+        } else {
+            $back = '/';
         }
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-        if (Auth::user()) {
-            return redirect($back);
-        } else {
-            return redirect('/');
-        }
+        return redirect($back);
     }
 }
