@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CaptchaServiceController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
@@ -14,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);
 
+Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);
+Route::get('/login/eksekutif', [AuthenticatedSessionController::class, 'loginEksekutif']);
 Route::prefix('administrator')->group(__DIR__ . '/adminRoutes.php');
 Route::get('/', [IndexController::class, 'home'])->name('home');
 Route::get('/pelaporan_kinerja', [IndexController::class, 'pelaporan_kinerja'])->name('pelaporan_kinerja');
