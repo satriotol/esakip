@@ -66,7 +66,7 @@ class AuthenticatedSessionController extends Controller
                 }
             }
         } else {
-            return 'error';
+            return redirect(route('home'));
         }
     }
     public function get_user_by_token($token)
