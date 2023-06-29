@@ -8,7 +8,7 @@
         ]) !!}
     </div>
 </form>
-<table class="table">
+<table class="table table-bordered">
     <thead>
         <th>Sasaran</th>
         <th>Rencana Aksi</th>

@@ -36,12 +36,9 @@
     @endif
 @endif
 <h5 class="text-danger">Nilai Capaian Akan Muncul Jika Sudah Diverifikasi Oleh Tim Verifikator</h5>
-<table class="table">
+<table class="table table-bordered">
     <thead>
-        <th>Sasaran</th>
-        <th>Rencana Aksi</th>
-        <th>Indikator</th>
-        <th>Target <br> Tipe</th>
+        <th>Detail</th>
         <th>Realisasi <br> Data Dukung</th>
         <th>Status & Catatan Verifikator</th>
         <th>Capaian</th>
@@ -50,24 +47,52 @@
         @foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target)
             <tr>
 
-                <td class="text-wrap">
-                    {{ $rencana_aksi_target->opd_perjanjian_kinerja_sasaran_name }}
-                </td>
-                <td class="text-wrap">
-                    {{ $rencana_aksi_target->rencana_aksi_note }}
-                </td>
-                <td class="text-wrap">
-                    {{ $rencana_aksi_target->indikator_kinerja_note }}
-                </td>
-                <td>
-                    {{ $rencana_aksi_target->target }} {{ $rencana_aksi_target->satuan }} <br>
-                    <div @class([
-                        'badge',
-                        'bg-primary' => $rencana_aksi_target->type == 'UMUM',
-                        'bg-warning' => $rencana_aksi_target->type == 'KHUSUS',
-                    ])>
-                        {{ $rencana_aksi_target->type }}
-                    </div>
+                <td class="text-wrap" style="width: 40%">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Sasaran</th>
+                                <th>:</th>
+                                <td class="text-wrap">{{ $rencana_aksi_target->opd_perjanjian_kinerja_sasaran_name }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Rencana Aksi</th>
+                                <th>:</th>
+                                <td class="text-wrap"> {{ $rencana_aksi_target->rencana_aksi_note }}</td>
+                            </tr>
+                            <tr>
+                                <th>Indikator Kinerja</th>
+                                <th>:</th>
+                                <td class="text-wrap"> {{ $rencana_aksi_target->indikator_kinerja_note }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tipe</th>
+                                <th>:</th>
+                                <td>
+                                    <div @class([
+                                        'badge',
+                                        'bg-primary' => $rencana_aksi_target->type == 'UMUM',
+                                        'bg-warning' => $rencana_aksi_target->type == 'KHUSUS',
+                                    ])>
+                                        {{ $rencana_aksi_target->type }}
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Target</th>
+                                <th>:</th>
+                                <td>
+                                    <h4>
+                                        {{ $rencana_aksi_target->target }} {{ $rencana_aksi_target->satuan }}
+                                    </h4>
+                                </td>
+                            </tr>
+                            <tr>
+
+                            </tr>
+                        </tbody>
+                    </table>
                 </td>
                 <td>
                     @if ($rencanaAksi->status_penilaian == null)

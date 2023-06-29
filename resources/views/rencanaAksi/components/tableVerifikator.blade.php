@@ -33,7 +33,7 @@
         </form>
     @endif
 @endif
-<table class="table">
+<table class="table table-bordered">
     <thead>
         <th>Detail</th>
         <th>Realisasi</th>
