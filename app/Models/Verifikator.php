@@ -18,6 +18,16 @@ class Verifikator extends Model implements Auditable
     {
         return $this->belongsTo(Opd::class, 'opd_id');
     }
+    public function getPhoneAttribute($value)
+    {
+        // Memeriksa apakah nomor telepon diawali dengan 0
+        if (substr($value, 0, 1) === '0') {
+            // Mengganti awalan 0 dengan +62
+            $value = preg_replace('/^0/', '+62', $value);
+        }
+
+        return $value;
+    }
     public function getNameJabatanAttribute()
     {
         return $this->name . ' | ' . $this->jabatan;

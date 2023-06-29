@@ -57,6 +57,25 @@
                                         <h3>{{ $rencanaAksi->getTotalCapaian($rencanaAksi->id) }}</h3>
                                     </td>
                                 </tr>
+                                @isset($rencanaAksi->verifikator)
+                                    <tr>
+                                        <td>Nama Verifikator</td>
+                                        <td>:</td>
+                                        <td>{{ $rencanaAksi->verifikator->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Jabatan Verifikator</td>
+                                        <td>:</td>
+                                        <td>{{ $rencanaAksi->verifikator->jabatan }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nomor HP Verifikator</td>
+                                        <td>:</td>
+                                        <td><a target="_blank"
+                                                href="https://wa.me/{{ $rencanaAksi->verifikator->phone }}">{{ $rencanaAksi->verifikator->phone }}</a>
+                                        </td>
+                                    </tr>
+                                @endisset
                             </tbody>
                         </table>
                     </div>
