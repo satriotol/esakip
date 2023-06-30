@@ -207,4 +207,5 @@ Route::group(['middleware' => ['auth']], function () {
     // end of evaluasi kinerja
 
     Route::post('user/resetPassword/{user}', [UserController::class, 'resetPassword'])->name('user.resetPassword');
+    Route::get('user/ubah/profile', [UserController::class, 'editProfile'])->name('user.editProfile');
 });

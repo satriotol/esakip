@@ -39,20 +39,23 @@
                         <label>Password Confirmation</label>
                         <input type="password" @empty($user) required @endempty
                             name="password_confirmation" class="form-control">
+                        {!! Form::hidden('type', isset($type) ? $type : '') !!}
                     </div>
-                    <div class="mb-3">
-                        <label>Roles</label>
-                        <select class="js-example-basic-single form-select" data-width="100%" required name="roles">
-                            <option value="">Select Role</option>
-                            @foreach ($roles as $r)
-                                <option value="{{ $r->id }}"
-                                    @isset($user) @if ($r->id === $user->roles[0]->id) selected @endif
+                    @empty($type)
+                        <div class="mb-3">
+                            <label>Roles</label>
+                            <select class="js-example-basic-single form-select" data-width="100%" required name="roles">
+                                <option value="">Select Role</option>
+                                @foreach ($roles as $r)
+                                    <option value="{{ $r->id }}"
+                                        @isset($user) @if ($r->id === $user->roles[0]->id) selected @endif
                                 @endisset>
-                                    {{ $r->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                                        {{ $r->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endempty
                     <div class="text-end">
                         <input class="btn btn-primary" type="submit" value="Submit">
                     </div>

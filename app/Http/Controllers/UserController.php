@@ -82,6 +82,13 @@ class UserController extends Controller
         $roles = Role::all();
         return view('user.create', compact('user', 'roles'));
     }
+    public function editProfile()
+    {
+        $user = Auth::user();
+        $roles = Role::all();
+        $type = 'editProfile';
+        return view('user.create', compact('user', 'roles', 'type'));
+    }
 
     /**
      * Update the specified resource in storage.
@@ -97,10 +104,15 @@ class UserController extends Controller
             $data['password'] = Hash::make($request->password);
         }
         $user->update($data);
-        DB::table('model_has_roles')->where('model_id', $user->id)->delete();
-        $user->assignRole($request['roles']);
-        session()->flash('success');
-        return redirect(route('user.index'));
+        if ($request->type != 'editProfile') {
+            DB::table('model_has_roles')->where('model_id', $user->id)->delete();
+            $user->assignRole($request['roles']);
+            session()->flash('success');
+            return redirect(route('user.index'));
+        }else{
+            session()->flash('success');
+            return back();
+        }
     }
 
     /**

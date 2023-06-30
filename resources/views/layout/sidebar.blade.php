@@ -351,6 +351,12 @@
                     </a>
                 </li>
             @endcan
+            <li class="nav-item {{ active_class(['user.*']) }}">
+                <a href="{{ route('user.editProfile') }}" class="nav-link">
+                    <i class="link-icon" data-feather="unlock"></i>
+                    <span class="link-title">Edit Profil</span>
+                </a>
+            </li>
             {{-- <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="collapse" href="#manualBook" role="button"
                     aria-controls="manualBook">
