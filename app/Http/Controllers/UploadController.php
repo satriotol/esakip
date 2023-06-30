@@ -23,4 +23,7 @@ class UploadController extends Controller
         };
         return 'success';
     }
+    public function revert(Request $request)
+    {
+    }
 }

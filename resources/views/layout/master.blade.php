@@ -136,6 +136,7 @@
             FilePond.create(inputElement, {
                 server: {
                     process: '{{ route('upload.store') }}',
+                    revert: '{{ route('upload.revert') }}',
                     headers: {
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     }

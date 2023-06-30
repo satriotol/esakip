@@ -121,6 +121,7 @@ Route::group(['middleware' => ['auth']], function () {
     // end of kota
     // ===========================
     Route::post('upload/store', [UploadController::class, 'store'])->name('upload.store');
+    Route::delete('revert/image', [UploadController::class, 'revert'])->name('upload.revert');
     // opd
     Route::resource('ikuOpd', IkuOpdController::class);
     Route::resource('inovasiPrestasiOpd', InovasiPrestasiOpdController::class);
