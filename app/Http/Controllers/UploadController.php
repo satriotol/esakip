@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UploadController extends Controller
 {
@@ -16,8 +17,8 @@ class UploadController extends Controller
         };
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $name = $file->getClientOriginalName();
-            $file_name = date('mdYHis') . '-' . $name;
+            $extension = $file->getClientOriginalExtension();
+            $file_name = date('mdYHis') . '-' . Str::random(8) . '.' . $extension;
             $file = $file->storeAs('file', $file_name, 'public_uploads');
             return $file;
         };
