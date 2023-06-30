@@ -186,7 +186,7 @@
                                                     <a href="{{ route('opdPenilaian.edit', $opdPenilaian->id) }}"
                                                         class="btn btn-sm btn-primary ml-1">Inovasi Prestasi</a>
                                                 @endif
-                                                <form action="{{ route('opdPenilaian.destroy', $opdPenilaian->id) }}"
+                                                {{-- <form action="{{ route('opdPenilaian.destroy', $opdPenilaian->id) }}"
                                                     method="POST" class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
@@ -194,7 +194,7 @@
                                                         onclick="return confirm('Are you sure?')">
                                                         Delete
                                                     </button>
-                                                </form>
+                                                </form> --}}
                                             @else
                                                 <a href="{{ route('opdPenilaian.exportDetailPdf', $opdPenilaian->id) }}"
                                                     target="_blank" class="btn btn-sm btn-danger">Cetak Detail Penilaian</a>
