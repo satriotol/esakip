@@ -25,9 +25,13 @@ class AuditController extends Controller
     public function index(Request $request)
     {
         $user_id = $request->user_id;
+        $event = $request->event;
         $audits = Audit::query();
         if ($user_id) {
             $audits = $audits->where('user_id', $user_id);
+        }
+        if ($event) {
+            $audits = $audits->where('event', $event);
         }
         $audits = $audits->orderBy('id', 'desc')->paginate();
         $users = User::all();

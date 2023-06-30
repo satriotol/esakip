@@ -27,7 +27,7 @@
                     </div>
                     <form action="">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>User</label>
                                     <select name="user_id" class="js-example-basic-single form-select" id="">
@@ -37,6 +37,12 @@
                                                 value="{{ $user->id }}">{{ $user->name }}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {!! Form::label('event', 'Event') !!}
+                                    {!! Form::text('event', @old('event'), ['class' => 'form-control']) !!}
                                 </div>
                             </div>
                         </div>
