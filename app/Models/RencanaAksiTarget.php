@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use OwenIt\Auditing\Contracts\Auditable;
+use OwenIt\Auditing\Auditable as AuditableTrait;
 
-class RencanaAksiTarget extends Model
+class RencanaAksiTarget extends Model implements Auditable
 {
     use HasFactory;
+    use AuditableTrait;
     protected $fillable = ['opd_perjanjian_kinerja_sasaran_id', 'file', 'rencana_aksi_id', 'target', 'realisasi', 'status', 'note', 'rencana_aksi_note', 'indikator_kinerja_note', 'satuan', 'type', 'note_verifikator', 'status_verifikator', 'status_rencana_aksi'];
 
     protected $appends = ['opd_perjanjian_kinerja_sasaran_name', 'capaian'];

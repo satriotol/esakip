@@ -27,7 +27,7 @@
                     </div>
                     <form action="">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label>User</label>
                                     <select name="user_id" class="js-example-basic-single form-select" id="">
@@ -39,10 +39,22 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     {!! Form::label('event', 'Event') !!}
-                                    {!! Form::text('event', @old('event'), ['class' => 'form-control']) !!}
+                                    {!! Form::select('event', $events, old('event'), [
+                                        'class' => 'js-example-basic-single form-select',
+                                        'placeholder' => 'Pilih Event',
+                                    ]) !!}
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    {!! Form::label('auditable_type', 'Auditable Type') !!}
+                                    {!! Form::select('auditable_type', $auditable_types, old('auditable_type'), [
+                                        'class' => 'js-example-basic-single form-select',
+                                        'placeholder' => 'Pilih Auditable Type',
+                                    ]) !!}
                                 </div>
                             </div>
                         </div>
