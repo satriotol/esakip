@@ -81,36 +81,38 @@
                             </object>
                         </div>
                         <div class="col-md-4">
-                            <form action="{{ route('opdPerjanjianKinerja.updateStatus', $opdPerjanjianKinerja->id) }}"
-                                method="POST">
-                                @method('PUT')
-                                @csrf
-                                <div class="mb-3">
-                                    <label>Status</label>
-                                    <select name="status" id="" required class="form-control"
-                                        {{ Auth::user()->opd_id ? 'disabled' : '' }}>
-                                        <option value="">Pilih Status</option>
-                                        @foreach ($statuses as $status)
-                                            <option value="{{ $status }}"
-                                                {{ $status == $opdPerjanjianKinerja->status ? 'selected' : '' }}>
-                                                {{ $status }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label>Catatan</label>
-                                    <textarea name="note" class="form-control" id="" cols="30" rows="10"
-                                        {{ Auth::user()->opd_id ? 'disabled' : '' }}>{{ $opdPerjanjianKinerja->note }}</textarea>
-                                </div>
-                                <small class="text-danger">Pastikan Sasaran, Indikator dan Program Anggaran Sudah
-                                    Terisi</small>
-                                @if (!Auth::user()->opd_id)
-                                    <div class="text-end">
-                                        <button class="btn btn-sm btn-success" type="submit">Update</button>
+                            @can('opdPerjanjianKinerja-edit')
+                                <form action="{{ route('opdPerjanjianKinerja.updateStatus', $opdPerjanjianKinerja->id) }}"
+                                    method="POST">
+                                    @method('PUT')
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label>Status</label>
+                                        <select name="status" id="" required class="form-control"
+                                            {{ Auth::user()->opd_id ? 'disabled' : '' }}>
+                                            <option value="">Pilih Status</option>
+                                            @foreach ($statuses as $status)
+                                                <option value="{{ $status }}"
+                                                    {{ $status == $opdPerjanjianKinerja->status ? 'selected' : '' }}>
+                                                    {{ $status }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
-                                @endif
-                            </form>
+                                    <div class="mb-3">
+                                        <label>Catatan</label>
+                                        <textarea name="note" class="form-control" id="" cols="30" rows="10"
+                                            {{ Auth::user()->opd_id ? 'disabled' : '' }}>{{ $opdPerjanjianKinerja->note }}</textarea>
+                                    </div>
+                                    <small class="text-danger">Pastikan Sasaran, Indikator dan Program Anggaran Sudah
+                                        Terisi</small>
+                                    @if (!Auth::user()->opd_id)
+                                        <div class="text-end">
+                                            <button class="btn btn-sm btn-success" type="submit">Update</button>
+                                        </div>
+                                    @endif
+                                </form>
+                            @endcan
                         </div>
                     </div>
                 </div>

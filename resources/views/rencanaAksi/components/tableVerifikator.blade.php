@@ -1,38 +1,40 @@
-@if (Auth::user()->opd_id == null)
-    @if ($rencanaAksi->status_verifikator != 'SELESAI')
-        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-            @csrf
-            {!! Form::text('status_penilaian', null, ['class' => 'd-none']) !!}
-            <div class="text-end">
-                {!! Form::submit('KEMBALI MENGISI REALISASI', [
-                    'class' => 'btn btn-warning',
-                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Realisasi?')",
-                ]) !!}
-            </div>
-        </form>
-        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-            @csrf
-            {!! Form::text('status_verifikator', 'SELESAI', ['class' => 'd-none']) !!}
-            <div class="text-end">
-                {!! Form::submit('SELESAI VERIFIKASI', [
-                    'class' => 'btn btn-success',
-                    'onclick' => "return confirm('Apakah Anda Yakin, Menyelesaikan Verifikasi?')",
-                ]) !!}
-            </div>
-        </form>
-    @else
-        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-            @csrf
-            {!! Form::text('status_verifikator', null, ['class' => 'd-none']) !!}
-            <div class="text-end">
-                {!! Form::submit('KEMBALI VERIFIKASI', [
-                    'class' => 'btn btn-warning',
-                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Verifikasi?')",
-                ]) !!}
-            </div>
-        </form>
+@can('rencanaAksi-create')
+    @if (Auth::user()->opd_id == null)
+        @if ($rencanaAksi->status_verifikator != 'SELESAI')
+            <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+                @csrf
+                {!! Form::text('status_penilaian', null, ['class' => 'd-none']) !!}
+                <div class="text-end">
+                    {!! Form::submit('KEMBALI MENGISI REALISASI', [
+                        'class' => 'btn btn-warning',
+                        'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Realisasi?')",
+                    ]) !!}
+                </div>
+            </form>
+            <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+                @csrf
+                {!! Form::text('status_verifikator', 'SELESAI', ['class' => 'd-none']) !!}
+                <div class="text-end">
+                    {!! Form::submit('SELESAI VERIFIKASI', [
+                        'class' => 'btn btn-success',
+                        'onclick' => "return confirm('Apakah Anda Yakin, Menyelesaikan Verifikasi?')",
+                    ]) !!}
+                </div>
+            </form>
+        @else
+            <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+                @csrf
+                {!! Form::text('status_verifikator', null, ['class' => 'd-none']) !!}
+                <div class="text-end">
+                    {!! Form::submit('KEMBALI VERIFIKASI', [
+                        'class' => 'btn btn-warning',
+                        'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Verifikasi?')",
+                    ]) !!}
+                </div>
+            </form>
+        @endif
     @endif
-@endif
+@endcan
 <table class="table table-bordered">
     <thead>
         <th>Detail</th>
@@ -129,35 +131,37 @@
                 </td>
                 <td>
                     @if (Auth::user()->opd_id == null && $rencanaAksi->status_verifikator != 'SELESAI')
-                        <form action="{{ route('rencanaAksiTarget.update', $rencana_aksi_target->id) }}"
-                            method="post">
-                            @method('PUT')
-                            @csrf
-                            <div class="form-group">
-                                {!! Form::label('note_verifikator', 'Catatan Verifikator') !!}
-                                {!! Form::textarea('note_verifikator', $rencana_aksi_target->note_verifikator, [
-                                    'class' => 'form-control',
-                                    'placeholder' => 'Masukkan Catatan Verifikator',
-                                ]) !!}
-                            </div>
-                            <div class="form-group">
-                                {!! Form::label('status_verifikator', 'Status Verifikasi') !!}
-                                @php
-                                    $statusVerifikators = [
-                                        'DITERIMA' => 'DITERIMA',
-                                        'DITOLAK' => 'DITOLAK',
-                                    ];
-                                @endphp
-                                {!! Form::select('status_verifikator', $statusVerifikators, $rencana_aksi_target->status_verifikator, [
-                                    'class' => 'form-select',
-                                    'placeholder' => 'Pilih Status',
-                                    'required',
-                                ]) !!}
-                            </div>
-                            <div class="text-end">
-                                {!! Form::submit('Simpan', ['class' => 'btn btn-success']) !!}
-                            </div>
-                        </form>
+                        @can('rencanaAksi-create')
+                            <form action="{{ route('rencanaAksiTarget.update', $rencana_aksi_target->id) }}"
+                                method="post">
+                                @method('PUT')
+                                @csrf
+                                <div class="form-group">
+                                    {!! Form::label('note_verifikator', 'Catatan Verifikator') !!}
+                                    {!! Form::textarea('note_verifikator', $rencana_aksi_target->note_verifikator, [
+                                        'class' => 'form-control',
+                                        'placeholder' => 'Masukkan Catatan Verifikator',
+                                    ]) !!}
+                                </div>
+                                <div class="form-group">
+                                    {!! Form::label('status_verifikator', 'Status Verifikasi') !!}
+                                    @php
+                                        $statusVerifikators = [
+                                            'DITERIMA' => 'DITERIMA',
+                                            'DITOLAK' => 'DITOLAK',
+                                        ];
+                                    @endphp
+                                    {!! Form::select('status_verifikator', $statusVerifikators, $rencana_aksi_target->status_verifikator, [
+                                        'class' => 'form-select',
+                                        'placeholder' => 'Pilih Status',
+                                        'required',
+                                    ]) !!}
+                                </div>
+                                <div class="text-end">
+                                    {!! Form::submit('Simpan', ['class' => 'btn btn-success']) !!}
+                                </div>
+                            </form>
+                        @endcan
                     @else
                         {{ $rencana_aksi_target->note_verifikator }}
                     @endif
@@ -166,38 +170,41 @@
         @endforeach
     </tbody>
 </table>
-@if (Auth::user()->opd_id == null)
-    @if ($rencanaAksi->status_verifikator != 'SELESAI')
-        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-            @csrf
-            {!! Form::text('status_penilaian', null, ['class' => 'd-none']) !!}
-            <div class="text-end">
-                {!! Form::submit('KEMBALI MENGISI REALISASI', [
-                    'class' => 'btn btn-warning',
-                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Realisasi?')",
-                ]) !!}
-            </div>
-        </form>
-        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-            @csrf
-            {!! Form::text('status_verifikator', 'SELESAI', ['class' => 'd-none']) !!}
-            <div class="text-end">
-                {!! Form::submit('SELESAI VERIFIKASI', [
-                    'class' => 'btn btn-success',
-                    'onclick' => "return confirm('Apakah Anda Yakin, Menyelesaikan Verifikasi?')",
-                ]) !!}
-            </div>
-        </form>
-    @else
-        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-            @csrf
-            {!! Form::text('status_verifikator', null, ['class' => 'd-none']) !!}
-            <div class="text-end">
-                {!! Form::submit('KEMBALI VERIFIKASI', [
-                    'class' => 'btn btn-warning',
-                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Verifikasi?')",
-                ]) !!}
-            </div>
-        </form>
+@can('rencanaAksi-create')
+
+    @if (Auth::user()->opd_id == null)
+        @if ($rencanaAksi->status_verifikator != 'SELESAI')
+            <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+                @csrf
+                {!! Form::text('status_penilaian', null, ['class' => 'd-none']) !!}
+                <div class="text-end">
+                    {!! Form::submit('KEMBALI MENGISI REALISASI', [
+                        'class' => 'btn btn-warning',
+                        'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Realisasi?')",
+                    ]) !!}
+                </div>
+            </form>
+            <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+                @csrf
+                {!! Form::text('status_verifikator', 'SELESAI', ['class' => 'd-none']) !!}
+                <div class="text-end">
+                    {!! Form::submit('SELESAI VERIFIKASI', [
+                        'class' => 'btn btn-success',
+                        'onclick' => "return confirm('Apakah Anda Yakin, Menyelesaikan Verifikasi?')",
+                    ]) !!}
+                </div>
+            </form>
+        @else
+            <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+                @csrf
+                {!! Form::text('status_verifikator', null, ['class' => 'd-none']) !!}
+                <div class="text-end">
+                    {!! Form::submit('KEMBALI VERIFIKASI', [
+                        'class' => 'btn btn-warning',
+                        'onclick' => "return confirm('Apakah Anda Yakin, Untuk Kembali Ke Verifikasi?')",
+                    ]) !!}
+                </div>
+            </form>
+        @endif
     @endif
-@endif
+@endcan

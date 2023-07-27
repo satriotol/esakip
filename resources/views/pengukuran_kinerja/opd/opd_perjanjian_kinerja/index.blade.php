@@ -83,12 +83,14 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="text-end mt-2">
-                        <a class="badge bg-primary" href="{{ route('opdPerjanjianKinerja.create') }}">
-                            <i data-feather="plus"></i>
-                            Tambah
-                        </a>
-                    </div>
+                    @can('opdPerjanjianKinerja-create')
+                        <div class="text-end mt-2">
+                            <a class="badge bg-primary" href="{{ route('opdPerjanjianKinerja.create') }}">
+                                <i data-feather="plus"></i>
+                                Tambah
+                            </a>
+                        </div>
+                    @endcan
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
@@ -124,18 +126,20 @@
                                             <a href="{{ route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja->id) }}"
                                                 class="badge bg-primary ml-1">Detail</a>
                                             @if ($opdPerjanjianKinerja->status != 'DITERIMA')
-                                                <a href="{{ route('opdPerjanjianKinerja.edit', $opdPerjanjianKinerja->id) }}"
-                                                    class="badge bg-warning ml-1">Edit</a>
-                                                <form
-                                                    action="{{ route('opdPerjanjianKinerja.destroy', $opdPerjanjianKinerja->id) }}"
-                                                    method="POST" class="d-inline">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="badge bg-danger"
-                                                        onclick="return confirm('Are you sure?')">
-                                                        Delete
-                                                    </button>
-                                                </form>
+                                                @can('opdPerjanjianKinerja-edit')
+                                                    <a href="{{ route('opdPerjanjianKinerja.edit', $opdPerjanjianKinerja->id) }}"
+                                                        class="badge bg-warning ml-1">Edit</a>
+                                                    <form
+                                                        action="{{ route('opdPerjanjianKinerja.destroy', $opdPerjanjianKinerja->id) }}"
+                                                        method="POST" class="d-inline">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="badge bg-danger"
+                                                            onclick="return confirm('Are you sure?')">
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                @endcan
                                             @endif
                                         </td>
                                     </tr>

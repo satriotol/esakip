@@ -17,12 +17,14 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">{{ $name }}</h6>
-                    <div class="text-end mb-2">
-                        <a class="btn btn-primary" href="{{ route('rencanaAksi.create') }}">
-                            <i data-feather="plus"></i>
-                            Tambah
-                        </a>
-                    </div>
+                    @can('rencanaAksi-create')
+                        <div class="text-end mb-2">
+                            <a class="btn btn-primary" href="{{ route('rencanaAksi.create') }}">
+                                <i data-feather="plus"></i>
+                                Tambah
+                            </a>
+                        </div>
+                    @endcan
                     <div class="row">
                         <div class="col-md-8">
                             <form action="">
@@ -149,27 +151,29 @@
                                                                 aria-label="btn-close"></button>
                                                         </div>
                                                         <div class="modal-body">
-                                                            @if (Auth::user()->opd_id == null)
-                                                                <form
-                                                                    action="{{ route('rencanaAksi.update', $rencanaAksi->id) }}"
-                                                                    method="post">
-                                                                    @method('PUT')
-                                                                    @csrf
-                                                                    <div class="mb-3">
-                                                                        {!! Form::hidden('jenis', 'verifikator', []) !!}
-                                                                        {!! Form::label('verifikator_id', 'Verifikator', ['class' => 'form-label']) !!}
-                                                                        {!! Form::select(
-                                                                            'verifikator_id',
-                                                                            $verifikators->pluck('name_jabatan', 'id'),
-                                                                            isset($rencanaAksi) ? $rencanaAksi->verifikator_id : @old('verifikator_id'),
-                                                                            ['class' => 'form-select', 'placeholder' => 'Pilih Verifikator', 'required'],
-                                                                        ) !!}
-                                                                    </div>
-                                                                    <div class="text-end">
-                                                                        {!! Form::submit('Simpan', ['class' => 'btn btn-success']) !!}
-                                                                    </div>
-                                                                </form>
-                                                            @endif
+                                                            @can('rencanaAksi-create')
+                                                                @if (Auth::user()->opd_id == null)
+                                                                    <form
+                                                                        action="{{ route('rencanaAksi.update', $rencanaAksi->id) }}"
+                                                                        method="post">
+                                                                        @method('PUT')
+                                                                        @csrf
+                                                                        <div class="mb-3">
+                                                                            {!! Form::hidden('jenis', 'verifikator', []) !!}
+                                                                            {!! Form::label('verifikator_id', 'Verifikator', ['class' => 'form-label']) !!}
+                                                                            {!! Form::select(
+                                                                                'verifikator_id',
+                                                                                $verifikators->pluck('name_jabatan', 'id'),
+                                                                                isset($rencanaAksi) ? $rencanaAksi->verifikator_id : @old('verifikator_id'),
+                                                                                ['class' => 'form-select', 'placeholder' => 'Pilih Verifikator', 'required'],
+                                                                            ) !!}
+                                                                        </div>
+                                                                        <div class="text-end">
+                                                                            {!! Form::submit('Simpan', ['class' => 'btn btn-success']) !!}
+                                                                        </div>
+                                                                    </form>
+                                                                @endif
+                                                            @endcan
                                                             @isset($rencanaAksi->verifikator)
                                                                 <h5>Detail Verifikator</h5>
                                                                 <table class="table">

@@ -1,25 +1,28 @@
-@if (!Auth::user()->opd_id)
-    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-        @csrf
-        {!! Form::text('status', 'DIAJUKAN', ['class' => 'd-none']) !!}
-        <div class="text-end">
-            {!! Form::submit('Kembalikan Ke OPD', [
-                'class' => 'btn btn-warning',
-                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Mengembalikan Ke OPD?')",
-            ]) !!}
-        </div>
-    </form>
-    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-        @csrf
-        {!! Form::text('status', 'DISETUJUI', ['class' => 'd-none']) !!}
-        <div class="text-end">
-            {!! Form::submit('Terima Rencana Aksi Target', [
-                'class' => 'btn btn-success',
-                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Melanjutkan Ke Realisasi?')",
-            ]) !!}
-        </div>
-    </form>
-@endif
+@can('rencanaAksi-create')
+
+    @if (!Auth::user()->opd_id)
+        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+            @csrf
+            {!! Form::text('status', 'DIAJUKAN', ['class' => 'd-none']) !!}
+            <div class="text-end">
+                {!! Form::submit('Kembalikan Ke OPD', [
+                    'class' => 'btn btn-warning',
+                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Mengembalikan Ke OPD?')",
+                ]) !!}
+            </div>
+        </form>
+        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+            @csrf
+            {!! Form::text('status', 'DISETUJUI', ['class' => 'd-none']) !!}
+            <div class="text-end">
+                {!! Form::submit('Terima Rencana Aksi Target', [
+                    'class' => 'btn btn-success',
+                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Melanjutkan Ke Realisasi?')",
+                ]) !!}
+            </div>
+        </form>
+    @endif
+@endcan
 <h5 class="text-danger">Pada Proses Ini Rencana Aksi Target Anda Sedang Kami Evaluasi</h5>
 <table class="table table-bordered">
     <thead>
@@ -82,32 +85,38 @@
                 @endif
             </td>
             <td>
-                @if (!$rencanaAksi->status_penilaian && !Auth::user()->opd_id)
-                    <button class="btn btn-sm btn-primary" @click='updateData(data.id, index)'>PERBARUI</button><br>
-                @endif
+                @can('rencanaAksi-create')
+
+                    @if (!$rencanaAksi->status_penilaian && !Auth::user()->opd_id)
+                        <button class="btn btn-sm btn-primary" @click='updateData(data.id, index)'>PERBARUI</button><br>
+                    @endif
+                @endcan
             </td>
         </tr>
     </tbody>
 </table>
-@if (!Auth::user()->opd_id)
-    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-        @csrf
-        {!! Form::text('status', 'DIAJUKAN', ['class' => 'd-none']) !!}
-        <div class="text-end">
-            {!! Form::submit('Kembalikan Ke OPD', [
-                'class' => 'btn btn-warning',
-                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Mengembalikan Ke OPD?')",
-            ]) !!}
-        </div>
-    </form>
-    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
-        @csrf
-        {!! Form::text('status', 'DISETUJUI', ['class' => 'd-none']) !!}
-        <div class="text-end">
-            {!! Form::submit('Terima Rencana Aksi Target', [
-                'class' => 'btn btn-success',
-                'onclick' => "return confirm('Apakah Anda Yakin, Untuk Melanjutkan Ke Realisasi?')",
-            ]) !!}
-        </div>
-    </form>
-@endif
+@can('rencanaAksi-create')
+
+    @if (!Auth::user()->opd_id)
+        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+            @csrf
+            {!! Form::text('status', 'DIAJUKAN', ['class' => 'd-none']) !!}
+            <div class="text-end">
+                {!! Form::submit('Kembalikan Ke OPD', [
+                    'class' => 'btn btn-warning',
+                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Mengembalikan Ke OPD?')",
+                ]) !!}
+            </div>
+        </form>
+        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" class="mt-2" method="post">
+            @csrf
+            {!! Form::text('status', 'DISETUJUI', ['class' => 'd-none']) !!}
+            <div class="text-end">
+                {!! Form::submit('Terima Rencana Aksi Target', [
+                    'class' => 'btn btn-success',
+                    'onclick' => "return confirm('Apakah Anda Yakin, Untuk Melanjutkan Ke Realisasi?')",
+                ]) !!}
+            </div>
+        </form>
+    @endif
+@endcan

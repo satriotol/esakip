@@ -82,34 +82,36 @@
                 </div>
             @endif
         </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h4 class="card-title">Form Status</h4>
-                    <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" method="post">
-                        @csrf
-                        @include('partials.errors')
-                        <div class="mb-3">
-                            {!! Form::label('note', 'Catatan', ['class' => 'form-label']) !!}
-                            @if (!Auth::user()->opd_id)
-                                {!! Form::textarea('note', $rencanaAksi->note, [
-                                    'class' => 'form-control',
-                                    'placeholder' => 'Masukkan Catatan',
-                                ]) !!}
-                            @else
-                                : {{ $rencanaAksi->note }}
-                            @endif
-                        </div>
-                        @if (!Auth::user()->opd_id)
-                            <div class="text-end">
-                                <button class="btn btn-primary">Submit</button>
+        @can('rencanaAksi-create')
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Form Status</h4>
+                        <form action="{{ route('rencanaAksi.updateStatus', $rencanaAksi->id) }}" method="post">
+                            @csrf
+                            @include('partials.errors')
+                            <div class="mb-3">
+                                {!! Form::label('note', 'Catatan', ['class' => 'form-label']) !!}
+                                @if (!Auth::user()->opd_id)
+                                    {!! Form::textarea('note', $rencanaAksi->note, [
+                                        'class' => 'form-control',
+                                        'placeholder' => 'Masukkan Catatan',
+                                    ]) !!}
+                                @else
+                                    : {{ $rencanaAksi->note }}
+                                @endif
                             </div>
-                        @endif
-                    </form>
+                            @if (!Auth::user()->opd_id)
+                                <div class="text-end">
+                                    <button class="btn btn-primary">Submit</button>
+                                </div>
+                            @endif
+                        </form>
 
+                    </div>
                 </div>
             </div>
-        </div>
+        @endcan
         <div class="col-md-12 grid-margin stretch-card mt-2">
             <div class="card">
                 <div class="card-body">

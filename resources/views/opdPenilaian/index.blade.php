@@ -25,13 +25,14 @@
                         <li> <a href="https://drive.google.com/drive/u/3/folders/1Hw8tmaHIbseavXSwZaT0KnR-WdtOS5FY"
                                 target="_blank">Manual Book STAFF AHLI</a></li>
                     </ul>
-
-                    <div class="text-end mb-2">
-                        <a class="btn btn-primary" href="{{ route('opdPenilaian.create') }}">
-                            <i data-feather="plus"></i>
-                            Tambah Penilaian
-                        </a>
-                    </div>
+                    @can('opdPenilaian-create')
+                        <div class="text-end mb-2">
+                            <a class="btn btn-primary" href="{{ route('opdPenilaian.create') }}">
+                                <i data-feather="plus"></i>
+                                Tambah Penilaian
+                            </a>
+                        </div>
+                    @endcan
                     <div class="row">
                         <div class="col-md-10">
                             <form action="">
@@ -71,7 +72,7 @@
                                         {!! Form::label('triwulan', 'Triwulan') !!}
                                         {!! Form::select('triwulan', $selectTriwulans, @old('triwulan'), [
                                             'class' => 'js-example-basic-single form-select',
-                                            'placeholder' => 'Pilih Triwulan'
+                                            'placeholder' => 'Pilih Triwulan',
                                         ]) !!}
                                     </div>
                                     <div class="col-md-4">
