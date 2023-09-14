@@ -24,7 +24,7 @@
     @endif
 @endcan
 <h5 class="text-danger">Pada Proses Ini Rencana Aksi Target Anda Sedang Kami Evaluasi</h5>
-<table class="table table-bordered">
+<table class="table table-bordered text-wrap">
     <thead>
         <th>Sasaran</th>
         <th>Rencana Aksi</th>

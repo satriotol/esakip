@@ -45,7 +45,7 @@
         @foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target)
             <tr>
                 <td>
-                    <table>
+                    <table class="table table-bordered text-wrap">
                         <tbody>
                             <tr>
                                 <th>Sasaran</th>

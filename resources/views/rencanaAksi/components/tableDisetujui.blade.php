@@ -50,7 +50,7 @@
             <tr>
 
                 <td class="text-wrap" style="width: 40%">
-                    <table>
+                    <table class="table table-bordered text-wrap">
                         <tbody>
                             <tr>
                                 <th>Sasaran</th>
