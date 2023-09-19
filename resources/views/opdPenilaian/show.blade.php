@@ -137,7 +137,8 @@
                                                 </a>
                                                 <br>
                                                 <small class="text-danger">
-                                                    Jika Terjadi Selisih Bisa Melakukan Konfirmasi Ke BPKAD KOTA SEMARANG
+                                                    Jika Terjadi Selisih Bisa Melakukan Konfirmasi Ke Admin BAPPEDA KOTA
+                                                    SEMARANG
                                                 </small>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'P3DN' && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storep3dn', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
@@ -148,7 +149,7 @@
                                                 <small class="text-danger">
                                                     Pastikan Sudah Melakukan Validasi Dan Update Realisasi di <a
                                                         href="https://siera.bpkp.go.id/" target="_blank">Siera BPKP</a>
-                                                </small>
+                                                </small>                                               </small>
                                             @elseif($opd_category_variable->opd_variable->is_reformasi_birokrasi && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storeRb', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year]) }}"
                                                     class="badge bg-primary tarik-data">
