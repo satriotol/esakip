@@ -137,8 +137,7 @@
                                                 </a>
                                                 <br>
                                                 <small class="text-danger">
-                                                    Jika Terjadi Selisih Bisa Melakukan Konfirmasi Ke Admin BAPPEDA KOTA
-                                                    SEMARANG
+                                                    Jika Terjadi Selisih Bisa Melakukan Konfirmasi Ke BPKAD KOTA SEMARANG
                                                 </small>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'P3DN' && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storep3dn', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
