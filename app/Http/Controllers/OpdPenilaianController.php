@@ -48,8 +48,10 @@ class OpdPenilaianController extends Controller
             $nama_file = 'PENILAIAN OPD ' . date('Y-m-d_H-i-s') . '.xlsx';
             return Excel::download(new OpdPenilaianExport($request), $nama_file);
         }
+
+        $opdWithoutPenilaians = Opd::opdWithoutPenilaianOpds($request);
         $request->flash();
-        return view('opdPenilaian.index', compact('opdPenilaians', 'selectTriwulans', 'opds', 'opdCategories', 'statuses'));
+        return view('opdPenilaian.index', compact('opdWithoutPenilaians','opdPenilaians', 'selectTriwulans', 'opds', 'opdCategories', 'statuses'));
     }
 
     /**

@@ -17,6 +17,10 @@ class Opd extends Model
 
     protected $fillable = ['nama_opd', 'kode_opd', 'opd_category_id', 'inovasi_prestasi_daerah', 'data_unit_id', 'master_unit_kerja_id'];
 
+    public function opd_penilaians()
+    {
+        return $this->hasMany(OpdPenilaian::class, 'opd_id', 'id');
+    }
     public function evaluasi_kinerjas()
     {
         return $this->hasMany(EvaluasiKinerja::class, 'opd_id', 'id');
@@ -61,6 +65,26 @@ class Opd extends Model
         }
 
         return $opdWithoutPerjanjianKinerjas->get();
+    }
+    public static function opdWithoutPenilaianOpds($request)
+    {
+        $year = $request->year;
+        $triwulan = $request->triwulan;
+        $opdWithoutPenilaians = Opd::where('master_unit_kerja_id', '!=', 0);
+        if ($year && $triwulan) {
+            $opdWithoutPenilaians->whereDoesntHave('opd_penilaians', function ($q) use ($triwulan, $year) {
+                $q->where('year', $year)->where('name', $triwulan);
+            })->get();
+        } elseif ($year) {
+            $opdWithoutPenilaians->whereDoesntHave('opd_penilaians', function ($q) use ($year) {
+                $q->where('year', $year)->where('name', null);
+            })->get();
+        } else {
+            $opdWithoutPenilaians->whereDoesntHave('opd_penilaians', function ($q) use ($year) {
+                $q->where('year', Date::now())->where('name', null);
+            })->get();
+        }
+        return $opdWithoutPenilaians->get();
     }
     public static function opdWithoutRencanaAksis($request)
     {

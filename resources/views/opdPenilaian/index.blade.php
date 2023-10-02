@@ -34,7 +34,7 @@
                         </div>
                     @endcan
                     <div class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-6">
                             <form action="">
                                 <div class="row">
                                     <div class="col-md-6">
@@ -95,6 +95,17 @@
                                     </div>
                                 </div>
                             </form>
+                        </div>
+                        <div class="col-md-4">
+                            <h6>Opd Yang Belum Membuat Penilaian OPD</h6>
+                            <small class="text-danger">Jika Ingin Mencari Data Yang Belum, Wajib Mengisikan Tahun &
+                                Triwulan</small>
+                            <ul style="height: 100px; overflow: auto">
+                                @foreach ($opdWithoutPenilaians as $opdWithoutPenilaian)
+                                    <li>{{ $opdWithoutPenilaian->nama_opd }}</li>
+                                @endforeach
+                            </ul>
+                            <small>Jumlah : {{ $opdWithoutPenilaians->count() }}</small>
                         </div>
                         <div class="col-md-2">
                             <table class="table">
