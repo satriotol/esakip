@@ -215,7 +215,9 @@
                                                     target="_blank" class="btn btn-sm btn-warning">Cetak Timbal Balik</a>
                                                 <br>
                                                 <a href="{{ route('opdPenilaian.showReport', $opdPenilaian->id) }}"
-                                                    class="btn btn-sm btn-primary ml-1">Detail Timbal Balik</a>
+                                                    class="btn btn-sm btn-primary ml-1">Detail Timbal Balik</a> <BR></BR>
+                                                <a href="{{ route('opdPenilaian.exportPdfFull', $opdPenilaian->id) }}"
+                                                    class="btn btn-sm btn-primary ml-1">Cetak Full PDF</a>
                                             @endif
                                         </td>
                                     </tr>

@@ -55,7 +55,6 @@ class RencanaAksiTarget extends Model implements Auditable
             $data = (1 - (($this->realisasi - $this->target)) / $this->target) * 100;
         }
         if ($data > 100 && $this->status_verifikator == 'DITERIMA') {
-            $data = 100;
         } elseif ($data < 0 || $this->status_verifikator != 'DITERIMA') {
             $data = 0;
         }

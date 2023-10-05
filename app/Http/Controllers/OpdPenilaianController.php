@@ -51,7 +51,7 @@ class OpdPenilaianController extends Controller
 
         $opdWithoutPenilaians = Opd::opdWithoutPenilaianOpds($request);
         $request->flash();
-        return view('opdPenilaian.index', compact('opdWithoutPenilaians','opdPenilaians', 'selectTriwulans', 'opds', 'opdCategories', 'statuses'));
+        return view('opdPenilaian.index', compact('opdWithoutPenilaians', 'opdPenilaians', 'selectTriwulans', 'opds', 'opdCategories', 'statuses'));
     }
 
     /**
@@ -161,6 +161,12 @@ class OpdPenilaianController extends Controller
     {
         $opdPenilaian = OpdPenilaian::find($opdPenilaian);
         $pdf = Pdf::loadView('pdf.detailPenilaianOpdPdf', compact('opdPenilaian'))->setPaper('a4', 'landscape');
+        return $pdf->stream('PENILAIAN OPD ' . $opdPenilaian->opd->nama_opd . '.pdf');
+    }
+    public function exportPdfFull($opdPenilaian)
+    {
+        $opdPenilaian = OpdPenilaian::find($opdPenilaian);
+        $pdf = Pdf::loadView('pdf.exportPdfFull', compact('opdPenilaian'))->setPaper('a4', 'landscape');
         return $pdf->stream('PENILAIAN OPD ' . $opdPenilaian->opd->nama_opd . '.pdf');
     }
     /**
