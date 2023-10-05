@@ -74,7 +74,7 @@
         <tr>
             <td>Tahun</td>
             <td>:</td>
-            <td>{{ $opdPenilaian->year }}</td>
+            <td>{{ $opdPenilaian->year }} {{ $opdPenilaian->name }}</td>
         </tr>
         <tr>
             <td>Inovasi Prestasi OPD</td>
