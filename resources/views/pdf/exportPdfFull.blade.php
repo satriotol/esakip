@@ -45,7 +45,7 @@
 
 <body>
     <div class="text-center">
-        <H4>HASIL EVALUASI KINERJA <br> ATAS PENCAPAIAN TARGET DAN REALISASI KINERJA PEJABAT PIMPINAN TINGGI PRATAMA
+        <H4>HASIL EVALUASI KINERJA PERIODIK <br> ATAS PENCAPAIAN TARGET DAN REALISASI KINERJA PEJABAT PIMPINAN TINGGI PRATAMA
             <br> KOTA SEMARANG
         </H4>
     </div>
@@ -63,11 +63,25 @@
         <tr>
             <td>SKALA PERIODIK</td>
             <td>:</td>
-            <td>{{ $opdPenilaian->name }}</td>
+            <td>
+                @if ($opdPenilaian->name == 'TRIWULAN 3')
+                    <b>TRIWULAN III</b> (JULI, AGUSTUS, SEPTEMBER 2023)
+                @elseif ($opdPenilaian->name == 'TRIWULAN 2')
+                    <b>TRIWULAN II</b> (APRIL, MEI, JUNI 2023)
+                @else
+                    {{ $opdPenilaian->name }}
+                @endif
+            </td>
         </tr>
     </table>
     @foreach ($opdPenilaian->opd_category->opd_category_variables->sortBy('id') as $opd_category_variable)
-        <h5>{{ $opd_category_variable->opd_variable->name }} </h5>
+        <h5>
+            @if ($opd_category_variable->opd_variable->name === 'PROGRAM PENINGKATAN PENGGUNAAN PRODUK DALAM NEGERI')
+                {{ str_replace('TRIWULAN', '', $opd_category_variable->opd_variable->name) }} (P3DN)
+            @else
+                {{ str_replace('TRIWULAN', '', $opd_category_variable->opd_variable->name) }}
+            @endif
+        </h5>
         @if ($opd_category_variable->opd_variable->is_iku_triwulan)
             <table>
                 <thead>
@@ -129,8 +143,26 @@
         @endif
     @endforeach
     <div style="margin-top: 30px">
-        Catatan : <br>
-        Capaian Kinerja {{ $opdPenilaian->opd->nama_opd }} <b>"{{$opdPenilaian->totalAkhirPredikat()['name']}}"</b>
+        <table>
+            <tr>
+                <td>
+                    <b>RATING HASIL KERJA</b> <br>
+                    DI ATAS EKSPEKTASI
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>RATING PERILAKU KERJA</b> <br>
+                    DI ATAS EKSPEKTASI
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <b>PREDIKAT KINERJA PEGAWAI</b> <br>
+                    DI ATAS EKSPEKTASI
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="text-right" style="margin-top: 50px">
         <table>
