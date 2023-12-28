@@ -10,7 +10,7 @@
             </li>
             <li class="breadcrumb-item active" aria-current="page">Form {{ $name }}</li>
         </ol>
-        <a href="{{ url()->previous() }}" class="badge rounded-pill bg-primary">
+        <a href="{{ route('opdPerjanjianKinerja.show', $opdPerjanjianKinerja->id) }}" class="badge rounded-pill bg-primary">
             <i data-feather="arrow-left"></i> Back
         </a>
     </nav>
