@@ -76,12 +76,12 @@
                                     <option value="1">Ya</option>
                                 </select>
                             </td>
-                            <td>
+                            {{-- <td>
                                 <select name="addMoreInputFields[0][is_opd]" class="form-control">
                                     <option value="">Tidak</option>
                                     <option value="1">Ya</option>
                                 </select>
-                            </td>
+                            </td> --}}
                             <td><button type="button" name="add" id="dynamic-ar" class="btn btn-outline-primary">Tambah Indikator</button></td>
                         </tr>
                     </table>
