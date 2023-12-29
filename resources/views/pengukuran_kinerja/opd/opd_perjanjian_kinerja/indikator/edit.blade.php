@@ -79,13 +79,13 @@
                             <option @selected(isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->is_rb : old('is_rb')) value="1">Ya</option>
                         </select>
                     </div>
-                    {{-- <div class="mb-3">
+                    <div class="mb-3">
                         <label for="sakip" class="form-label">OPD</label>
                         <select name="is_opd" class="form-control" id="">
                             <option @selected(isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->is_opd : old('is_opd')) value="">Tidak</option>
                             <option @selected(isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->is_opd : old('is_opd')) value="1">Ya</option>
                         </select>
-                    </div> --}}
+                    </div>
                     <div class="text-end">
                         <input class="btn btn-primary" type="submit" value="Submit">
                     </div>
