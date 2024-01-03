@@ -31,8 +31,16 @@
                             @change="getPerjanjianKinerjas" placeholder="yyyy" required>
                     </div>
                     <div class="mb-3">
+                        <label for="tipe_penilaian" class="form-label">Tipe Penilaian</label>
+                        <select name="tipe_penilaian" required id="" class="form-select" v-model="tipe_penilaian">
+                            <option value="">Pilih Tipe Penilaian</option>
+                            <option value="TAHUNAN">TAHUNAN</option>
+                            <option value="TRIWULAN">TRIWULAN</option>
+                        </select>
+                    </div>
+                    <div class="mb-3" v-if="tipe_penilaian == 'TRIWULAN'">
                         <label for="name" class="form-label">Triwulan</label>
-                        <select name="name" id="" class="form-select" v-model="triwulan">
+                        <select name="name" required id="" class="form-select" v-model="triwulan">
                             <option value="">Pilih Triwulan</option>
                             @foreach ($triwulans as $triwulan)
                                 <option value="{{ $triwulan }}">{{ $triwulan }}</option>
@@ -122,6 +130,7 @@
                     type: '',
                     triwulan: '',
                     opdPerjanjianKinerjas: '',
+                    tipe_penilaian: '',
                     inovasiPrestasiOpds: '',
                     opd_perjanjian_kinerja_id: '',
                     inovasi_prestasi_opd_id: '',
