@@ -40,7 +40,8 @@
                     </div>
                     <div class="mb-3" :class="{ 'd-none': tipe_penilaian !== 'TRIWULAN' }">
                         <label for="name" class="form-label">Triwulan</label>
-                        <select name="name" required id="" class="form-select" v-model="triwulan">
+                        <select name="name" :required="tipe_penilaian === 'TRIWULAN'" id="" class="form-select"
+                            v-model="triwulan">
                             <option value="">Pilih Triwulan</option>
                             @foreach ($triwulans as $triwulan)
                                 <option value="{{ $triwulan }}">{{ $triwulan }}</option>
