@@ -173,25 +173,34 @@ class OpdPenilaianKinerjaController extends Controller
     }
     public function storeRb(OpdPenilaian $opd_penilaian, $opd_category_variable_id, $year)
     {
-        $data = Http::accept('application/json')->withHeaders([
-            'X-Api-Key' => '!23f0rm451|-|anY453b4tas1Lu5!',
-            'X-Token' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImlkIjoiNTYifSwiaWF0IjoxNjczNDg2NTk4LCJleHAiOjE3MDQ1OTA1OTh9.Zf0Nt2e-3Sv9gml3ZX-V658fPFoIzSKhpd86OAa6MHc'
-        ])->get('http://lke-rb.semarangkota.go.id/api/penilaian_opd/hasil?kd_skpd=' . $opd_penilaian->opd->kode_opd . '&tahun=' . $year . '');
-        if ($data->failed()) {
-            session()->flash('bug', $data['message']);
-            return back();
-        }
-        $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
-        $realisasi = $data['data']['penilaian_opd']['nilai_validator'];
-        $bobot = $data['data']['penilaian_opd']['bobot'];
-        $realisasi =  round($realisasi / $bobot * 100, 2);
-        $target = Master::first()->reformasi_birokrasi;
-        $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
-        $capaian = round($realisasi / $target * 100, 2);
-        if ($capaian > 100) {
+        if ($opd_penilaian->opd_perjanjian_kinerja->year == 2023) {
+            $target = 100;
+            $realisasi = 100;
             $capaian = 100;
+            $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
+            $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+            $nilaiAkhir = round($capaian * $bobot, 2);
+        } else {
+            $data = Http::accept('application/json')->withHeaders([
+                'X-Api-Key' => '!23f0rm451|-|anY453b4tas1Lu5!',
+                'X-Token' => 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJkYXRhIjp7ImlkIjoiNTYifSwiaWF0IjoxNjczNDg2NTk4LCJleHAiOjE3MDQ1OTA1OTh9.Zf0Nt2e-3Sv9gml3ZX-V658fPFoIzSKhpd86OAa6MHc'
+            ])->get('http://lke-rb.semarangkota.go.id/api/penilaian_opd/hasil?kd_skpd=' . $opd_penilaian->opd->kode_opd . '&tahun=' . $year . '');
+            if ($data->failed()) {
+                session()->flash('bug', $data['message']);
+                return back();
+            }
+            $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
+            $realisasi = $data['data']['penilaian_opd']['nilai_validator'];
+            $bobot = $data['data']['penilaian_opd']['bobot'];
+            $realisasi =  round($realisasi / $bobot * 100, 2);
+            $target = Master::first()->reformasi_birokrasi;
+            $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+            $capaian = round($realisasi / $target * 100, 2);
+            if ($capaian > 100) {
+                $capaian = 100;
+            }
+            $nilaiAkhir = round($capaian * $bobot, 2);
         }
-        $nilaiAkhir = round($capaian * $bobot, 2);
         OpdPenilaianKinerja::updateOrCreate(
             [
                 'opd_penilaian_id' => $opd_penilaian->id,
