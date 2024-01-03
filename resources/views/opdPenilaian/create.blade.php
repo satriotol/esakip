@@ -38,7 +38,7 @@
                             <option value="TRIWULAN">TRIWULAN</option>
                         </select>
                     </div>
-                    <div class="mb-3" v-if="tipe_penilaian == 'TRIWULAN'">
+                    <div class="mb-3" :class="{ 'd-none': tipe_penilaian !== 'TRIWULAN' }">
                         <label for="name" class="form-label">Triwulan</label>
                         <select name="name" required id="" class="form-select" v-model="triwulan">
                             <option value="">Pilih Triwulan</option>
