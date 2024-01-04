@@ -41,7 +41,13 @@ class OpdPenilaianController extends Controller
     {
         $opds = Opd::getOpd();
         $opdPenilaians = OpdPenilaian::getOpdPenilaian($request, '')->paginate();
-        $selectTriwulans = OpdPenilaian::SELECT_TRIWULANS;
+        $selectTriwulans = [
+            'TAHUNAN' => 'TAHUNAN',
+            'TRIWULAN 1' => 'TRIWULAN 1',
+            'TRIWULAN 2' => 'TRIWULAN 2',
+            'TRIWULAN 3' => 'TRIWULAN 3',
+            'TRIWULAN 4' => 'TRIWULAN 4',
+        ];
         $opdCategories = OpdCategory::all();
         $statuses = OpdPenilaian::STATUSALL;
         if ($request->submit == 'exportExcel') {

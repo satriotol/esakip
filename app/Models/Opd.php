@@ -70,20 +70,23 @@ class Opd extends Model
     {
         $year = $request->year;
         $triwulan = $request->triwulan;
+
         $opdWithoutPenilaians = Opd::where('master_unit_kerja_id', '!=', 0);
-        if ($year && $triwulan) {
+
+        if ($year) {
             $opdWithoutPenilaians->whereDoesntHave('opd_penilaians', function ($q) use ($triwulan, $year) {
-                $q->where('year', $year)->where('name', $triwulan);
-            })->get();
-        } elseif ($year) {
-            $opdWithoutPenilaians->whereDoesntHave('opd_penilaians', function ($q) use ($year) {
-                $q->where('year', $year)->where('name', null);
-            })->get();
+                $q->where('year', $year)->when($triwulan != 'TAHUNAN', function ($q) use ($triwulan) {
+                    $q->where('name', $triwulan);
+                }, function ($q) {
+                    $q->where('name', null);
+                });
+            });
         } else {
-            $opdWithoutPenilaians->whereDoesntHave('opd_penilaians', function ($q) use ($year) {
+            $opdWithoutPenilaians->whereDoesntHave('opd_penilaians', function ($q) {
                 $q->where('year', Date::now())->where('name', null);
-            })->get();
+            });
         }
+
         return $opdWithoutPenilaians->get();
     }
     public static function opdWithoutRencanaAksis($request)

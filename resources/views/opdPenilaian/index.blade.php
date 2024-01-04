@@ -69,7 +69,7 @@
                                             value="{{ old('year') }}" id="">
                                     </div>
                                     <div class="col-md-4">
-                                        {!! Form::label('triwulan', 'Triwulan') !!}
+                                        {!! Form::label('triwulan', 'Periode Penilaian') !!}
                                         {!! Form::select('triwulan', $selectTriwulans, @old('triwulan'), [
                                             'class' => 'js-example-basic-single form-select',
                                             'placeholder' => 'Pilih Triwulan',
