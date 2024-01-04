@@ -221,6 +221,9 @@ class RencanaAksiController extends Controller
      */
     public function destroy(RencanaAksi $rencanaAksi)
     {
+        foreach ($rencanaAksi->rencana_aksi_targets as $rencana_aksi_target) {
+            $rencana_aksi_target->delete();
+        }
         $rencanaAksi->delete();
         session()->flash('success');
         return back();

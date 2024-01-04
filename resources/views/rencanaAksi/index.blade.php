@@ -207,7 +207,7 @@
                                             </div>
                                             <a class="btn btn-sm btn-primary"
                                                 href="{{ route('rencanaAksi.show', $rencanaAksi->id) }}">Detail</a>
-                                            {{-- @if ($rencanaAksi->status_verifikator != 'SELESAI')
+                                            @if ($rencanaAksi->status_verifikator != 'SELESAI')
                                                 <form action="{{ route('rencanaAksi.destroy', $rencanaAksi->id) }}"
                                                     method="POST" class="d-inline">
                                                     @csrf
@@ -217,7 +217,7 @@
                                                         Delete
                                                     </button>
                                                 </form>
-                                            @endif --}}
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
