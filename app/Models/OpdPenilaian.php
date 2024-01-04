@@ -121,7 +121,7 @@ class OpdPenilaian extends Model implements Auditable
         if ($status) {
             $getOpdPenilaian->where('status', $status);
         }
-        if ($triwulan != 'TAHUNAN') {
+        if ($triwulan && $triwulan != 'TAHUNAN') {
             $getOpdPenilaian->where('name', $triwulan);
         } elseif ($triwulan == 'TAHUNAN') {
             $getOpdPenilaian->where('name', null);

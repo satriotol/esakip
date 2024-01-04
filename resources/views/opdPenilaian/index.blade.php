@@ -72,7 +72,7 @@
                                         {!! Form::label('triwulan', 'Periode Penilaian') !!}
                                         {!! Form::select('triwulan', $selectTriwulans, @old('triwulan'), [
                                             'class' => 'js-example-basic-single form-select',
-                                            'placeholder' => 'Pilih Triwulan',
+                                            'placeholder' => 'Pilih Periode Penilaian',
                                         ]) !!}
                                     </div>
                                     <div class="col-md-4">
