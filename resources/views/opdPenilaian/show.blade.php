@@ -137,7 +137,8 @@
                                                 </a>
                                                 <br>
                                                 <small class="text-danger">
-                                                    Jika Terjadi Selisih Bisa Melakukan Konfirmasi Ke Admin BPKAD Kota Semarang
+                                                    Jika Terjadi Selisih Bisa Melakukan Konfirmasi Ke Admin BPKAD Kota
+                                                    Semarang
                                                 </small>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'P3DN' && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storep3dn', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
@@ -146,9 +147,9 @@
                                                 </a>
                                                 <br>
                                                 <small class="text-danger">
-                                                    JIKA TERJADI SELISIH BISA MELAKUKAN KONFIRMASI KE BAPPEDA KOTA SEMARANG <a
-                                                        href="#">( BIDANG PERENCANAAN PEREKONOMIAN )</a>
-                                                </small>                                               </small>
+                                                    JIKA TERJADI SELISIH BISA MELAKUKAN KONFIRMASI KE BAPPEDA KOTA SEMARANG
+                                                    <a href="#">( BIDANG PERENCANAAN PEREKONOMIAN )</a>
+                                                </small> </small>
                                             @elseif($opd_category_variable->opd_variable->is_reformasi_birokrasi && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storeRb', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year]) }}"
                                                     class="badge bg-primary tarik-data">
@@ -168,6 +169,10 @@
                                                 <a type="button" class="badge bg-primary" data-bs-toggle="modal"
                                                     data-bs-target="#exampleModal{{ $opd_category_variable->id }}">
                                                     INPUT RENCANA AKSI
+                                                </a>
+                                                <a type="button" class="badge bg-primary" data-bs-toggle="modal"
+                                                    data-bs-target="#exampleModalRencanaAksiSatuan{{ $opd_category_variable->id }}">
+                                                    INPUT RENCANA AKSI SATUAN
                                                 </a>
                                                 <br>
                                                 <small class="text-danger">
@@ -212,6 +217,7 @@
                                             @endif
 
                                             @include('opdPenilaian.modal')
+                                            @include('opdPenilaian.modalRencanaAksiSatuan')
 
                                             <small>
                                                 @if ($opdPenilaian->getDate($opd_category_variable->id))

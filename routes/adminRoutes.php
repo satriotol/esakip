@@ -64,6 +64,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('inovasiPrestasiOpd/updateStatus/{inovasiPrestasiOpd}', [InovasiPrestasiOpdController::class, 'updateStatus'])->name('inovasiPrestasiOpd.updateStatus');
     Route::resource('master', MasterController::class);
     Route::resource('opdPenilaianIku', OpdPenilaianIkuController::class);
+    Route::post('opdPenilaianIku/store_satuan/', [OpdPenilaianIkuController::class, 'store_satuan'])->name('opdPenilaianIku.store_satuan');
     Route::resource('opdPenilaianKinerja', OpdPenilaianKinerjaController::class);
     Route::get('opdPenilaianKinerja/storeAkip/{opd_penilaian}/{opd_category_variable_id}/{year}', [OpdPenilaianKinerjaController::class, 'storeAkip'])->name('opdPenilaianKinerja.storeAkip');
     Route::get('opdPenilaianKinerja/storeRb/{opd_penilaian}/{opd_category_variable_id}/{year}', [OpdPenilaianKinerjaController::class, 'storeRb'])->name('opdPenilaianKinerja.storeRb');
