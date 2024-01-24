@@ -1,8 +1,6 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CaptchaServiceController;
 use App\Http\Controllers\IndexController;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::prefix('myinspektorat')->group(function () {
-    Route::get('login_myinspektorat', [Authcontroller::class, 'login_myinspektorat']);
+    Route::get('login_myinspektorat', [AuthenticatedSessionController::class, 'login_myinspektorat']);
 });
 Route::get('/reload-captcha', [CaptchaServiceController::class, 'reloadCaptcha']);
 Route::get('/login/eksekutif', [AuthenticatedSessionController::class, 'loginEksekutif']);

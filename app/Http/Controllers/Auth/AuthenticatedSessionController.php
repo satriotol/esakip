@@ -69,6 +69,30 @@ class AuthenticatedSessionController extends Controller
             return redirect(route('home'));
         }
     }
+    public function login_lopissemar(Request $request)
+    {
+        $checkUser = Http::withHeaders([
+            'Accept' => 'application/json',
+        ])->post('http://myinspektorat.inspektorat.semarangkota.go.id/api/portal/getUser', [
+            'uuid' => $request->uuid
+        ]);
+        if ($checkUser->status() == 200) {
+            $email = 'admin_penilaian@semarangkota.go.id';
+            $password = 'penilaiansakip12345';
+            $user = User::where('email', $email)->first();
+            if ($user && Hash::check($password, $user->password)) {
+                // Jika otentikasi berhasil
+                auth()->login($user);
+                return redirect()->intended(RouteServiceProvider::HOME);
+            } else {
+                // Jika otentikasi gagal
+                throw ValidationException::withMessages([
+                    'email' => ['Email atau password salah.'],
+                ]);
+            }
+        }
+        return redirect(route('home'));
+    }
     public function get_user_by_token($token)
     {
         $data = Http::withHeaders([
