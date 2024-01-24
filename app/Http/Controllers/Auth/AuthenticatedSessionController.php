@@ -69,7 +69,7 @@ class AuthenticatedSessionController extends Controller
             return redirect(route('home'));
         }
     }
-    public function login_lopissemar(Request $request)
+    public function login_myinspektorat(Request $request)
     {
         $checkUser = Http::withHeaders([
             'Accept' => 'application/json',
