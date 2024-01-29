@@ -73,6 +73,7 @@ class AuthenticatedSessionController extends Controller
     {
         $checkUser = Http::withHeaders([
             'Accept' => 'application/json',
+            'Authorization' => 'Bearer 1|LRBeNUVPEh5zIFzM0KIwgHBDqOLUVI7ehEhsItNF78d770c8'
         ])->post('http://myinspektorat.inspektorat.semarangkota.go.id/api/portal/getUser', [
             'uuid' => $request->uuid
         ]);
