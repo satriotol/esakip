@@ -19,7 +19,7 @@ class EvaluasiKinerjaYear extends Model
     public static function getEvaluasiKinerjaExcept()
     {
         return EvaluasiKinerjaYear::whereHas('evaluasi_kinerja.opd', function ($q) {
-            $q->where('master_unit_kerja_id', '!=', 0);
+            $q->where('master_unit_kerja_id', '!=', 0)->where('kode_opd', '!=', 052);
         });
     }
 }
