@@ -39,7 +39,7 @@ class Opd extends Model
     }
     public static function getOpdExcept()
     {
-        return Opd::where('master_unit_kerja_id', '!=', 0)->get();
+        return Opd::where('master_unit_kerja_id', '!=', 0)->where('kode_opd', '!=', '052')->get();
     }
     public function inovasi_prestasi_opds()
     {
