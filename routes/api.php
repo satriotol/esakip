@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\PelaporanKinerja\KotaLkjipController;
 use App\Http\Controllers\Api\PelaporanKinerja\OpdLkjipController;
 use App\Http\Controllers\Api\PengukuranKinerjaKotaController;
 use App\Http\Controllers\Api\PengukuranKinerjaOpdController;
+use App\Http\Controllers\Api\PenilaianKinerjaOrganisasi\OpdPenilaianController as PenilaianKinerjaOrganisasiOpdPenilaianController;
 use App\Http\Controllers\Api\PerencanaanKinerjaKotaController;
 use App\Http\Controllers\Api\PerencanaanKinerjaOpdController;
 use App\Http\Controllers\Api\RencanaAksiController;
@@ -39,6 +40,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('opdPenilaian', [OpdPenilaianController::class, 'index'])->name('getOpdPenilaian');
     Route::get('opdPenilaian/getPenyerapanAnggaranBelanja', [OpdPenilaianController::class, 'getPenyerapanAnggaranBelanja'])->name('getPenyerapanAnggaranBelanja');
     Route::get('opdPenilaian/getp3dn', [OpdPenilaianController::class, 'getp3dn'])->name('getp3dn');
+    Route::prefix('penilaian_kinerja_organisasi')->group(function () {
+        Route::get('opdPenilaian', [PenilaianKinerjaOrganisasiOpdPenilaianController::class, 'opdPenilaian']);
+    });
 });
 Route::get('opd', [OpdController::class, 'index']);
 Route::get('skpd', [SkpdController::class, 'getSkpd']);
