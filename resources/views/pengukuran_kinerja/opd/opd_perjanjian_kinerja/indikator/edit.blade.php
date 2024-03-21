@@ -72,15 +72,15 @@
                             <option @selected(isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->is_iku : old('is_iku')) value="1">Ya</option>
                         </select>
                     </div>
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="sakip" class="form-label">RB</label>
                         <select name="is_rb" class="form-control" id="">
                             <option @selected(isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->is_rb : old('is_rb')) value="">Tidak</option>
                             <option @selected(isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->is_rb : old('is_rb')) value="1">Ya</option>
                         </select>
-                    </div>
+                    </div> --}}
                     <div class="mb-3">
-                        <label for="sakip" class="form-label">OPD</label>
+                        <label for="sakip" class="form-label">PENDAPATAN ASLI DAERAH</label>
                         <select name="is_opd" class="form-control" id="">
                             <option @selected(isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->is_opd : old('is_opd')) value="">Tidak</option>
                             <option @selected(isset($opd_perjanjian_kinerja_indikator) ? $opd_perjanjian_kinerja_indikator->is_opd : old('is_opd')) value="1">Ya</option>
