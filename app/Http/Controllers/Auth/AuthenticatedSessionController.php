@@ -75,7 +75,8 @@ class AuthenticatedSessionController extends Controller
             'Accept' => 'application/json',
             'Authorization' => 'Bearer 1|LRBeNUVPEh5zIFzM0KIwgHBDqOLUVI7ehEhsItNF78d770c8'
         ])->post('http://myinspektorat.inspektorat.semarangkota.go.id/api/portal/getUser', [
-            'uuid' => $request->uuid
+            'uuid' => $request->uuid,
+            'token' => $request->token,
         ]);
         if ($checkUser->status() == 200) {
             $email = 'admin_penilaian@semarangkota.go.id';
