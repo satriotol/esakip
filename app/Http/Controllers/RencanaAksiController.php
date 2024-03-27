@@ -54,10 +54,13 @@ class RencanaAksiController extends Controller
             if ($status == 'PROSES PENGISIAN RENCANA AKSI OPD') {
                 $rencanaAksis->where('status', 'DIAJUKAN');
             }
+            if ($status == 'MENUNGGU VERIFIKASI VERIFIKATOR') {
+                $rencanaAksis->where('status', 'PROSES')->where('status_penilaian', null);
+            }
             if ($status == 'PROSES PENGISIAN REALISASI OPD') {
                 $rencanaAksis->where('status', 'DISETUJUI')->where('status_penilaian', null);
             }
-            if ($status == 'PROSES VERIFIKASI') {
+            if ($status == 'PROSES VERIFIKASI REALISASI') {
                 $rencanaAksis->where('status_penilaian', 'SELESAI')->where('status_verifikator', null);
             }
             if ($status == 'SELESAI') {

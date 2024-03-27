@@ -76,8 +76,9 @@
                                                 [
                                                     'BELUM MENGISI KOMPONEN' => 'BELUM MENGISI KOMPONEN',
                                                     'PROSES PENGISIAN RENCANA AKSI OPD' => 'PROSES PENGISIAN RENCANA AKSI OPD',
+                                                    'MENUNGGU VERIFIKASI VERIFIKATOR' => 'MENUNGGU VERIFIKASI VERIFIKATOR',
                                                     'PROSES PENGISIAN REALISASI OPD' => 'PROSES PENGISIAN REALISASI OPD',
-                                                    'PROSES VERIFIKASI' => 'PROSES VERIFIKASI',
+                                                    'PROSES VERIFIKASI REALISASI' => 'PROSES VERIFIKASI REALISASI',
                                                     'SELESAI' => 'SELESAI',
                                                 ],
                                                 @old('status'),
