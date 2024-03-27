@@ -74,6 +74,7 @@
                                             {!! Form::select(
                                                 'status',
                                                 [
+                                                    'BELUM MENGISI KOMPONEN' => 'BELUM MENGISI KOMPONEN',
                                                     'PROSES PENGISIAN RENCANA AKSI OPD' => 'PROSES PENGISIAN RENCANA AKSI OPD',
                                                     'PROSES PENGISIAN REALISASI OPD' => 'PROSES PENGISIAN REALISASI OPD',
                                                     'PROSES VERIFIKASI' => 'PROSES VERIFIKASI',

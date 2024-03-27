@@ -57,7 +57,9 @@ class RencanaAksi extends Model implements Auditable
     }
     public function getStatusNow()
     {
-        if ($this->status == null || $this->status == self::STATUS1) {
+        if ($this->status == null) {
+            return 'BELUM MENGISI KOMPONEN';
+        } elseif($this->status == self::STATUS1){
             return 'PROSES PENGISIAN RENCANA AKSI OPD';
         } elseif ($this->status_penilaian == null) {
             return 'PROSES PENGISIAN REALISASI OPD';

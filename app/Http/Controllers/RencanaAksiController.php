@@ -48,6 +48,9 @@ class RencanaAksiController extends Controller
         }
         if ($request->status) {
             $status = $request->status;
+            if ($status == 'BELUM MENGISI KOMPONEN') {
+                $rencanaAksis->where('status', null);
+            }
             if ($status == 'PROSES PENGISIAN RENCANA AKSI OPD') {
                 $rencanaAksis->where('status', 'DIAJUKAN');
             }
