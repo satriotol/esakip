@@ -268,7 +268,7 @@ class OpdPenilaian extends Model implements Auditable
         if ($total > 100) {
             $total = 100;
         }
-        return $total;
+        return round($total, 2);
     }
     public function totalAkhirPredikat()
     {

@@ -37,18 +37,23 @@ class OpdPenilaianController extends Controller
         $opdPenilaianTw3 = clone ($opdPenilaian);
         $opdPenilaianTw4 = clone ($opdPenilaian);
         $opdPenilaianTahunan = clone ($opdPenilaian);
-        $nilai_tw_1 = $opdPenilaianTw1->where('name', 'TRIWULAN 1')->first();
-        $nilai_tw_2 = $opdPenilaianTw2->where('name', 'TRIWULAN 2')->first();
-        $nilai_tw_3 = $opdPenilaianTw3->where('name', 'TRIWULAN 3')->first();
-        $nilai_tw_4 = $opdPenilaianTw4->where('name', 'TRIWULAN 4')->first();
-        $nilai_tw_tahunan = $opdPenilaianTahunan->whereNull('name')->first();
+        $nilai_tw_1 = $opdPenilaianTw1->where('name', 'TRIWULAN 1')->where('status', 'SELESAI')->first();
+        $nilai_tw_2 = $opdPenilaianTw2->where('name', 'TRIWULAN 2')->where('status', 'SELESAI')->first();
+        $nilai_tw_3 = $opdPenilaianTw3->where('name', 'TRIWULAN 3')->where('status', 'SELESAI')->first();
+        $nilai_tw_4 = $opdPenilaianTw4->where('name', 'TRIWULAN 4')->where('status', 'SELESAI')->first();
+        $nilai_tw_tahunan = $opdPenilaianTahunan->whereNull('name')->where('status', 'SELESAI')->first();
 
         $triwulanData = [
             'triwulan_satu' => $nilai_tw_1 ? $nilai_tw_1->totalAkhir() : null,
+            'triwulan_satu_predikat' => $nilai_tw_1 ? $nilai_tw_1->totalAkhirPredikat() : null,
             'triwulan_dua' => $nilai_tw_2 ? $nilai_tw_2->totalAkhir() : null,
+            'triwulan_dua_predikat' => $nilai_tw_2 ? $nilai_tw_2->totalAkhirPredikat() : null,
             'triwulan_tiga' => $nilai_tw_3 ? $nilai_tw_3->totalAkhir() : null,
+            'triwulan_tiga_predikat' => $nilai_tw_3 ? $nilai_tw_3->totalAkhirPredikat() : null,
             'triwulan_empat' => $nilai_tw_4 ? $nilai_tw_4->totalAkhir() : null,
+            'triwulan_empat_predikat' => $nilai_tw_4 ? $nilai_tw_4->totalAkhirPredikat() : null,
             'triwulan_tahunan' => $nilai_tw_tahunan ? $nilai_tw_tahunan->totalAkhir() : null,
+            'triwulan_tahunan_predikat' => $nilai_tw_tahunan ? $nilai_tw_tahunan->totalAkhirPredikat() : null,
         ];
         if ($opdPenilaian->get()->count() == 0) {
             return $this->failedResponse([], 'Data Penilaian Kinerja Organisasi Belum Ada');
