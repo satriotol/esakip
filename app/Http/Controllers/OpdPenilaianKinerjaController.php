@@ -57,6 +57,10 @@ class OpdPenilaianKinerjaController extends Controller
             session()->flash('bug', $data['meta']['message']);
             return back();
         }
+        if ($data->status() != 200) {
+            session()->flash('bug', 'Terjadi Kesalahan Di Sisi Server');
+            return back();
+        }
         OpdPenilaianKinerja::updateOrCreate(
             [
                 'opd_penilaian_id' => $opd_penilaian_id,
