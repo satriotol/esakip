@@ -44,7 +44,7 @@ class OpdPenilaianController extends Controller
         $nilai_tw_tahunan = $opdPenilaianTahunan->whereNull('name')->where('status', 'SELESAI')->first();
 
         $triwulanData = [
-            'triwulan_satu' => $nilai_tw_1 ? $nilai_tw_1->totalAkhir() : null,
+            'triwulan_satu' => $nilai_tw_1 ? round($nilai_tw_1->totalAkhir(), 2) : null,
             'triwulan_satu_predikat' => $nilai_tw_1 ? $nilai_tw_1->totalAkhirPredikat() : null,
             'triwulan_dua' => $nilai_tw_2 ? $nilai_tw_2->totalAkhir() : null,
             'triwulan_dua_predikat' => $nilai_tw_2 ? $nilai_tw_2->totalAkhirPredikat() : null,
