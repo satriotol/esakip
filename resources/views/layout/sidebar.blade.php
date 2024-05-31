@@ -43,9 +43,9 @@
                 </li>
             @endcan
             <li class="nav-item">
-                <a href="https://dokumen.e-sakip.semarangkota.go.id/" target="_blank" class="nav-link">
+                <a href="https://dokumen.esakip.semarangkota.go.id?token={{ auth()->user()->createToken('DocumentToken')->plainTextToken}}" target="_blank" class="nav-link">
                     <i class="link-icon" data-feather="globe"></i>
-                    <span class="link-title">Penilaian AKIP</span>
+                    <span class="link-title">Dokumen Sakip</span>
                 </a>
             </li>
             @can('perencanaanKinerja')
