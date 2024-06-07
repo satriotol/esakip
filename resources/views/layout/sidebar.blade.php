@@ -42,12 +42,12 @@
                     </a>
                 </li>
             @endcan
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a href="https://dokumen.e-sakip.semarangkota.go.id?token={{ auth()->user()->createToken('DocumentToken')->plainTextToken}}" target="_blank" class="nav-link">
                     <i class="link-icon" data-feather="globe"></i>
                     <span class="link-title">Dokumen Sakip</span>
                 </a>
-            </li>
+            </li> --}}
             @can('perencanaanKinerja')
                 <li class="nav-item nav-category">Perencanaan Kinerja</li>
             @endcan
