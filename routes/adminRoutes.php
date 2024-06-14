@@ -139,6 +139,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('opdPenilaian/updateStatus/{opdPenilaian}', [OpdPenilaianController::class, 'updateStatus'])->name('opdPenilaian.updateStatus');
     Route::resource('opdVariable', OpdVariableController::class);
     Route::resource('opdPerjanjianKinerja', OpdPerjanjianKinerjaController::class);
+    Route::get('export/opdPerjanjianKinerja', [OpdPerjanjianKinerjaController::class, 'export_excel'])->name('opdPerjanjianKinerja.export_excel');
     Route::resource('opdCategoryVariable', OpdCategoryVariableController::class);
     Route::resource('rencanaAksi', RencanaAksiController::class);
     Route::resource('audit', AuditController::class);

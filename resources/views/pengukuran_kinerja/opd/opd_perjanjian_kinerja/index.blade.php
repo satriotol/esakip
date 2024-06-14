@@ -73,6 +73,48 @@
                                     <button class="btn btn-sm btn-success">Cari</button>
                                 </div>
                             </form>
+                            <div class="text-end mt-2">
+                                <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    Export Excel
+                                </button>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                    aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Export Excel</h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+                                            <form action="{{ route('opdPerjanjianKinerja.export_excel') }}" method="get">
+                                                <div class="modal-body text-start">
+                                                    <div class="form-group">
+                                                        <label for="yearInput">Tahun</label>
+                                                        <input type="text" required class="form-control" id="yearInput"
+                                                            placeholder="Masukkan Tahun" name="year">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="typeSelect">Tipe</label>
+                                                        <select name="type" required class="form-control"
+                                                            id="typeSelect">
+                                                            <option value="">Pilih Tipe</option>
+                                                            <option value="INDUK">Induk</option>
+                                                            <option value="PERUBAHAN">Perubahan</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Tutup</button>
+                                                    <button type="submit" class="btn btn-primary">Export Excel</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                         </div>
                         <div class="col-md-4">
                             <h6>Opd Yang Belum Upload Perjanjian Kinerja</h6>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PerjanjianKinerjaExport;
 use App\Http\Requests\PengukuranKinerja\CreateOpdPerjanjianKinerjaRequest;
 use App\Http\Requests\PengukuranKinerja\UpdateOpdPerjanjianKinerjaRequest;
 use App\Models\Opd;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class OpdPerjanjianKinerjaController extends Controller
@@ -31,8 +33,25 @@ class OpdPerjanjianKinerjaController extends Controller
         $name = "Perjanjian Kinerja OPD";
         view()->share('name', $name);
     }
+    public function export_excel(Request $request)
+    {
+        $data = $request->validate([
+            'year' => 'required',
+            'type' => 'required',
+        ]);
+        $indicators = OpdPerjanjianKinerjaIndikator::with([
+            'opd_perjanjian_kinerja_sasaran.opd_perjanjian_kinerja'
+        ])->whereHas('opd_perjanjian_kinerja_sasaran.opd_perjanjian_kinerja', function ($query) use ($data) {
+            $query->where('year', $data['year'])->where('type', $data['type']);
+        })
+        ->get();
+        $name = $data['year'] . '-' . $data['type'] . '.xlsx';
+
+        return Excel::download(new PerjanjianKinerjaExport($indicators), $name);
+    }
     public function index(Request $request)
     {
+
         $year = $request->year;
         $type = $request->type;
         $status = $request->status;
@@ -42,7 +61,7 @@ class OpdPerjanjianKinerjaController extends Controller
         $statuses = OpdPerjanjianKinerja::STATUSES;
         $opds = Opd::getOpd();
         $opdWithoutPerjanjianKinerjas = Opd::opdWithoutPerjanjianKinerjas($request);
-        
+
         if (Auth::user()->opd_id) {
             $datas = OpdPerjanjianKinerja::with('opd')->where('opd_id', Auth::user()->opd_id);
         } else {
