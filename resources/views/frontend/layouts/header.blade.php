@@ -41,7 +41,7 @@
                 </li> --}}
                 <li>
                     <a href="{{ route('evaluasi_kinerja') }}"
-                        class="{{ active_class(['evaluasi_kinerja']) }}">Evaluasi Kinerja</a>
+                        class="{{ active_class(['evaluasi_kinerja']) }}">Evaluasi Internal</a>
                 </li>
                 <li>
                     <a href="{{ route('dashboard') }}"
