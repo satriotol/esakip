@@ -31,13 +31,12 @@
                                             <th colspan="10" class="text-center">TAHUN</th>
                                         </tr>
                                         <tr>
-                                            <th colspan="2" v-for="(data, index) in dataYears"
+                                            <th colspan="3" v-for="(data, index) in dataYears"
                                                 style="background: #f25c6b" class="text-center">
                                                 @{{ data }}
                                             </th>
                                         </tr>
                                         <tr>
-
                                             <th colspan="1" style="background: #ff7c89" class="text-center">
                                                 Nilai
                                             </th>
@@ -45,10 +44,16 @@
                                                 Kategori
                                             </th>
                                             <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Dokumen
+                                            </th>
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
                                                 Nilai
                                             </th>
                                             <th colspan="1" style="background: #ff7c89" class="text-center">
                                                 Kategori
+                                            </th>
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Dokumen
                                             </th>
                                         </tr>
                                     </thead>
@@ -66,7 +71,7 @@
                                                     }">
                                                     @{{ getScore(opd.id, year).totalScore }}
                                                 </td>
-                                                <td v-else>N/A</td>
+                                                <td v-else>-</td>
                                                 <td v-if="getScore(opd.id, year)"
                                                     :style="{
                                                         backgroundColor: getScore(opd.id, year).warnaScore.color,
@@ -75,7 +80,13 @@
                                                     }">
                                                     @{{ getScore(opd.id, year).nilaiKarakter }}
                                                 </td>
-                                                <td v-else>N/A</td>
+                                                <td v-else>-</td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <a href="" class="btn btn-success">LHE</a>
+                                                        <a href="" class="btn btn-danger">TLHE</a>
+                                                    </div>
+                                                </td>
                                             </template>
                                         </tr>
                                     </tbody>
