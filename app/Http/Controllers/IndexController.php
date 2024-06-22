@@ -52,7 +52,12 @@ class IndexController extends Controller
     }
     public function evaluasi_kinerja()
     {
-        $name = 'Evaluasi Kinerja';
+        $name = 'Evaluasi Internal';
         return view('frontend.evaluasi_kinerja.index', compact('name'));
+    }
+    public function evaluasi_kinerja_realtime()
+    {
+        $name = 'Evaluasi Internal';
+        return view('frontend.evaluasi_internal_realtime.index', compact('name'));
     }
 }

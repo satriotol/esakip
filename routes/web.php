@@ -32,5 +32,6 @@ Route::get('/pengukuran_kinerja_opd', [IndexController::class, 'pengukuran_kiner
 
 Route::get('/capaian_kinerja', [IndexController::class, 'capaian_kinerja'])->name('capaian_kinerja');
 Route::get('/evaluasi_kinerja', [IndexController::class, 'evaluasi_kinerja'])->name('evaluasi_kinerja');
+Route::get('/evaluasi_kinerja_realtime', [IndexController::class, 'evaluasi_kinerja_realtime'])->name('evaluasi_kinerja_realtime');
 
 require __DIR__ . '/auth.php';

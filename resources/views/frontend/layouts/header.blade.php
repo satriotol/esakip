@@ -39,13 +39,16 @@
                     <a href="{{ route('capaian_kinerja') }}"
                         class="{{ active_class(['capaian_kinerja']) }}">Capaian Kinerja</a>
                 </li> --}}
-                <li>
-                    <a href="{{ route('evaluasi_kinerja') }}"
-                        class="{{ active_class(['evaluasi_kinerja']) }}">Evaluasi Internal</a>
+                <li
+                    class="dropdown {{ active_class(['pengukuran_kinerja_kota', 'pengukuran_kinerja_opd']) }} dropdown-right">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Evaluasi Internal</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ route('evaluasi_kinerja_realtime') }}">Evaluasi Internal Realtime</a></li>
+                        <li><a href="{{ route('evaluasi_kinerja') }}">Evaluasi Internal 2019-2023</a></li>
+                    </ul>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard') }}"
-                        class="{{ active_class(['dashboard']) }}">Login</a>
+                    <a href="{{ route('dashboard') }}" class="{{ active_class(['dashboard']) }}">Login</a>
                 </li>
             </ul>
         </div>
