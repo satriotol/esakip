@@ -81,12 +81,25 @@
                                                     @{{ getScore(opd.id, year).nilaiKarakter }}
                                                 </td>
                                                 <td v-else>-</td>
-                                                <td>
+                                                <td v-if="getScore(opd.id, year)"
+                                                    :style="{
+                                                        backgroundColor: getScore(opd.id, year).warnaScore.color,
+                                                        color: getScore(opd.id, year).warnaScore.font_color,
+                                                        fontWeight: 'bold'
+                                                    }">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                                        <a href="" class="btn btn-success">LHE</a>
-                                                        <a href="" class="btn btn-danger">TLHE</a>
+                                                        <a target="_blank" :href="getScore(opd.id, year) && getScore(opd.id, year).lhe_file !=
+                                                            null ? getScore(opd.id, year).lhe_file_url : '#'"
+                                                            :class="getScore(opd.id, year) && getScore(opd.id, year).lhe_file !=
+                                                                null ? 'btn btn-success' : 'btn btn-danger'">LHE</a>
+                                                        <a target="_blank" :href="getScore(opd.id, year) && getScore(opd.id, year).tlhe_file !=
+                                                            null ? getScore(opd.id, year).tlhe_file_url : '#'"
+                                                            :class="getScore(opd.id, year) && getScore(opd.id, year)
+                                                                .tlhe_file !=
+                                                                null ? 'btn btn-success' : 'btn btn-danger'">TLHE</a>
                                                     </div>
                                                 </td>
+                                                <td v-else>-</td>
                                             </template>
                                         </tr>
                                     </tbody>
