@@ -22,6 +22,9 @@
                                     @click="setRouteName('IKU')">IKU</button>
                                 <button :class="[routeName == 'PERJANJIAN KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
                                     @click="setRouteName('PERJANJIAN KINERJA')">PERJANJIAN KINERJA</button>
+                                <button :class="[routeName == 'CAPAIAN KINERJA' ? 'btn btn-success' : 'btn btn-primary']"
+                                    @click="setRouteName('CAPAIAN KINERJA')">CAPAIAN KINERJA</button>
+
                             </div>
                         </div>
                     </div>
@@ -32,9 +35,9 @@
                 <div v-if="routeName == 'PERJANJIAN KINERJA'">
                     @include('frontend.pengukuran_kinerja_opd.perjanjian_kinerja')
                 </div>
-                {{-- <div v-if="routeName == 'CASCADING KINERJA'">
-                    @include('frontend.pengukuran_kinerja_kota.cascading_kinerja')
-                </div> --}}
+                <div v-if="routeName == 'CAPAIAN KINERJA'">
+                    @include('frontend.pengukuran_kinerja_opd.capaian_kinerja')
+                </div>
             </div>
         </div>
     </div>
