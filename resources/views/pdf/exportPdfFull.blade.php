@@ -89,7 +89,7 @@
                         <th>No</th>
                         <th>Sasaran</th>
                         <th>Rencana Aksi</th>
-                        <th>Indikator Kinerja</th>
+                        <th>Indikator Rencana Aksi</th>
                         <th>Target</th>
                         <th>Realisasi</th>
                         <th>Capaian (%)</th>

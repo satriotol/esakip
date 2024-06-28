@@ -59,7 +59,7 @@
                                 <td class="text-wrap"> {{ $rencana_aksi_target->rencana_aksi_note }}</td>
                             </tr>
                             <tr>
-                                <th>Indikator Kinerja</th>
+                                <th>Indikator Rencana Aksi</th>
                                 <th>:</th>
                                 <td class="text-wrap"> {{ $rencana_aksi_target->indikator_kinerja_note }}</td>
                             </tr>
