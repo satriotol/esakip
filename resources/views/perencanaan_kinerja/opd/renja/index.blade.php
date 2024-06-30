@@ -18,16 +18,18 @@
                 <div class="card-body">
                     <h6 class="card-title">{{ $name }}</h6>
                     <div class="text-end mb-2">
-                        <a class="btn btn-primary" href="{{ route('renjaOpd.create') }}">
-                            <i data-feather="plus"></i>
-                            Tambah
-                        </a>
+                        @can('opdRenja-create')
+                            <a class="btn btn-primary" href="{{ route('renjaOpd.create') }}">
+                                <i data-feather="plus"></i>
+                                Tambah
+                            </a>
+                        @endcan
                     </div>
                     <div class="table-responsive">
-                        <table id="dataTableExample" class="table">
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Year</th>
+                                    <th>Tahun</th>
                                     <th>OPD</th>
                                     <th>Type</th>
                                     <th>File</th>
@@ -35,6 +37,35 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($renja_opds as $renja_opd)
+                                    <tr>
+                                        <td>
+                                            {{ $renja_opd->year }}
+                                        </td>
+                                        <td>{{ $renja_opd->opd->nama_opd }}</td>
+                                        <td>{{ $renja_opd->type }}</td>
+                                        <td><a href="{{ asset('uploads/' . $renja_opd->file) }}" target="_blank"
+                                                class="btn btn-success">Buka</a></td>
+                                        <td>
+                                            @can('opdRenja-edit')
+                                                <a href="{{ route('renjaOpd.edit', $renja_opd->id) }}"
+                                                    class="btn btn-sm btn-warning ml-1">Edit</a>
+                                            @endcan
+                                            @can('opdRenja-delete')
+                                                <form action="{{ route('renjaOpd.destroy', $renja_opd->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger"
+                                                        onclick="return confirm(\'Are you sure?\')">
+                                                        Hapus
+                                                    </button>
+                                                </form>
+                                            @endcan
+
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -45,50 +76,7 @@
 @endsection
 
 @push('plugin-scripts')
-    <script src="{{ asset('assets/plugins/datatables-net/jquery.dataTables.js') }}"></script>
-    <script src="{{ asset('assets/plugins/datatables-net-bs5/dataTables.bootstrap5.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var table = $('#dataTableExample').DataTable({
-                autoWidth: false,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('renjaOpd.getRenjaOpd') }}",
-                    method: 'POST',
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                    },
-                },
-                columns: [{
-                        data: 'year',
-                        name: 'year'
-                    },
-                    {
-                        data: 'opd.nama_opd',
-                        name: 'opd.nama_opd'
-                    },
-                    {
-                        data: 'type',
-                        name: 'type'
-                    },
-                    {
-                        data: 'pdf',
-                        name: 'pdf',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-        });
-    </script>
 @endpush

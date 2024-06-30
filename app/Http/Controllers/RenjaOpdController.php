@@ -7,6 +7,7 @@ use App\Http\Requests\PerencanaanKinerja\UpdateRenjaOpdRequest;
 use App\Models\Opd;
 use App\Models\PerencanaanKinerja\RenjaOpd;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class RenjaOpdController extends Controller
@@ -28,13 +29,22 @@ class RenjaOpdController extends Controller
 
     public function index()
     {
-        return view('perencanaan_kinerja.opd.renja.index');
+        if (Auth::user()->opd_id) {
+            $renja_opds = RenjaOpd::with('opd')->where('opd_id', Auth::user()->opd_id)->orderBy('year', 'desc')->paginate();
+        } else {
+            $renja_opds = RenjaOpd::with('opd')->orderBy('year', 'desc')->paginate();
+        }
+        return view('perencanaan_kinerja.opd.renja.index', compact('renja_opds'));
     }
 
     public function getRenjaOpd(Request $request)
     {
         if ($request->ajax()) {
-            $renjaOpd = RenjaOpd::with('opd')->get();
+            if (Auth::user()->opd_id) {
+                $renjaOpd = RenjaOpd::with('opd')->where('opd_id', Auth::user()->opd_id)->get();
+            } else {
+                $renjaOpd = RenjaOpd::with('opd')->get();
+            }
             return DataTables::of($renjaOpd)->addIndexColumn()
                 ->addColumn('pdf', function ($row) {
                     $btn = '<a class="btn btn-sm btn-success" target="_blank" href="' . asset('uploads/' . $row->file) . '"> Open File</a>';
