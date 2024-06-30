@@ -68,7 +68,9 @@
                                 @endforeach
                             </tbody>
                         </table>
+
                     </div>
+                    {{ $renja_opds->appends($_GET)->links() }}
                 </div>
             </div>
         </div>
