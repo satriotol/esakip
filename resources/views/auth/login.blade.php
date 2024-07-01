@@ -1,5 +1,9 @@
 @extends('layout.master2')
-
+@push('plugin-styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+@endpush
 @section('content')
     <div class="page-content d-flex align-items-center justify-content-center" id="app">
         <div class="row w-100 mx-0 auth-page">
@@ -25,8 +29,14 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="userPassword" class="form-label">Password</label>
-                                        <input type="password" class="form-control" name="password" v-model="form.password"
-                                            id="userPassword" autocomplete="current-password" placeholder="Password">
+                                        <input :type="showPassword ? 'text' : 'password'" class="form-control"
+                                            name="password" v-model="form.password" id="userPassword"
+                                            autocomplete="current-password" placeholder="Password">
+                                        <span @click="togglePasswordVisibility"
+                                            class="position-absolute top-50 end-0 translate-middle-y pe-3"
+                                            style="cursor: pointer;">
+                                            <i :class="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+                                        </span>
                                     </div>
                                     <div class="mb-3">
                                         <div class="captcha">
@@ -81,9 +91,13 @@
                         captcha: "",
                     },
                     captchaImage: '',
+                    showPassword: false
                 }
             },
             methods: {
+                togglePasswordVisibility() { // New method
+                    this.showPassword = !this.showPassword;
+                },
                 login() {
                     Swal.fire({
                         title: 'Mencoba Masuk',
