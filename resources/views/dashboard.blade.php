@@ -43,11 +43,18 @@
 @endsection
 
 @push('plugin-scripts')
-    <script src="{{ asset('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js') }}"></script>
-    <script src="{{ asset('assets/plugins/apexcharts/apexcharts.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
-    <script src="{{ asset('assets/js/dashboard.js') }}"></script>
-    <script src="{{ asset('assets/js/datepicker.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @if (Auth::user()->is_reset)
+        <script>
+            Swal.fire({
+                title: 'Himbauan',
+                html: 'Untuk melindungi akun Anda, kami menyarankan untuk melakukan reset password secara berkala.',
+                icon: 'info',
+                confirmButtonText: 'OK'
+            });
+        </script>
+    @endif
 @endpush
