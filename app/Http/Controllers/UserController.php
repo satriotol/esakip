@@ -151,6 +151,7 @@ class UserController extends Controller
                 ],
             ], $messages);
             $data['is_reset'] = false;
+            $data['password'] = Hash::make($request->password);
         } else {
             $data = ['password' => '', 'is_reset' => true];
         }

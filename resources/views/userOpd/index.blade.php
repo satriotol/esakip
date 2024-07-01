@@ -31,6 +31,7 @@
                                     <th>Email</th>
                                     <th>Role</th>
                                     <th>OPD</th>
+                                    <th>Aktifitas</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -51,6 +52,9 @@
                                             @endif
                                         </td>
                                         <td>{{ $user->opd->nama_opd }}</td>
+                                        <td>
+                                            {{ $user->last_signin_at }}
+                                        </td>
                                         <td>
                                             <form action="{{ route('user.resetPassword', $user->id) }}" method="POST"
                                                 class="d-inline">

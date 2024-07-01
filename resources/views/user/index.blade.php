@@ -30,6 +30,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Role</th>
+                                    <th>Aktifitas</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -48,6 +49,9 @@
                                                     <label class="badge bg-success">{{ $v }}</label>
                                                 @endforeach
                                             @endif
+                                        </td>
+                                        <td>
+                                            {{ $user->last_signin_at }}
                                         </td>
                                         <td>
                                             <form action="{{ route('user.resetPassword', $user->id) }}" method="POST"
