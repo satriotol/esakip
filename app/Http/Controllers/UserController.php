@@ -109,7 +109,7 @@ class UserController extends Controller
             $user->assignRole($request['roles']);
             session()->flash('success');
             return redirect(route('user.index'));
-        }else{
+        } else {
             session()->flash('success');
             return back();
         }
@@ -127,11 +127,36 @@ class UserController extends Controller
         session()->flash('success');
         return back();
     }
-    public function resetPassword(User $user)
+    public function resetPassword(Request $request, User $user)
     {
-        $user->update([
-            'password' => '',
-        ]);
+        $messages = [
+            'password.required' => 'Password wajib diisi.',
+            'password.string' => 'Password harus berupa string.',
+            'password.min' => 'Password harus minimal 8 karakter.',
+            'password.regex' => 'Password harus mengandung setidaknya satu huruf besar, satu huruf kecil, satu angka, dan satu karakter khusus.',
+            'password.confirmed' => 'Konfirmasi password tidak cocok.',
+        ];
+
+        if ($request->password) {
+            $data = $request->validate([
+                'password' => [
+                    'required',
+                    'string',
+                    'min:8',
+                    'regex:/[a-z]/',
+                    'regex:/[A-Z]/',
+                    'regex:/[0-9]/',
+                    'regex:/[@$!%*#?&_]/',
+                    'confirmed',
+                ],
+            ], $messages);
+            $data['is_reset'] = false;
+        } else {
+            $data = ['password' => '', 'is_reset' => true];
+        }
+
+        $user->update($data);
+
         session()->flash('success');
         return back();
     }

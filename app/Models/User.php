@@ -30,7 +30,8 @@ class User extends Authenticatable
         'opd_id',
         'last_signin_at',
         'last_ip_address',
-        'uuid'
+        'uuid',
+        'is_reset'
     ];
 
     /**
