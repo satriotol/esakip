@@ -8,6 +8,7 @@ use App\Models\Opd;
 use App\Models\PerencanaanKinerja\RktOpd;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class RktOpdController extends Controller
@@ -30,8 +31,12 @@ class RktOpdController extends Controller
 
     public function index()
     {
-
-        return view('perencanaan_kinerja.opd.rkt.index');
+        if (Auth::user()->opd_id) {
+            $rkt_opds = RktOpd::orderBy('year', 'desc')->where('opd_id', Auth::user()->opd_id)->paginate();
+        } else {
+            $rkt_opds = RktOpd::orderBy('year', 'desc')->paginate();
+        }
+        return view('perencanaan_kinerja.opd.rkt.index', compact('rkt_opds'));
     }
 
     public function getRktOpd(Request $request)

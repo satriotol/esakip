@@ -24,7 +24,7 @@
                         </a>
                     </div>
                     <div class="table-responsive">
-                        <table id="dataTableExample" class="table">
+                        <table class="table">
                             <thead>
                                 <tr>
                                     <th>Year</th>
@@ -35,9 +35,36 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($rkt_opds as $rkt_opd)
+                                    <tr>
+                                        <td>{{ $rkt_opd->year }}</td>
+                                        <td>{{ $rkt_opd->opd->nama_opd }}</td>
+                                        <td>{{ $rkt_opd->name }}</td>
+                                        <td><a href="{{ asset('uploads/' . $rkt_opd->file) }}" target="_blank"
+                                                class="btn btn-success">Buka</a></td>
+                                        <td>
+                                            @can('opdRenja-edit')
+                                                <a href="{{ route('renjaOpd.edit', $rkt_opd->id) }}"
+                                                    class="btn btn-sm btn-warning ml-1">Edit</a>
+                                            @endcan
+                                            @can('opdRenja-delete')
+                                                <form action="{{ route('renjaOpd.destroy', $rkt_opd->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Are you sure?')">
+                                                        Hapus
+                                                    </button>
+                                                </form>
+                                            @endcan
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
+                    {{ $rkt_opds->appends($_GET)->links() }}
                 </div>
             </div>
         </div>

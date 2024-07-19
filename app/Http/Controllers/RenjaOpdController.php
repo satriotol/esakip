@@ -144,7 +144,7 @@ class RenjaOpdController extends Controller
             $data['file'] = $file;
             return $file;
         };
-        return 'success';
+        return abort(422, "Maksimal 2MB");
     }
 
     /**

@@ -17,12 +17,14 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">Perencanaan Kinerja renstra OPD</h6>
+                    @can('opdPeriodRenstra-create')
                     <div class="text-end mb-2">
                         <a class="btn btn-primary" href="{{ route('periodeRenstraOpd.create') }}">
                             <i data-feather="plus"></i>
                             Tambah
                         </a>
                     </div>
+                    @endcan
                     <div class="table-responsive">
                         <table id="dataTableExample" class="table">
                             <thead>
@@ -43,20 +45,23 @@
                                                 href="{{ route('renstraOpd.index', $periodeRenstraOpd->id) }}">
                                                 Detail
                                             </a>
-                                            <a class="btn btn-warning"
-                                                href="{{ route('periodeRenstraOpd.edit', $periodeRenstraOpd->id) }}">
-                                                Edit
-                                            </a>
-                                            <form
-                                                action="{{ route('periodeRenstraOpd.destroy', $periodeRenstraOpd->id) }}"
-                                                method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"
-                                                    onclick="return confirm('Are you sure?')">
-                                                    Delete
-                                                </button>
-                                            </form>
+                                            @can('opdPeriodRenstra-edit')
+                                                <a class="btn btn-warning"
+                                                    href="{{ route('periodeRenstraOpd.edit', $periodeRenstraOpd->id) }}">
+                                                    Edit
+                                                </a>
+                                            @endcan
+                                            @can('opdPeriodRenstra-delete')
+                                                <form action="{{ route('periodeRenstraOpd.destroy', $periodeRenstraOpd->id) }}"
+                                                    method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger"
+                                                        onclick="return confirm('Are you sure?')">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach
