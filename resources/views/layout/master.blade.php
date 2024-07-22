@@ -9,7 +9,7 @@
     <meta name="author" content="NobleUI">
     <meta name="keywords" content="E-Sakip Kota Semarang">
 
-    <title>ESAKIP - PEMKOT SEMARANG</title>
+    <title>E-Sakip - PEMKOT SEMARANG</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
