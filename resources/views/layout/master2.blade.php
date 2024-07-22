@@ -9,9 +9,9 @@
     <meta name="description" content="Responsive Laravel Admin Dashboard Template based on Bootstrap 5">
     <meta name="author" content="NobleUI">
     <meta name="keywords"
-        content="E-Sakip Kota Semarang">
+        content="E-SAKIP Kota Semarang">
 
-    <title>E-Sakip Pemkot Semarang</title>
+    <title>E-SAKIP Pemkot Semarang</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
