@@ -8,6 +8,7 @@ use App\Models\Opd;
 use App\Models\PerencanaanKinerja\PeriodeRenstraOpd;
 use App\Models\PerencanaanKinerja\RenstraOpd;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RenstraOpdController extends Controller
 {
@@ -18,7 +19,12 @@ class RenstraOpdController extends Controller
      */
     public function index(PeriodeRenstraOpd $periodeRenstraOpd)
     {
-        $renstraOpds = RenstraOpd::where('periode_renstra_opd_id', $periodeRenstraOpd->id)->get();
+        if (Auth::user()->opd_id) {
+            $renstraOpds = RenstraOpd::where('periode_renstra_opd_id', $periodeRenstraOpd->id)->where('opd_id', Auth::user()->opd_id)->get();
+        }else{
+            $renstraOpds = RenstraOpd::where('periode_renstra_opd_id', $periodeRenstraOpd->id)->get();
+            
+        }
         return view('perencanaan_kinerja.opd.renstra.renstra_detail.index', compact('renstraOpds', 'periodeRenstraOpd'));
     }
 

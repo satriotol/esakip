@@ -27,17 +27,47 @@
                         <table id="dataTableExample" class="table">
                             <thead>
                                 <tr>
-                                    <th>Year</th>
+                                    <th>Tahun</th>
                                     <th>OPD</th>
-                                    <th>Type</th>
+                                    <th>Tipe</th>
                                     <th>File</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($cascadingKinerjaOpds as $cascadingKinerjaOpd)
+                                    <tr>
+                                        <td>{{ $cascadingKinerjaOpd->year }}</td>
+                                        <td>{{ $cascadingKinerjaOpd->opd->nama_opd }}</td>
+                                        <td>{{ $cascadingKinerjaOpd->type }}</td>
+                                        <td><a href="{{ asset('uploads/' . $cascadingKinerjaOpd->file) }}" target="_blank"
+                                                class="btn btn-success">Buka</a></td>
+                                        <td>
+                                            @can('opdCascadingKinerja-edit')
+                                                <a href="{{ route('cascadingKinerjaOpd.edit', $cascadingKinerjaOpd->id) }}"
+                                                    class="btn btn-sm btn-warning ml-1">Edit</a>
+                                            @endcan
+                                            @can('opdCascadingKinerja-delete')
+                                                <form
+                                                    action="{{ route('cascadingKinerjaOpd.destroy', $cascadingKinerjaOpd->id) }}"
+                                                    method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Are you sure?')">
+                                                        Hapus
+                                                    </button>
+                                                </form>
+                                            @endcan
+
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
+                    {{ $cascadingKinerjaOpds->appends($_GET)->links() }}
+
                 </div>
             </div>
         </div>
@@ -50,45 +80,4 @@
 @endpush
 
 @push('custom-scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var table = $('#dataTableExample').DataTable({
-                autoWidth: false,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('cascadingKinerjaOpd.getCascadingKinerjaOpd') }}",
-                    method: 'POST',
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                    },
-                },
-                columns: [{
-                        data: 'year',
-                        name: 'year'
-                    },
-                    {
-                        data: 'opd.nama_opd',
-                        name: 'opd.nama_opd'
-                    },
-                    {
-                        data: 'type',
-                        name: 'type'
-                    },
-                    {
-                        data: 'pdf',
-                        name: 'pdf',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-        });
-    </script>
 @endpush

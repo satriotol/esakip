@@ -7,6 +7,7 @@ use App\Http\Requests\PerancanaanKinerja\UpdateCascadingKinerjaOpdRequest;
 use App\Models\Opd;
 use App\Models\PerencanaanKinerja\CascadingKinerjaOpd;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class CascadingKinerjaOpdController extends Controller
@@ -53,7 +54,13 @@ class CascadingKinerjaOpdController extends Controller
     }
     public function index(Request $request)
     {
-        return view('perencanaan_kinerja.opd.cascading_kinerja.index');
+
+        if (Auth::user()->opd_id) {
+            $cascadingKinerjaOpds = CascadingKinerjaOpd::where('opd_id', Auth::user()->opd_id)->orderBy('year', 'desc')->paginate();
+        } else {
+            $cascadingKinerjaOpds = CascadingKinerjaOpd::orderBy('year', 'desc')->paginate();
+        }
+        return view('perencanaan_kinerja.opd.cascading_kinerja.index', compact('cascadingKinerjaOpds'));
     }
 
     /**
