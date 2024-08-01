@@ -7,6 +7,7 @@ use App\Http\Requests\PelaporanKinerja\Opd\UpdateLkjipOpdRequest;
 use App\Models\Opd;
 use App\Models\PelaporanKinerja\LkjipOpd;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class LkjipOpdController extends Controller
@@ -23,35 +24,14 @@ class LkjipOpdController extends Controller
         $this->middleware('permission:opdLkjip-edit', ['only' => ['edit', 'update']]);
         $this->middleware('permission:opdLkjip-delete', ['only' => ['destroy']]);
     }
-    public function getLkjipOpd(Request $request)
-    {
-        if ($request->ajax()) {
-            $lkjip_opd = LkjipOpd::with('opd')->get();
-            return DataTables::of($lkjip_opd)->addIndexColumn()
-                ->addColumn('pdf', function ($row) {
-                    $btn = '<a class="btn btn-sm btn-success" target="_blank" href="' . asset('uploads/' . $row->file) . '"> Open File</a>';
-                    return $btn;
-                })
-                ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('lkjip_opd.edit', $row->id) . '" class="btn btn-sm btn-warning ml-1">Edit</a>';
-                    $btn = $btn . '
-                        <form action="' . route('lkjip_opd.destroy', $row->id) . '" method="POST"
-                            class="d-inline">
-                            ' . csrf_field() . '
-                            ' . method_field("DELETE") . '
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Are you sure?\')">
-                            Delete
-                            </button>
-                        </form>';
-                    return $btn;
-                })
-                ->rawColumns(['pdf', 'action'])
-                ->make(true);
-        }
-    }
     public function index()
     {
-        return view('pelaporan_kinerja.lkjip_opd.index');
+        if (Auth::user()->opd_id) {
+            $lkjipOpds = LkjipOpd::where('opd_id', Auth::user()->opd_id)->orderBy('year', 'desc')->paginate();
+        } else {
+            $lkjipOpds = LkjipOpd::orderBy('year', 'desc')->paginate();
+        }
+        return view('pelaporan_kinerja.lkjip_opd.index', compact('lkjipOpds'));
     }
 
     /**

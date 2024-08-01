@@ -17,25 +17,57 @@
             <div class="card">
                 <div class="card-body">
                     <h6 class="card-title">Pelaporan Kinerja LKJIP OPD</h6>
-                    <div class="text-end mb-2">
-                        <a class="btn btn-primary" href="{{ route('lkjip_opd.create') }}">
-                            <i data-feather="plus"></i>
-                            Tambah
-                        </a>
-                    </div>
+                    @can('opdLkjip-create')
+                        <div class="text-end mb-2">
+                            <a class="btn btn-primary" href="{{ route('lkjip_opd.create') }}">
+                                <i data-feather="plus"></i>
+                                Tambah
+                            </a>
+                        </div>
+                    @endcan
                     <div class="table-responsive">
-                        <table id="dataTableExample" class="table">
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Year</th>
+                                    <th>Tahun</th>
                                     <th>OPD</th>
                                     <th>File</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($lkjipOpds as $lkjipOpd)
+                                    <tr>
+                                        <td>
+                                            {{ $lkjipOpd->year }}
+                                        </td>
+                                        <td>
+                                            {{ $lkjipOpd->opd->nama_opd }}
+                                        </td>
+                                        <td><a href="{{ asset('uploads/' . $lkjipOpd->file) }}" target="_blank"
+                                                class="btn btn-success">Buka</a></td>
+                                        <td>
+                                            @can('opdLkjip-edit')
+                                                <a href="{{ route('lkjip_opd.edit', $lkjipOpd->id) }}"
+                                                    class="btn btn-sm btn-warning ml-1">Edit</a>
+                                            @endcan
+                                            @can('opdLkjip-delete')
+                                                <form action="{{ route('lkjip_opd.destroy', $lkjipOpd->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Are you sure?')">
+                                                        Hapus
+                                                    </button>
+                                                </form>
+                                            @endcan
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
+                        {{ $lkjipOpds->appends($_GET)->links() }}
                     </div>
                 </div>
             </div>
@@ -49,41 +81,4 @@
 @endpush
 
 @push('custom-scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var table = $('#dataTableExample').DataTable({
-                autoWidth: false,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('lkjip_opd.getLkjipOpd') }}",
-                    method: 'POST',
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                    },
-                },
-                columns: [{
-                        data: 'year',
-                        name: 'year'
-                    },
-                    {
-                        data: 'opd.nama_opd',
-                        name: 'opd.nama_opd'
-                    },
-                    {
-                        data: 'pdf',
-                        name: 'pdf',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-        });
-    </script>
 @endpush

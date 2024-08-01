@@ -62,7 +62,6 @@
                                                     </button>
                                                 </form>
                                             @endcan
-
                                         </td>
                                     </tr>
                                 @endforeach
