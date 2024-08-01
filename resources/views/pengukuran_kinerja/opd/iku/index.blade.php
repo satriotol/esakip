@@ -24,18 +24,45 @@
                         </a>
                     </div>
                     <div class="table-responsive">
-                        <table id="dataTableExample" class="table">
+                        <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Year</th>
+                                    <th>Tahun</th>
                                     <th>OPD</th>
                                     <th>File</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($ikuOpds as $ikuOpd)
+                                    <tr>
+                                        <td>{{ $ikuOpd->year }}</td>
+                                        <td>{{ $ikuOpd->opd->nama_opd }}</td>
+                                        <td><a href="{{ asset('uploads/' . $ikuOpd->file) }}" target="_blank"
+                                                class="btn btn-success">Buka</a></td>
+                                        <td>
+                                            @can('opdIku-edit')
+                                                <a href="{{ route('ikuOpd.edit', $ikuOpd->id) }}"
+                                                    class="btn btn-sm btn-warning ml-1">Edit</a>
+                                            @endcan
+                                            @can('opdIku-delete')
+                                                <form action="{{ route('ikuOpd.destroy', $ikuOpd->id) }}" method="POST"
+                                                    class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger"
+                                                        onclick="return confirm('Are you sure?')">
+                                                        Hapus
+                                                    </button>
+                                                </form>
+                                            @endcan
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
+                        {{ $ikuOpds->appends($_GET)->links() }}
+
                     </div>
                 </div>
             </div>
@@ -49,41 +76,4 @@
 @endpush
 
 @push('custom-scripts')
-    <script type="text/javascript">
-        $(document).ready(function() {
-            var table = $('#dataTableExample').DataTable({
-                autoWidth: false,
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('ikuOpd.getIkuOpd') }}",
-                    method: 'POST',
-                    data: {
-                        '_token': '{{ csrf_token() }}',
-                    },
-                },
-                columns: [{
-                        data: 'year',
-                        name: 'year'
-                    },
-                    {
-                        data: 'opd.nama_opd',
-                        name: 'opd.nama_opd'
-                    },
-                    {
-                        data: 'pdf',
-                        name: 'pdf',
-                        orderable: false,
-                        searchable: false
-                    },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false
-                    }
-                ]
-            });
-        });
-    </script>
 @endpush

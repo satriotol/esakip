@@ -7,6 +7,7 @@ use App\Http\Requests\PengukuranKinerja\UpdateIkuOpdRequest;
 use App\Models\Opd;
 use App\Models\PengukuranKinerja\IkuOpd;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\Facades\DataTables;
 
 class IkuOpdController extends Controller
@@ -25,35 +26,14 @@ class IkuOpdController extends Controller
         $name = "Pengukuran Kinerja IKU OPD";
         view()->share('name', $name);
     }
-    public function getIkuOpd(Request $request)
-    {
-        if ($request->ajax()) {
-            $ikuOpd = IkuOpd::with('opd')->get();
-            return DataTables::of($ikuOpd)->addIndexColumn()
-                ->addColumn('pdf', function ($row) {
-                    $btn = '<a class="btn btn-sm btn-success" target="_blank" href="' . asset('uploads/' . $row->file) . '"> Open File</a>';
-                    return $btn;
-                })
-                ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('ikuOpd.edit', $row->id) . '" class="btn btn-sm btn-warning ml-1">Edit</a>';
-                    $btn = $btn . '
-                        <form action="' . route('ikuOpd.destroy', $row->id) . '" method="POST"
-                            class="d-inline">
-                            ' . csrf_field() . '
-                            ' . method_field("DELETE") . '
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Are you sure?\')">
-                            Delete
-                            </button>
-                        </form>';
-                    return $btn;
-                })
-                ->rawColumns(['pdf', 'action'])
-                ->make(true);
-        }
-    }
     public function index()
     {
-        return view('pengukuran_kinerja.opd.iku.index');
+        if (Auth::user()->opd_id) {
+            $ikuOpds = IkuOpd::where('opd_id', Auth::user()->opd_id)->orderBy('year', 'desc')->paginate();
+        } else {
+            $ikuOpds = IkuOpd::orderBy('year', 'desc')->paginate();
+        }
+        return view('pengukuran_kinerja.opd.iku.index', compact('ikuOpds'));
     }
 
     /**
