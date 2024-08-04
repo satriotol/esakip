@@ -39,33 +39,6 @@ class RktOpdController extends Controller
         return view('perencanaan_kinerja.opd.rkt.index', compact('rkt_opds'));
     }
 
-    public function getRktOpd(Request $request)
-    {
-        if ($request->ajax()) {
-            $rktOpd = RktOpd::with('opd')->get();
-            return DataTables::of($rktOpd)->addIndexColumn()
-                ->addColumn('pdf', function ($row) {
-                    $btn = '<a class="btn btn-sm btn-success" target="_blank" href="' . asset('uploads/' . $row->file) . '"> Open File</a>';
-                    return $btn;
-                })
-                ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('rktOpd.edit', $row->id) . '" class="btn btn-sm btn-warning ml-1">Edit</a>';
-                    $btn = $btn . '
-                        <form action="' . route('rktOpd.destroy', $row->id) . '" method="POST"
-                            class="d-inline">
-                            ' . csrf_field() . '
-                            ' . method_field("DELETE") . '
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Are you sure?\')">
-                            Delete
-                            </button>
-                        </form>';
-                    return $btn;
-                })
-                ->rawColumns(['pdf', 'action'])
-                ->make(true);
-        }
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -85,8 +58,20 @@ class RktOpdController extends Controller
      */
     public function store(CreateRktOpdRequest $request)
     {
-        $data = $request->all();
-        $data['file'] = $request->file;
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'file' => 'required|max:10000|mimes:pdf',
+            'name' => 'required',
+            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileExtension = $file->getClientOriginalExtension();
+            $nama_file = "RKT_OPD_" . $data['opd_id'];
+            $fileName = 'RKT_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
+            $file->storeAs('', $fileName, 'public_uploads');
+            $data['file'] = $fileName;
+        }
         RktOpd::create($data);
         session()->flash('success');
         return redirect(route('rktOpd.index'));
@@ -124,11 +109,21 @@ class RktOpdController extends Controller
      */
     public function update(UpdateRktOpdRequest $request, RktOpd $rktOpd)
     {
-        $data = $request->all();
-        if ($request->file) {
-            $data['file'] = $request->file;
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'file' => 'nullable|max:10000|mimes:pdf',
+            'name' => 'required',
+            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileExtension = $file->getClientOriginalExtension();
+            $nama_file = "RKT_OPD_" . $data['opd_id'];
+            $fileName = 'RKT_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
+            $file->storeAs('', $fileName, 'public_uploads');
+            $data['file'] = $fileName;
             $rktOpd->deleteFile();
-        };
+        }
         $rktOpd->update($data);
         session()->flash('success');
         return redirect(route('rktOpd.index'));
