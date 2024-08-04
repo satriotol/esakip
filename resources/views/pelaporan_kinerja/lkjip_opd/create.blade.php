@@ -39,49 +39,36 @@
                                 <option value="{{ $opd->id }}"
                                     @isset($lkjip_opd) @if ($opd->id === $lkjip_opd->opd_id) selected @endif
                                 @endisset>
-                                {{ $opd->nama_opd }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="file" class="form-label">File</label>
-                    <input type="file" id="file" name="file"
-                        @empty($lkjip_opd) required @endempty />
-                    @isset($lkjip_opd)
-                        <object data="{{ asset('uploads/' . $lkjip_opd->file) }}" class="w-100 mt-5" style="height: 550px"
-                            type="application/pdf">
-                            <div>No online PDF viewer installed</div>
-                        </object>
-                    @endisset
-                </div>
+                                    {{ $opd->nama_opd }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="file" class="form-label">File</label>
+                        <input type="file" id="file" name="file" class="form-control"
+                            @empty($lkjip_opd) required @endempty />
+                        @isset($lkjip_opd)
+                            <object data="{{ asset('uploads/' . $lkjip_opd->file) }}" class="w-100 mt-5" style="height: 550px"
+                                type="application/pdf">
+                                <div>No online PDF viewer installed</div>
+                            </object>
+                        @endisset
+                    </div>
 
-                <div class="text-end">
-                    <input class="btn btn-primary" type="submit" value="Submit">
-                </div>
-            </form>
+                    <div class="text-end">
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 @endsection
 
 @push('plugin-scripts')
-<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-<script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
 @endpush
 
 @push('custom-scripts')
-<script>
-    const inputElement = document.querySelector('input[id="file"]');
-    const pond = FilePond.create(inputElement);
-    FilePond.setOptions({
-        server: {
-            url: '{{ route('perencanaan_kinerja_rkpd.store_file') }}',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-        }
-    });
-</script>
-<script src="{{ asset('assets/js/select2.js') }}"></script>
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endpush

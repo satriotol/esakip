@@ -53,9 +53,19 @@ class LkjipOpdController extends Controller
      */
     public function store(CreateLkjipOpdRequest $request)
     {
-        $data = $request->all();
-        $data['file'] = $request->file;
-
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'file' => 'required|max:10000|mimes:pdf',
+            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileExtension = $file->getClientOriginalExtension();
+            $nama_file = "LKJIP_OPD_" . $data['opd_id'];
+            $fileName = 'LKJIP_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
+            $file->storeAs('', $fileName, 'public_uploads');
+            $data['file'] = $fileName;
+        }
         LkjipOpd::create($data);
         session()->flash('success');
         return redirect(route('lkjip_opd.index'));
@@ -93,11 +103,19 @@ class LkjipOpdController extends Controller
      */
     public function update(UpdateLkjipOpdRequest $request, LkjipOpd $lkjip_opd)
     {
-        $data = $request->all();
-        if ($request->file) {
-            $data['file'] = $request->file;
-            $lkjip_opd->deleteFile();
-        };
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'file' => 'nullable|max:10000|mimes:pdf',
+            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileExtension = $file->getClientOriginalExtension();
+            $nama_file = "LKJIP_OPD_" . $data['opd_id'];
+            $fileName = 'LKJIP_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
+            $file->storeAs('', $fileName, 'public_uploads');
+            $data['file'] = $fileName;
+        }
         $lkjip_opd->update($data);
         session()->flash('success');
         return redirect(route('lkjip_opd.index'));
