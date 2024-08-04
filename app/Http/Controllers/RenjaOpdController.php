@@ -88,8 +88,20 @@ class RenjaOpdController extends Controller
      */
     public function store(CreateRenjaOpdRequest $request)
     {
-        $data = $request->all();
-        $data['file'] = $request->file;
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'file' => 'required|max:100000|mimes:pdf',
+            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+            'type' => 'required'
+        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileExtension = $file->getClientOriginalExtension();
+            $nama_file = "RENJA_OPD_" . $data['opd_id'];
+            $fileName = 'RENJA_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
+            $file->storeAs('', $fileName, 'public_uploads');
+            $data['file'] = $fileName;
+        }
         RenjaOpd::create($data);
         session()->flash('success');
         return redirect(route('renjaOpd.index'));
@@ -128,11 +140,20 @@ class RenjaOpdController extends Controller
      */
     public function update(UpdateRenjaOpdRequest $request, RenjaOpd $renjaOpd)
     {
-        $data = $request->all();
-        if ($request->file) {
-            $data['file'] = $request->file;
-            $renjaOpd->deleteFile();
-        };
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'file' => 'required|max:100000|mimes:pdf',
+            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+            'type' => 'required'
+        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileExtension = $file->getClientOriginalExtension();
+            $nama_file = "RENJA_OPD_" . $data['opd_id'];
+            $fileName = 'RENJA_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
+            $file->storeAs('', $fileName, 'public_uploads');
+            $data['file'] = $fileName;
+        }
         $renjaOpd->update($data);
         session()->flash('success');
         return redirect(route('renjaOpd.index'));
