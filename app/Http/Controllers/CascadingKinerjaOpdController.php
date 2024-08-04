@@ -26,32 +26,6 @@ class CascadingKinerjaOpdController extends Controller
         $name = "Pohon Kinerja OPD";
         view()->share('name', $name);
     }
-    public function getCascadingKinerjaOpd(Request $request)
-    {
-        if ($request->ajax()) {
-            $cascadingKinerjaOpd = CascadingKinerjaOpd::with('opd')->get();
-            return DataTables::of($cascadingKinerjaOpd)->addIndexColumn()
-                ->addColumn('pdf', function ($row) {
-                    $btn = '<a class="btn btn-sm btn-success" target="_blank" href="' . asset('uploads/' . $row->file) . '"> Open File</a>';
-                    return $btn;
-                })
-                ->addColumn('action', function ($row) {
-                    $btn = '<a href="' . route('cascadingKinerjaOpd.edit', $row->id) . '" class="btn btn-sm btn-warning ml-1">Edit</a>';
-                    $btn = $btn . '
-                        <form action="' . route('cascadingKinerjaOpd.destroy', $row->id) . '" method="POST"
-                            class="d-inline">
-                            ' . csrf_field() . '
-                            ' . method_field("DELETE") . '
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm(\'Are you sure?\')">
-                            Delete
-                            </button>
-                        </form>';
-                    return $btn;
-                })
-                ->rawColumns(['pdf', 'action'])
-                ->make(true);
-        }
-    }
     public function index(Request $request)
     {
 
@@ -83,8 +57,21 @@ class CascadingKinerjaOpdController extends Controller
      */
     public function store(CreateCascadingKinerjaOpdRequest $request)
     {
-        $data = $request->all();
-        $data['file'] = $request->file;
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'file' => 'required|max:100000|mimes:pdf',
+            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+            'type' => 'required'
+        ]);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileExtension = $file->getClientOriginalExtension();
+            $nama_file = "POHON_KINERJA_OPD_" . $data['opd_id'];
+            $fileName = 'POHON_KINERJA_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
+            $file->storeAs('', $fileName, 'public_uploads');
+            $data['file'] = $fileName;
+        }
         CascadingKinerjaOpd::create($data);
         session()->flash('success');
         return redirect(route('cascadingKinerjaOpd.index'));
@@ -123,11 +110,21 @@ class CascadingKinerjaOpdController extends Controller
      */
     public function update(UpdateCascadingKinerjaOpdRequest $request, CascadingKinerjaOpd $cascadingKinerjaOpd)
     {
-        $data = $request->all();
-        if ($request->file) {
-            $data['file'] = $request->file;
-            $cascadingKinerjaOpd->deleteFile();
-        };
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'file' => 'required|max:100000|mimes:pdf',
+            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+            'type' => 'required'
+        ]);
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileExtension = $file->getClientOriginalExtension();
+            $nama_file = "POHON_KINERJA_OPD_" . $data['opd_id'];
+            $fileName = 'POHON_KINERJA_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
+            $file->storeAs('', $fileName, 'public_uploads');
+            $data['file'] = $fileName;
+        }
         $cascadingKinerjaOpd->update($data);
         session()->flash('success');
         return redirect(route('cascadingKinerjaOpd.index'));
