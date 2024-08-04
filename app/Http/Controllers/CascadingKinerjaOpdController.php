@@ -118,6 +118,7 @@ class CascadingKinerjaOpdController extends Controller
         ]);
 
         if ($request->hasFile('file')) {
+            $cascadingKinerjaOpd->deleteFile();
             $file = $request->file('file');
             $fileExtension = $file->getClientOriginalExtension();
             $nama_file = "POHON_KINERJA_OPD_" . $data['opd_id'];

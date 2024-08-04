@@ -108,6 +108,7 @@ class RenstraOpdController extends Controller
         ]);
         $data['periode_renstra_opd_id'] = $periodeRenstraOpd;
         if ($request->hasFile('file')) {
+            $renstraOpd->deleteFile();
             $file = $request->file('file');
             $fileExtension = $file->getClientOriginalExtension();
             $nama_file = "RENSTRA_OPD_" . $data['opd_id'];

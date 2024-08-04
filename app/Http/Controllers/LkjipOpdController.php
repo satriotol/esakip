@@ -109,6 +109,7 @@ class LkjipOpdController extends Controller
             'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
         ]);
         if ($request->hasFile('file')) {
+            $lkjip_opd->deleteFile();
             $file = $request->file('file');
             $fileExtension = $file->getClientOriginalExtension();
             $nama_file = "LKJIP_OPD_" . $data['opd_id'];

@@ -116,13 +116,13 @@ class RktOpdController extends Controller
             'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
         ]);
         if ($request->hasFile('file')) {
+            $rktOpd->deleteFile();
             $file = $request->file('file');
             $fileExtension = $file->getClientOriginalExtension();
             $nama_file = "RKT_OPD_" . $data['opd_id'];
             $fileName = 'RKT_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
             $file->storeAs('', $fileName, 'public_uploads');
             $data['file'] = $fileName;
-            $rktOpd->deleteFile();
         }
         $rktOpd->update($data);
         session()->flash('success');

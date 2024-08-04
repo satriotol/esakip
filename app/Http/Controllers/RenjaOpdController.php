@@ -147,6 +147,7 @@ class RenjaOpdController extends Controller
             'type' => 'required'
         ]);
         if ($request->hasFile('file')) {
+            $renjaOpd->deleteFile();
             $file = $request->file('file');
             $fileExtension = $file->getClientOriginalExtension();
             $nama_file = "RENJA_OPD_" . $data['opd_id'];
