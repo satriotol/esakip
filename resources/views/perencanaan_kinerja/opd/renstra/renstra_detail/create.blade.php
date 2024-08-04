@@ -37,49 +37,37 @@
                                 <option value="{{ $opd->id }}"
                                     @isset($renstraOpd) @if ($opd->id === $renstraOpd->opd_id) selected @endif
                                 @endisset>
-                                {{ $opd->nama_opd }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-3">
-                    <label for="file" class="form-label">File</label>
-                    <input type="file" name="file" id="file"
-                        @empty($renstraOpd) required @endempty />
-                    @isset($renstraOpd)
-                        <object data="{{ asset('uploads/' . $renstraOpd->file) }}" class="w-100 mt-5"
-                            style="height: 550px" type="application/pdf">
-                            <div>No online PDF viewer installed</div>
-                        </object>
-                    @endisset
-                </div>
+                                    {{ $opd->nama_opd }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="file" class="form-label">File</label>
+                        <input type="file" name="file" class="form-control" id="file"
+                            @empty($renstraOpd) required @endempty />
+                        <small class="text-danger">Format PDF, maksimal 10MB</small>
+                        @isset($renstraOpd)
+                            <object data="{{ asset('uploads/' . $renstraOpd->file) }}" class="w-100 mt-5" style="height: 550px"
+                                type="application/pdf">
+                                <div>No online PDF viewer installed</div>
+                            </object>
+                        @endisset
+                    </div>
 
-                <div class="text-end">
-                    <input class="btn btn-primary" type="submit" value="Submit">
-                </div>
-            </form>
+                    <div class="text-end">
+                        <input class="btn btn-primary" type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 @endsection
 
 @push('plugin-scripts')
-<script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
-<script src="{{ asset('assets/plugins/select2/select2.min.js') }}"></script>
+    <script src="https://unpkg.com/filepond@^4/dist/filepond.js"></script>
 @endpush
 
 @push('custom-scripts')
-<script src="{{ asset('assets/js/select2.js') }}"></script>
-<script>
-    const inputElement = document.querySelector('input[id="file"]');
-    const pond = FilePond.create(inputElement);
-    FilePond.setOptions({
-        server: {
-            url: '{{ route('renstraOpd.store_file', $periodeRenstraOpd->id) }}',
-            headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-        }
-    });
-</script>
+    <script src="{{ asset('assets/js/select2.js') }}"></script>
 @endpush

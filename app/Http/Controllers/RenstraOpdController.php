@@ -21,9 +21,8 @@ class RenstraOpdController extends Controller
     {
         if (Auth::user()->opd_id) {
             $renstraOpds = RenstraOpd::where('periode_renstra_opd_id', $periodeRenstraOpd->id)->where('opd_id', Auth::user()->opd_id)->get();
-        }else{
+        } else {
             $renstraOpds = RenstraOpd::where('periode_renstra_opd_id', $periodeRenstraOpd->id)->get();
-            
         }
         return view('perencanaan_kinerja.opd.renstra.renstra_detail.index', compact('renstraOpds', 'periodeRenstraOpd'));
     }
@@ -47,14 +46,29 @@ class RenstraOpdController extends Controller
      */
     public function store($periodeRenstraOpd, CreateRenstraOpdRequest $request)
     {
-        $data = $request->all();
-        $data['periode_renstra_opd_id'] = $periodeRenstraOpd;
-        $data['file'] = $request->file;
-        RenstraOpd::create($data);
-        session()->flash('success');
-        return redirect(route('renstraOpd.index', $periodeRenstraOpd));
-    }
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'file' => 'required|max:10000|mimes:pdf',
+            'periode_renstra_opd_id' => 'nullable',
+        ]);
 
+        $data['periode_renstra_opd_id'] = $periodeRenstraOpd;
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileExtension = $file->getClientOriginalExtension();
+            $nama_file = "RENSTRA_OPD_" . $data['opd_id'];
+            $fileName = 'RENSTRA_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
+            $file->storeAs('', $fileName, 'public_uploads');
+            $data['file'] = $fileName;
+        }
+
+        RenstraOpd::create($data);
+
+        session()->flash('success', 'Data berhasil disimpan.');
+
+        return redirect()->route('renstraOpd.index', $periodeRenstraOpd);
+    }
     /**
      * Display the specified resource.
      *
@@ -87,12 +101,20 @@ class RenstraOpdController extends Controller
      */
     public function update(UpdateRenstraOpdRequest $request, $periodeRenstraOpd, RenstraOpd $renstraOpd)
     {
-        $data = $request->all();
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'file' => 'nullable|max:10000|mimes:pdf',
+            'periode_renstra_opd_id' => 'nullable',
+        ]);
         $data['periode_renstra_opd_id'] = $periodeRenstraOpd;
-        if ($request->file) {
-            $data['file'] = $request->file;
-            $renstraOpd->deleteFile();
-        };
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileExtension = $file->getClientOriginalExtension();
+            $nama_file = "RENSTRA_OPD_" . $data['opd_id'];
+            $fileName = 'RENSTRA_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
+            $file->storeAs('', $fileName, 'public_uploads');
+            $data['file'] = $fileName;
+        }
         $renstraOpd->update($data);
         session()->flash('success');
         return redirect(route('renstraOpd.index', $periodeRenstraOpd));
