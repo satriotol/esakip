@@ -44,11 +44,11 @@
                                                 class="btn btn-success">Buka</a></td>
                                         <td>
                                             @can('opdRenja-edit')
-                                                <a href="{{ route('renjaOpd.edit', $rkt_opd->id) }}"
+                                                <a href="{{ route('rktOpd.edit', $rkt_opd->id) }}"
                                                     class="btn btn-sm btn-warning ml-1">Edit</a>
                                             @endcan
                                             @can('opdRenja-delete')
-                                                <form action="{{ route('renjaOpd.destroy', $rkt_opd->id) }}" method="POST"
+                                                <form action="{{ route('rktOpd.destroy', $rkt_opd->id) }}" method="POST"
                                                     class="d-inline">
                                                     @csrf
                                                     @method('DELETE')
