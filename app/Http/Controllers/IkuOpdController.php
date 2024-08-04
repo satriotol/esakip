@@ -55,8 +55,19 @@ class IkuOpdController extends Controller
      */
     public function store(CreateIkuOpdRequest $request)
     {
-        $data = $request->all();
-        $data['file'] = $request->file;
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'file' => 'required|max:10000|mimes:pdf',
+            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileExtension = $file->getClientOriginalExtension();
+            $nama_file = "IKU_OPD_" . $data['opd_id'];
+            $fileName = 'IKU_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
+            $file->storeAs('', $fileName, 'public_uploads');
+            $data['file'] = $fileName;
+        }
         IkuOpd::create($data);
         session()->flash('success');
         return redirect(route('ikuOpd.index'));
@@ -94,11 +105,19 @@ class IkuOpdController extends Controller
      */
     public function update(UpdateIkuOpdRequest $request, IkuOpd $ikuOpd)
     {
-        $data = $request->all();
-        if ($request->file) {
-            $data['file'] = $request->file;
-            $ikuOpd->deleteFile();
-        };
+        $data = $request->validate([
+            'opd_id' => 'required',
+            'file' => 'nullable|max:10000|mimes:pdf',
+            'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
+        ]);
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $fileExtension = $file->getClientOriginalExtension();
+            $nama_file = "IKU_OPD_" . $data['opd_id'];
+            $fileName = 'IKU_OPD/' . date('mdYHis') . '-' . $nama_file . '.' . $fileExtension;
+            $file->storeAs('', $fileName, 'public_uploads');
+            $data['file'] = $fileName;
+        }
         $ikuOpd->update($data);
         session()->flash('success');
         return redirect(route('ikuOpd.index'));

@@ -59,7 +59,7 @@ class CascadingKinerjaOpdController extends Controller
     {
         $data = $request->validate([
             'opd_id' => 'required',
-            'file' => 'required|max:100000|mimes:pdf',
+            'file' => 'required|max:10000|mimes:pdf',
             'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
             'type' => 'required'
         ]);
@@ -112,7 +112,7 @@ class CascadingKinerjaOpdController extends Controller
     {
         $data = $request->validate([
             'opd_id' => 'required',
-            'file' => 'required|max:100000|mimes:pdf',
+            'file' => 'required|max:10000|mimes:pdf',
             'year' => 'required|digits:4|integer|min:1900|max:' . (date('Y') + 1),
             'type' => 'required'
         ]);
