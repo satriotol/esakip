@@ -54,29 +54,30 @@ class AuthenticatedSessionController extends Controller
     public function loginEksekutif(Request $request)
     {
         $email = 'eksekutif@semarangkota.go.id';
+        $password = 'eksekutif@semarangkota.go.id';
         $dataToken = $request->query('token');
         $token = $this->get_user_by_token($dataToken);
-        
         if ($token == 200) {
-            $user = User::where('email', $email)->first();
-    
-            if ($user) {
-                // Otentikasi tanpa password
-                auth()->login($user);
-                return redirect()->intended(RouteServiceProvider::HOME);
-            } else {
-                // Jika pengguna tidak ditemukan
-                throw ValidationException::withMessages([
-                    'email' => ['Pengguna tidak ditemukan.'],
-                ]);
+            if ($email && $password) {
+                $user = User::where('email', $email)->first();
+                if ($user && Hash::check($password, $user->password)) {
+                    // Jika otentikasi berhasil
+                    auth()->login($user);
+                    return redirect()->intended(RouteServiceProvider::HOME);
+                } else {
+                    // Jika otentikasi gagal
+                    throw ValidationException::withMessages([
+                        'email' => ['Email atau password salah.'],
+                    ]);
+                }
             }
         } else {
             return redirect(route('home'));
         }
     }
-    
     public function login_myinspektorat(Request $request)
     {
+        // Send a POST request to the external API
         $checkUser = Http::withHeaders([
             'Accept' => 'application/json',
             'Authorization' => 'Bearer 1|LRBeNUVPEh5zIFzM0KIwgHBDqOLUVI7ehEhsItNF78d770c8'
@@ -84,21 +85,29 @@ class AuthenticatedSessionController extends Controller
             'uuid' => $request->uuid,
             'token' => $request->token,
         ]);
+
+        // Check if the API response is successful
         if ($checkUser->status() == 200) {
+            // Extract user information from the API response
+            $userData = $checkUser->json();
             $email = 'admin_penilaian@semarangkota.go.id';
-            $password = 'penilaiansakip12345';
+
+            // Find the user by email in the local database
             $user = User::where('email', $email)->first();
-            if ($user && Hash::check($password, $user->password)) {
-                // Jika otentikasi berhasil
+
+            if ($user) {
+                // If the user exists, log them in
                 auth()->login($user);
                 return redirect()->intended(RouteServiceProvider::HOME);
             } else {
-                // Jika otentikasi gagal
+                // If the user does not exist, throw a validation exception
                 throw ValidationException::withMessages([
                     'email' => ['Email atau password salah.'],
                 ]);
             }
         }
+
+        // Redirect to the home page if the API response is not successful
         return redirect(route('home'));
     }
     public function get_user_by_token($token)
