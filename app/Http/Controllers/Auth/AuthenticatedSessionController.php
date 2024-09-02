@@ -54,27 +54,27 @@ class AuthenticatedSessionController extends Controller
     public function loginEksekutif(Request $request)
     {
         $email = 'eksekutif@semarangkota.go.id';
-        $password = 'eksekutif@semarangkota.go.id';
         $dataToken = $request->query('token');
         $token = $this->get_user_by_token($dataToken);
+        
         if ($token == 200) {
-            if ($email && $password) {
-                $user = User::where('email', $email)->first();
-                if ($user && Hash::check($password, $user->password)) {
-                    // Jika otentikasi berhasil
-                    auth()->login($user);
-                    return redirect()->intended(RouteServiceProvider::HOME);
-                } else {
-                    // Jika otentikasi gagal
-                    throw ValidationException::withMessages([
-                        'email' => ['Email atau password salah.'],
-                    ]);
-                }
+            $user = User::where('email', $email)->first();
+    
+            if ($user) {
+                // Otentikasi tanpa password
+                auth()->login($user);
+                return redirect()->intended(RouteServiceProvider::HOME);
+            } else {
+                // Jika pengguna tidak ditemukan
+                throw ValidationException::withMessages([
+                    'email' => ['Pengguna tidak ditemukan.'],
+                ]);
             }
         } else {
             return redirect(route('home'));
         }
     }
+    
     public function login_myinspektorat(Request $request)
     {
         $checkUser = Http::withHeaders([
