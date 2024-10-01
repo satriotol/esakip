@@ -23,4 +23,11 @@ trait HttpFormatter
         ])->get($url, $parameter);
         return $data;
     }
+    public function apiGetPenyerapanHttp($url, $parameter)
+    {
+        $data = Http::withHeaders([
+            'X-API-KEY' =>  'b6fbfd30e219172b63a75579fd0a798229d019518bb47d01c6e23d8a0376b043',
+        ])->get($url, $parameter);
+        return $data;
+    }
 }

@@ -131,7 +131,7 @@
                                                         target="_blank">Disini</a>
                                                 </small>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && $checkStatus != 1)
-                                                <a href="{{ route('opdPenilaianKinerja.storeSipd', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
+                                                <a href="{{ route('opdPenilaianKinerja.storeSipd', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd_id]) }}"
                                                     class="badge bg-primary tarik-data">
                                                     TARIK DATA DARI SIPD (QUERY BAPPEDA)
                                                 </a>

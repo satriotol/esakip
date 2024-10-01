@@ -221,42 +221,51 @@ class OpdPenilaianKinerjaController extends Controller
         session()->flash('success');
         return back();
     }
-    public function storeSipd(Request $request, $opd_penilaian_id, $opd_category_variable_id, $year, $id_skpd)
+    public function storeSipd(Request $request, $opd_penilaian_id, $opd_category_variable_id, $year, $opd_id)
     {
-        $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
-        $data = $this->apiGetHttp('https://api.e-sakip.semarangkota.go.id/api/v1/penyerapanAnggaranBelanja/v2', [
-            'name' => $opdPenilaian->name,
-            'id_skpd' => $id_skpd,
-            'year' => $year
-        ]);
-        $response = json_decode($data->getBody(), true);
+        try {
+            $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
+            $data = $this->apiGetPenyerapanHttp('https://penyerapananggaran.semarangkota.go.id/api/penialaian_kinerja_organisasi/getPenyerapanAnggaran', [
+                'period' => $opdPenilaian->name,
+                'opd_id' => $opd_id,
+                'year' => $year
+            ]);
+            if ($data->failed()) {
+                session()->flash('bug', $data->json()['meta']['message']);
+                return back();
+            }   
+            $response = json_decode($data->getBody(), true);
 
-        if ($response == null) {
-            session()->flash('bug', 'Data Belum Siap');
+            if ($response == null) {
+                session()->flash('bug', 'Data Belum Siap');
+                return back();
+            }
+            $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
+            $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+            $capaian = round($data['data']['capaian'], 2);
+            if ($capaian > 100) {
+                $capaian = 100;
+            }
+            $nilaiAkhir = round($capaian * $bobot, 2);
+            OpdPenilaianKinerja::updateOrCreate(
+                [
+                    'opd_penilaian_id' => $opd_penilaian_id,
+                    'opd_category_variable_id' => $opd_category_variable_id,
+                ],
+                [
+                    'target' => $data['data']['target'],
+                    'realisasi' => $data['data']['realisasi'],
+                    'capaian' => $capaian,
+                    'nilai_akhir' => $nilaiAkhir,
+                    'user_id' => Auth::user()->id
+                ]
+            );
+            session()->flash('success');
+            return back();
+        } catch (\Throwable $th) {
+            session()->flash('bug', $th->getMessage());
             return back();
         }
-        $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
-        $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
-        $capaian = round($data['data']['capaian'], 2);
-        if ($capaian > 100) {
-            $capaian = 100;
-        }
-        $nilaiAkhir = round($capaian * $bobot, 2);
-        OpdPenilaianKinerja::updateOrCreate(
-            [
-                'opd_penilaian_id' => $opd_penilaian_id,
-                'opd_category_variable_id' => $opd_category_variable_id,
-            ],
-            [
-                'target' => $data['data']['target'],
-                'realisasi' => $data['data']['realisasi'],
-                'capaian' => $capaian,
-                'nilai_akhir' => $nilaiAkhir,
-                'user_id' => Auth::user()->id
-            ]
-        );
-        session()->flash('success');
-        return back();
     }
     public function storep3dn(Request $request, $opd_penilaian_id, $opd_category_variable_id, $year, $id_skpd)
     {
