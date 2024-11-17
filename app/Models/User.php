@@ -31,7 +31,8 @@ class User extends Authenticatable
         'last_signin_at',
         'last_ip_address',
         'uuid',
-        'is_reset'
+        'is_reset',
+        'random_key'
     ];
 
     /**

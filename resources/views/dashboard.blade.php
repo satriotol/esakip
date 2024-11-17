@@ -39,6 +39,33 @@
                 </div>
             </div>
         </div>
+    @else
+        <div class="row">
+            <div class="col-md-4">
+                <a href="https://penilaian.e-sakip.semarangkota.go.id/" target="_blank">
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h2>
+                                Penilaian AKIP
+                            </h2>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @can('pengelolaanaset-bpkad')
+                <div class="col-md-4">
+                    <a href="https://penilaian.e-sakip.semarangkota.go.id/" target="_blank">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h2>
+                                    Pengelolaan Aset
+                                </h2>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            @endcan
+        </div>
     @endif
 @endsection
 

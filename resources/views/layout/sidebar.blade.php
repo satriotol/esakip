@@ -19,7 +19,6 @@
                 </a>
             </li>
             @if (!Auth::user()->is_reset )
-
                 @can('verifikator-index')
                     <li class="nav-item {{ active_class(['verifikator.*']) }}">
                         <a href="{{ route('verifikator.index') }}" class="nav-link">

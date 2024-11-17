@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Str;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -46,6 +47,7 @@ class AuthenticatedSessionController extends Controller
         $user->update(
             [
                 'last_signin_at' => now(),
+                'random_key' => Str::random(60),
             ]
         );
 
