@@ -54,7 +54,7 @@
             </div>
             @can('pengelolaanaset-bpkad')
                 <div class="col-md-4">
-                    <a href="https://penilaian.e-sakip.semarangkota.go.id/" target="_blank">
+                    <a href="{{ route('login.pengelolaanaset') }}" target="_blank">
                         <div class="card">
                             <div class="card-body text-center">
                                 <h2>

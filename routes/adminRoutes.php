@@ -45,11 +45,16 @@ use App\Http\Controllers\UserOpdController;
 use App\Http\Controllers\VerifikatorController;
 use App\Http\Controllers\WebsiteController;
 use App\Models\OpdPenilaianStaff;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/login/pengelolaanaset', function () {
+        $user = Auth::user();
+        return redirect(env('PENGELOLAAN_ASET_URL') . 'esakip/login/' . $user->random_key . '/' . $user->opd_id);
+    })->name('login.pengelolaanaset');
     Route::resource('website', WebsiteController::class);
     Route::resource('error', ErrorController::class);
     Route::resource('user', UserController::class);
@@ -203,7 +208,8 @@ Route::group(['middleware' => ['auth']], function () {
     // evaluasi kinerja
     Route::resource('evaluasiKinerjaYear', EvaluasiKinerjaYearController::class);
     Route::resource('evaluasiKinerja', EvaluasiKinerjaController::class)->except([
-        'create', 'store',
+        'create',
+        'store',
     ]);
     Route::get('evaluasiKinerja/{evaluasiKinerjaYear}/create', [EvaluasiKinerjaController::class, 'create'])->name('evaluasiKinerja.create');
     Route::post('evaluasiKinerja/{evaluasiKinerjaYear}/store', [EvaluasiKinerjaController::class, 'store'])->name('evaluasiKinerja.store');
