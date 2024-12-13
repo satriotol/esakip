@@ -35,7 +35,6 @@
                             <th>Satuan</th>
                             <th>IKU</th>
                             <th>Akip</th>
-                            <th>RB</th>
                             <th>OPD</th>
                             <th>Action</th>
                         </tr>
@@ -66,12 +65,6 @@
                             </td>
                             <td>
                                 <select name="addMoreInputFields[0][is_sakip]" class="form-control">
-                                    <option value="">Tidak</option>
-                                    <option value="1">Ya</option>
-                                </select>
-                            </td>
-                            <td>
-                                <select name="addMoreInputFields[0][is_rb]" class="form-control">
                                     <option value="">Tidak</option>
                                     <option value="1">Ya</option>
                                 </select>
@@ -110,9 +103,8 @@
                 var satuan_table = '<td><input type="text" class="form-control" name="addMoreInputFields['+i+'][satuan]"></td>'
                 var is_iku = '<td><select name="addMoreInputFields['+i+'][is_iku]" class="form-control"><option value="">Tidak</option><option value="1">Ya</option></select></td>'
                 var is_sakip = '<td><select name="addMoreInputFields['+i+'][is_sakip]" class="form-control"><option value="">Tidak</option><option value="1">Ya</option></select></td>'
-                var is_rb = '<td><select name="addMoreInputFields['+i+'][is_rb]" class="form-control"><option value="">Tidak</option><option value="1">Ya</option></select></td>'
                 var is_opd = '<td><select name="addMoreInputFields['+i+'][is_opd]" class="form-control"><option value="">Tidak</option><option value="1">Ya</option></select></td>'
-                let html = '<tr>'+ sasaran_table + indikator_table + target_table + satuan_table + is_iku + is_sakip + is_rb + is_opd +'<td><button type="button" class="btn btn-outline-danger remove-input-field">Hapus</button></td><tr>';    
+                let html = '<tr>'+ sasaran_table + indikator_table + target_table + satuan_table + is_iku + is_sakip  + is_opd +'<td><button type="button" class="btn btn-outline-danger remove-input-field">Hapus</button></td><tr>';    
             $("#dynamicAddRemove").append(html);
         });
         $(document).on('click', '.remove-input-field', function() {
