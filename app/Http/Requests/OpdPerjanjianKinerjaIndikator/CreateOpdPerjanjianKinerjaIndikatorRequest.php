@@ -30,7 +30,6 @@ class CreateOpdPerjanjianKinerjaIndikatorRequest extends FormRequest
             'addMoreInputFields.*.satuan' => 'nullable',
             'addMoreInputFields.*.is_iku' => 'nullable',
             'addMoreInputFields.*.is_sakip' => 'nullable',
-            'addMoreInputFields.*.is_rb' => 'nullable',
             'addMoreInputFields.*.is_opd' => 'nullable',
         ];
     }
