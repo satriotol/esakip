@@ -9,7 +9,7 @@ class OpdCategory extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'type'];
+    protected $fillable = ['name', 'type', 'is_active'];
     protected $appends = ['total_bobot'];
     const TRIWULAN = 'TRIWULAN';
     const TAHUNAN = 'TAHUNAN';

@@ -68,8 +68,8 @@ class OpdPenilaianController extends Controller
     public function create(Request $request)
     {
         $opds = Opd::getOpd();
-        $opdTahunanCategories = OpdCategory::where('type', 'TAHUNAN')->get();
-        $opdTriwulanCategories = OpdCategory::where('type', 'TRIWULAN')->get();
+        $opdTahunanCategories = OpdCategory::where('type', 'TAHUNAN')->whereIsActive(true)->get();
+        $opdTriwulanCategories = OpdCategory::where('type', 'TRIWULAN')->whereIsActive(true)->get();
         $opdPerjanjianKinerjas = OpdPerjanjianKinerja::getPerjanjianKinerjas($request);
         $inovasiPrestasiOpds = InovasiPrestasiOpd::getByOpdStatus();
         $triwulans = OpdPenilaian::TRIWULANS;

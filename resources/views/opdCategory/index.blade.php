@@ -30,6 +30,7 @@
                                     <th>Nama</th>
                                     <th>Tipe</th>
                                     <th>Variabel</th>
+                                    <th>Aktif</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -50,6 +51,7 @@
                                                 </div> <br>
                                             @endforeach
                                         </td>
+                                        <td>{{$opdCategory->is_active}}</td>
                                         <td>
                                             <a class="btn btn-primary"
                                                 href="{{ route('opdCategory.show', $opdCategory->id) }}">
