@@ -226,14 +226,14 @@ class OpdPenilaianKinerjaController extends Controller
         try {
             $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
             $data = $this->apiGetPenyerapanHttp('https://penyerapananggaran.semarangkota.go.id/api/penialaian_kinerja_organisasi/getPenyerapanAnggaran', [
-                'period' => $opdPenilaian->name,
+                'period' => $opdPenilaian->name ?? "TAHUNAN",
                 'opd_id' => $opd_id,
                 'year' => $year
             ]);
             if ($data->failed()) {
                 session()->flash('bug', $data->json()['meta']['message']);
                 return back();
-            }   
+            }
             $response = json_decode($data->getBody(), true);
 
             if ($response == null) {
