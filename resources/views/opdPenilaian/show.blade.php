@@ -133,7 +133,7 @@
                                             @elseif ($opd_category_variable->opd_variable->pic == 'SIPD' && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storeSipd', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd_id]) }}"
                                                     class="badge bg-primary tarik-data">
-                                                    TARIK DATA DARI SIPD (QUERY BAPPEDA)
+                                                    TARIK DATA DARI SIPD (BPKAD KOTA SEMARANG)
                                                 </a>
                                                 <br>
                                                 <small class="text-danger">
@@ -141,9 +141,9 @@
                                                     Semarang
                                                 </small>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'P3DN' && $checkStatus != 1)
-                                                <a href="{{ route('opdPenilaianKinerja.storep3dn', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd->data_unit_id]) }}"
+                                                <a href="{{ route('opdPenilaianKinerja.storep3dn', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year, $opdPenilaian->opd_id]) }}"
                                                     class="badge bg-primary tarik-data">
-                                                    TARIK DATA P3DN (QUERY BAPPEDA)
+                                                    TARIK DATA P3DN (BAPPEDA KOTA SEMARANG)
                                                 </a>
                                                 <br>
                                                 <small class="text-danger">
