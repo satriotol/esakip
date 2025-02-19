@@ -2,11 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\OpdPenilaianRepository;
+use App\Repositories\OpdRepository;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    protected $opdPenilaianRepository;
+    protected $opdRepository;
+
+    public function __construct()
     {
-        return view('dashboard');
+        $this->opdPenilaianRepository = new OpdPenilaianRepository();
+        $this->opdRepository = new OpdRepository();
+    }
+    public function index(Request $request)
+    {
+        $opds = $this->opdRepository->get($request)->get();
+        $opd_penilaians = $this->opdPenilaianRepository->get($request)->latest()->paginate();
+        $request->flash();
+        return view('dashboard', compact('opd_penilaians', 'opds'));
     }
 }

@@ -41,7 +41,7 @@
         </div>
     @else
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-4 mb-2">
                 <a href="https://penilaian.e-sakip.semarangkota.go.id/" target="_blank">
                     <div class="card">
                         <div class="card-body text-center">
@@ -65,8 +65,72 @@
                     </a>
                 </div>
             @endcan
+            <div class="col-md-12 mb-2">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Pencarian</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="" method="get">
+                            <div class="row">
+                                <div class="col-md">
+                                    <div class="mb-3">
+                                        <label for="year" class="form-label">Tahun</label>
+                                        <input id="year" class="form-control" name="year" type="number"
+                                            placeholder="yyyy" value="{{ @old('year') }}">
+                                    </div>
+                                </div>
+                                <div class="col-md">
+                                    <div class="mb-3">
+                                        <label for="opd_id" class="form-label">OPD</label>
+                                        <select name="opd_id" class="js-example-basic-single form-select">
+                                            <option value="">Pilih OPD</option>
+                                            @foreach ($opds as $opd)
+                                                <option value="{{ $opd->id }}">{{ $opd->nama_opd }} </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="text-end">
+                                <input class="btn btn-primary" type="submit" value="Cari">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Penilaian OPD</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>OPD</th>
+                                    <th>Tahun</th>
+                                    <th>Periode</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($opd_penilaians as $opd_penilaian)
+                                    <tr>
+                                        <td>{{ $opd_penilaian->opd->nama_opd }}</td>
+                                        <td>{{ $opd_penilaian->year }}</td>
+                                        <td>{{ $opd_penilaian->name ?? 'TAHUNAN' }}</td>
+                                        <td>{{ $opd_penilaian->totalAkhir() }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     @endif
+
 @endsection
 
 @push('plugin-scripts')
