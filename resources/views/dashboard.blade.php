@@ -86,7 +86,10 @@
                                         <select name="opd_id" class="js-example-basic-single form-select">
                                             <option value="">Pilih OPD</option>
                                             @foreach ($opds as $opd)
-                                                <option value="{{ $opd->id }}">{{ $opd->nama_opd }} </option>
+                                                <option value="{{ $opd->id }}"
+                                                    {{ old('opd_id') == $opd->id ? 'selected' : '' }}>
+                                                    {{ $opd->nama_opd }}
+                                                </option>
                                             @endforeach
                                         </select>
                                     </div>
