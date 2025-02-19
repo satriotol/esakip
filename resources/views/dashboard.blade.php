@@ -115,6 +115,7 @@
                                     <th>OPD</th>
                                     <th>Tahun</th>
                                     <th>Periode</th>
+                                    <th>Nilai</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -128,6 +129,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $opd_penilaians->appends($_GET)->links() }}
                     </div>
                 </div>
             </div>
@@ -151,4 +153,5 @@
             });
         </script>
     @endif
+
 @endpush

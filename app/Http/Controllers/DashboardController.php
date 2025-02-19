@@ -19,7 +19,7 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $opds = $this->opdRepository->get($request)->get();
-        $opd_penilaians = $this->opdPenilaianRepository->get($request)->latest()->paginate();
+        $opd_penilaians = $this->opdPenilaianRepository->get($request)->paginate(10);
         $request->flash();
         return view('dashboard', compact('opd_penilaians', 'opds'));
     }

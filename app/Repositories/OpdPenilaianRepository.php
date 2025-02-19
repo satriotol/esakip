@@ -21,6 +21,7 @@ class OpdPenilaianRepository
         if ($year) {
             $query = $query->where('year', $year);
         }
+        $query->orderBy('name', 'asc');
         return $query;
     }
 }
