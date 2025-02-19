@@ -103,12 +103,17 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         <h5>Penilaian OPD</h5>
                     </div>
                     <div class="card-body">
+                        @if ($opd_penilaians->isEmpty())
+                            <div class="alert alert-danger" role="alert">
+                                Belum Ada Penilaian Kinerja Organisasi Untuk Tahun Ini
+                            </div>
+                        @else
                         <table class="table">
                             <thead>
                                 <tr>
@@ -130,6 +135,7 @@
                             </tbody>
                         </table>
                         {{ $opd_penilaians->appends($_GET)->links() }}
+                        @endif
                     </div>
                 </div>
             </div>
