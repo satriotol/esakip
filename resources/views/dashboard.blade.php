@@ -10,110 +10,81 @@
             <h4 class="mb-3 mb-md-0">Selamat Datang Di Dashboard E-SAKIP</h4>
         </div>
     </div>
-    @if (Auth::user()->is_reset)
-        <div class="grid-margin stretch-card">
 
-            <div class="card mt-3">
-                <div class="card-header">
-                    <h5>Silahkan Ganti Password Anda</h5>
+    <div class="row">
+        <div class="col-md-4 mb-2">
+            <a href="https://penilaian.e-sakip.semarangkota.go.id/" target="_blank">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h2>
+                            Penilaian AKIP
+                        </h2>
+                    </div>
                 </div>
-                <div class="card-body">
-                    @include('partials.errors')
-                    <form action="{{ route('user.resetPassword', Auth::user()->id) }}" method="post">
-                        @csrf
-                        <div class="mb-3">
-                            <label>Password</label>
-                            <input type="password" @empty($user) required @endempty name="password"
-                                class="form-control">
-                        </div>
-                        <div class="mb-3">
-                            <label>Password Confirmation</label>
-                            <input type="password" @empty($user) required @endempty
-                                name="password_confirmation" class="form-control">
-                            {!! Form::hidden('type', isset($type) ? $type : '') !!}
-                        </div>
-                        <div class="text-end">
-                            <input class="btn btn-primary" type="submit" value="Ganti">
-                        </div>
-                    </form>
-                </div>
-            </div>
+            </a>
         </div>
-    @else
-        <div class="row">
-            <div class="col-md-4 mb-2">
-                <a href="https://penilaian.e-sakip.semarangkota.go.id/" target="_blank">
+        @can('pengelolaanaset-bpkad')
+            <div class="col-md-4">
+                <a href="{{ route('login.pengelolaanaset') }}" target="_blank">
                     <div class="card">
                         <div class="card-body text-center">
                             <h2>
-                                Penilaian AKIP
+                                Pengelolaan Aset
                             </h2>
                         </div>
                     </div>
                 </a>
             </div>
-            @can('pengelolaanaset-bpkad')
-                <div class="col-md-4">
-                    <a href="{{ route('login.pengelolaanaset') }}" target="_blank">
-                        <div class="card">
-                            <div class="card-body text-center">
-                                <h2>
-                                    Pengelolaan Aset
-                                </h2>
+        @endcan
+        <div class="col-md-12 mb-2">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Pencarian</h5>
+                </div>
+                <div class="card-body">
+                    <form action="" method="get">
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="mb-3">
+                                    <label for="year" class="form-label">Tahun</label>
+                                    <input id="year" class="form-control" name="year" type="number"
+                                        placeholder="yyyy" value="{{ @old('year') }}">
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="mb-3">
+                                    <label for="opd_id" class="form-label">OPD</label>
+                                    <select name="opd_id" class="js-example-basic-single form-select">
+                                        <option value="">Pilih OPD</option>
+                                        @foreach ($opds as $opd)
+                                            <option value="{{ $opd->id }}"
+                                                {{ old('opd_id') == $opd->id ? 'selected' : '' }}>
+                                                {{ $opd->nama_opd }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </a>
-                </div>
-            @endcan
-            <div class="col-md-12 mb-2">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Pencarian</h5>
-                    </div>
-                    <div class="card-body">
-                        <form action="" method="get">
-                            <div class="row">
-                                <div class="col-md">
-                                    <div class="mb-3">
-                                        <label for="year" class="form-label">Tahun</label>
-                                        <input id="year" class="form-control" name="year" type="number"
-                                            placeholder="yyyy" value="{{ @old('year') }}">
-                                    </div>
-                                </div>
-                                <div class="col-md">
-                                    <div class="mb-3">
-                                        <label for="opd_id" class="form-label">OPD</label>
-                                        <select name="opd_id" class="js-example-basic-single form-select">
-                                            <option value="">Pilih OPD</option>
-                                            @foreach ($opds as $opd)
-                                                <option value="{{ $opd->id }}"
-                                                    {{ old('opd_id') == $opd->id ? 'selected' : '' }}>
-                                                    {{ $opd->nama_opd }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
 
-                            <div class="text-end">
-                                <input class="btn btn-primary" type="submit" value="Cari">
-                            </div>
-                        </form>
-                    </div>
+                        <div class="text-end">
+                            <input class="btn btn-primary" type="submit" value="Cari">
+                        </div>
+                    </form>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Penilaian OPD</h5>
-                    </div>
-                    <div class="card-body">
-                        @if ($opd_penilaians->isEmpty())
-                            <div class="alert alert-danger" role="alert">
-                                Belum Ada Penilaian Kinerja Organisasi Untuk Tahun Ini
-                            </div>
-                        @else
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Penilaian OPD</h5>
+                </div>
+                <div class="card-body">
+                    @if ($opd_penilaians->isEmpty())
+                        <div class="alert alert-danger" role="alert">
+                            Belum Ada Penilaian Kinerja Organisasi Untuk Tahun Ini
+                        </div>
+                    @else
                         <table class="table">
                             <thead>
                                 <tr>
@@ -135,12 +106,11 @@
                             </tbody>
                         </table>
                         {{ $opd_penilaians->appends($_GET)->links() }}
-                        @endif
-                    </div>
+                    @endif
                 </div>
             </div>
         </div>
-    @endif
+    </div>
 
 @endsection
 
@@ -149,15 +119,4 @@
 
 @push('custom-scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    @if (Auth::user()->is_reset)
-        <script>
-            Swal.fire({
-                title: 'Himbauan',
-                html: 'Untuk melindungi akun Anda, kami menyarankan untuk melakukan reset password secara berkala.',
-                icon: 'info',
-                confirmButtonText: 'OK'
-            });
-        </script>
-    @endif
-
 @endpush

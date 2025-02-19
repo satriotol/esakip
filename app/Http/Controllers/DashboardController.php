@@ -23,4 +23,8 @@ class DashboardController extends Controller
         $request->flash();
         return view('dashboard', compact('opd_penilaians', 'opds'));
     }
+    public function change_password(Request $request)
+    {
+        return view('reset_password');
+    }
 }

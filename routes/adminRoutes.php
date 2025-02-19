@@ -48,8 +48,11 @@ use App\Models\OpdPenilaianStaff;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-
 Route::group(['middleware' => ['auth']], function () {
+    Route::post('user/resetPassword/{user}', [UserController::class, 'resetPassword'])->name('user.resetPassword');
+});
+Route::group(['middleware' => ['auth', 'force_password_change']], function () {
+    Route::get('reset_password', [DashboardController::class, 'change_password'])->name('password.change.form');
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/login/pengelolaanaset', function () {
         $user = Auth::user();
@@ -215,6 +218,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('evaluasiKinerja/{evaluasiKinerjaYear}/store', [EvaluasiKinerjaController::class, 'store'])->name('evaluasiKinerja.store');
     // end of evaluasi kinerja
 
-    Route::post('user/resetPassword/{user}', [UserController::class, 'resetPassword'])->name('user.resetPassword');
     Route::get('user/ubah/profile', [UserController::class, 'editProfile'])->name('user.editProfile');
 });
