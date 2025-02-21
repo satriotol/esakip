@@ -67,6 +67,12 @@
                 }
             },
             mounted() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const nameParam = urlParams.get('name');
+                if (nameParam) {
+                    this.routeName = nameParam.toUpperCase();
+                }
+
                 this.getOpd();
                 this.getOpdIku();
                 this.getOpdPerjanjianKinerja();
@@ -126,6 +132,9 @@
                 },
                 setRouteName(routeName) {
                     this.routeName = routeName;
+                    const url = new URL(window.location);
+                    url.searchParams.set('name', routeName.toLowerCase());
+                    window.history.pushState({}, '', url);
                 }
             },
         }).mount('#app')

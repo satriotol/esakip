@@ -86,12 +86,19 @@
                 }
             },
             mounted() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const nameParam = urlParams.get('name');
+                if (nameParam) {
+                    this.routeName = nameParam.toUpperCase();
+                }
+
                 this.getOpdPeriodRenstra();
                 this.getOpdRenstra();
                 this.getOpd();
                 this.getOpdRkt();
                 this.getOpdCascadingKinerja();
                 this.getOpdRenja();
+
             },
             methods: {
                 getOpd() {
@@ -197,7 +204,11 @@
                 },
                 setRouteName(routeName) {
                     this.routeName = routeName;
+                    const url = new URL(window.location);
+                    url.searchParams.set('name', routeName.toLowerCase());
+                    window.history.pushState({}, '', url);
                 }
+
             },
         }).mount('#app')
     </script>

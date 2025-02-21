@@ -59,9 +59,9 @@
                                             </td>
                                             <td>
                                                 <a :href="data.file_url" target="_blank" class="btn btn-success"><i
-                                        class="fa-solid fa-eye"></i> View</a>
-                                                <a download :href="data.file_url" target="_blank"
-                                                    class="btn btn-danger"><i class="fa-solid fa-download"></i> Download</a>
+                                                        class="fa-solid fa-eye"></i> View</a>
+                                                <a download :href="data.file_url" target="_blank" class="btn btn-danger"><i
+                                                        class="fa-solid fa-download"></i> Download</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -124,9 +124,9 @@
                                             </td>
                                             <td>
                                                 <a :href="data.file_url" target="_blank" class="btn btn-success"><i
-                                        class="fa-solid fa-eye"></i> View</a>
-                                                <a download :href="data.file_url" target="_blank"
-                                                    class="btn btn-danger"><i class="fa-solid fa-download"></i> Download</a>
+                                                        class="fa-solid fa-eye"></i> View</a>
+                                                <a download :href="data.file_url" target="_blank" class="btn btn-danger"><i
+                                                        class="fa-solid fa-download"></i> Download</a>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -179,6 +179,11 @@
                 }
             },
             mounted() {
+                const urlParams = new URLSearchParams(window.location.search);
+                const nameParam = urlParams.get('name');
+                if (nameParam) {
+                    this.routeName = nameParam.toUpperCase();
+                }
                 this.getKotaLkjips();
                 this.getOpdLkjips();
                 this.getOpd();
@@ -237,6 +242,9 @@
                 },
                 setRouteName(routeName) {
                     this.routeName = routeName;
+                    const url = new URL(window.location);
+                    url.searchParams.set('name', routeName.toLowerCase());
+                    window.history.pushState({}, '', url);
                 }
             },
         }).mount('#app')
