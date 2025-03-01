@@ -74,7 +74,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <h5>Penilaian OPD</h5>
@@ -92,7 +92,8 @@
                                     <th>Tahun</th>
                                     <th>Periode</th>
                                     <th>Nilai</th>
-                                    <th>Feedback</th>
+                                    <th>Feedback Ka OPD</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -108,6 +109,10 @@
                                             @else
                                                 Belum Ada Feedback
                                             @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('opdPenilaian.showReport', $opd_penilaian->id) }}"
+                                                class="btn btn-sm btn-primary ml-1">Detail</a>
                                         </td>
                                     </tr>
                                 @endforeach
