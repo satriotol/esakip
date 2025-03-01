@@ -92,6 +92,7 @@
                                     <th>Tahun</th>
                                     <th>Periode</th>
                                     <th>Nilai</th>
+                                    <th>Feedback</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -101,6 +102,13 @@
                                         <td>{{ $opd_penilaian->year }}</td>
                                         <td>{{ $opd_penilaian->name ?? 'TAHUNAN' }}</td>
                                         <td>{{ $opd_penilaian->totalAkhir() }}</td>
+                                        <td>
+                                            @if ($opd_penilaian->opd_penilaian_feedback)
+                                                Sudah Ada Feedback
+                                            @else
+                                                Belum Ada Feedback
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -71,6 +71,10 @@ class OpdPenilaian extends Model implements Auditable
     {
         return $this->belongsTo(OpdPerjanjianKinerja::class, 'opd_perjanjian_kinerja_id', 'id');
     }
+    public function opd_penilaian_feedback()
+    {
+        return $this->hasOne(OpdPenilaianFeedback::class, 'opd_penilaian_id', 'id');
+    }
     public function opd_penilaian_staffs()
     {
         return $this->hasMany(OpdPenilaianStaff::class, 'opd_penilaian_id', 'id');
