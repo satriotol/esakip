@@ -16,7 +16,9 @@
     </nav>
 
     <div class="row">
-        @include('partials.errors')
+        <div class="col-md-12">
+            @include('partials.errors')
+        </div>
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
@@ -113,10 +115,46 @@
                     <h4 class="card-title">Catatan Kepala OPD</h4>
                 </div>
                 <div class="card-body">
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-info" role="alert">
                         Kepala OPD wajib memberikan feedback pada penilaian kinerja OPD, sebagai syarat penarikan data ke
                         E-TPP OPD
                     </div>
+                    @can('opdPenilaianFeedback-store')
+                        <form action="{{ route('opd_penilaian_feedback.store') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="opd_penilaian_id" value="{{ $opdPenilaian->id }}">
+                            <div class="form-group">
+                                <label for="feedback">Feedback</label>
+                                <textarea rows="5" name="feedback" id="feedback" class="form-control" required>{{ isset($opdPenilaian->opd_penilaian_feedback) ? $opdPenilaian->opd_penilaian_feedback->feedback : '' }}</textarea>
+                            </div>
+                            <div class="text-end">
+                                <button class="btn btn-primary" type="submit">Simpan</button>
+                            </div>
+                        </form>
+                    @endcan
+                    @cannot('opdPenilaianFeedback-store')
+                        @if (isset($opdPenilaian->opd_penilaian_feedback))
+                            <div class="alert alert-success" role="alert">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <tr>
+                                            <th>Tanggal</th>
+                                            <td>{{ $opdPenilaian->opd_penilaian_feedback->created_at->format('d-m-Y') }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Feedback</th>
+                                            <td class="text-wrap">{{ $opdPenilaian->opd_penilaian_feedback->feedback }}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        @else
+                            <div class="alert alert-danger" role="alert">
+                                Belum Ada Feedback
+                            </div>
+                        @endif
+                    @endcannot
+
                 </div>
             </div>
         </div>

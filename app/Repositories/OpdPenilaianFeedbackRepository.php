@@ -24,13 +24,12 @@ class OpdPenilaianFeedbackRepository
             'feedback.min' => 'Field Feedback harus memiliki minimal 50 karakter.',
         ];
 
-        return validator($data, $rules, $messages);
+        $data = $data->validate($rules, $messages);
+        return $data;
     }
     public function store($data)
     {
-        $data = $this->validate($data);
         $data['user_id'] = auth()->user()->id;
-        dd($data);
         OpdPenilaianFeedback::updateOrCreate([
             'opd_penilaian_id' => $data['opd_penilaian_id'],
         ], $data);

@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\OpdPenilaianFeedback;
+use App\Repositories\OpdPenilaianFeedbackRepository;
 use Illuminate\Http\Request;
 
 class OpdPenilaianFeedbackController extends Controller
 {
+    private $opdPenilaianFeedbackRepository;
+    public function __construct()
+    {
+        $this->opdPenilaianFeedbackRepository = new OpdPenilaianFeedbackRepository();
+        $this->middleware('permission:opdPenilaianFeedback-store', ['only' => ['create', 'store']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +42,9 @@ class OpdPenilaianFeedbackController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $data = $this->opdPenilaianFeedbackRepository->validate($request);
+        $opd_penilaian_feedback = $this->opdPenilaianFeedbackRepository->store($data);
+        return back()->with('success', 'Sukses Menambahkan Feedback KA OPD');
     }
 
     /**

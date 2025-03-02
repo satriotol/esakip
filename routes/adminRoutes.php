@@ -19,6 +19,7 @@ use App\Http\Controllers\OpdCategoryController;
 use App\Http\Controllers\OpdCategoryVariableController;
 use App\Http\Controllers\OpdController;
 use App\Http\Controllers\OpdPenilaianController;
+use App\Http\Controllers\OpdPenilaianFeedbackController;
 use App\Http\Controllers\OpdPenilaianIkuController;
 use App\Http\Controllers\OpdPenilaianKinerjaController;
 use App\Http\Controllers\OpdPenilaianReportController;
@@ -131,6 +132,7 @@ Route::group(['middleware' => ['auth', 'force_password_change']], function () {
     Route::post('upload/store', [UploadController::class, 'store'])->name('upload.store');
     Route::delete('revert/image', [UploadController::class, 'revert'])->name('upload.revert');
     // opd
+    Route::resource('opd_penilaian_feedback', OpdPenilaianFeedbackController::class);
     Route::resource('ikuOpd', IkuOpdController::class);
     Route::resource('inovasiPrestasiOpd', InovasiPrestasiOpdController::class);
     Route::post('getIkuOpd', [IkuOpdController::class, 'getIkuOpd'])->name('ikuOpd.getIkuOpd');
