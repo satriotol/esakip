@@ -16,6 +16,8 @@ use App\Models\OpdPenilaianReport;
 use App\Models\OpdPenilaianStaff;
 use App\Models\OpdPenilaianStaffType;
 use App\Models\PerngukuranKinerja\OpdPerjanjianKinerja;
+use App\Repositories\OpdPenilaianRepository;
+use App\Repositories\OpdRepository;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Exception;
 use Illuminate\Http\Request;
@@ -25,6 +27,8 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class OpdPenilaianController extends Controller
 {
+    protected $opdPenilaianRepository;
+    protected $opdRepository;
     /**
      * Display a listing of the resource.
      *
@@ -32,6 +36,8 @@ class OpdPenilaianController extends Controller
      */
     public function __construct()
     {
+        $this->opdPenilaianRepository = new OpdPenilaianRepository();
+        $this->opdRepository = new OpdRepository();
         $this->middleware('permission:opdPenilaian-list|opdPenilaian-create|opdPenilaian-edit|opdPenilaian-delete', ['only' => ['index', 'store']]);
         $this->middleware('permission:opdPenilaian-create', ['only' => ['create', 'store']]);
         $this->middleware('permission:opdPenilaian-edit', ['only' => ['edit', 'update']]);
@@ -39,8 +45,8 @@ class OpdPenilaianController extends Controller
     }
     public function index(Request $request)
     {
-        $opds = Opd::getOpd();
-        $opdPenilaians = OpdPenilaian::getOpdPenilaian($request, '')->paginate();
+        $opds = $this->opdRepository->get($request)->get();
+        $opdPenilaians = $this->opdPenilaianRepository->get($request)->latest()->paginate();
         $selectTriwulans = [
             'TAHUNAN' => 'TAHUNAN',
             'TRIWULAN 1' => 'TRIWULAN 1',

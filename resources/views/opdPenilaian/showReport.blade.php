@@ -81,7 +81,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card">
+            <div class="card mb-2">
                 <div class="card-body">
                     <h4 class="card-title">Status Penilaian OPD</h4>
                     <form action="{{ route('opdPenilaian.updateStatus', $opdPenilaian->id) }}" method="post">
@@ -107,6 +107,9 @@
                         </div>
                     </form>
                 </div>
+            </div>
+            <div class="card">
+
             </div>
         </div>
         <div class="col-md-12 mt-2">
