@@ -109,7 +109,15 @@
                 </div>
             </div>
             <div class="card">
-
+                <div class="card-header">
+                    <h4 class="card-title">Catatan Kepala OPD</h4>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-danger" role="alert">
+                        Kepala OPD wajib memberikan feedback pada penilaian kinerja OPD, sebagai syarat penarikan data ke
+                        E-TPP OPD
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-12 mt-2">
