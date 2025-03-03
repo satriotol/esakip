@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OpdPenilaian;
 use App\Repositories\OpdPenilaianRepository;
 use App\Repositories\OpdRepository;
 use Illuminate\Http\Request;
@@ -19,7 +20,9 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $opds = $this->opdRepository->get($request)->get();
-        $opd_penilaians = $this->opdPenilaianRepository->get($request)->orderBy('year', 'desc')->paginate(10);
+        $opd_penilaians = $this->opdPenilaianRepository->get($request)
+            ->orderBy('year', 'desc')
+            ->where('status', OpdPenilaian::STATUS3)->paginate(10);
         $request->flash();
         return view('dashboard', compact('opd_penilaians', 'opds'));
     }

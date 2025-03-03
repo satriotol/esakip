@@ -77,7 +77,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Penilaian OPD</h5>
+                    <h5>Penilaian OPD Status <span class="badge bg-success">SELESAI</span></h5>
                 </div>
                 <div class="card-body">
                     @if ($opd_penilaians->isEmpty())
@@ -105,9 +105,9 @@
                                         <td>{{ $opd_penilaian->totalAkhir() }}</td>
                                         <td>
                                             @if ($opd_penilaian->opd_penilaian_feedback)
-                                                Sudah Ada Feedback
+                                                ✅
                                             @else
-                                                Belum Ada Feedback
+                                                ❌
                                             @endif
                                         </td>
                                         <td>
