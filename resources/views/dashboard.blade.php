@@ -47,7 +47,7 @@
                             <div class="col-md">
                                 <div class="mb-3">
                                     <label for="year" class="form-label">Tahun</label>
-                                    <input id="year" class="form-control" name="year" type="number"
+                                    <input id="year" class="form-control" name="year" type="number" id="year"
                                         placeholder="yyyy" value="{{ @old('year') }}" autocomplete="off">
                                 </div>
                             </div>
@@ -55,7 +55,7 @@
                                 <div class="mb-3">
                                     <label for="opd_id" class="form-label">OPD</label>
                                     <select name="opd_id" class="js-example-basic-single form-select"
-                                        data-placeholder="Pilih OPD">
+                                        data-placeholder="Pilih OPD" id="opd_id">
                                         <option value="">Pilih OPD</option>
                                         @foreach ($opds as $opd)
                                             <option value="{{ $opd->id }}"
@@ -190,7 +190,16 @@
                     }
                 });
 
-                fetch("{{ route('service.getPenyerapanAnggaran') }}")
+                // Ambil nilai dari input
+                let year = document.getElementById("year").value;
+                let opd_id = document.getElementById("opd_id").value;
+
+                // Buat parameter query
+                let params = new URLSearchParams();
+                if (year) params.append("year", year);
+                if (opd_id) params.append("opd_id", opd_id);
+
+                fetch("{{ route('service.getPenyerapanAnggaran') }}?" + params.toString())
                     .then(response => response.json())
                     .then(data => {
                         Swal.close();
@@ -222,6 +231,13 @@
                         console.error("Error fetching data:", error);
                     });
             }
+
+            // Panggil fetchData saat tombol cari diklik
+            document.querySelector("form").addEventListener("submit", function(event) {
+                event.preventDefault(); // Mencegah reload halaman
+                fetchData();
+            });
+
 
             fetchData();
         });
