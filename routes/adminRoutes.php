@@ -53,6 +53,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('user/resetPassword/{user}', [UserController::class, 'resetPassword'])->name('user.resetPassword');
 });
 Route::group(['middleware' => ['auth', 'force_password_change']], function () {
+    Route::group(['prefix' => 'service'], function () {
+        Route::get('/getPenyerapanAnggaran', [DashboardController::class, 'getPenyerapanAnggaran'])->name('service.getPenyerapanAnggaran');
+    });
     Route::get('reset_password', [DashboardController::class, 'change_password'])->name('password.change.form');
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/login/pengelolaanaset', function () {
