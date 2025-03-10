@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuditController;
+use App\Http\Controllers\BknController;
 use App\Http\Controllers\CascadingKinerjaOpdController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ErrorController;
@@ -62,6 +63,10 @@ Route::group(['middleware' => ['auth', 'force_password_change']], function () {
         $user = Auth::user();
         return redirect(env('PENGELOLAAN_ASET_URL') . 'esakip/login/' . $user->random_key . '/' . $user->opd_id);
     })->name('login.pengelolaanaset');
+    Route::resource('bkn', BknController::class);
+    Route::prefix('bkn')->group(function () {
+        Route::get('integrasi/ekin', [BknController::class, 'integrasi_bkn'])->name('bkn.integrasi_bkn'); 
+    });
     Route::resource('website', WebsiteController::class);
     Route::resource('error', ErrorController::class);
     Route::resource('user', UserController::class);

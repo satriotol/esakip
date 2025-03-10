@@ -18,6 +18,12 @@
                     <span class="link-title">Dashboard</span>
                 </a>
             </li>
+            <li class="nav-item {{ active_class(['bkn.*']) }}">
+                <a href="{{ route('bkn.index') }}" class="nav-link">
+                    <i class="link-icon" data-feather="box"></i>
+                    <span class="link-title">Integrasi BKN</span>
+                </a>
+            </li>
             @can('verifikator-index')
                 <li class="nav-item {{ active_class(['verifikator.*']) }}">
                     <a href="{{ route('verifikator.index') }}" class="nav-link">
