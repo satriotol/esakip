@@ -22,17 +22,16 @@ class BknController extends Controller
             if ($response == null) {
                 throw new \Exception('Data tidak ditemukan');
             }
-            return $response;
+            return $response['data']['opd'];
         } catch (\Throwable $th) {
             return redirect(route('dashboard'))->with('error', $th->getMessage());
         }
     }
     public function index(Request $request)
     {
-        $opds = $this->getOpds()['data']['opd'];
+        $opds = $this->getOpds();
         if ($request->tahun && $request->opd) {
-            $data = $this->integrasi_bkn($request)['data'];
-            // return $data;
+            $data = $this->integrasi_bkn($request);
             return view('bkn.index', compact('opds', 'data'));
         }
         $request->flash();
@@ -47,7 +46,7 @@ class BknController extends Controller
             'opd' => $request->opd,
             'tahun' => $request->tahun
         ])->json();
-        return $response;
+        return $response['data'];
     }
 
     /**
