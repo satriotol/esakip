@@ -15,7 +15,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="tahun" class="form-label">Tahun</label>
-                        <input id="tahun" class="form-control" name="tahun" type="number" placeholder="yyyy"
+                        <input id="tahun" class="form-control" name="tahun" value="{{ @old('tahun') }}" type="number" placeholder="yyyy"
                             required>
                     </div>
                     <div class="col-md-6">

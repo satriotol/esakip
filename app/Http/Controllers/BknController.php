@@ -41,11 +41,11 @@ class BknController extends Controller
     public function index(Request $request)
     {
         $opds = $this->getOpds();
+        $request->flash();
         if ($request->tahun && $request->opd) {
             $data = $this->integrasi_bkn($request);
             return view('bkn.index', compact('opds', 'data'));
         }
-        $request->flash();
         return view('bkn.index', compact('opds'));
     }
     public function integrasi_bkn(Request $request)
