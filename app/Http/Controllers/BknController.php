@@ -18,15 +18,26 @@ class BknController extends Controller
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
                 'X-API-KEY' => env('EKIN_BKN_X_API_KEY')
-            ])->get(env('EKIN_BKN_ENDPOINT') . "bkn_skp_sinkronisasi/opd")->json();
-            if ($response == null) {
-                throw new \Exception('Data tidak ditemukan');
+            ])->get(env('EKIN_BKN_ENDPOINT') . "bkn_skp_sinkronisasi/opd");
+    
+            // Pastikan response sukses (status code 200)
+            if (!$response->successful()) {
+                throw new \Exception('Gagal mengambil data OPD dari API');
             }
-            return $response['data']['opd'];
+    
+            $jsonResponse = $response->json();
+    
+            // Cek apakah `data` dan `opd` ada dalam response
+            if (!isset($jsonResponse['data']['opd'])) {
+                throw new \Exception('Data OPD tidak ditemukan dalam response API');
+            }
+    
+            return $jsonResponse['data']['opd'];
+    
         } catch (\Throwable $th) {
             return redirect(route('dashboard'))->with('error', $th->getMessage());
         }
-    }
+    }    
     public function index(Request $request)
     {
         $opds = $this->getOpds();
@@ -39,15 +50,32 @@ class BknController extends Controller
     }
     public function integrasi_bkn(Request $request)
     {
-        $response = Http::withHeaders([
-            'Content-Type' => 'application/json',
-            'X-API-KEY' => env('EKIN_BKN_X_API_KEY')
-        ])->get(env('EKIN_BKN_ENDPOINT') . "bkn_skp_sinkronisasi/sakip_by_opd", [
-            'opd' => $request->opd,
-            'tahun' => $request->tahun
-        ])->json();
-        return $response['data'];
+        try {
+            $response = Http::withHeaders([
+                'Content-Type' => 'application/json',
+                'X-API-KEY' => env('EKIN_BKN_X_API_KEY')
+            ])->get(env('EKIN_BKN_ENDPOINT') . "bkn_skp_sinkronisasi/sakip_by_opd", [
+                'opd' => $request->opd,
+                'tahun' => $request->tahun
+            ]);
+    
+            if (!$response->successful()) {
+                throw new \Exception('Gagal mengambil data dari API');
+            }
+    
+            $jsonResponse = $response->json();
+    
+            if (!isset($jsonResponse['data'])) {
+                throw new \Exception('Data tidak ditemukan dalam response API');
+            }
+    
+            return $jsonResponse['data'];
+    
+        } catch (\Throwable $th) {
+            return ['error' => $th->getMessage()];
+        }
     }
+    
 
     /**
      * Show the form for creating a new resource.
