@@ -88,12 +88,15 @@
                                                         fontWeight: 'bold'
                                                     }">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                                        <a target="_blank" :href="getScore(opd.id, year) && getScore(opd.id, year).lhe_file !=
-                                                            null ? getScore(opd.id, year).lhe_file_url : '#'"
+                                                        <a target="_blank"
+                                                            :href="getScore(opd.id, year) && getScore(opd.id, year).lhe_file !=
+                                                                null ? getScore(opd.id, year).lhe_file_url : '#'"
                                                             :class="getScore(opd.id, year) && getScore(opd.id, year).lhe_file !=
                                                                 null ? 'btn btn-success' : 'btn btn-danger'">LHE</a>
-                                                        <a target="_blank" :href="getScore(opd.id, year) && getScore(opd.id, year).tlhe_file !=
-                                                            null ? getScore(opd.id, year).tlhe_file_url : '#'"
+                                                        <a target="_blank"
+                                                            :href="getScore(opd.id, year) && getScore(opd.id, year)
+                                                                .tlhe_file !=
+                                                                null ? getScore(opd.id, year).tlhe_file_url : '#'"
                                                             :class="getScore(opd.id, year) && getScore(opd.id, year)
                                                                 .tlhe_file !=
                                                                 null ? 'btn btn-success' : 'btn btn-danger'">TLHE</a>
@@ -113,6 +116,7 @@
     </div>
 @endsection
 @push('script')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         const {
             createApp
@@ -126,6 +130,7 @@
                     dataYears: "",
                     scores: "",
                     urlEvaluasiKinerjaAkip: API_URL + 'evaluasi_kinerja_akip',
+                    loading: true
                 }
             },
             mounted() {
@@ -133,17 +138,34 @@
             },
             methods: {
                 getKotaEvaluasiKinerjaAkip() {
+                    Swal.fire({
+                        title: 'Memuat data...',
+                        text: 'Harap tunggu sebentar',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                        willOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+                    this.loading = true
                     axios.get("https://penilaian.e-sakip.semarangkota.go.id/api/v1/score")
                         .then(response => (
-                            console.log(response),
                             this.opds = response.data.data.opds,
                             this.dataYears = response.data.data.years,
                             this.scores = response.data.data.scores
                         ))
                         .catch(function(error) {
                             console.log(error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal Memuat Data',
+                                text: 'Terjadi kesalahan saat mengambil data.',
+                            });
+
                         })
-                        .finally(() => this.loading = false)
+                        .finally(() => {
+                            Swal.close();
+                        });
                 },
                 getScore(opdId, year) {
                     if (this.scores[year]) {
