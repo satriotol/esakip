@@ -15,8 +15,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="tahun" class="form-label">Tahun</label>
-                        <input id="tahun" class="form-control" name="tahun" value="{{ @old('tahun') }}" type="number" placeholder="yyyy"
-                            required>
+                        <input id="tahun" class="form-control" name="tahun" value="{{ @old('tahun') }}" type="number"
+                            placeholder="yyyy" required>
                     </div>
                     <div class="col-md-6">
                         <label for="opd" class="form-label">OPD</label>
@@ -42,38 +42,93 @@
         @isset($data['pegawai'])
             <div class="card">
                 <div class="card-header">
-                    <h5>Informasi Pegawai</h5>
+                    <h5>Informasi </h5>
                 </div>
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <td>Nama</td>
-                                    <td>{{ $data['pegawai']['nama'] }}</td>
-                                </tr>
-                                <tr>
-                                    <td>NIP</td>
-                                    <td>{{ $data['pegawai']['nip'] }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Jabatan</td>
-                                    <td>{{ $data['bkn_rhk']['pegawai_jabatan'] }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Unit Kerja</td>
-                                    <td>{{ $data['bkn_rhk']['pegawai_unit_kerja'] }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Atasan</td>
-                                    <td>{{ $data['bkn_rhk']['atasan_nama'] }} ({{ $data['bkn_rhk']['atasan_jabatan'] }})</td>
-                                </tr>
-                                <tr>
-                                    <td>Status</td>
-                                    <td>{{ $data['bkn_rhk']['status'] }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <h5>Periode Penilaian : {{ $data['bkn_rhk']['periode_awal'] }} s/d {{ $data['bkn_rhk']['periode_akhir'] }}</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>NO</th>
+                                            <th colspan="2">PEGAWAI YANG DINILAI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Nama</td>
+                                            <td>{{ $data['pegawai']['nama'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>NIP</td>
+                                            <td>{{ $data['pegawai']['nip'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Pangkat / Gol Ruang</td>
+                                            <td>{{ $data['bkn_rhk']['pangkat'] }} / {{ $data['bkn_rhk']['pegawai_golru'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Jabatan</td>
+                                            <td>{{ $data['bkn_rhk']['pegawai_jabatan'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Unit Kerja</td>
+                                            <td>{{ $data['bkn_rhk']['pegawai_unit_kerja'] }} <br>
+                                                ID : {{ $data['bkn_rhk']['bkn_skp_id'] }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>NO</th>
+                                            <th colspan="2">PEJABAT PENILAI KINERJA</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Nama</td>
+                                            <td>{{ $data['bkn_rhk']['atasan_nama'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>NIP</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Pangkat / Gol Ruang</td>
+                                            <td>-</td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>Jabatan</td>
+                                            <td>{{ $data['bkn_rhk']['atasan_jabatan'] }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>Unit Kerja</td>
+                                            <td>{{ $data['bkn_rhk']['atasan_unit_kerja'] }} <br>
+                                                ID : {{ $data['bkn_rhk']['bkn_skp_id'] }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -105,6 +160,28 @@
                                         </tr>
                                     @endforeach
                                 @endforeach
+                            </tbody>
+                        </table>
+                        <table class="table table-bordered mt-5">
+                            <tbody>
+                                <tr>
+                                    <td>Dukungan</td>
+                                    <td>
+                                        <textarea class="form-control" id="" disabled rows="5">{{ $data['bkn_rhk']['dukungan'] }}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Konsekuensi</td>
+                                    <td>
+                                        <textarea class="form-control" id="" disabled rows="5">{{ $data['bkn_rhk']['konsekuensi'] }}</textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Pertanggung Jawaban</td>
+                                    <td>
+                                        <textarea class="form-control" id="" disabled rows="5">{{ $data['bkn_rhk']['pertanggungjawaban'] }}</textarea>
+                                    </td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>
