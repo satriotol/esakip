@@ -149,7 +149,16 @@
                                                 <small class="text-danger">
                                                     JIKA TERJADI SELISIH BISA MELAKUKAN KONFIRMASI KE BAPPEDA KOTA SEMARANG
                                                     <a href="#">( BIDANG PERENCANAAN PEREKONOMIAN )</a>
-                                                </small> </small>
+                                                </small>
+                                            @elseif ($opd_category_variable->opd_variable->pic == 'ELEKTRONIFIKASI' && $checkStatus != 1)
+                                                <a href=""
+                                                    class="badge bg-primary tarik-data">
+                                                    TARIK DATA ELEKTRONIFIKASI (BAPENDA KOTA SEMARANG)
+                                                </a>
+                                                <br>
+                                                <small class="text-danger">
+                                                    JIKA TERJADI SELISIH BISA MELAKUKAN KONFIRMASI KE BAPENDA KOTA SEMARANG
+                                                </small>
                                             @elseif($opd_category_variable->opd_variable->is_reformasi_birokrasi && $checkStatus != 1)
                                                 <a href="{{ route('opdPenilaianKinerja.storeRb', [$opdPenilaian->id, $opd_category_variable->id, $opdPenilaian->year]) }}"
                                                     class="badge bg-primary tarik-data">

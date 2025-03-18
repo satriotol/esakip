@@ -164,6 +164,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="text-end">
+                                <small class="text-danger">*data diambil dari ekinerja bkn</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -173,8 +176,8 @@
                             <h5>SKP</h5>
                         </div>
                         <div class="card-body">
-                            <a href="{{route('opdPerjanjianKinerja.show', $opd_perjanjian_kinerja->id)}}" target="_blank">
-                                Perjanjian Kinerja {{$opd_perjanjian_kinerja->year}} | {{$opd_perjanjian_kinerja->type}}
+                            <a href="{{ route('opdPerjanjianKinerja.show', $opd_perjanjian_kinerja->id) }}" target="_blank">
+                                Perjanjian Kinerja {{ $opd_perjanjian_kinerja->year }} | {{ $opd_perjanjian_kinerja->type }}
                             </a>
                             <table class="table table-bordered">
                                 <thead>
@@ -204,6 +207,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="text-end">
+                                <small class="text-danger">*data diambil dari perjanjian kinerja </small>
+                            </div>
                         </div>
                     </div>
                 </div>
