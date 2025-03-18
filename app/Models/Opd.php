@@ -15,7 +15,16 @@ class Opd extends Model
 
     protected $guarded = ['id'];
 
-    protected $fillable = ['nama_opd', 'kode_opd', 'opd_category_id', 'inovasi_prestasi_daerah', 'data_unit_id', 'master_unit_kerja_id'];
+    protected $fillable = [
+        'nama_opd',
+        'name_bkn',
+        'bkn_id',
+        'kode_opd',
+        'opd_category_id',
+        'inovasi_prestasi_daerah',
+        'data_unit_id',
+        'master_unit_kerja_id'
+    ];
 
     public function opd_penilaians()
     {
