@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\OpdRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 
 class BknController extends Controller
@@ -12,39 +14,43 @@ class BknController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getOpds()
+    private $opdRepository;
+
+    public function __construct()
+    {
+        $this->opdRepository = new OpdRepository();
+    }
+    public function getOpds(Request $request)
     {
         try {
             $response = Http::withHeaders([
                 'Content-Type' => 'application/json',
                 'X-API-KEY' => env('EKIN_BKN_X_API_KEY')
-            ])->get(env('EKIN_BKN_ENDPOINT') . "bkn_skp_sinkronisasi/opd");
-    
-            // Pastikan response sukses (status code 200)
+            ])->get(env('EKIN_BKN_ENDPOINT') . "bkn_skp_sinkronisasi/opd", [
+                'bkn_opd_id' => Auth::user()->opd->bkn_id ?? null,
+            ]);
+
             if (!$response->successful()) {
                 throw new \Exception('Gagal mengambil data OPD dari API');
             }
-    
+
             $jsonResponse = $response->json();
-    
-            // Cek apakah `data` dan `opd` ada dalam response
+
             if (!isset($jsonResponse['data']['opd'])) {
                 throw new \Exception('Data OPD tidak ditemukan dalam response API');
             }
-    
+
             return $jsonResponse['data']['opd'];
-    
         } catch (\Throwable $th) {
             return redirect(route('dashboard'))->with('error', $th->getMessage());
         }
-    }    
+    }
     public function index(Request $request)
     {
-        $opds = $this->getOpds();
+        $opds = $this->getOpds($request);
         $request->flash();
         if ($request->tahun && $request->opd) {
             $data = $this->integrasi_bkn($request);
-            // dd($data);
             return view('bkn.index', compact('opds', 'data'));
         }
         return view('bkn.index', compact('opds'));
@@ -59,24 +65,23 @@ class BknController extends Controller
                 'opd' => $request->opd,
                 'tahun' => $request->tahun
             ]);
-    
+
             if (!$response->successful()) {
                 throw new \Exception('Gagal mengambil data dari API');
             }
-    
+
             $jsonResponse = $response->json();
-    
+
             if (!isset($jsonResponse['data'])) {
                 throw new \Exception('Data tidak ditemukan dalam response API');
             }
-    
+
             return $jsonResponse['data'];
-    
         } catch (\Throwable $th) {
             return ['error' => $th->getMessage()];
         }
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
