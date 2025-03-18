@@ -41,13 +41,13 @@
                                 role="tab" aria-controls="indikator" aria-selected="false">2. Indikator</a>
                         </li>
                     @endcan
-                    @can('opdPerjanjianKinerjaProgramAnggaran-list')
+                    {{-- @can('opdPerjanjianKinerjaProgramAnggaran-list')
                         <li class="nav-item">
                             <a class="nav-link" id="program_anggaran-tab" data-bs-toggle="tab"
                                 data-bs-target="#program_anggaran" role="tab" aria-controls="program_anggaran"
                                 aria-selected="false">3. Program Anggaran</a>
                         </li>
-                    @endcan
+                    @endcan --}}
                 @endif
             </ul>
             <div class="tab-content border border-top-0 p-3" id="myTabContent" style="background-color: white">
@@ -122,9 +122,9 @@
                 <div class="tab-pane fade" id="indikator" role="tabpanel" aria-labelledby="indikator-tab">
                     @include('pengukuran_kinerja.opd.opd_perjanjian_kinerja.indikator.index')
                 </div>
-                <div class="tab-pane fade" id="program_anggaran" role="tabpanel" aria-labelledby="program_anggaran-tab">
+                {{-- <div class="tab-pane fade" id="program_anggaran" role="tabpanel" aria-labelledby="program_anggaran-tab">
                     @include('pengukuran_kinerja.opd.opd_perjanjian_kinerja.program_anggaran.index')
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
