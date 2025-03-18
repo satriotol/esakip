@@ -20,8 +20,15 @@ class OpdVariable extends Model
     const BAPENDA = 'BAPENDA';
     const SIPD = 'SIPD';
     const P3DN = 'P3DN';
+    const ELEKTRONIFIKASI = 'ELEKTRONIFIKASI';
     const PICS = [
-        self::OPD, self::INSPEKTORAT, self::BAPPEDA, self::BAPENDA, self::SIPD, self::P3DN,
+        self::OPD,
+        self::INSPEKTORAT,
+        self::BAPPEDA,
+        self::BAPENDA,
+        self::SIPD,
+        self::P3DN,
+        self::ELEKTRONIFIKASI
     ];
 
     public function opd_category_variables()
