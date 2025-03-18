@@ -21,7 +21,7 @@
             <li class="nav-item {{ active_class(['bkn.*']) }}">
                 <a href="{{ route('bkn.index') }}" class="nav-link">
                     <i class="link-icon" data-feather="box"></i>
-                    <span class="link-title">Integrasi BKN</span>
+                    <span class="link-title">SKP EKIN BKN</span>
                 </a>
             </li>
             @can('verifikator-index')

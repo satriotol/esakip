@@ -18,4 +18,7 @@ class OpdRepository
         $query->where('master_unit_kerja_id', '!=', 0)->orderBy('nama_opd', 'asc');
         return $query;
     }
+    public function findByBknId($bkn_id){
+        return Opd::where('bkn_id', $bkn_id);
+    }
 }
