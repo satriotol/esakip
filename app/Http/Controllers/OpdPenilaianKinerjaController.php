@@ -79,6 +79,46 @@ class OpdPenilaianKinerjaController extends Controller
         session()->flash('success');
         return back();
     }
+    public function getElektronifikasi(Request $request, $opd_penilaian_id, $opd_category_variable_id)
+    {
+        $opdPenilaian = OpdPenilaian::find($request->opd_penilaian_id);
+        $opdCategoryVariable = OpdCategoryVariable::where('id', $opd_category_variable_id)->first();
+        $bobot = $opdCategoryVariable->opd_variable->bobot / 100;
+        $year = $opdPenilaian->year;
+        $tglawal = $year . '-01-01';
+        $tglakhir = $year . '-12-31';
+        $data = $this->apiGetHttp('https://api.e-sakip.semarangkota.go.id/api/v1/elektronifikasi', [
+            'name' => $opdPenilaian->name,
+            'opd_id' => $opdPenilaian->opd_id,
+            'tglawal' => $tglawal,
+            'tglakhir' => $tglakhir
+        ]);
+        if ($data->status() == 400) {
+            session()->flash('bug', $data['meta']['message']);
+            return back();
+        }
+        if ($data->status() != 200) {
+            session()->flash('bug', 'Terjadi Kesalahan Di Sisi Server');
+            return back();
+        }
+        OpdPenilaianKinerja::updateOrCreate(
+            [
+                'opd_penilaian_id' => $opd_penilaian_id,
+                'opd_category_variable_id' => $opd_category_variable_id,
+            ],
+            [
+                'target' => $data['data']['target'],
+                'realisasi' => $data['data']['realisasi'],
+                'capaian' => $data['data']['capaian'],
+                'nilai_akhir' => $data['data']['capaian'] * $bobot
+            ]
+        );
+        $opdPenilaian->update([
+            'status' => OpdPenilaian::STATUS1
+        ]);
+        session()->flash('success');
+        return back();
+    }
 
     /**
      * Store a newly created resource in storage.

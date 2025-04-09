@@ -151,8 +151,8 @@
                                                     <a href="#">( BIDANG PERENCANAAN PEREKONOMIAN )</a>
                                                 </small>
                                             @elseif ($opd_category_variable->opd_variable->pic == 'ELEKTRONIFIKASI' && $checkStatus != 1)
-                                                <a href=""
-                                                    class="badge bg-primary tarik-data">
+                                                <a class="badge bg-primary tarik-data"
+                                                    href="{{ route('opdPenilaianKinerja.getElektronifikasi', [$opdPenilaian->id, $opd_category_variable->id]) }}">TARIK
                                                     TARIK DATA ELEKTRONIFIKASI (BAPENDA KOTA SEMARANG)
                                                 </a>
                                                 <br>
