@@ -87,7 +87,7 @@ Route::group(['middleware' => ['auth', 'force_password_change']], function () {
     Route::get('opdPenilaianKinerja/storeSipd/{opd_penilaian_id}/{opd_category_variable_id}/{year}/{id_skpd}', [OpdPenilaianKinerjaController::class, 'storeSipd'])->name('opdPenilaianKinerja.storeSipd');
     Route::get('opdPenilaianKinerja/storep3dn/{opd_penilaian_id}/{opd_category_variable_id}/{year}/{id_skpd}', [OpdPenilaianKinerjaController::class, 'storep3dn'])->name('opdPenilaianKinerja.storep3dn');
     Route::get('opdPenilaianKinerja/store/{opd_penilaian_id}/{opd_category_variable_id}', [OpdPenilaianKinerjaController::class, 'getRealisasiTargetPendapatan'])->name('opdPenilaianKinerja.getRealisasiTargetPendapatan');
-    Route::get('opdPenilaianKinerja/store/{opd_penilaian_id}/{opd_category_variable_id}', [OpdPenilaianKinerjaController::class, 'getElektronifikasi'])->name('opdPenilaianKinerja.getElektronifikasi');
+    Route::get('opdPenilaianKinerja/storeElektronifikasi/{opd_penilaian_id}/{opd_category_variable_id}', [OpdPenilaianKinerjaController::class, 'getElektronifikasi'])->name('opdPenilaianKinerja.getElektronifikasi');
 
     // ===========================
     //perencanaan kinerja
