@@ -40,14 +40,14 @@ class OpdPenilaianController extends Controller
         } else {
             return $this->failedResponse([], 'Pastikan anda sudah mengisi antara (opd_id,data_unit_id,master_unit_kerja_id,kode_opd)');
         }
-        $opdPenilaianTw1 = clone ($opdPenilaianSebelum);
+        $opdPenilaianTw1 = clone ($opdPenilaian);
         $opdPenilaianTw2 = clone ($opdPenilaian);
         $opdPenilaianTw3 = clone ($opdPenilaian);
         $opdPenilaianTw4 = clone ($opdPenilaian);
-        $nilai_tw_1 = $opdPenilaianTw1->where('name', null)->where('status', 'SELESAI')->first();
-        $nilai_tw_2 = $opdPenilaianTw2->where('name', 'TRIWULAN 1')->where('status', 'SELESAI')->first();
-        $nilai_tw_3 = $opdPenilaianTw3->where('name', 'TRIWULAN 2')->where('status', 'SELESAI')->first();
-        $nilai_tw_4 = $opdPenilaianTw4->where('name', 'TRIWULAN 3')->where('status', 'SELESAI')->first();
+        $nilai_tw_1 = $opdPenilaianTw1->where('name', 'TRIWULAN 1')->where('status', 'SELESAI')->first();
+        $nilai_tw_2 = $opdPenilaianTw2->where('name', 'TRIWULAN 2')->where('status', 'SELESAI')->first();
+        $nilai_tw_3 = $opdPenilaianTw3->where('name', 'TRIWULAN 3')->where('status', 'SELESAI')->first();
+        $nilai_tw_4 = $opdPenilaianTw4->where('name', 'TRIWULAN 4')->where('status', 'SELESAI')->first();
         $triwulanData = [
             'triwulan_satu' => $nilai_tw_1 ? $nilai_tw_1->totalAkhir() : null,
             'triwulan_satu_predikat' => $nilai_tw_1 ? $nilai_tw_1->totalAkhirPredikat() : null,
