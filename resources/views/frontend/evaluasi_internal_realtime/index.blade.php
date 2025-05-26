@@ -72,6 +72,8 @@
                                                     @{{ getScore(opd.id, year).totalScore }}
                                                 </td>
                                                 <td v-else>-</td>
+                                                {{-- <td>@{{ opd.id }} @{{ year }} @{{ getScore(opd.id, year) }} --}}
+                                                </td>
                                                 <td v-if="getScore(opd.id, year)"
                                                     :style="{
                                                         backgroundColor: getScore(opd.id, year).warnaScore.color,
@@ -126,9 +128,9 @@
         createApp({
             data() {
                 return {
-                    opds: "",
-                    dataYears: "",
-                    scores: "",
+                    opds: [],
+                    dataYears: [],
+                    scores: {},
                     urlEvaluasiKinerjaAkip: API_URL + 'evaluasi_kinerja_akip',
                     loading: true
                 }
@@ -147,21 +149,20 @@
                             Swal.showLoading();
                         }
                     });
-                    this.loading = true
+                    this.loading = true;
                     axios.get("https://penilaian.e-sakip.semarangkota.go.id/api/v1/score")
-                        .then(response => (
-                            this.opds = response.data.data.opds,
-                            this.dataYears = response.data.data.years,
-                            this.scores = response.data.data.scores
-                        ))
-                        .catch(function(error) {
-                            console.log(error);
+                        .then(response => {
+                            this.opds = response.data.data.opds;
+                            this.dataYears = response.data.data.years;
+                            this.scores = response.data.data.scores;
+                        })
+                        .catch(error => {
+                            console.error(error);
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Gagal Memuat Data',
                                 text: 'Terjadi kesalahan saat mengambil data.',
                             });
-
                         })
                         .finally(() => {
                             Swal.close();
@@ -169,12 +170,10 @@
                 },
                 getScore(opdId, year) {
                     if (this.scores[year]) {
-                        let score = this.scores[year].find(s => s.opd_id === opdId);
+                        const score = this.scores[year].find(s => s.opd_id === opdId.toString());
+
                         if (score) {
-                            return {
-                                ...score,
-                                totalScore: Math.round(score.totalScore * 100) / 100 // Membulatkan nilai totalScore
-                            };
+                            return score;
                         }
                     }
                     return null;
@@ -183,6 +182,6 @@
                     this.routeName = routeName;
                 }
             },
-        }).mount('#app')
+        }).mount('#app');
     </script>
 @endpush
