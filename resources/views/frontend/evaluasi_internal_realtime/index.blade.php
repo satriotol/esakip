@@ -55,6 +55,15 @@
                                             <th colspan="1" style="background: #ff7c89" class="text-center">
                                                 Dokumen
                                             </th>
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Nilai
+                                            </th>
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Kategori
+                                            </th>
+                                            <th colspan="1" style="background: #ff7c89" class="text-center">
+                                                Dokumen
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
