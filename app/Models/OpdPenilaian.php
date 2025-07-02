@@ -201,7 +201,7 @@ class OpdPenilaian extends Model implements Auditable
                 'Rp ' . (number_format((float)$data))
             ];
             return $data;
-        } elseif ($opdCategoryVariable->opd_variable->is_p3dn && $data) {
+        } elseif ($opdCategoryVariable->opd_variable->pic == 'P3DN' && $data) {
             $data = [
                 'Rp ' . (number_format((float)$data))
             ];
