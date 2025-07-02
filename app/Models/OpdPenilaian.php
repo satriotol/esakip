@@ -168,7 +168,7 @@ class OpdPenilaian extends Model implements Auditable
             return 'Rp ' . (number_format((float)$data));
         } elseif ($opdCategoryVariable->opd_variable->pic == 'SIPD' && $data) {
             return 'Rp ' . (number_format((float)$data));
-        } elseif ($opdCategoryVariable->opd_variable->is_p3dn && $data) {
+        } elseif ($opdCategoryVariable->opd_variable->pic == 'P3DN' && $data) {
             return 'Rp ' . (number_format((float)$data));
         } elseif ($opdCategoryVariable->opd_variable->is_iku && $data) {
             return $this->capaian($opd_category_variable_id) . ' %';
