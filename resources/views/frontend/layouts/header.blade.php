@@ -48,7 +48,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="{{ route('dashboard') }}" class="{{ active_class(['dashboard']) }}">Login</a>
+                    <a href="{{route('portal')}}" target="_blank" class="{{ active_class(['dashboard']) }}">Login</a>
                 </li>
             </ul>
         </div>
