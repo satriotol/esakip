@@ -34,4 +34,8 @@ Route::get('/capaian_kinerja', [IndexController::class, 'capaian_kinerja'])->nam
 Route::get('/evaluasi_kinerja', [IndexController::class, 'evaluasi_kinerja'])->name('evaluasi_kinerja');
 Route::get('/evaluasi_kinerja_realtime', [IndexController::class, 'evaluasi_kinerja_realtime'])->name('evaluasi_kinerja_realtime');
 
+Route::get('/portal', function () {
+    return view('portal.index');
+})->name('portal');
+
 require __DIR__ . '/auth.php';
