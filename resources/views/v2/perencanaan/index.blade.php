@@ -299,7 +299,7 @@
                                 class="doc-tab-btn"
                                 :class="{ active: selectedDoc && selectedDoc.id === doc.id }"
                                 @click="selectDocument(doc)">
-                                @{{ doc.label_formatted }}
+                                @{{ cleanLabel(doc.label_formatted) }}
                                 <span class="tab-num">@{{ i + 1 }}</span>
                             </button>
                             <span v-if="masterDocuments.length === 0" style="color:#ccc;font-size:.88rem;">
@@ -314,7 +314,7 @@
                         <div class="doc-table-header">
                             <h5 class="doc-table-title">
                                 <i class="fa fa-file-alt" style="color:#b73333;"></i>
-                                @{{ selectedDoc.label_formatted }}
+                                @{{ cleanLabel(selectedDoc.label_formatted) }}
                                 <span class="badge-type">@{{ isOpd === 0 ? 'Kota' : 'OPD' }}</span>
                             </h5>
                             <span class="doc-count" v-if="pagination.total">
@@ -450,6 +450,9 @@
         },
         mounted() { this.fetchMasterDocuments(); },
         methods: {
+            cleanLabel(label) {
+                return (label || '').replace(/^\[.*?\]\s*/i, '').trim();
+            },
             fetchMasterDocuments() {
                 this.loadingDocs  = true;
                 this.masterDocuments = [];

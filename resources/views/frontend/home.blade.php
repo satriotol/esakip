@@ -13,7 +13,7 @@
         position: relative;
         overflow: hidden;
         padding: 100px 20px 80px;
-        margin-top: -68px;
+        margin-top: -72px;
     }
     .home-hero::before {
         content: '';

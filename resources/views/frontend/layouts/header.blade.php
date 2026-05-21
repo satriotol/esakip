@@ -14,31 +14,31 @@
     .navbar-custom .container-inner {
         max-width: 1200px;
         margin: 0 auto;
-        padding: 0 20px;
+        padding: 0 28px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        height: 68px;
+        height: 72px;
     }
     /* Brand */
     .nav-brand {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         text-decoration: none;
     }
-    .nav-brand img { height: 42px; width: 42px; object-fit: contain; }
-    .nav-brand-text { display: flex; flex-direction: column; line-height: 1.2; }
+    .nav-brand img { height: 48px; width: 48px; object-fit: contain; }
+    .nav-brand-text { display: flex; flex-direction: column; line-height: 1.25; }
     .nav-brand-title {
-        font-size: .95rem;
+        font-size: 1.15rem;
         font-weight: 800;
         color: #fff;
         letter-spacing: .3px;
         transition: color .35s;
     }
     .nav-brand-sub {
-        font-size: .68rem;
-        color: rgba(255,255,255,.75);
+        font-size: .78rem;
+        color: rgba(255,255,255,.78);
         font-weight: 500;
         transition: color .35s;
     }
@@ -49,14 +49,14 @@
     .nav-menu {
         display: flex;
         align-items: center;
-        gap: 4px;
+        gap: 2px;
         list-style: none;
         margin: 0; padding: 0;
     }
     .nav-menu > li > a {
         display: block;
-        padding: 8px 14px;
-        font-size: .84rem;
+        padding: 9px 16px;
+        font-size: .97rem;
         font-weight: 600;
         color: rgba(255,255,255,.9);
         text-decoration: none;
@@ -96,9 +96,9 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        padding: 10px 14px;
+        padding: 11px 16px;
         border-radius: 8px;
-        font-size: .84rem;
+        font-size: .93rem;
         font-weight: 600;
         color: #444;
         text-decoration: none;
@@ -112,11 +112,11 @@
         display: inline-flex;
         align-items: center;
         gap: 7px;
-        padding: 8px 20px;
+        padding: 10px 24px;
         border-radius: 50px;
         background: #b73333;
         color: #fff !important;
-        font-size: .84rem;
+        font-size: .95rem;
         font-weight: 700;
         text-decoration: none;
         transition: all .25s;
@@ -182,7 +182,7 @@
         .nav-login { justify-content: center; margin: 8px 0; }
     }
     /* Push content below fixed nav */
-    body { padding-top: 68px; }
+    body { padding-top: 72px; }
 </style>
 
 <nav class="navbar-custom" id="mainNav">
