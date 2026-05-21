@@ -27,6 +27,12 @@ Route::prefix('v2')->as('v2.')->group(function () {
     Route::prefix('perencanaan')->as('perencanaan.')->group(function () {
         Route::get('/', [PerencanaanController::class, 'index'])->name('index');
     });
+    Route::prefix('pengukuran')->as('pengukuran.')->group(function () {
+        Route::get('/', [PerencanaanController::class, 'pengukuran'])->name('index');
+    });
+    Route::prefix('pelaporan')->as('pelaporan.')->group(function () {
+        Route::get('/', [PerencanaanController::class, 'pelaporan'])->name('index');
+    });
 });
 Route::get('/pelaporan_kinerja', [IndexController::class, 'pelaporan_kinerja'])->name('pelaporan_kinerja');
 Route::get('/perencanaan_kinerja_kota', [IndexController::class, 'perencanaan_kinerja_kota'])->name('perencanaan_kinerja_kota');

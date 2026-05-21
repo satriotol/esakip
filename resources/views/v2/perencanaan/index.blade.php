@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12">
-                    <h1>Dokumen Perencanaan</h1>
+                    <h1>{{ $pageTitle }}</h1>
                 </div>
             </div>
         </div>
@@ -17,7 +17,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="site-heading text-center">
-                            <h2>Dokumen Perencanaan Kinerja</h2>
+                            <h2>{{ $pageTitle }}</h2>
                         </div>
                     </div>
                 </div>
@@ -155,6 +155,7 @@
     const { createApp } = Vue;
     const rawUrl = "{{ rtrim($apiUrl, '/') }}/";
     const ESAKIPV2_URL = rawUrl.startsWith('http') ? rawUrl : 'http://' + rawUrl;
+    const CATEGORY_ID = {{ $categoryId }};
     const ESAKIPV2_KEY = "{{ $apiKey }}";
 
     const axiosV2 = axios.create({
@@ -206,7 +207,7 @@
 
                 axiosV2.get(ESAKIPV2_URL + 'v1/master_document', {
                     params: {
-                        master_document_category_id: 1,
+                        master_document_category_id: CATEGORY_ID,
                         is_opd: this.isOpd,
                     }
                 })
