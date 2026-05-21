@@ -4,8 +4,12 @@
 <style>
     .eval-hero {
         background: linear-gradient(135deg, #6a1b9a 0%, #b73333 100%);
-        padding: 64px 0 88px;
+        margin-top: -76px;
+        padding: 140px 0 88px;
         position: relative; overflow: hidden;
+    }
+    @media (max-width: 991px) {
+        .eval-hero { margin-top: -68px; padding-top: 120px; }
     }
     .eval-hero::before, .eval-hero::after {
         content: ''; position: absolute; border-radius: 50%;
