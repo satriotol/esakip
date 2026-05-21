@@ -108,34 +108,40 @@
     }
     .type-toggle button:not(.active):hover { background: #f5f5f5; color: #333; }
 
-    /* ── Search ──────────────────────────────── */
-    .doc-search-wrap {
+    /* ── Filter selects ─────────────────────── */
+    .doc-filters {
+        display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+    }
+    .doc-filter-wrap {
         position: relative;
         display: flex; align-items: center;
     }
-    .doc-search-wrap .s-icon {
+    .doc-filter-wrap .f-icon {
         position: absolute; left: 14px;
-        color: #bbb; font-size: .85rem; pointer-events: none;
+        color: #bbb; font-size: .82rem; pointer-events: none; z-index: 1;
     }
-    .doc-search {
+    .doc-select {
         border: 1.5px solid #e8e8e8;
         border-radius: 50px;
-        padding: 10px 18px 10px 40px;
-        font-size: .9rem;
+        padding: 10px 40px 10px 40px;
+        font-size: .88rem;
         font-family: 'Poppins', sans-serif;
         outline: none;
-        width: 260px;
+        min-width: 200px;
         color: #333;
         background: #fff;
         box-shadow: 0 2px 12px rgba(0,0,0,.07);
         transition: border-color .2s, box-shadow .2s;
+        cursor: pointer;
+        -webkit-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M6 8L0 0h12z' fill='%23aaa'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 14px center;
     }
-    .doc-search::placeholder { color: #bbb; }
-    .doc-search:focus {
-        border-color: #b71c1c;
-        box-shadow: 0 0 0 3px rgba(183,28,28,.1);
-    }
-    @media (max-width: 480px) { .doc-search { width: 100%; } }
+    .doc-select:focus { border-color: #b71c1c; box-shadow: 0 0 0 3px rgba(183,28,28,.1); }
+    .doc-select:disabled { opacity: .55; cursor: not-allowed; }
+    @media (max-width: 600px) { .doc-select { min-width: 100%; } }
 
     /* ══════════════════════════════════════════
        CARD
@@ -344,13 +350,29 @@
                         </button>
                     </div>
 
-                    <div class="doc-search-wrap" v-if="selectedDoc">
-                        <i class="fa fa-search s-icon"></i>
-                        <input
-                            type="text"
-                            v-model="searchQuery"
-                            class="doc-search"
-                            placeholder="Cari nama dokumen&hellip;">
+                    <div class="doc-filters">
+                        {{-- OPD selector (hanya mode OPD) --}}
+                        <div class="doc-filter-wrap" v-if="isOpd === 1">
+                            <i class="fa fa-sitemap f-icon"></i>
+                            <select class="doc-select"
+                                v-model="selectedOpdId"
+                                @change="onOpdChange"
+                                :disabled="loadingOpd">
+                                <option :value="null">@{{ loadingOpd ? 'Memuat OPD…' : 'Pilih OPD' }}</option>
+                                <option v-for="opd in opdList" :key="opd.id" :value="opd.id">@{{ opd.name }}</option>
+                            </select>
+                        </div>
+
+                        {{-- Filter tahun (ketika dokumen sudah dipilih) --}}
+                        <div class="doc-filter-wrap" v-if="selectedDoc && (isOpd === 0 || selectedOpdId)">
+                            <i class="fa fa-calendar f-icon"></i>
+                            <select class="doc-select"
+                                v-model="selectedYear"
+                                @change="fetchFiles(1)">
+                                <option :value="null">Semua Tahun</option>
+                                <option v-for="y in yearRange" :key="y" :value="y">@{{ y }}</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
 
@@ -381,112 +403,106 @@
                     {{-- Tabel dokumen --}}
                     <div class="doc-table-area" v-if="selectedDoc">
 
-                        <div class="doc-table-header">
-                            <h5 class="doc-table-title">
-                                <i class="fa fa-file-alt"></i>
-                                @{{ cleanLabel(selectedDoc.label_formatted) }}
-                                <span class="badge-scope">@{{ isOpd === 0 ? 'Kota' : 'OPD' }}</span>
-                            </h5>
-                            <span class="doc-total" v-if="!loadingFiles">
-                                <template v-if="searchQuery.trim()">
-                                    @{{ filteredFiles.length }} dari @{{ documentFiles.length }} dokumen
-                                </template>
-                                <template v-else-if="pagination.total">
+                        {{-- Placeholder: OPD mode tapi belum pilih OPD --}}
+                        <div v-if="isOpd === 1 && !selectedOpdId" class="empty-state">
+                            <div class="empty-icon"><i class="fa fa-sitemap"></i></div>
+                            <h5>Pilih OPD Terlebih Dahulu</h5>
+                            <p>Gunakan dropdown di atas untuk memilih OPD yang ingin ditampilkan.</p>
+                        </div>
+
+                        {{-- Konten tabel --}}
+                        <template v-else>
+                            <div class="doc-table-header">
+                                <h5 class="doc-table-title">
+                                    <i class="fa fa-file-alt"></i>
+                                    @{{ cleanLabel(selectedDoc.label_formatted) }}
+                                    <span class="badge-scope">@{{ isOpd === 0 ? 'Kota' : 'OPD' }}</span>
+                                </h5>
+                                <span class="doc-total" v-if="!loadingFiles && pagination.total">
                                     Total @{{ pagination.total }} dokumen
-                                </template>
-                            </span>
-                        </div>
-
-                        <div class="table-responsive">
-                            <table class="doc-table">
-                                <thead>
-                                    <tr>
-                                        <th style="width:52px;">No</th>
-                                        <th style="width:110px;">Tahun</th>
-                                        <th>Nama Dokumen</th>
-                                        <th style="width:160px;">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {{-- Skeleton loading --}}
-                                    <template v-if="loadingFiles">
-                                        <tr v-for="n in 5" :key="'sk'+n">
-                                            <td><div class="skel" style="width:30px;"></div></td>
-                                            <td><div class="skel" style="width:65px;"></div></td>
-                                            <td><div class="skel" style="width:70%;"></div></td>
-                                            <td><div class="skel" style="width:130px;"></div></td>
-                                        </tr>
-                                    </template>
-
-                                    {{-- Data --}}
-                                    <template v-else>
-                                        <tr v-for="(item, idx) in filteredFiles" :key="item.id">
-                                            <td><span class="row-num">@{{ (pagination.current_page - 1) * pagination.per_page + idx + 1 }}</span></td>
-                                            <td><span class="year-pill">@{{ item.year }}</span></td>
-                                            <td style="font-weight:500;">@{{ item.name }}</td>
-                                            <td>
-                                                <div style="display:flex;gap:6px;">
-                                                    <a :href="item.file_url" target="_blank" class="btn-act view">
-                                                        <i class="fa fa-eye"></i> Lihat
-                                                    </a>
-                                                    <a :href="item.file_url" download target="_blank" class="btn-act download">
-                                                        <i class="fa fa-download"></i> Unduh
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        {{-- Pencarian kosong --}}
-                                        <tr v-if="filteredFiles.length === 0 && searchQuery.trim()">
-                                            <td colspan="4">
-                                                <div class="empty-state">
-                                                    <div class="empty-icon"><i class="fa fa-search"></i></div>
-                                                    <h5>Dokumen Tidak Ditemukan</h5>
-                                                    <p>Tidak ada dokumen yang cocok dengan "<strong>@{{ searchQuery }}</strong>"</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-
-                                        {{-- Data kosong --}}
-                                        <tr v-if="documentFiles.length === 0 && !searchQuery.trim()">
-                                            <td colspan="4">
-                                                <div class="empty-state">
-                                                    <div class="empty-icon"><i class="fa fa-folder-open"></i></div>
-                                                    <h5>Belum Ada Dokumen</h5>
-                                                    <p>Dokumen untuk kategori ini belum tersedia.</p>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </template>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        {{-- Pagination --}}
-                        <div class="doc-pagination" v-if="pagination.total && !searchQuery.trim()">
-                            <span class="pag-info">
-                                Menampilkan <strong>@{{ pagination.from }}&ndash;@{{ pagination.to }}</strong>
-                                dari <strong>@{{ pagination.total }}</strong> dokumen
-                            </span>
-                            <div class="pag-btns" v-if="pagination.last_page > 1">
-                                <button class="pag-btn"
-                                    :disabled="pagination.current_page === 1"
-                                    @click="fetchFiles(pagination.current_page - 1)">
-                                    <i class="fa fa-chevron-left" style="font-size:.7rem;"></i>
-                                </button>
-                                <button
-                                    v-for="p in pageRange" :key="p"
-                                    class="pag-btn" :class="{ active: p === pagination.current_page }"
-                                    @click="fetchFiles(p)">
-                                    @{{ p }}
-                                </button>
-                                <button class="pag-btn"
-                                    :disabled="pagination.current_page === pagination.last_page"
-                                    @click="fetchFiles(pagination.current_page + 1)">
-                                    <i class="fa fa-chevron-right" style="font-size:.7rem;"></i>
-                                </button>
+                                </span>
                             </div>
-                        </div>
+
+                            <div class="table-responsive">
+                                <table class="doc-table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:52px;">No</th>
+                                            <th style="width:110px;">Tahun</th>
+                                            <th>Nama Dokumen</th>
+                                            <th style="width:160px;">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{-- Skeleton loading --}}
+                                        <template v-if="loadingFiles">
+                                            <tr v-for="n in 5" :key="'sk'+n">
+                                                <td><div class="skel" style="width:30px;"></div></td>
+                                                <td><div class="skel" style="width:65px;"></div></td>
+                                                <td><div class="skel" style="width:70%;"></div></td>
+                                                <td><div class="skel" style="width:130px;"></div></td>
+                                            </tr>
+                                        </template>
+
+                                        {{-- Data --}}
+                                        <template v-else>
+                                            <tr v-for="(item, idx) in documentFiles" :key="item.id">
+                                                <td><span class="row-num">@{{ (pagination.current_page - 1) * pagination.per_page + idx + 1 }}</span></td>
+                                                <td><span class="year-pill">@{{ item.year }}</span></td>
+                                                <td style="font-weight:500;">@{{ item.name }}</td>
+                                                <td>
+                                                    <div style="display:flex;gap:6px;">
+                                                        <a :href="item.file_url" target="_blank" class="btn-act view">
+                                                            <i class="fa fa-eye"></i> Lihat
+                                                        </a>
+                                                        <a :href="item.file_url" download target="_blank" class="btn-act download">
+                                                            <i class="fa fa-download"></i> Unduh
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            {{-- Data kosong --}}
+                                            <tr v-if="documentFiles.length === 0">
+                                                <td colspan="4">
+                                                    <div class="empty-state">
+                                                        <div class="empty-icon"><i class="fa fa-folder-open"></i></div>
+                                                        <h5>Belum Ada Dokumen</h5>
+                                                        <p>Dokumen untuk kategori ini belum tersedia.</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            {{-- Pagination --}}
+                            <div class="doc-pagination" v-if="pagination.total">
+                                <span class="pag-info">
+                                    Menampilkan <strong>@{{ pagination.from }}&ndash;@{{ pagination.to }}</strong>
+                                    dari <strong>@{{ pagination.total }}</strong> dokumen
+                                </span>
+                                <div class="pag-btns" v-if="pagination.last_page > 1">
+                                    <button class="pag-btn"
+                                        :disabled="pagination.current_page === 1"
+                                        @click="fetchFiles(pagination.current_page - 1)">
+                                        <i class="fa fa-chevron-left" style="font-size:.7rem;"></i>
+                                    </button>
+                                    <button
+                                        v-for="p in pageRange" :key="p"
+                                        class="pag-btn" :class="{ active: p === pagination.current_page }"
+                                        @click="fetchFiles(p)">
+                                        @{{ p }}
+                                    </button>
+                                    <button class="pag-btn"
+                                        :disabled="pagination.current_page === pagination.last_page"
+                                        @click="fetchFiles(pagination.current_page + 1)">
+                                        <i class="fa fa-chevron-right" style="font-size:.7rem;"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </template>
 
                     </div>{{-- /.doc-table-area --}}
 
@@ -524,14 +540,18 @@
                 pagination: { current_page: 1, last_page: 1, from: 0, to: 0, total: 0, per_page: 10 },
                 loadingDocs: false,
                 loadingFiles: false,
-                searchQuery: '',
+                opdList: [],
+                loadingOpd: false,
+                selectedOpdId: null,
+                selectedYear: null,
             };
         },
         computed: {
-            filteredFiles() {
-                if (!this.searchQuery.trim()) return this.documentFiles;
-                const q = this.searchQuery.toLowerCase();
-                return this.documentFiles.filter(f => f.name.toLowerCase().includes(q));
+            yearRange() {
+                const years = [];
+                const now = new Date().getFullYear();
+                for (let y = now; y >= 2016; y--) years.push(y);
+                return years;
             },
             pageRange() {
                 const { last_page: total, current_page: cur } = this.pagination;
@@ -554,7 +574,6 @@
                 this.masterDocuments = [];
                 this.selectedDoc     = null;
                 this.documentFiles   = [];
-                this.searchQuery     = '';
                 axiosV2.get(ESAKIPV2_URL + 'v1/master_document', {
                     params: { master_document_category_id: CATEGORY_ID, is_opd: this.isOpd }
                 })
@@ -567,16 +586,21 @@
             },
             selectDocument(doc) {
                 this.selectedDoc = doc;
-                this.searchQuery = '';
-                this.fetchFiles(1);
+                if (this.isOpd === 0 || (this.isOpd === 1 && this.selectedOpdId)) {
+                    this.fetchFiles(1);
+                } else {
+                    this.documentFiles = [];
+                    this.pagination = { current_page: 1, last_page: 1, from: 0, to: 0, total: 0, per_page: 10 };
+                }
             },
             fetchFiles(page) {
                 if (!this.selectedDoc) return;
                 this.loadingFiles  = true;
                 this.documentFiles = [];
-                axiosV2.get(ESAKIPV2_URL + 'v1/document_year_file', {
-                    params: { master_document_id: this.selectedDoc.id, page }
-                })
+                const params = { master_document_id: this.selectedDoc.id, page };
+                if (this.isOpd === 1 && this.selectedOpdId) params.opd_id = this.selectedOpdId;
+                if (this.selectedYear) params.year = this.selectedYear;
+                axiosV2.get(ESAKIPV2_URL + 'v1/document_year_file', { params })
                 .then(res => {
                     const d = res.data.data;
                     this.documentFiles = d.data       || [];
@@ -585,9 +609,24 @@
                 .catch(console.error)
                 .finally(() => this.loadingFiles = false);
             },
+            onOpdChange() {
+                this.selectedYear = null;
+                if (this.selectedDoc) this.fetchFiles(1);
+            },
+            fetchOpd() {
+                if (this.opdList.length) return;
+                this.loadingOpd = true;
+                axiosV2.get(ESAKIPV2_URL + 'v1/opd')
+                    .then(res => { this.opdList = res.data.data || []; })
+                    .catch(console.error)
+                    .finally(() => this.loadingOpd = false);
+            },
             switchType(val) {
                 if (this.isOpd === val) return;
                 this.isOpd = val;
+                this.selectedOpdId = null;
+                this.selectedYear  = null;
+                if (val === 1) this.fetchOpd();
                 this.fetchMasterDocuments();
             }
         }
