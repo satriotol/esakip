@@ -22,15 +22,24 @@
 
     <style>
         *, *::before, *::after { box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
+        html { scroll-behavior: smooth; font-size: 16px; }
         body {
             font-family: 'Poppins', sans-serif;
-            font-size: 14px;
+            font-size: 1rem;
+            line-height: 1.7;
             color: #333;
             background: #f5f6fa;
             margin: 0;
             padding-top: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.25;
+            margin-top: 0;
+        }
+        p { margin-top: 0; }
         img { max-width: 100%; }
         a { transition: color .2s; }
     </style>
